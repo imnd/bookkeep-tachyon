@@ -1,0 +1,190 @@
+body { background: #ffffff; margin: 0; font-family: Arial; font-size: 8pt; font-style: normal; line-height: 2; line-height: 1; }
+tr.R0{ height: 16pt; line-height: 1; }
+tr.R0 td.R0C5{ font-family: Arial; font-size: 6pt; font-style: normal; vertical-align: top; line-height: 1; }
+tr.R0 td.R0C9{ font-family: Arial; font-size: 6pt; font-style: normal; text-align: right; line-height: 1; }
+td.R1C0{ font-family: Arial; font-size: 8pt; font-style: normal; text-align: left; vertical-align: top; line-height: 1; }
+td.R1C7{ font-family: Arial; font-size: 9pt; font-style: normal; text-align: right; vertical-align: medium; line-height: 1; }
+td.R1C9{ text-align: center; vertical-align: medium; border-left: #000000 1px solid; border-top: #000000 1px solid; border-right: #000000 1px solid; line-height: 1; }
+td.R20C0{ vertical-align: top; line-height: 1; }
+td.R20C15{ font-family: Arial; font-size: 8pt; font-style: italic; text-align: right; vertical-align: top; line-height: 1; }
+td.R20C3{ text-align: center; vertical-align: top; line-height: 1; }
+td.R20C7{ text-align: right; vertical-align: top; line-height: 1; }
+tr.R21{ height: 11pt; line-height: 1; }
+tr.R21 td.R21C0{ vertical-align: top; border-left: #000000 1px none; border-top: #ffffff 1px none; border-bottom: #ffffff 1px none; line-height: 1; }
+tr.R21 td.R21C1{ text-align: center; vertical-align: medium; border-left: #000000 1px solid; border-top: #000000 1px solid; line-height: 1; }
+tr.R21 td.R21C15{ text-align: center; vertical-align: medium; border-left: #000000 1px solid; border-top: #000000 1px solid; border-right: #000000 1px solid; line-height: 1; }
+tr.R21 td.R21C2{ text-align: center; vertical-align: medium; border-left: #000000 1px solid; border-top: #000000 1px solid; line-height: 1; }
+tr.R21 td.R32C3{ border-top: #ffffff 1px none; border-bottom: #000000 1px solid; line-height: 1; }
+tr.R21 td.R32C7{ border-top: #000000 1px solid; border-bottom: #000000 1px solid; line-height: 1; }
+tr.R21 td.R32C8{ border-bottom: #000000 1px solid; line-height: 1; }
+td.R22C0{ vertical-align: top; border-left: #000000 1px none; border-top: #ffffff 1px none; border-bottom: #ffffff 1px none; line-height: 1; }
+td.R22C2{ text-align: center; vertical-align: medium; border-left: #000000 1px solid; border-top: #000000 1px solid; line-height: 1; }
+td.R22C3{ text-align: center; vertical-align: medium; border-left: #000000 1px solid; border-top: #000000 1px solid; line-height: 1; }
+td.R23C0{ vertical-align: medium; border-left: #000000 1px none; border-top: #ffffff 1px none; border-bottom: #ffffff 1px none; line-height: 1; }
+td.R23C1{ font-family: Arial; font-size: 7pt; font-style: normal; text-align: center; vertical-align: medium; border-left: #000000 1px solid; border-top: #000000 1px solid; line-height: 1; }
+td.R23C15{ font-family: Arial; font-size: 7pt; font-style: normal; text-align: center; vertical-align: medium; border-left: #000000 1px solid; border-top: #000000 1px solid; border-right: #000000 1px solid; line-height: 1; }
+td.R24C1{ text-align: right; vertical-align: top; border-left: #000000 1px solid; border-top: #000000 1px solid; line-height: 1; }
+td.R24C10{ text-align: right; vertical-align: top; border-left: #000000 1px solid; border-top: #000000 1px solid; line-height: 1; }
+td.R24C13{ text-align: center; vertical-align: top; overflow: visible;border-left: #000000 2px solid; border-top: #000000 1px solid; line-height: 1; }
+td.R24C14{ text-align: right; vertical-align: top; border-left: #000000 2px solid; border-top: #000000 1px solid; line-height: 1; }
+td.R24C15{ text-align: right; vertical-align: top; border-left: #000000 1px solid; border-top: #000000 1px solid; border-right: #000000 2px solid; line-height: 1; }
+td.R24C2{ vertical-align: top; border-left: #000000 1px solid; border-top: #000000 1px solid; line-height: 1; }
+td.R24C3{ text-align: left; vertical-align: top; border-left: #000000 2px solid; border-top: #000000 1px solid; line-height: 1; }
+td.R24C4{ text-align: center; vertical-align: top; border-left: #000000 2px solid; border-top: #000000 1px solid; line-height: 1; }
+td.R24C5{ text-align: center; vertical-align: top; border-left: #000000 2px solid; border-top: #000000 1px solid; line-height: 1; }
+td.R24C6{ text-align: center; vertical-align: top; border-left: #000000 1px solid; border-top: #000000 1px solid; line-height: 1; }
+td.R28C1{ text-align: right; vertical-align: top; border-left: #000000 1px solid; border-top: #000000 1px solid; border-bottom: #000000 1px solid; line-height: 1; }
+td.R28C2{ vertical-align: top; border-left: #000000 1px solid; border-top: #000000 1px solid; border-bottom: #000000 1px solid; line-height: 1; }
+td.R28C4{ text-align: center; vertical-align: top; border-left: #000000 2px solid; border-top: #000000 1px solid; border-bottom: #000000 1px solid; line-height: 1; }
+td.R29C0{ border-left: #000000 1px none; border-top: #ffffff 1px none; border-bottom: #ffffff 1px none; border-right: #ffffff 1px none; line-height: 1; }
+td.R29C1{ border-left: #000000 1px none; border-top: #ffffff 1px none; border-bottom: #ffffff 1px none; line-height: 1; }
+td.R29C11{ text-align: center; vertical-align: top; border-left: #000000 1px solid; border-top: #000000 2px solid; line-height: 1; }
+td.R29C12{ text-align: right; vertical-align: top; border-left: #000000 1px solid; border-top: #000000 2px solid; line-height: 1; }
+td.R29C15{ text-align: right; vertical-align: top; border-left: #000000 1px solid; border-top: #000000 2px solid; border-right: #000000 1px solid; line-height: 1; }
+td.R29C2{ border-top: #ffffff 1px none; border-bottom: #ffffff 1px none; border-right: #ffffff 1px none; line-height: 1; }
+td.R29C3{ border-top: #000000 2px solid; line-height: 1; }
+td.R29C7{ text-align: right; border-top: #000000 2px solid; line-height: 1; }
+td.R29C8{ text-align: right; border-left: #000000 1px solid; border-top: #000000 2px solid; line-height: 1; }
+td.R29C9{ text-align: right; overflow: visible;border-left: #000000 1px solid; border-top: #000000 2px solid; line-height: 1; }
+td.MR29C0{ border-left: #000000 1px none; border-top: #000000 1px solid; border-bottom: #ffffff 1px none; border-right: #ffffff 1px none; line-height: 1; }
+td.MR29C1{ border-left: #000000 1px none; border-top: #000000 1px solid; border-bottom: #ffffff 1px none; line-height: 1; }
+td.MR29C2{ border-top: #000000 1px solid; border-bottom: #ffffff 1px none; border-right: #ffffff 1px none; line-height: 1; }
+td.MR29C8{ text-align: right; border-left: #000000 1px solid; border-top: #000000 2px solid; border-bottom: #000000 1px solid; line-height: 1; }
+td.MR29C9{ text-align: right; overflow: visible;border-left: #000000 1px solid; border-top: #000000 2px solid; border-bottom: #000000 1px solid; line-height: 1; }
+td.MR29C11{ text-align: center; vertical-align: top; border-left: #000000 1px solid; border-top: #000000 2px solid; border-bottom: #000000 1px solid; line-height: 1; }
+td.MR29C12{ text-align: right; vertical-align: top; border-left: #000000 1px solid; border-top: #000000 2px solid; border-bottom: #000000 1px solid; line-height: 1; }
+td.MR29C15{ text-align: right; vertical-align: top; border-left: #000000 1px solid; border-top: #000000 2px solid; border-right: #000000 1px solid; border-bottom: #000000 1px solid; line-height: 1; }
+td.MR24C6{ text-align: center; vertical-align: top; border-left: #000000 1px solid; border-top: #000000 1px solid; border-bottom: #000000 1px solid; line-height: 1; }
+td.R2C1{ font-family: Arial; font-size: 8pt; font-style: normal; text-align: left; vertical-align: bottom; border-left: #000000 1px none; border-top: #ffffff 1px none; border-bottom: #000000 1px solid; line-height: 1; }
+td.R2C7{ font-family: Arial; font-size: 9pt; font-style: normal; text-align: right; vertical-align: medium; line-height: 1; }
+td.R2C9{ font-family: Arial; font-size: 9pt; font-style: normal; font-weight: bold; text-align: center; vertical-align: medium; border-left: #000000 2px solid; border-top: #000000 2px solid; border-right: #000000 2px solid; line-height: 1; }
+td.R30C11{ text-align: center; vertical-align: top; border-left: #000000 1px solid; border-top: #000000 1px solid; border-bottom: #000000 1px solid; line-height: 1; }
+td.R30C12{ text-align: right; vertical-align: top; border-left: #000000 1px solid; border-top: #000000 1px solid; border-bottom: #000000 1px solid; line-height: 1; }
+td.R30C15{ text-align: right; vertical-align: top; border-left: #000000 1px solid; border-top: #000000 1px solid; border-bottom: #000000 1px solid; border-right: #000000 1px solid; line-height: 1; }
+td.R30C8{ text-align: right; border-left: #000000 1px solid; border-top: #000000 1px solid; border-bottom: #000000 1px solid; line-height: 1; }
+td.R30C9{ text-align: right; overflow: visible;border-left: #000000 1px solid; border-top: #000000 1px solid; border-bottom: #000000 1px solid; line-height: 1; }
+td.R34C3{ border-top: #ffffff 1px none; border-bottom: #000000 1px solid; line-height: 1; }
+td.R34C8{ border-left: #000000 0px none; border-top: #ffffff 0px none; border-bottom: #000000 1px solid; border-right: #ffffff 0px none; line-height: 1; }
+td.R36C16{ font-family: Arial; font-size: 6pt; font-style: normal; text-align: center; vertical-align: top; border-top: #ffffff 1px none; line-height: 1; }
+td.R36C9{ font-family: Arial; font-size: 6pt; font-style: normal; text-align: center; vertical-align: top; border-top: #ffffff 1px none; border-bottom: #000000 1px solid; line-height: 1; }
+tr.R38{ height: 5pt; line-height: 1; }
+tr.R38 td.R50C7{ border-right: #000000 1px solid; line-height: 1; }
+tr.R39{ height: 9pt; line-height: 1; }
+tr.R39 td.R39C10{ text-align: right; line-height: 1; }
+tr.R39 td.R39C14{ text-align: center; line-height: 1; }
+tr.R39 td.R39C4{ border-bottom: #000000 1px solid; line-height: 1; }
+tr.R39 td.R39C7{ border-right: #000000 1px solid; line-height: 1; }
+tr.R39 td.R41C0{ font-family: Arial; font-size: 8pt; font-style: normal; font-weight: bold; line-height: 1; }
+tr.R39 td.R41C1{
+    font-family: Arial;
+    font-size: 8pt;
+    font-style: normal;
+    font-weight: bold;
+    overflow: visible;
+}
+tr.R39 td.R41C11{ border-top: #ffffff 1px none; border-bottom: #000000 1px solid; line-height: 1; }
+tr.R39 td.R41C2{ font-family: Arial; font-size: 8pt; font-style: normal; font-weight: bold; line-height: 1; }
+td.R3C0{ text-align: right; line-height: 1; }
+td.R3C6{ border-bottom: #000000 1px solid; line-height: 1; }
+td.R3C7{ font-family: Arial; font-size: 9pt; font-style: normal; text-align: left; line-height: 1; }
+td.R3C9{ font-family: Arial; font-size: 9pt; font-style: normal; font-weight: bold; text-align: center; vertical-align: bottom; overflow: hidden;border-left: #000000 2px solid; border-top: #000000 1px solid; border-right: #000000 2px solid; line-height: 1; }
+tr.R4{ height: 8pt; line-height: 1; }
+tr.R4 td.R10C7{ font-family: Arial; font-size: 9pt; font-style: normal; text-align: right; line-height: 1; }
+tr.R4 td.R14C8{ font-family: Arial; font-size: 9pt; font-style: normal; text-align: right; vertical-align: bottom; border-left: #000000 1px solid; border-top: #000000 1px solid; line-height: 1; }
+tr.R4 td.R33C17{ border-left: #000000 2px solid; border-top: #000000 2px solid; border-right: #000000 2px solid; line-height: 1; }
+tr.R4 td.R33C3{ font-family: Arial; font-size: 6pt; font-style: normal; text-align: center; vertical-align: top; border-top: #ffffff 1px none; line-height: 1; }
+tr.R4 td.R35C10{ border-top: #ffffff 1px none; line-height: 1; }
+tr.R4 td.R35C17{ border-left: #000000 2px solid; border-top: #000000 2px solid; border-bottom: #000000 2px solid; border-right: #000000 2px solid; line-height: 1; }
+tr.R4 td.R35C9{ font-family: Arial; font-size: 6pt; font-style: normal; border-top: #ffffff 1px none; line-height: 1; }
+tr.R4 td.R43C1{ font-family: Arial; font-size: 6pt; font-style: normal; text-align: center; vertical-align: top; border-top: #ffffff 1px none; border-bottom: #ffffff 1px none; line-height: 1; }
+tr.R4 td.R43C7{ border-right: #000000 1px solid; line-height: 1; }
+tr.R4 td.R4C0{ font-family: Arial; font-size: 6pt; font-style: normal; text-align: center; vertical-align: top; border-top: #ffffff 1px none; line-height: 1; }
+tr.R4 td.R4C2{ font-family: Arial; font-size: 6pt; font-style: normal; text-align: center; vertical-align: top; border-left: #000000 1px none; border-top: #ffffff 1px none; border-bottom: #ffffff 1px none; line-height: 1; }
+tr.R4 td.R4C7{ font-family: Arial; font-size: 8pt; font-style: normal; line-height: 1; }
+tr.R4 td.R4C9{ font-family: Arial; font-size: 9pt; font-style: normal; vertical-align: bottom; overflow: hidden;border-left: #000000 2px solid; border-top: #000000 1px solid; border-right: #000000 2px solid; line-height: 1; }
+tr.R4 td.R8C0{ text-align: right; line-height: 1; }
+tr.R4 td.R8C1{ font-family: Arial; font-size: 8pt; font-style: normal; text-align: right; line-height: 1; }
+tr.R4 td.R8C2{ font-family: Arial; font-size: 6pt; font-style: normal; text-align: center; vertical-align: top; border-left: #000000 1px none; border-top: #ffffff 1px none; border-bottom: #ffffff 1px none; line-height: 1; }
+tr.R4 td.R8C3{ font-family: Arial; font-size: 8pt; font-style: normal; border-left: #000000 1px none; border-top: #ffffff 1px none; border-bottom: #ffffff 1px none; line-height: 1; }
+tr.R4 td.R8C7{ font-family: Arial; font-size: 9pt; font-style: normal; text-align: right; line-height: 1; }
+tr.R4 td.R8C9{ font-family: Arial; font-size: 9pt; font-style: normal; font-weight: bold; text-align: center; vertical-align: bottom; overflow: hidden;border-left: #000000 2px solid; border-top: #000000 1px solid; border-right: #000000 2px solid; line-height: 1; }
+tr.R40{ height: 10pt; line-height: 1; }
+tr.R40 td.R40C4{ font-family: Arial; font-size: 6pt; font-style: normal; text-align: center; vertical-align: top; border-top: #ffffff 1px none; line-height: 1; }
+tr.R40 td.R40C7{ border-right: #000000 1px solid; line-height: 1; }
+td.R42C0{ font-family: Arial; font-size: 8pt; font-style: normal; font-weight: bold; text-align: left; vertical-align: bottom; line-height: 1; }
+td.R42C1{ font-family: Arial; font-size: 8pt; font-style: normal; font-weight: bold; text-align: left; vertical-align: bottom; border-bottom: #000000 1px solid; line-height: 1; }
+td.R42C2{ font-family: Arial; font-size: 8pt; font-style: normal; font-weight: bold; text-align: left; vertical-align: top; border-bottom: #000000 1px solid; line-height: 1; }
+td.R42C7{ font-family: Arial; font-size: 8pt; font-style: normal; font-weight: bold; text-align: left; vertical-align: top; border-right: #000000 1px solid; line-height: 1; }
+tr.R44{ height: 11pt; line-height: 1; }
+tr.R44 td.R44C2{ border-bottom: #000000 1px solid; line-height: 1; }
+tr.R44 td.R44C4{ border-bottom: #000000 1px solid; line-height: 1; }
+tr.R44 td.R44C6{ overflow: hidden;border-bottom: #000000 1px solid; line-height: 1; }
+tr.R44 td.R44C7{ border-right: #000000 1px solid; line-height: 1; }
+tr.R44 td.R51C1{ text-align: right; line-height: 1; }
+tr.R44 td.R51C10{ text-align: center; line-height: 1; }
+tr.R45{ height: 9pt; line-height: 1; }
+tr.R45 td.R45C10{ border-left: #000000 0px none; border-top: #ffffff 1px none; line-height: 1; }
+tr.R45 td.R45C2{ font-family: Arial; font-size: 6pt; font-style: normal; text-align: center; vertical-align: top; border-top: #ffffff 1px none; line-height: 1; }
+tr.R45 td.R45C7{ border-right: #000000 1px solid; line-height: 1; }
+td.R46C0{ font-family: Arial; font-size: 8pt; font-style: normal; font-weight: bold; line-height: 1; }
+td.R46C6{ overflow: hidden;border-bottom: #000000 1px solid; line-height: 1; }
+td.R46C7{ border-right: #000000 1px solid; line-height: 1; }
+td.R47C2{ font-family: Arial; font-size: 8pt; font-style: normal; text-align: left; vertical-align: bottom; border-top: #ffffff 1px none; border-bottom: #000000 1px solid; line-height: 1; }
+tr.R5{ height: 12pt; line-height: 1; }
+tr.R5 td.R15C1{ font-family: Arial; font-size: 9pt; font-style: normal; text-align: right; line-height: 1; }
+tr.R5 td.R15C2{ vertical-align: bottom; overflow: visible;border-left: #000000 1px none; border-top: #ffffff 1px none; border-bottom: #000000 1px solid; line-height: 1; }
+tr.R5 td.R16C1{ font-family: Arial; font-size: 8pt; font-style: normal; line-height: 1; }
+tr.R5 td.R16C2{ font-family: Arial; font-size: 6pt; font-style: normal; text-align: center; vertical-align: top; border-left: #000000 1px none; border-top: #ffffff 1px none; border-bottom: #ffffff 1px none; line-height: 1; }
+tr.R5 td.R16C3{ font-family: Arial; font-size: 6pt; font-style: normal; text-align: center; vertical-align: top; border-left: #000000 1px none; border-top: #ffffff 1px none; line-height: 1; }
+tr.R5 td.R16C8{ font-family: Arial; font-size: 9pt; font-style: normal; text-align: right; vertical-align: bottom; border-left: #000000 1px solid; border-top: #000000 1px solid; line-height: 1; }
+tr.R5 td.R16C9{ font-family: Arial; font-size: 9pt; font-style: normal; font-weight: bold; text-align: center; vertical-align: bottom; overflow: hidden;border-left: #000000 2px solid; border-top: #000000 1px solid; border-right: #000000 2px solid; line-height: 1; }
+tr.R5 td.R17C3{ font-family: Arial; font-size: 8pt; font-style: normal; text-align: center; vertical-align: medium; border-left: #000000 1px solid; border-top: #000000 1px solid; line-height: 1; }
+tr.R5 td.R17C4{ font-family: Arial; font-size: 8pt; font-style: normal; text-align: center; vertical-align: medium; border-left: #000000 1px solid; border-top: #000000 1px solid; border-right: #000000 1px solid; line-height: 1; }
+tr.R5 td.R17C6{ font-family: Arial; font-size: 9pt; font-style: normal; text-align: right; line-height: 1; }
+tr.R5 td.R18C2{ font-family: Arial; font-size: 9pt; font-style: normal; font-weight: bold; text-align: right; vertical-align: medium; line-height: 1; }
+tr.R5 td.R18C3{ font-family: Arial; font-size: 9pt; font-style: normal; text-align: center; vertical-align: medium; border-left: #000000 2px solid; border-top: #000000 2px solid; border-bottom: #000000 2px solid; line-height: 1; }
+tr.R5 td.R18C4{ font-family: Arial; font-size: 9pt; font-style: normal; text-align: center; vertical-align: medium; border-left: #000000 1px solid; border-top: #000000 2px solid; border-bottom: #000000 2px solid; border-right: #000000 2px solid; line-height: 1; }
+tr.R5 td.R18C8{ font-family: Arial; font-size: 9pt; font-style: normal; text-align: right; vertical-align: bottom; border-left: #000000 1px solid; border-top: #000000 1px solid; border-bottom: #000000 1px solid; line-height: 1; }
+tr.R5 td.R19C9{ font-family: Arial; font-size: 9pt; font-style: normal; font-weight: bold; text-align: center; vertical-align: bottom; overflow: hidden;border-left: #000000 2px solid; border-top: #000000 1px solid; border-bottom: #000000 2px solid; border-right: #000000 2px solid; line-height: 1; }
+tr.R5 td.R31C5{ border-bottom: #ffffff 1px none; line-height: 1; }
+tr.R5 td.R31C8{ border-bottom: #000000 1px solid; line-height: 1; }
+tr.R5 td.R5C0{ text-align: right; line-height: 1; }
+tr.R5 td.R5C1{ font-family: Arial; font-size: 8pt; font-style: normal; vertical-align: bottom; border-left: #000000 1px none; border-top: #ffffff 1px none; border-bottom: #000000 1px solid; line-height: 1; }
+tr.R5 td.R5C7{ font-family: Arial; font-size: 9pt; font-style: normal; text-align: right; line-height: 1; }
+tr.R6{ height: 14pt; line-height: 1; }
+tr.R6 td.R6C0{ font-family: Arial; font-size: 6pt; font-style: normal; text-align: center; vertical-align: top; border-left: #000000 0px none; border-top: #ffffff 1px none; line-height: 1; }
+tr.R6 td.R6C2{ font-family: Arial; font-size: 6pt; font-style: normal; text-align: center; vertical-align: top; border-left: #000000 1px none; border-top: #ffffff 1px none; border-bottom: #ffffff 1px none; line-height: 1; }
+tr.R6 td.R6C7{ font-family: Arial; font-size: 9pt; font-style: normal; text-align: right; line-height: 1; }
+tr.R6 td.R6C9{ font-family: Arial; font-size: 9pt; font-style: normal; font-weight: bold; text-align: center; vertical-align: bottom; overflow: hidden;border-left: #000000 2px solid; border-top: #000000 1px solid; border-bottom: #000000 1px solid; border-right: #000000 2px solid; line-height: 1; }
+td.R7C1{ font-family: Arial; font-size: 9pt; font-style: normal; text-align: right; line-height: 1; }
+td.R7C9{ font-family: Arial; font-size: 9pt; font-style: normal; font-weight: bold; text-align: center; vertical-align: bottom; overflow: hidden;border-left: #000000 2px solid; border-right: #000000 2px solid; line-height: 1; }
+table { table-layout: fixed; padding: 0 0 0 1px; vertical-align:bottom; width: 100%; font-family: Arial; font-size: 8pt; font-style: normal; line-height: 1; }
+td { padding-left: 3px; line-height: 1; }
+@media screen {
+    .page-break    { 
+        height:10px; 
+        background:url(img/page-bre.gif) 0 center repeat-x; 
+        border-top:1px dotted #999; 
+        margin-bottom:13px; 
+    }
+}
+@media print {
+    .page-break { 
+        height:0; 
+        page-break-before:always; 
+        margin:0; 
+        border-top:none; 
+    }
+}
+    .handwriting {
+        font-family: Arial;
+        font-size: 6pt;
+        font-style: normal;
+        text-align: center;
+        vertical-align: top;
+        line-height: 1;
+        white-space:nowrap
+    }
+    .bottom-line {
+        border-bottom: #000000 1px solid;
+    }

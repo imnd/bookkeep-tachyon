@@ -1,0 +1,106 @@
+.clients #container {
+    width: 740pt;
+}
+table.clients.item {
+    float: left;
+}
+form.reconciliation {
+    float: left;
+    margin: 16px;
+    padding: 0 16px;
+    border: 2px solid #D0D0D0;
+    background-color: #FFF;
+}
+    form.reconciliation label {
+        min-width: 20px;
+        display: block;
+        float: left;
+    }
+    form.reconciliation div {
+        margin-bottom: 12px;
+    }
+    form.reconciliation div.date {
+        float: left;
+    }
+    form.reconciliation input[type="text"] {
+        height: 12px;
+        width: 70px;
+        margin: 0 4px;
+        padding: 2px;
+    }
+
+table {
+    margin-left:4.75pt;
+    border-collapse:collapse;
+}
+
+td {
+    height:10.9pt;
+    padding:0 5.4pt 0 5.4pt
+}
+td.cell,
+tr.cell td {
+    border-bottom:solid black 1pt;
+    border-right:solid black 1pt;
+    border-left:solid black 1pt;
+    mso-border-bottom-alt: solid black .5pt;
+    mso-border-right-alt:solid black .5pt;
+    padding: 2pt;
+    font-size: 9pt;
+    font-family:Arial;
+}
+
+.border-top,
+.border-top td
+{
+    border-top:solid black 1pt;
+}
+
+.border-bottom,
+.border-bottom td
+{
+    border-bottom:solid black 1pt;
+}
+p,
+li,
+div
+{
+    margin: 0;
+    padding: 2pt;
+    font-size: 12pt;
+    font-family:Arial;
+}
+.center,
+.center p,
+.center td
+    {text-align:center}
+.right,
+.right td
+    {text-align:right}
+.left,
+.left td
+    {text-align:left}
+.justify,
+.justify p,
+.justify td
+    {text-align:justify}
+.font-size-8,
+.font-size-8 p,
+.font-size-8 td
+    {font-size:8pt !important;}
+.font-size-9,
+.font-size-9 p,
+.font-size-9 td
+    {font-size:9pt !important;}
+.font-size-10,
+.font-size-10 p,
+.font-size-10 td
+    {font-size:10pt !important;}
+.font-size-14,
+.font-size-14 p,
+.font-size-14 td
+    {font-size:14pt !important;}
+.bold,
+.bold p,
+.bold td
+    {font-weight: bold;}

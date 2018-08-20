@@ -1,0 +1,5 @@
+query: SELECT cl.name AS clientName,SUM(i.sum) AS executed,t.sum - SUM(i.sum) AS execRemind,t.contract_num,t.client_id,t.sum,t.payed,t.date,t.term_start,t.term_end,t.type,t.id FROM contracts AS t LEFT JOIN clients AS cl ON t.client_id=cl.id LEFT JOIN invoices AS i ON t.contract_num=i.contract_num WHERE t.date>= ? AND t.date<= ? GROUP BY contract_num
+id	select_type	table	type	possible_keys	key	key_len	ref	rows	Extra
+1	SIMPLE	t	ALL					1824	Using where; Using temporary; Using filesort	
+1	SIMPLE	cl	eq_ref	PRIMARY	PRIMARY	2	bookkeep.t.client_id	1	Using where	
+1	SIMPLE	i	ALL					11661	Using where; Using join buffer (Block Nested Loop)	

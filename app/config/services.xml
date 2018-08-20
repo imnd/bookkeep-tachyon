@@ -1,0 +1,70 @@
+<services>
+    <service id="Articles" class="\app\models\Articles">
+        <property name="activeBehaviour">
+            <ref id="Active"/>
+            <property name="activeField">
+                <value>active</value>
+            </property>
+        </property>
+        <property name="listBehaviour">
+            <ref id="List"/>
+            <property name="valueField">
+                <value>name</value>
+            </property>
+        </property>
+    </service>
+    <service id="ArticleCats" class="\app\models\ArticleCats"></service>
+    <service id="ArticleSubcats" class="\app\models\ArticleSubcats">
+        <property name="listBehaviour">
+            <ref id="List"/>
+            <property name="valueField">
+                <value>name</value>
+            </property>
+        </property>
+    </service>
+    <service id="Bills" class="\app\models\Bills"></service>
+    <service id="Clients" class="\app\models\Clients">
+        <property name="listBehaviour">
+            <ref id="List"/>
+            <property name="valueField">
+                <value>[name,address]</value>
+            </property>
+            <property name="valsGlue">
+                <value> :: </value>
+            </property>
+        </property>
+    </service>
+    <service id="Contracts" class="\app\models\Contracts"></service>
+    <service id="ContractsRows" class="\app\models\ContractsRows"></service>
+    <service id="Invoices" class="\app\models\Invoices"></service>
+    <service id="InvoicesRows" class="\app\models\InvoicesRows"></service>
+    <service id="Purchases" class="\app\models\Purchases"></service>
+    <service id="PurchasesRows" class="\app\models\PurchasesRows"></service>
+    <service id="Regions" class="\app\models\Regions">
+        <property name="listBehaviour">
+            <ref id="List"/>
+            <property name="valueField">
+                <value>name</value>
+            </property>
+        </property>
+    </service>
+    <service id="Settings" class="\app\models\Settings"></service>
+
+    <service id="IndexController" class="\app\controllers\IndexController"></service>
+    <service id="ArticlesController" class="\app\controllers\ArticlesController"></service>
+    <service id="BillsController" class="\app\controllers\BillsController"></service>
+    <service id="ClientsController" class="\app\controllers\ClientsController">
+        <property name="dateTimeBehaviour">
+            <ref id="DateTime"/>
+        </property>
+    </service>
+    <service id="ContractsController" class="\app\controllers\ContractsController"></service>
+    <service id="InvoicesController" class="\app\controllers\InvoicesController"></service>
+    <service id="PurchasesController" class="\app\controllers\PurchasesController"></service>
+    <service id="RegionsController" class="\app\controllers\RegionsController"></service>
+
+    <service id="Menu" class="\app\components\widgets\menu\Menu"></service>
+
+    <service id="CrudController" class="\app\components\CrudController"></service>
+    <service id="SettingsController" class="\app\controllers\SettingsController"></service>
+</services>

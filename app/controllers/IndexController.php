@@ -7,10 +7,8 @@ namespace app\controllers;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */ 
-class IndexController extends \app\components\CrudController
+class IndexController extends \tachyon\Controller
 {
-    protected $mainMenu = array();
-    
     /**
      * Главная страница
      */
@@ -18,4 +16,20 @@ class IndexController extends \app\components\CrudController
 	{
 		$this->layout();
 	}
+
+    /**
+     * @return array
+     */
+    public function getMainMenu()
+    {
+        return array();
+    }
+
+    /**
+     * @return array
+     */
+    public function getSubMenu()
+    {
+        return array();
+    }
 }

@@ -22,7 +22,7 @@ class InvoicesController extends \app\components\CrudController
         $contractType = $item->getContractType();
         $contractNum = $item->contract_num;
         $quantitySum = $this->model->getQuantitySum($pk);
-        $sender = \tachyon\dic\Container::getInstanceOf('Settings')->getRequisites('firm');
+        $sender = $this->get('Settings')->getRequisites('firm');
         $this->layout("printout/$type", compact('item', 'contractType', 'contractNum', 'quantitySum', 'sender', 'client'));
     }
 }

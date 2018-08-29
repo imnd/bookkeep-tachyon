@@ -18,8 +18,7 @@ class PurchasesController extends \app\components\CrudController
      */
     public function create()
     {
-        $modelName = \tachyon\helpers\StringHelper::getShortClassName($this->modelName);
-        $model = Container::getInstanceOf($modelName);
+        $model = Container::getInstanceOf($this->modelName);
         $rowModel = Container::getInstanceOf($model->getRowModelName());
         if (!empty($this->get['date'])) {
             $date = $this->get['date'];
@@ -30,7 +29,7 @@ class PurchasesController extends \app\components\CrudController
         }
         $model->date = $date;
         if (!empty($this->post)) {
-            $model->setAttributes($this->post[$modelName]);
+            $model->setAttributes($this->post[$this->modelName]);
             if ($model->save())
                 $this->redirect("/{$this->id}");
         }

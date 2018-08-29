@@ -26,7 +26,7 @@ class HasRowsModel extends \tachyon\db\models\ArModel
             ->addWhere($where)
             ->getOne();
             
-        $item['rows'] = \tachyon\dic\Container::getInstanceOf($this->rowModelName)
+        $item['rows'] = $this->get($this->rowModelName)
             ->addWhere(array(
                 $this->rowFk => $item['id'],
             ))
@@ -69,7 +69,7 @@ class HasRowsModel extends \tachyon\db\models\ArModel
             $thisPk = $this->getPrimKeyVal();
             $rowFk = $this->rowFk;
             foreach ($rowsData as $rowData) {
-                $row = \tachyon\dic\Container::getInstanceOf($this->rowModelName);
+                $row = $this->get($this->rowModelName);
                 $row->setAttributes($rowData);
                 $row->$rowFk = $thisPk;
                 $row->save();

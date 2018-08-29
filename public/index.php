@@ -1,6 +1,5 @@
 <?php
-$dispatcher = new \tachyon\FrontController;
-$dispatcher->dispatch();
+(new \tachyon\FrontController)->dispatch();
 
 function __autoload($className)
 {

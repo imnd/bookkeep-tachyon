@@ -177,7 +177,7 @@ class Contracts extends \app\components\HasRowsModel
             ->addWhere($where)
             ->getOne();
             
-        $item['rows'] = \tachyon\dic\Container::getInstanceOf('ContractsRows')
+        $item['rows'] = $this->get('ContractsRows')
             ->addWhere(array(
                 'contract_id' => $item['id'],
             ))

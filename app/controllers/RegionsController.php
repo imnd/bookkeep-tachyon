@@ -15,7 +15,7 @@ class RegionsController extends \app\components\CrudController
      */
     public function index()
     {
-        $model = \tachyon\dic\Container::getInstanceOf('Regions');
+        $model = $this->get('Regions');
         $this->layout('index', array(
             'model' => $model,
             'items' => $model

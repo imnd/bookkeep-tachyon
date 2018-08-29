@@ -75,7 +75,7 @@ class Invoices extends \app\components\HasRowsModel
         );
     }
 
-    public function setSearchConditions($where=array())
+    public function setSearchConditions($where = array())
     {
         \tachyon\helpers\DateTimeHelper::setYearBorders($this, $where);
         return $this;

@@ -76,7 +76,7 @@ class SettingsController extends \app\components\CrudController
     public function backup()
     {
         $this->layout('backup', array(
-            'paths' => \tachyon\dic\Container::getInstanceOf('Settings')->getPaths(),
+            'paths' => $this->get('Settings')->getPaths(),
         ));
     }
 }

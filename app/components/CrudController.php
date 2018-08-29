@@ -40,9 +40,7 @@ class CrudController extends \tachyon\Controller
         if (is_null($this->modelName))
             $this->modelName = $modelName;
 
-        if (!$this->model = \tachyon\dic\Container::getInstanceOf($modelName))
-            throw new ErrorException("Класса $modelName не существует");
-
+        $this->model = $this->get($modelName);
         $this->model->setAttributes($this->get);
     }
 
@@ -160,7 +158,6 @@ class CrudController extends \tachyon\Controller
     }
 
     /**
-     * Операции
      * @return array
      */
     public function getMainMenu()
@@ -169,7 +166,6 @@ class CrudController extends \tachyon\Controller
     }
 
     /**
-     * Меню страницы
      * @return array
      */
     public function getSubMenu()
@@ -178,7 +174,6 @@ class CrudController extends \tachyon\Controller
     }
 
     /**
-     * Меню страницы
      * @return array
      */
     public function setSubMenu(array $subMenu)

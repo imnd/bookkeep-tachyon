@@ -1,8 +1,6 @@
 <script type="text/javascript" src="/assets/js/table.js"></script>
 <script type="text/javascript" src="/assets/js/prices.js"></script>
 <?php
-use tachyon\dic\Container;
-
 $modelName = $model->getClassName();
 echo $this->html->formOpen(array('method' => 'POST'));
 ?>
@@ -12,7 +10,7 @@ echo $this->html->formOpen(array('method' => 'POST'));
         $this->html->labelEx($model, 'type'),
         $this->html->selectEx($model, array(
             'name' => 'type',
-            'options' => Container::getInstanceOf('Contracts')->getTypes()
+            'options' => $this->get('Contracts')->getTypes()
         ))
         ?>
         */?>
@@ -77,7 +75,7 @@ echo $this->html->formOpen(array('method' => 'POST'));
         $articles = app\models\Articles::getSelectList();
         if ($model->isNew) {
             $this->display('_row', array(
-                'row' => Container::getInstanceOf('ContractsRows'),
+                'row' => $this->get('ContractsRows'),
                 'articles' => $articles
             ));
         } else
@@ -95,7 +93,7 @@ echo $this->html->formOpen(array('method' => 'POST'));
     </table>
     <?=$this->html->submit($this->i18n('save'))?>
 <?=$this->html->formClose() ?>
-<span style="display: none" id="prices"><?=json_encode(Container::getInstanceOf('Articles')->getAll())?></span>
+<span style="display: none" id="prices"><?=json_encode($this->get('Articles')->getAll())?></span>
 <script>
     dom.ready(function() {
         prices.setModelName('<?=$modelName?>');

@@ -43,7 +43,7 @@ echo $this->html->formOpen(array('method' => 'POST'));
         $articles = app\models\Articles::getSelectList();
         if ($model->isNew) {
             $this->display('_row', array(
-                'row' => Container::getInstanceOf('InvoicesRows'),
+                'row' => $this->get('InvoicesRows'),
                 'articles' => $articles
             ));
         } else
@@ -67,7 +67,7 @@ echo $this->html->formOpen(array('method' => 'POST'));
     </table>
     <?=$this->html->submit($this->i18n('save')); ?>
 <?=$this->html->formClose() ?>
-<span style="display: none" id="prices"><?=json_encode(Container::getInstanceOf('Articles')->getAll())?></span>
+<span style="display: none" id="prices"><?=json_encode($this->get('Articles')->getAll())?></span>
 
 <script>
     dom.ready(function() {

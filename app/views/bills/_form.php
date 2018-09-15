@@ -1,5 +1,5 @@
 <?php
-tachyon\dic\Container::getInstanceOf('FormBuilder')
+$this->get('FormBuilder')
     ->build(array(
         'options' => array(
             'action' => $this->getController()->getRoute(),

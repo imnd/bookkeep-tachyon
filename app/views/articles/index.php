@@ -5,7 +5,13 @@ $this->widget(array(
     'class' => 'Grid',
     'model' => $model,
     'items' => $items,
-    'columns' => array('subcatName', 'name', 'unit', 'price', 'activeText' => '$model->getActiveBehaviour()->getActiveText($model, $item)'),
+    'columns' => array(
+        'subcatName',
+        'name',
+        'unit',
+        'price',
+        'activeText' => '$model->getActiveBehaviour()->getActiveText($model, $item)'
+    ),
     // фильтры
     'searchFields' => array(
         'subcat_id' => array(

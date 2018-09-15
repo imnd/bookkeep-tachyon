@@ -1,5 +1,5 @@
 <?php
-tachyon\dic\Container::getInstanceOf('FormBuilder')
+$this->get('FormBuilder')
     ->build(array(
         'options' => array(
             'submitCaption' => $this->i18n('save'),

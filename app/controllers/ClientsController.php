@@ -29,14 +29,14 @@ class ClientsController extends \app\components\CrudController
         }
         $where = array_merge(array('client_id' => $pk), $this->get);
         /** @var \app\models\Invoices */
-        $invoicesModel = Container::getInstanceOf('Invoices');
+        $invoicesModel = $this->get('Invoices');
         $debetSum = $invoicesModel->getTotalByContract($where);
         /** @var \app\models\Bills */
-        $billsModel = Container::getInstanceOf('Bills');
+        $billsModel = $this->get('Bills');
         $creditSum = $billsModel->getTotalByContract($where);
         $this->layout('reconciliation', array(
             'client' => $client,
-            'sender' => Container::getInstanceOf('Settings')->getRequisites('firm'),
+            'sender' => $this->get('Settings')->getRequisites('firm'),
             'dateFrom' => $this->getDateTimeBehaviour()->convDateToReadable($this->get['dateFrom']),
             'dateTo' => $this->getDateTimeBehaviour()->convDateToReadable($this->get['dateTo']),
             'bills' => $billsModel->getAllByContract($where),

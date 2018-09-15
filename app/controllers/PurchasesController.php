@@ -18,8 +18,8 @@ class PurchasesController extends \app\components\CrudController
      */
     public function create()
     {
-        $model = Container::getInstanceOf($this->modelName);
-        $rowModel = Container::getInstanceOf($model->getRowModelName());
+        $model = $this->get($this->modelName);
+        $rowModel = $this->get($model->getRowModelName());
         if (!empty($this->get['date'])) {
             $date = $this->get['date'];
             $items = $model->getReport($date);
@@ -46,8 +46,8 @@ class PurchasesController extends \app\components\CrudController
             'item' => $item,
             'contractType' => 'Договор',
             'quantitySum' => $this->model->getQuantitySum($pk),
-            'sender' => Container::getInstanceOf('Settings')->getRequisites('supplier'),
-            'client' => (object)Container::getInstanceOf('Settings')->getRequisites('firm'),
+            'sender' => $this->get('Settings')->getRequisites('supplier'),
+            'client' => (object)$this->get('Settings')->getRequisites('firm'),
         ));
     }
 }

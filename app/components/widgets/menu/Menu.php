@@ -18,11 +18,11 @@ class Menu extends \tachyon\components\widgets\Widget
 
     public function run()
     {
-        if (!empty($this->items))
+        if (!empty($this->items)) {
             $this->display($this->view, array(
                 'items' => $this->items,
-                'controller' => $this->controller,
             ));
+        }
     }
 
     /**
@@ -44,9 +44,9 @@ class Menu extends \tachyon\components\widgets\Widget
      */
     public function getBtnHref($url)
     {
-        if (strpos($url, '/')===0)
+        if (strpos($url, '/')===0) {
             return $url;
-
+        }
         return "/{$this->controller->getId()}/$url";
     }
 }

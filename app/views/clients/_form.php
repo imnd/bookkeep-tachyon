@@ -8,7 +8,7 @@ $this->get('FormBuilder')
         ),
         'model' => $model,
         'fields' => array('name', 'address', 'region_id' => array(
-            'listData' => $this->get('Regions')->getListBehaviour()->getSelectList(),
+            'listData' => $this->get('Regions')->getSelectList(),
         ), 'telephone', 'fax', 'contact_fio', 'contact_post', 'account', 'bank', 'INN', 'KPP', 'BIK', 'sort'),
         'fieldValues' => $this->getController()->getQuery('get'),
     ));

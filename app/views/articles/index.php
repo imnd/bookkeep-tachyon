@@ -10,7 +10,7 @@ $this->widget(array(
         'name',
         'unit',
         'price',
-        'activeText' => '$model->getActiveBehaviour()->getActiveText($model, $item)'
+        'activeText' => '$model->get("activeBehaviour")->getActiveText($model, $item)'
     ),
     // фильтры
     'searchFields' => array(
@@ -19,12 +19,12 @@ $this->widget(array(
         ),
         'name',
         'unit' => array(
-            'listData' => $model->getListBehaviour()->getSelectListFromArr($model->getUnits()),
+            'listData' => $model->get('listBehaviour')->getSelectListFromArr($model->getUnits()),
         ),
         'priceFrom',
         'priceTo',
         'active' => array(
-            'listData' => $model->getListBehaviour()->getYesNoListData(),
+            'listData' => $model->get('listBehaviour')->getYesNoListData(),
         ),
     ),
     // кнопки

@@ -10,6 +10,7 @@ namespace app\models;
 class Regions extends \tachyon\db\models\ArModel
 {
     use \tachyon\dic\behaviours\ListBehaviour;
+    use \tachyon\traits\GetList;
 
     public static $tableName = 'regions';
     public static $primKey = 'id';

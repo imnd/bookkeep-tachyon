@@ -170,7 +170,7 @@
             <td></td>
             <td class="R18C2"><span style="white-space:nowrap">ТОВАРНАЯ НАКЛАДНАЯ</span></td>
             <td class="R18C3"><?=$item->number?></td>
-            <td class="R18C4"><span style="white-space:nowrap"><?=$item->getDateTimeBehaviour()->convDateToReadable($item->date, '.', 'short')?></span></td>
+            <td class="R18C4"><span style="white-space:nowrap"><?=$item->get('dateTime')->convDateToReadable($item->date, '.', 'short')?></span></td>
             <td></td>
             <td colspan="3" class="R2C7"><span style="white-space:nowrap">Вид операции </span></td>
             <td class="R19C9"></td>

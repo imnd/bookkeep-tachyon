@@ -26,6 +26,7 @@ class CrudController extends \tachyon\Controller
 
     protected $modelName;
     protected $model;
+    protected $message;
 
     protected $postActions = array('delete', 'deactivate');
 
@@ -128,7 +129,7 @@ class CrudController extends \tachyon\Controller
         echo json_encode(array(
             'success' => $this->model
                 ->findByPk($pk)
-                ->getActiveBehaviour()
+                ->get('activeBehaviour')
                 ->deactivate($this->model)
         ));
     }
@@ -150,12 +151,14 @@ class CrudController extends \tachyon\Controller
 
             if ($model->save()) {
                 // TODO: сделать flash-сообщения
-                $this->msg = 'Сохранено успешно';
+                $this->message = 'Сохранено успешно';
                 $this->redirect("/{$this->id}");
             }
-            $this->msg = 'Что то пошло не так';
+            $this->message = 'Что то пошло не так';
         }
     }
+
+    # Геттеры
 
     /**
      * @return array
@@ -179,5 +182,13 @@ class CrudController extends \tachyon\Controller
     public function setSubMenu(array $subMenu)
     {
         $this->subMenu = $subMenu;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
     }
 }

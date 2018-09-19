@@ -54,7 +54,7 @@
     <service id="ArticlesController" class="\app\controllers\ArticlesController"></service>
     <service id="BillsController" class="\app\controllers\BillsController"></service>
     <service id="ClientsController" class="\app\controllers\ClientsController">
-        <property name="dateTimeBehaviour">
+        <property name="dateTime">
             <ref id="DateTime"/>
         </property>
     </service>

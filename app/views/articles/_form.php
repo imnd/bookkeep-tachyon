@@ -12,7 +12,7 @@ $this->get('FormBuilder')
                 'listData' => app\models\ArticleSubcats::getSelectList()
             ),
             'unit' => array(
-                'listData' => $model->get('listBehaviour')->getSelectListFromArr($model->getUnits())
+                'listData' => $model->getListBehaviour()->getSelectListFromArr($model->getUnits())
             ),
             'name',
             'price',

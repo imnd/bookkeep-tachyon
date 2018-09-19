@@ -37,8 +37,8 @@ class ClientsController extends \app\components\CrudController
         $this->layout('reconciliation', array(
             'client' => $client,
             'sender' => $this->get('Settings')->getRequisites('firm'),
-            'dateFrom' => $this->get('dateTime')->convDateToReadable($this->get['dateFrom']),
-            'dateTo' => $this->get('dateTime')->convDateToReadable($this->get['dateTo']),
+            'dateFrom' => $this->dateTime->convDateToReadable($this->get['dateFrom']),
+            'dateTo' => $this->dateTime->convDateToReadable($this->get['dateTo']),
             'bills' => $billsModel->getAllByContract($where),
             'invoices' => $invoicesModel->getAllByContract($where),
             'debetSum' => number_format($debetSum, 2, '.', ''),

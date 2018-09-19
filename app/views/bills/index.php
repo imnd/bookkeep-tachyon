@@ -14,7 +14,7 @@ $this->widget(array(
             'listData' => app\models\Clients::getSelectList(),
         ),
         /*'contents' => array(
-            'listData' => $model->get('listBehaviour')->getSelectListFromArr($model->getContentsList(), true)
+            'listData' => $model->getListBehaviour()->getSelectListFromArr($model->getContentsList(), true)
         ),*/
     ),
     'sumFields' => array('sum'),

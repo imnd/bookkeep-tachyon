@@ -19,12 +19,12 @@ $this->widget(array(
         ),
         'name',
         'unit' => array(
-            'listData' => $model->get('listBehaviour')->getSelectListFromArr($model->getUnits()),
+            'listData' => $model->getListBehaviour()->getSelectListFromArr($model->getUnits()),
         ),
         'priceFrom',
         'priceTo',
         'active' => array(
-            'listData' => $model->get('listBehaviour')->getYesNoListData(),
+            'listData' => $model->getListBehaviour()->getYesNoListData(),
         ),
     ),
     // кнопки

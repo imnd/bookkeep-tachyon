@@ -16,7 +16,7 @@ $this->get('FormBuilder')
             'sum',
             'remainder',
             'contents' => array(
-                'listData' => $model->get('listBehaviour')->getSelectListFromArr($model->getContentsList(), true, false)
+                'listData' => $model->getListBehaviour()->getSelectListFromArr($model->getContentsList(), true, false)
             ),
         ),
         'fieldValues' => $this->getController()->getQuery('get'),

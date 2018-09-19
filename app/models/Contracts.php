@@ -130,7 +130,7 @@ class Contracts extends \app\components\HasRowsModel
      */
     public function getTypes()
     {
-        return $this->get('listBehaviour')->getSelectListFromArr($this->_types, true);
+        return $this->listBehaviour->getSelectListFromArr($this->_types, true);
     }
 
     public function getAllByConditions($where=array())
@@ -199,6 +199,6 @@ class Contracts extends \app\components\HasRowsModel
             ->select('contract_num')
             ->getAll();
 
-        return $this->get('listBehaviour')->getValsList($items, 'contract_num');
+        return $this->listBehaviour->getValsList($items, 'contract_num');
     }
 }

@@ -11,18 +11,12 @@ namespace app\components;
 class CrudController extends \tachyon\Controller
 {
     /**
-     * Главное меню операции
-     * @var $mainMenu array
+     * @inheritdoc
      */
     protected $mainMenu = array(
         'index' => 'список',
         'create' => 'добавить',
     );
-    /**
-     * Меню страницы
-     * @var $subMenu array
-     */
-    protected $subMenu;
 
     protected $modelName;
     protected $model;
@@ -30,9 +24,10 @@ class CrudController extends \tachyon\Controller
 
     protected $postActions = array('delete', 'deactivate');
 
-    /**
-     * Инициализация
-     */
+    /** @inheritdoc */
+    protected $protectedActions = '*';
+
+    /** @inheritdoc */
     public function init()
     {
         $this->view->setProperty('bodyClass', "{$this->id} {$this->action}");
@@ -45,15 +40,16 @@ class CrudController extends \tachyon\Controller
         $this->model->setAttributes($this->get);
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     public function beforeAction()
     {
+        if (!parent::beforeAction())
+            return false;
+
         if ($this->action=='printout')
             $this->layout = 'printout';
 
-        return parent::beforeAction();
+        return true;
     }
 
     /**
@@ -159,30 +155,6 @@ class CrudController extends \tachyon\Controller
     }
 
     # Геттеры
-
-    /**
-     * @return array
-     */
-    public function getMainMenu()
-    {
-        return $this->mainMenu;
-    }
-
-    /**
-     * @return array
-     */
-    public function getSubMenu()
-    {
-        return $this->subMenu;
-    }
-
-    /**
-     * @return array
-     */
-    public function setSubMenu(array $subMenu)
-    {
-        $this->subMenu = $subMenu;
-    }
 
     /**
      * @return string

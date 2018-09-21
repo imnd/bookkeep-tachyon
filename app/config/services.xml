@@ -49,6 +49,7 @@
         </property>
     </service>
     <service id="Settings" class="\app\models\Settings"></service>
+    <service id="Users" class="\app\models\Users"></service>
 
     <service id="IndexController" class="\app\controllers\IndexController"></service>
     <service id="ArticlesController" class="\app\controllers\ArticlesController"></service>

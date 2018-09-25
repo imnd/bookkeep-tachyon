@@ -29,7 +29,7 @@ class InvoicesRows extends \app\components\RowsModel
         'article' => array('Articles', 'has_one', 'article_id'),
     );
 
-    public function rules()
+    public function rules(): array
     {
         return array_merge(parent::rules(), array(
             'article_id' => array('numerical'),

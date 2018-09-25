@@ -79,7 +79,7 @@ class Contracts extends \app\components\HasRowsModel
         'agreement' => 'договор',
     );
 
-    public function rules()
+    public function rules(): array
     {
         return array(
             'contract_num' => array('integer', 'required'),
@@ -91,7 +91,10 @@ class Contracts extends \app\components\HasRowsModel
         );
     }
     
-    public function setSearchConditions($where=array())
+    /**
+     * @param array $conditions условия поиска
+     */
+    public function setSearchConditions($where=array()): Contracts
     {
         \tachyon\helpers\DateTimeHelper::setYearBorders($this, $where);
         return $this;
@@ -103,7 +106,7 @@ class Contracts extends \app\components\HasRowsModel
      * 
      * @return string
      */
-    public function getTypeName($type=null, $case='nom')
+    public function getTypeName($type=null, $case='nom'): string
     {
         if (is_null($type))
             $type = $this->type;
@@ -117,10 +120,7 @@ class Contracts extends \app\components\HasRowsModel
                 array_values($this->_types)
             );
 
-        if (isset($this->_types[$type]))
-            return $this->_types[$type];
-        else
-            return implode(' и ', $this->_types);
+        return $this->_types[$type] ?? implode(' и ', $this->_types);
     }
 
     /**
@@ -128,17 +128,19 @@ class Contracts extends \app\components\HasRowsModel
      * 
      * @return array
      */
-    public function getTypes()
+    public function getTypes(): array
     {
         return $this->listBehaviour->getSelectListFromArr($this->_types, true);
     }
 
-    public function getAllByConditions($where=array())
+    /**
+     * @param array $conditions условия поиска
+     */
+    public function getAll(array $conditions=array()): array
     {
         $list = array();
-        $listExecuted = $this
+        $this
             ->asa('t')
-            ->addWhere($where)
             ->join(array('clients' => 'cl'), array('client_id', 'id'))
             ->join(array('invoices' => 'i'), array('contract_num', 'contract_num'))
             ->select(array(
@@ -148,18 +150,19 @@ class Contracts extends \app\components\HasRowsModel
                 'SUM(i.sum)' => 'executed',
                 't.sum - SUM(i.sum)' => 'execRemind',
             ))
-            ->groupBy('t.contract_num')
-            ->getAll();
+            ->groupBy('t.contract_num');
+        
+        $listExecuted = parent::getAll($conditions);
 
-        $listPayed = $this
+        $this
             ->asa('t')
-            ->addWhere(array_merge($where, array('b.contents' => 'payment')))
             ->join(array('billing' => 'b'), array('contract_num', 'contract_num'))
             ->select(array(
                 'SUM(b.sum)' => 'payed',
             ))
-            ->groupBy('t.contract_num')
-            ->getAll();
+            ->groupBy('t.contract_num');
+
+        $listPayed = parent::getAll(array_merge($conditions, array('b.contents' => 'payment')));
 
         foreach ($listExecuted as $key => $contract) {
             $payed = !empty($listPayed[$key]['payed']) ? $listPayed[$key]['payed'] : 0;
@@ -171,12 +174,12 @@ class Contracts extends \app\components\HasRowsModel
         return $list;
     }
     
-    public function getItem($where=array())
+    /**
+     * @param array $conditions условия поиска
+     */
+    public function getItem($conditions=array()): Contracts
     {
-        $item = $this
-            ->addWhere($where)
-            ->getOne();
-            
+        $item = $this->getOne($conditions);
         $item['rows'] = $this->get('ContractsRows')
             ->addWhere(array(
                 'contract_id' => $item['id'],
@@ -187,17 +190,14 @@ class Contracts extends \app\components\HasRowsModel
     }
     
     /**
-     * getNumbers
-     * 
-     * @param $where array 
+     * @param array $conditions условия поиска
      * @return array
      */
-    public function getNumbers($where=array())
+    public function getNumbers($conditions=array()): array
     {
         $items = $this
-            ->addWhere($where)
             ->select('contract_num')
-            ->getAll();
+            ->getAll($conditions);
 
         return $this->listBehaviour->getValsList($items, 'contract_num');
     }

@@ -75,7 +75,7 @@ class Clients extends \tachyon\db\models\ArModel
         'region' => array('Regions', 'belongs_to', 'region_id'),
     );
 
-    public function rules()
+    public function rules(): array
     {
         return array(
             'name' => array('alphaExt', 'required'),
@@ -83,7 +83,7 @@ class Clients extends \tachyon\db\models\ArModel
         );
     }
 
-    public function setSearchConditions($where=array())
+    public function setSearchConditions($where=array()): Clients
     {
         $this->like($where, 'name');
         $this->like($where, 'address');

@@ -45,11 +45,14 @@ class Articles extends \tachyon\db\models\ArModel
         'subcategory' => array('ArticleSubcats', 'belongs_to', 'subcat_id'),
     );
 
-    public function setSearchConditions($where=array())
+    /**
+     * @param array $conditions условия поиска
+     */
+    public function setSearchConditions($conditions=array()): Articles
     {
-        $this->gt($where, 'price', 'priceFrom');
-        $this->lt($where, 'price', 'priceTo');
-        $this->addWhere($where);
+        $this->gt($conditions, 'price', 'priceFrom');
+        $this->lt($conditions, 'price', 'priceTo');
+        $this->addWhere($conditions);
 
         return $this;
     }
@@ -57,7 +60,7 @@ class Articles extends \tachyon\db\models\ArModel
     /**
      * @return string
      */
-    public function getCatDescription()
+    public function getCatDescription(): string
     {
         return $this->subcategory->category->description;
     }
@@ -65,7 +68,7 @@ class Articles extends \tachyon\db\models\ArModel
     /**
      * @return string
      */
-    public function getSubcatName()
+    public function getSubcatName(): string
     {
         return $this->subcategory->name;
     }
@@ -73,7 +76,7 @@ class Articles extends \tachyon\db\models\ArModel
     /**
      * @return array
      */
-    public function getUnits()
+    public function getUnits(): array
     {
         return array('кг', 'шт');
     }

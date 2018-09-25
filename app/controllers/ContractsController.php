@@ -1,8 +1,6 @@
 <?php
 namespace app\controllers;
 
-use tachyon\dic\Container;
-
 /**
  * class Index
  * Контроллер
@@ -29,7 +27,7 @@ class ContractsController extends \app\components\CrudController
             'items' => $this->model
                 ->setSearchConditions($this->get)
                 ->setSortConditions($this->get)
-                ->getAllByConditions(compact('type')),
+                ->getAll(compact('type')),
         ));
 	}
 

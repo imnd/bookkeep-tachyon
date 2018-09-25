@@ -36,7 +36,7 @@ class Purchases extends \app\components\HasRowsModel
     protected $rowFk = 'purchase_id';
     protected $rowModelName = 'PurchasesRows';
 
-    public function rules()
+    public function rules(): array
     {
         return array(
             'date, sum, number' => array('required'),
@@ -44,14 +44,16 @@ class Purchases extends \app\components\HasRowsModel
         );
     }
 
-    public function setSearchConditions($where=array())
+    /**
+     * @param array $conditions условия поиска
+     */
+    public function setSearchConditions($where=array()): Purchases
     {
         \tachyon\helpers\DateTimeHelper::setYearBorders($this, $where);
         return $this;
     }
 
     /**
-     * getReport
      * Собираем закупку
      *
      * @param string $dateFrom
@@ -59,7 +61,7 @@ class Purchases extends \app\components\HasRowsModel
      *
      * @returns array
      */
-    public function getReport($dateFrom=null, $dateTo=null)
+    public function getReport($dateFrom=null, $dateTo=null): array
     {
         if (is_null($dateTo))
             $dateTo = $dateFrom;

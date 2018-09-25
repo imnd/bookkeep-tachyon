@@ -11,8 +11,6 @@ use tachyon\dic\Container;
  */ 
 class ClientsController extends \app\components\CrudController
 {
-    use \tachyon\dic\behaviours\DateTime;
-
     public function init()
     {
         parent::init();

@@ -41,7 +41,7 @@ class CrudController extends \tachyon\Controller
     }
 
     /** @inheritdoc */
-    public function beforeAction()
+    public function beforeAction(): bool
     {
         if (!parent::beforeAction())
             return false;
@@ -63,7 +63,7 @@ class CrudController extends \tachyon\Controller
             'items' => $this->model
                 ->setSearchConditions($this->get)
                 ->setSortConditions($this->get)
-                ->getAllByConditions(),
+                ->getAll(),
         ));
     }
 
@@ -159,7 +159,7 @@ class CrudController extends \tachyon\Controller
     /**
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }

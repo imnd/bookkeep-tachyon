@@ -1,17 +1,19 @@
-<?php $this->pageTitle = 'Собираем закупку'?>
-<?=$this->html->formOpen();?>
-за: <?php
-echo $this->html->input(array(
-    'name' => 'date',
-    'value' => $date
-));
-$this->widget(array(
-    'class' => 'Datepicker',
-    'fieldNames' => array('date'),
-));
-echo $this->html->submit('Собрать');
-echo $this->html->formClose();
+<?=
+$this->html->formOpen(),
+    'за: ', $this->html->input(array(
+        'name' => 'date',
+        'value' => $date
+    )),
+    $this->widget(array(
+        'class' => 'Datepicker',
+        'fieldNames' => array('date'),
+        'return' => true,
+    )),
+    '&nbsp;',
+    $this->html->submit('Собрать'),
+    $this->html->formClose();
 
+$this->pageTitle = 'Собираем закупку';
 if (!empty($items)) {?>
     <hr />
     <script type="text/javascript" src="/assets/js/prices.js"></script>
@@ -31,22 +33,22 @@ if (!empty($items)) {?>
             <th>Цена</th>
             <th>Сумма</th>
         </tr>
-        <?php foreach ($items as $i=> $item) {?>
+        <?php foreach ($items as $i => $item) {?>
             <tr class="row">
                 <?=$this->html->hiddenEx($rowModel, array(
                     'name' => 'article_subcategory_id',
                     'value' => $item['article_subcat_id'],
-                    'multiple' =>true,
+                    'multiple' => true,
                 ))?>
                 <td><?=$item['article_subcat']?></td>
                 <td class="quantity"><?=$this->html->hiddenEx($rowModel, array(
                     'name' => 'quantity',
                     'value' => $item['quantity'],
-                    'multiple' =>true,
+                    'multiple' => true,
                 )), $item['quantity']?></td>
                 <td class="price"><?=$this->html->inputEx($rowModel, array(
                     'name' => 'price',
-                    'multiple' =>true,
+                    'multiple' => true,
                 ))?></td>
                 <td class="sum"><?=$this->html->input(array(
                     'name' => 'sum',
@@ -60,8 +62,9 @@ if (!empty($items)) {?>
         </tr>
     </table>
     <?php
-    echo $this->html->submit('Сохранить');
-    echo $this->html->formClose();
+    echo
+        $this->html->submit('Сохранить'),
+        $this->html->formClose();
 } else {?>
     <p>список пуст.</p>
 <?php }

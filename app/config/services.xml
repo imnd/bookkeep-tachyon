@@ -22,7 +22,11 @@
             </property>
         </property>
     </service>
-    <service id="Bills" class="\app\models\Bills"></service>
+    <service id="Bills" class="\app\models\Bills">
+        <property name="dateTime">
+            <ref id="DateTime"/>
+        </property>
+    </service>
     <service id="Clients" class="\app\models\Clients">
         <property name="listBehaviour">
             <ref id="List"/>
@@ -34,9 +38,17 @@
             </property>
         </property>
     </service>
-    <service id="Contracts" class="\app\models\Contracts"></service>
+    <service id="Contracts" class="\app\models\Contracts">
+        <property name="dateTime">
+            <ref id="DateTime"/>
+        </property>
+    </service>
     <service id="ContractsRows" class="\app\models\ContractsRows"></service>
-    <service id="Invoices" class="\app\models\Invoices"></service>
+    <service id="Invoices" class="\app\models\Invoices">
+        <property name="dateTime">
+            <ref id="DateTime"/>
+        </property>
+    </service>
     <service id="InvoicesRows" class="\app\models\InvoicesRows"></service>
     <service id="Purchases" class="\app\models\Purchases"></service>
     <service id="PurchasesRows" class="\app\models\PurchasesRows"></service>
@@ -54,11 +66,7 @@
     <service id="IndexController" class="\app\controllers\IndexController"></service>
     <service id="ArticlesController" class="\app\controllers\ArticlesController"></service>
     <service id="BillsController" class="\app\controllers\BillsController"></service>
-    <service id="ClientsController" class="\app\controllers\ClientsController">
-        <property name="dateTime">
-            <ref id="DateTime"/>
-        </property>
-    </service>
+    <service id="ClientsController" class="\app\controllers\ClientsController"></service>
     <service id="ContractsController" class="\app\controllers\ContractsController"></service>
     <service id="InvoicesController" class="\app\controllers\InvoicesController"></service>
     <service id="PurchasesController" class="\app\controllers\PurchasesController"></service>

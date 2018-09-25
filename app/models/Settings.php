@@ -63,7 +63,7 @@ class Settings extends \tachyon\db\models\ArModel
      */
     public function findByKey($key)
     {
-        return $this->findOneByAttrs(compact('key'));
+        return $this->findOne(compact('key'));
     }
 
     /**

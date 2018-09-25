@@ -38,7 +38,7 @@ class Users extends \tachyon\db\models\ArModel
     {
         $attributes['password_hash'] = $this->hashPassword($attributes['password']);
         unset($attributes['password']);
-        return $this->findOneByAttrs($attributes);
+        return $this->findOne($attributes);
     }
 
     /**
@@ -49,12 +49,12 @@ class Users extends \tachyon\db\models\ArModel
      */
     public function add($attributes)
     {
-        if ($this->findOneByAttrs(array(
+        if ($this->findOne(array(
             'username' => $attributes['username'],
         ))) {
             $this->addError('username', "Пользователь {$attributes['username']} уже существует");
         }
-        if ($this->findOneByAttrs(array(
+        if ($this->findOne(array(
             'email' => $attributes['email'],
         ))) {
             $this->addError('email', "Пользователь с email {$attributes['email']} уже существует");

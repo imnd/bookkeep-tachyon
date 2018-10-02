@@ -582,7 +582,7 @@
     dom.val(itemsCount1, utils.convNumToWords(dom.val(itemsCount1)));
     var itemsCount2 = dom.findById('items-count-2');
     dom.val(itemsCount2, utils.convNumToWords(dom.val(itemsCount2)));
-
+ 
     var quantSum1 = dom.findById('quantity-sum-1');
     dom.val(quantSum1, utils.convWeightToWords(dom.val(quantSum1)));
     var quantSum2 = dom.findById('quantity-sum-2');

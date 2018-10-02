@@ -7,14 +7,9 @@ var utils = {
      * @return {string} 
      */
     convPriceToWords : function (number) {
-	    var tails = ['ей', 'ь', 'я', 'я', 'я', 'ей', 'ей', 'ей', 'ей', 'ей'];
-        number += '';
-	    var price = number.split('.');
-	    var roubles = price[0];
-	    var roublesInWords = this.convNumToWords(roubles);
-	    var len = roubles.length - 1;
-	    ending = tails[roubles.substr(len, 1)];
-	    return roublesInWords + ' рубл' + ending + ' ' + price[1] + ' копеек';
+        result = this._split(number, 2);
+        var roubles = result[0];
+        return this.convNumToWords(roubles) + ' рубл' + ['ей', 'ь', 'я', 'я', 'я', 'ей', 'ей', 'ей', 'ей', 'ей'][roubles.substr(roubles.length - 1, 1)] + ' ' + this.strPad(result[1], 2, 0) + ' копеек';
     },
 
     /**
@@ -24,11 +19,8 @@ var utils = {
      * @return {string} 
      */
     convWeightToWords : function (number) {
-	    number += '';
-	    var weight = number.split('.');
-	    grams = weight[1];
-	    multiplier = Math.pow(10, 3 - grams.length);
-	    return this.convNumToWords(weight[0]) + ' килограмм ' + weight[1] * multiplier + ' грамм';
+	    result = this._split(number, 3);
+	    return this.convNumToWords(result[0]) + ' килограмм ' + result[1] + ' грамм';
     },
 
     /**
@@ -82,6 +74,18 @@ var utils = {
 	    }
     },
 
+    _split : function (number, points) {
+        number = parseFloat(number);
+        whole = Math.floor(number);
+        var fractional = number - whole;
+        if (fractional > 0) {
+            multiplier = Math.pow(10, points - fractional.length);
+        } else {
+            multiplier = 0;
+        }
+        return [whole.toString(), fractional * multiplier];
+    },
+
     /**
      * Грамматическое окончание числа
      *
@@ -112,5 +116,39 @@ var utils = {
 
                 return endings[gender][number % 10];
         }    
+    },
+
+    strPad : function (input, length, string, type) {
+        var half = '',
+            padToGo;
+
+        var repeater = function (s, len) {
+            var collect = '', i;
+
+            while (collect.length < len)
+                collect += s;
+        
+            collect = collect.substr(0, len);
+            return collect;
+        };
+
+        input += '';
+        string = string !== undefined ? string : ' ';
+
+        if (type != 'STR_PAD_LEFT' && type != 'STR_PAD_RIGHT' && type != 'STR_PAD_BOTH') {
+            type = 'STR_PAD_RIGHT';
+        }
+        if ((padToGo = length - input.length) > 0) {
+            if (type == 'STR_PAD_LEFT') {
+                input = repeater(string, padToGo) + input;
+            } else if (type == 'STR_PAD_RIGHT') {
+                input = input + repeater(string, padToGo);
+            } else if (type == 'STR_PAD_BOTH') {
+                half = repeater(string, Math.ceil(padToGo / 2));
+                input = half + input + half;
+                input = input.substr(0, length);
+            }
+        }
+        return input;
     }
 };

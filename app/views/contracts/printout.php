@@ -94,5 +94,5 @@
 </div>
 <script>
     var totalSumContnr = dom.findById('total-sum-in-words');
-    dom.val(totalSumContnr, PriceInWords(dom.val(totalSumContnr)));
+    dom.val(totalSumContnr, priceInWords(dom.val(totalSumContnr)));
 </script>

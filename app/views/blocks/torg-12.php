@@ -579,15 +579,15 @@
 </table>
 <script>
     var itemsCount1 = dom.findById('items-count-1');
-    dom.val(itemsCount1, NumberInWords(dom.val(itemsCount1)));
+    dom.val(itemsCount1, utils.convNumToWords(dom.val(itemsCount1)));
     var itemsCount2 = dom.findById('items-count-2');
-    dom.val(itemsCount2, NumberInWords(dom.val(itemsCount2)));
+    dom.val(itemsCount2, utils.convNumToWords(dom.val(itemsCount2)));
 
     var quantSum1 = dom.findById('quantity-sum-1');
-    dom.val(quantSum1, WeightInWords(dom.val(quantSum1)));
+    dom.val(quantSum1, utils.convWeightToWords(dom.val(quantSum1)));
     var quantSum2 = dom.findById('quantity-sum-2');
-    dom.val(quantSum2, WeightInWords(dom.val(quantSum2)));
+    dom.val(quantSum2, utils.convWeightToWords(dom.val(quantSum2)));
 
     var totalSumContnr = dom.findById('total-sum-in-words');
-    dom.val(totalSumContnr, PriceInWords(dom.val(totalSumContnr)));
+    dom.val(totalSumContnr, utils.convPriceToWords(dom.val(totalSumContnr)));
 </script>

@@ -1,4 +1,4 @@
 <div>
-    <span class="error"><?php if (isset($error)) {echo $error;}?></span>
+    <span class="error"><?= $error ?? ''?></span>
 </div>
 <br />

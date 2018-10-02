@@ -1,5 +1,5 @@
 <p class="hat">В редакции  постановления Правительства  РФ от 11.05.2006 г. № 283</p>
-<p class="heading">СЧЕТ ФАКТУРА № <?=$item->number?> от: <?=$item->getDateTime()->convDateToReadable($item->date, '-')?></p>
+<p class="heading">СЧЕТ ФАКТУРА № <?=$item->number?> от: <?=$item->get('dateTime')->convDateToReadable($item->date, '-')?></p>
 <p class="head">Продавец: <?=$sender->name?></p>
 <p class="head">Адрес: <?=$sender->address?> ИНН продавца: <?=$sender->INN?></p>
 <p class="head">Грузоотправитель и его адрес: <?=$sender->name?> <?=$sender->address?></p>

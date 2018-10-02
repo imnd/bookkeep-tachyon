@@ -5,7 +5,6 @@ namespace app\components;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  * 
- * class HasRowsModel
  * Класс модели табличного документа
  */
 class HasRowsModel extends \tachyon\db\models\ArModel
@@ -46,19 +45,20 @@ class HasRowsModel extends \tachyon\db\models\ArModel
         return 0;
     }
 
-    public function getQuantitySum($pk)
+    public function getQuantitySum($pk): int
     {
-        if ($result = $this
-            ->addWhere(array(static::$primKey => $pk))
+        $this
+            ->limit(1)
             ->joinRelation(array('rows' => 'r'))
-            ->select('SUM(r.quantity) AS quantitySum')
-            ->getAll())
+            ->select('SUM(r.quantity) AS quantitySum');
+
+        if ($result = parent::getAll(array(static::$primKey => $pk)))
             return $result[0]['quantitySum'];
-        
+
         return 0;
     }
 
-    protected function afterSave()
+    protected function afterSave(): bool
     {
         // удаляем строки
         $this->delRelModels('rows');

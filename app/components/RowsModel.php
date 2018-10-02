@@ -33,7 +33,7 @@ class RowsModel extends \tachyon\db\models\ArModel
         parent::__construct();
     }
 
-    public function rules()
+    public function rules(): array
     {
         return array(
             'quantity' => array('numerical'),
@@ -46,7 +46,7 @@ class RowsModel extends \tachyon\db\models\ArModel
      * 
      * @return integer
      */
-    public function getSum()
+    public function getSum(): int
     {
         return number_format($this->quantity * $this->price, 2, '.', '');
     }

@@ -29,7 +29,7 @@ class ContractsRows extends \app\components\RowsModel
         'article' => array('Articles', 'has_one', 'article_id'),
     );
 
-    public function rules()
+    public function rules(): array
     {
         return array_merge(parent::rules(), array(
             'article_id' => array('numerical'),
@@ -37,19 +37,20 @@ class ContractsRows extends \app\components\RowsModel
     }
 
     /**
-     * getContractRows
-     * 
      * @param $contractID integer
      * @return array
      */
-    public function getAllByContract($contractID=null)
+    public function getAllByContract($contractId=null): array
     {
-        return $this->getAllByConditions(array('contract_id' => $contractID));
+        return $this->getAll(array('contract_id' => $contractId));
     }
     
-    public function getAllByConditions($where=array())
+    /**
+     * @param array $conditions условия поиска
+     */
+    public function getAll(array $conditions=array()): array
     {
-        return $this
+        $this
             ->join(
                 array('articles' => 'art'),
                 array('article_id', 'id')
@@ -72,8 +73,8 @@ class ContractsRows extends \app\components\RowsModel
                 'cat.name' => 'cat_name',
                 'cat.description' => 'cat_description',
             ))
-            ->where($where)
-            ->sortBy('cat.id')
-            ->getAll();
+            ->sortBy('cat.id');
+
+        return parent::getAll($conditions);
     }
 }

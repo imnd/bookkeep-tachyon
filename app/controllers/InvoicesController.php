@@ -12,11 +12,12 @@ class InvoicesController extends \app\components\CrudController
     public function printout($pk)
     {
         $type = $this->get['type'];
-        $item = $this->model
+        if (!$item = $this->model
             ->with('rows')
             ->with('client')
             ->with('contract')
-            ->findByPk($pk);
+            ->findByPk($pk))
+                $this->error(404, 'Такой фактуры не существует');
 
         $client = $item->client;
         $contractType = $item->getContractType();

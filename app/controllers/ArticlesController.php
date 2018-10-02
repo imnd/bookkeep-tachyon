@@ -22,7 +22,7 @@ class ArticlesController extends \app\components\CrudController
                 ->select(array('*', 'sс.name' => 'subcatName'))
                 ->setSearchConditions($this->get)
                 ->setSortConditions($this->get)
-                ->getAllByConditions(),
+                ->getAll(),
         ));
     }
 }

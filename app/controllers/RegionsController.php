@@ -21,7 +21,7 @@ class RegionsController extends \app\components\CrudController
             'items' => $model
                 ->setSearchConditions($this->get)
                 ->setSortConditions($this->get)
-                ->getAllByConditions(),
+                ->getAll(),
         ));
     }
 }

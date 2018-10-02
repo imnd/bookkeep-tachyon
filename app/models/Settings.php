@@ -30,7 +30,7 @@ class Settings extends \tachyon\db\models\ArModel
         'value' => 'значение',
     );
     
-    public function rules()
+    public function rules(): array
     {
         return array(
             'key, value' => array('required'),
@@ -63,7 +63,7 @@ class Settings extends \tachyon\db\models\ArModel
      */
     public function findByKey($key)
     {
-        return $this->findOneByAttrs(compact('key'));
+        return $this->findOne(compact('key'));
     }
 
     /**
@@ -72,7 +72,7 @@ class Settings extends \tachyon\db\models\ArModel
      */
     public function getByKey($key)
     {
-        return $this->getOneByAttrs(compact('key'));
+        return $this->getOne(compact('key'));
     }
 
     /**

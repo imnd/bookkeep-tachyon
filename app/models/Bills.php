@@ -53,68 +53,75 @@ class Bills extends \tachyon\db\models\ArModel
         );
     }
 
-    public function setSearchConditions($where=array())
+    /**
+     * @param array $conditions условия поиска
+     */
+    public function setSearchConditions($conditions=array()): Bills
     {
-        \tachyon\helpers\DateTimeHelper::setYearBorders($this, $where);
+        \tachyon\helpers\DateTimeHelper::setYearBorders($this, $conditions);
         return $this;
     }
 
-    public function getAllByConditions($where=array())
+    /**
+     * @param array $conditions условия поиска
+     */
+    public function getAllByConditions($conditions=array()): array
     {
-        return $this
-            ->addWhere($where)
+        $this
             ->join(array('clients' => 'cl'), array('client_id', 'id'))
             ->select(array(
                 '*',
                 'cl.name' => 'clientName',
-            ))
-            ->getAll();
+            ));
+
+        return parent::getAll($conditions);
     }
 
     /**
      * Список счетов отфильтрованных по дате контракта
      *
-     * @param array $where условия поиска
+     * @param array $conditions условия поиска
      * @returns array
      */
-    public function getAllByContract($where=array())
+    public function getAllByContract($conditions=array()): array
     {
         $this
             ->select(array('date', 'sum'))
             ->join(array('clients' => 'cl'), array('client_id', 'id'))
             ->join(array('contracts' => 'cn'), array('contract_num', 'contract_num'))
-            ->gt($where, 'cn.date', 'dateFrom')
-            ->lt($where, 'cn.date', 'dateTo')
+            ->gt($conditions, 'cn.date', 'dateFrom')
+            ->lt($conditions, 'cn.date', 'dateTo')
         ;
-        if (!empty($where['client_id']))
-            $this->addWhere(array('cl.id' => $where['client_id']));
-        if (!empty($where['contract_num']))
-            $this->addWhere(array('cn.contract_num' => $where['contract_num']));
-            
+        if (!empty($conditions['client_id'])) {
+            $this->addWhere(array('cl.id' => $conditions['client_id']));
+        }
+        if (!empty($conditions['contract_num'])) {
+            $this->addWhere(array('cn.contract_num' => $conditions['contract_num']));
+        }
         return $this->getAll();
     }
 
     /**
      * Список счетов отфильтрованных по номеру контракта
      * 
-     * @param array $where условия поиска
+     * @param array $conditions условия поиска
      * @return integer
      */
-    public function getTotalByContract($where=array())
+    public function getTotalByContract($conditions=array()): int
     {
         $this
             ->asa('b')
             ->select('SUM(b.sum) as total')
             ->join(array('clients' => 'cl'), array('client_id', 'id'))
             ->join(array('contracts' => 'cn'), array('contract_num', 'contract_num'))
-            ->gt($where, 'cn.date', 'dateFrom')
-            ->lt($where, 'cn.date', 'dateTo')
+            ->gt($conditions, 'cn.date', 'dateFrom')
+            ->lt($conditions, 'cn.date', 'dateTo')
         ;
 
-        if (!empty($where['client_id']))
-            $this->addWhere(array('cl.id' => $where['client_id']));
-        if (!empty($where['contract_num']))
-            $this->addWhere(array('cn.contract_num' => $where['contract_num']));
+        if (!empty($conditions['client_id']))
+            $this->addWhere(array('cl.id' => $conditions['client_id']));
+        if (!empty($conditions['contract_num']))
+            $this->addWhere(array('cn.contract_num' => $conditions['contract_num']));
             
         $item = $this->getOne();
         
@@ -127,7 +134,7 @@ class Bills extends \tachyon\db\models\ArModel
     /**
      * @return array
      */
-    public function getContentsList()
+    public function getContentsList(): array
     {
         return array(
             'payment' => 'платёж',

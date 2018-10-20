@@ -16,6 +16,7 @@ $this->html->formOpen(),
 $this->pageTitle = 'Собираем закупку';
 if (!empty($items)) {?>
     <hr />
+    <script type="text/javascript" src="/assets/js/ajax.js"></script>
     <script type="text/javascript" src="/assets/js/prices.js"></script>
     <script><!--
         dom.ready(function() {

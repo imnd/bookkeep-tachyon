@@ -1,7 +1,11 @@
 var prices = (function() {
+    var
+        self = this,
+        modelName = '',
+        pricesArr = []
+    ;
+    
     return {
-        pricesArr : [],
-
         calcPrice : function(row) {
             var sumElt = dom.find('.sum', row);
             var sumInp = dom.find('input', sumElt);
@@ -31,7 +35,7 @@ var prices = (function() {
             var rows = dom.findAll('tr.row');
             for (var key=0; key<rows.length; key++) {
                 var row = rows[key];
-                total += prices.calcPrice(row);
+                total += self.calcPrice(row);
             }
             dom.val(dom.find('td.total'), total);
         },
@@ -67,15 +71,15 @@ var prices = (function() {
             var rows = dom.findAll('tr.row');
             for (var key=0; key<rows.length; key++) {
                 var row = rows[key];
-                total += prices.calcSum(row);
+                total += self.calcSum(row);
             }
             dom.val(dom.find('td.total'), total.toFixed(2));
         },
 
         updatePrices : function() {
-            var contractNum = dom.val(dom.findByName(prices.modelName + "[contract_num]"));
+            var contractNum = dom.val(dom.findByName(modelName + "[contract_num]"));
             if (contractNum==='') {
-                prices.fillPricesArray();
+                self.fillPricesArray();
                 return;
             }
             ajax.get(
@@ -83,20 +87,20 @@ var prices = (function() {
                 function(data) {
                     var contract = data;
                     if (contract==false)
-                        prices.fillPricesArray();
+                        self.fillPricesArray();
                     else {
                         // заполняем массив цен
-                        prices.pricesArr = [];
+                        pricesArr = [];
                         var rows = contract['rows'];
                         for (var key=0; key<rows.length; key++) {
                             var row = rows[key];
-                            prices.pricesArr[row['article_id']] = row['price'];
+                            pricesArr[row['article_id']] = row['price'];
                         }
                         // меняем цены
-                        prices.updatePriceInputs();
-                        prices.calcSums();
+                        self.updatePriceInputs();
+                        self.calcSums();
                         // меняем содержимое поля "клиент"
-                        dom.val(dom.findByName(prices.modelName + "[client_id]"), contract['client_id']);
+                        dom.val(dom.findByName(modelName + "[client_id]"), contract['client_id']);
                     }
                 }
             );
@@ -108,7 +112,7 @@ var prices = (function() {
         updatePriceInputs : function() {
             var selects = dom.findAll(".article select");
             for (var key=0; key<selects.length; key++)
-                prices.updatePriceInput(selects[key]);        
+                self.updatePriceInput(selects[key]);        
         },
 
         updatePriceInput : function(select) {
@@ -117,43 +121,21 @@ var prices = (function() {
                 return;
             
             var row = select.parentNode.parentNode;
-            var price = prices.pricesArr[articleId];
+            var price = pricesArr[articleId];
             dom.val(dom.find(".price input", row), price);
         },
 
         fillPricesArray : function(sel) {
-            var defPrices = eval(dom.val(dom.find('#prices')));
-            prices.pricesArr = [];
-            for (var key=0; key<defPrices.length; key++) {
+            var defPrices = eval(dom.val(dom.find('#self')));
+            pricesArr = [];
+            for (var key = 0; key < defPrices.length; key++) {
                 var arr = defPrices[key];
-                prices.pricesArr[arr['id']] = arr['price'];
+                pricesArr[arr['id']] = arr['price'];
             }
         },
 
-        modelName : '',
-        setModelName : function(modelName) {
-            prices.modelName = modelName;
+        setModelName : function(str) {
+            modelName = str;
         }
     };
-
 }());
-
-var bindArticleChange = function() {
-    // при смене товара меняем цену
-    var articleSelects = dom.findAll(".article select");
-    for (var key=0; key<articleSelects.length; key++)
-        articleSelects[key].addEventListener("change", function() {
-            prices.updatePriceInput(this);
-            prices.calcSums();
-        });
-};
-var bindInpsChange = function(className) {
-    var inps = dom.findAll("." + className + " input");
-    for (var key=0; key<inps.length; key++)
-        inps[key].addEventListener("change", prices.calcSums);
-};
-var bindDelBtns = function() {
-    var delBtns = dom.findAllByClass("delete-btn");
-    for (var key=0; key<delBtns.length; key++)
-        bindDelParent(delBtns[key]);
-};

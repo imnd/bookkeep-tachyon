@@ -86,7 +86,7 @@ var validation = (function() {
 							    message: 'поле "' + fieldMetadata.title + '" обязательно для заполнения.'
 						    }); // TODO: закинуть сообщение в конфиг
                         }
-					} else if (objFn.isObject(checkItm)) {
+					} else if (obj.isObject(checkItm)) {
 						// сравнение полей на идентичность
                         if (compareField = checkItm.compare) {
 							if (fieldData!==this.data[compareField]) {
@@ -154,7 +154,7 @@ var validation = (function() {
                 if (type=='error') 
                     message += 'Внимание! ';
 
-                if (objFn.isArray(messageData)) {
+                if (obj.isArray(messageData)) {
                     for (var i=0; i<messageData.length; i++)
                         message += messageData[i].message + '; ';
                 } else
@@ -167,13 +167,13 @@ var validation = (function() {
 			if (type=='error') 
 				message += '<b>Внимание</b>';
 
-			if (objFn.isArray(messageData)===true) {
+			if (obj.isArray(messageData)===true) {
 				message += '<ul>';
 				for (var i=0; i<messageData.length; i++)
 					message += '<li>' + messageData[i].message + '</li>';
 
 				message+='</ul>';
-            } else if (objFn.isObject(messageData)===true) {
+            } else if (obj.isObject(messageData)===true) {
                 message += '<ul>';
                 for (var key in messageData)
                     message += '<li>' + key + ": " + messageData[key] + '</li>';

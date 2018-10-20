@@ -1,4 +1,5 @@
 <script type="text/javascript" src="/assets/js/table.js"></script>
+<script type="text/javascript" src="/assets/js/ajax.js"></script>
 <script type="text/javascript" src="/assets/js/prices.js"></script>
 <?php
 $modelName = $model->getClassName();

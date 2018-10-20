@@ -162,9 +162,6 @@ var dom = {
 
 var ajax = {
     resp : {},
-    post : function (handlerPath, params, callback, respType) {
-        this.sendRequest(handlerPath, params, callback, respType, "POST");
-    },
     get : function (handlerPath, params, callback, respType) {
         if (typeof params === "function") {
             respType = callback;
@@ -173,61 +170,104 @@ var ajax = {
         }
         this.sendRequest(handlerPath, params, callback, respType, "GET");
     },
-    sendRequest : function(handlerPath, params, callback, respType, type) {
-        if (respType===undefined) {
-            respType = "json"
-        }
-        handlerPath += "?ajax=true";
-        if (type=="GET") {
-            for (var key in params)
-                handlerPath += "&" + key + "=" + params[key];
-
-            params = null;
-        }
+    post : function (handlerPath, data, callback, respType, contentType) {
+        this.sendRequest({
+            handlerPath : handlerPath,
+            data : data,
+            callback : callback,
+            respType : respType,
+            type : "POST",
+            contentType : contentType,
+        });
+    },
+    file : function (handlerPath, data, callback, respType) {
+        contentType = "multipart/form-data";
+    },
+    sendRequest : function(options) {
         var xhr = this.createRequest();
-        if (xhr) {
-            xhr.open(type, handlerPath, true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.send(params);
-            xhr.onload = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        var rData = xhr.responseText;
-                        if (respType==="json") {
-                            if (rData=="true")
-                                return {success: true};
-
-                            if (rData=="false")
-                                return {success: false};
-
-                            var eData = !(/[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test(rData.replace(/"(\\.|[^"\\])*"/g, ""))) && eval("(" + rData + ")");
-                            var eArray = new Object(eData);
-                            callback(eArray);
-                        } else {
-                            callback(rData);
-                        }
-                    } else {
-                        alert("Не удалось получить данные:\n" + req.statusText);
-                    }
-                }
-            };
-        } else {
+        if (!xhr) {
             alert("Браузер не поддерживает AJAX");
+            return;            
         }
+        var
+            handlerPath = options["handlerPath"] + "?ajax=true",
+            callback = options["callback"],
+            requestType = options["type"],
+            data = options["data"] || {},
+            respType = options["respType"] || "json",
+            contentType = options["contentType"] || "application/x-www-form-urlencoded"
+        ;
+
+        if (requestType=="GET") {
+            for (var key in data)
+                handlerPath += "&" + key + "=" + data[key];
+
+            data = '';
+        }
+        xhr.open(requestType, handlerPath, true);
+        if (contentType=="multipart/form-data") {
+            var boundary = String(Math.random()).slice(2);
+            contentType += '; boundary=' + boundary;
+            var
+                boundaryMiddle = '--' + boundary + '\r\n',
+                boundaryLast = '--' + boundary + '--\r\n',
+                body = ['\r\n'],
+                fileName = "1.jpg"
+            ;
+            for (var key in data) {
+                // добавление поля
+                body.push('Content-Disposition: form-data; name="' + key + '"; filename="' + fileName + '"\r\nContent-Type: image/jpeg\r\n\r\n' + data[key] + '\r\n');
+            }
+            data = body.join(boundaryMiddle) + boundaryLast;
+        } else {
+            var body = [];
+            for (var key in data) {
+                body.push(key + "=" + data[key]);
+            }
+            data = body.join("&");
+        }
+        xhr.setRequestHeader("Content-Type", contentType);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var rData = xhr.responseText;
+                    if (respType==="json") {
+                        if (rData=="true")
+                            return {success: true};
+
+                        if (rData=="false")
+                            return {success: false};
+
+                        var eData = !(/[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test(rData.replace(/"(\\.|[^"\\])*"/g, ""))) && eval("(" + rData + ")");
+                        var eArray = new Object(eData);
+                        callback(eArray);
+                    } else {
+                        callback(rData);
+                    }
+                } else {
+                    alert("Не удалось получить данные:\n" + xhr.statusText);
+                }
+            }
+        };
+        // Тело запроса готово, отправляем
+        xhr.send(data);
     },
     createRequest : function () {
-        var req;
-        if (window.XMLHttpRequest)
-            req = new XMLHttpRequest();
-        else if (window.ActiveXObject) {
+        if (window.XMLHttpRequest) {
+            return new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            var xhr;
             try {
-                req = new ActiveXObject("Msxml2.XMLHTTP"); 
+                xhr = new ActiveXObject("Msxml2.XMLHTTP"); 
             } catch (e){}
             try {
-                req = new ActiveXObject("Microsoft.XMLHTTP");
-            } catch (e){}
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (e){
+                return false;
+            }
+            return xhr;
         }
-        return req;
+        return false;
     },
 };
 

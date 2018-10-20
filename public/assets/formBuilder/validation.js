@@ -1,4 +1,4 @@
-var Validation = function() {
+var validation = (function() {
 	return {
         msgContainerId : 'errors_list',
 		checkRules : {
@@ -47,20 +47,22 @@ var Validation = function() {
 		data : [],
 		metadata : [],
 		
-		Run : function (fields) {
+		run : function (fields) {
             this.msgContainer = dom.findById(this.msgContainerId);
 			this.msgContainer.innerHTML = '';
-            this.SetData(fields);
-			var invalidFields = this.ValidateData();
+            this.setData(fields);
+			var invalidFields = this.validateData();
 			if (invalidFields.length>0) {
-				this.ShowMessage(invalidFields, 'error');
+				this.showMessage(invalidFields, 'error');
 				return false;
 			}
 			return true;
 		},
 
-		// проверяем поля на валидность
-		ValidateData : function () {
+		/**
+         * проверяем поля на валидность
+         */
+		validateData : function () {
 			var invalidFields = [];
 			var field = {};
 			var fieldData = '';
@@ -100,7 +102,7 @@ var Validation = function() {
 							var checkRule = this.checkRules[checkKey];
                             if (checkItm!==checkKey)
                                 continue;
-							this.CheckData(dataKey, checkKey, checkItm, checkRule['rule'], checkRule['msg'], invalidFields);
+							this.checkData(dataKey, checkKey, checkItm, checkRule['rule'], checkRule['msg'], invalidFields);
 						}
 					}
 				}
@@ -109,7 +111,7 @@ var Validation = function() {
 			return invalidFields;
 		},
 
-		CheckData : function (dataKey, checkKey, checkItm, rule, errMsg, invalidFields) {
+		checkData : function (dataKey, checkKey, checkItm, rule, errMsg, invalidFields) {
             var ruleArr = rule.split('|');
 			var pattern = ruleArr[0];
 			var flags = ruleArr[1];
@@ -128,7 +130,7 @@ var Validation = function() {
 			}
 		},
 
-		SetData : function (fields) {
+		setData : function (fields) {
 			this.data = {};
 			this.metadata = {};
 
@@ -142,8 +144,10 @@ var Validation = function() {
 			}
 		},
 
-		// отображение сообщения
-		ShowMessage : function(messageData, type) {
+		/**
+         * отображение сообщения
+         */
+		showMessage : function(messageData, type) {
             var message = '';
             this.msgContainer = dom.findById(this.msgContainerId);
             if (this.msgContainer===null) {
@@ -182,5 +186,4 @@ var Validation = function() {
 			this.msgContainer.innerHTML = '<div class="' + type + '">' + message + '</div>';
 		},
 	};
-};
-var validation = Validation();
+})();

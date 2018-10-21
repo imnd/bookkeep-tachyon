@@ -44,7 +44,6 @@ var prices = (function() {
             var priceElt = dom.find('.price', row);
             var priceInp = dom.find('input', priceElt);
             var quantityElt = dom.find('.quantity', row);
-            var sumInp = dom.find('input', dom.find('.sum', row));
             // если это не форма а обычная таблица
             if (priceInp.length==0) {
                 var price = dom.val(priceElt);
@@ -53,6 +52,7 @@ var prices = (function() {
                 var price = dom.val(priceInp);
                 var quantity = dom.val(dom.find('input', quantityElt));
             }
+            var sumInp = dom.find('input', dom.find('.sum', row));
             if (price!=='' && quantity!=='') {
                 price = price.replace(',', '.') * 1;
                 price = price.toFixed(2);
@@ -125,7 +125,7 @@ var prices = (function() {
             dom.val(dom.find(".price input", row), price);
         },
 
-        fillPricesArray : function(sel) {
+        fillPricesArray : function() {
             var defPrices = eval(dom.val(dom.find('#self')));
             pricesArr = [];
             for (var key = 0; key < defPrices.length; key++) {

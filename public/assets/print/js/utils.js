@@ -1,15 +1,13 @@
 var utils = (function() {
     
     var
-        _split = function (number, points)
-        {
-            number = parseFloat(number);
-            whole = Math.floor(number);
-            var fractional = number - whole;
-            if (fractional > 0) {
-                fractional *= Math.pow(10, points /*- fractional.length*/);
-            }
-            return [whole.toString(), Math.floor(fractional)];
+        splitNum = function(number) {
+            var str = number.toString();
+            arr = str.split(".");
+            if (arr[1]===undefined)
+                arr[1] = 0;
+
+            return arr;
         },
 
         /**
@@ -19,8 +17,7 @@ var utils = (function() {
          * @param {string} gender грамматический род
          * @return {string} 
          */
-        _ending = function (number, gender)
-        {
+        ending = function(number, gender) {
             numbStr = number.toString();
             numbLen = numbStr.length;
             if (numbLen==3) {
@@ -45,8 +42,7 @@ var utils = (function() {
             }    
         },
 
-        _strPad = function (input, length, string, type)
-        {
+        strPad = function(input, length, string, type) {
             var half = '',
                 padToGo;
 
@@ -88,11 +84,10 @@ var utils = (function() {
          * @param {number} number
          * @return {string} 
          */
-        convPriceToWords : function (number)
-        {
-            result = _split(number, 2);
+        convPriceToWords : function(number) {
+            result = splitNum(number);
             var roubles = result[0];
-            return this.convNumToWords(roubles) + ' рубл' + ['ей', 'ь', 'я', 'я', 'я', 'ей', 'ей', 'ей', 'ей', 'ей'][roubles.substr(roubles.length - 1, 1)] + ' ' + _strPad(result[1], 2, 0) + ' копеек';
+            return this.convNumToWords(roubles) + " рубл" + ["ей", "ь", "я", "я", "я", "ей", "ей", "ей", "ей", "ей"][roubles.substr(roubles.length - 1, 1)] + " " + strPad(result[1], 2, 0) + " копеек";
         },
 
         /**
@@ -101,10 +96,9 @@ var utils = (function() {
          * @param {number} number
          * @return {string} 
          */
-        convWeightToWords : function (number)
-        {
-            result = _split(number, 3);
-            return this.convNumToWords(result[0]) + ' килограмм ' + result[1] + ' грамм';
+        convWeightToWords : function(number) {
+            result = splitNum(number);
+            return this.convNumToWords(result[0]) + " килограмм " + result[1] + " грамм";
         },
 
         /**
@@ -114,16 +108,15 @@ var utils = (function() {
          * @param {number} order
          * @return {string} 
          */
-        convNumToWords : function (number, order)
-        {
+        convNumToWords : function(number, order) {
             if (order===undefined)
                 order = 0;
 
             var numbersAsWords = [
-                ['', 'один', 'два', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять', 'деcять', 'одиннадцать', 'двенадцать', 'тринадцать', 'четырнадцать', 'пятнадцать', 'шестнадцать', 'семнадцать', 'восемнадцать', 'девятнадцать'],
-                ['', '', 'двадцать', 'тридцать', 'сорок', 'пятьдесят', 'шестьдесят', 'семьдесят', 'восемьдесят', 'девяносто'],
-                ['', 'сто', 'двести', 'триста', 'четыреста', 'пятьсот', 'шестьсот', 'семьсот', 'восемьсот', 'девятьсот'],
-                ['', 'одна', 'две', 'три', 'четыре', 'пять', 'шесть', 'семь', 'восемь', 'девять', 'десять', 'одиннадцать', 'двенадцать', 'тринадцать', 'четырнадцать', 'пятнадцать', 'шестнадцать', 'семнадцать', 'восемнадцать', 'девятнадцать']    
+                ["", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "деcять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"],
+                ["", "", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто"],
+                ["", "сто", "двести", "триста", "четыреста", "пятьсот", "шестьсот", "семьсот", "восемьсот", "девятьсот"],
+                ["", "одна", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"]    
             ];
             numbStr = number.toString();
             switch (numbStr.length) {
@@ -132,30 +125,30 @@ var utils = (function() {
                     if (number < 20) 
                         return numbersAsWords[order][number];
                     
-                    return numbersAsWords[1][Math.floor(number / 10)] + ' ' + this.convNumToWords(number % 10, order);
+                    return numbersAsWords[1][Math.floor(number / 10)] + " " + this.convNumToWords(number % 10, order);
                 case 3:
-                    return numbersAsWords[2][Math.floor(number / 100)] + ' ' + this.convNumToWords(number % 100, order);
+                    return numbersAsWords[2][Math.floor(number / 100)] + " " + this.convNumToWords(number % 100, order);
                 case 4:
                     thousands = Math.floor(number / 1000);
-                    return numbersAsWords[3][thousands] + ' тысяч' + _ending(thousands, 'feminine') + ' ' + this.convNumToWords(number % 1000, order);
+                    return numbersAsWords[3][thousands] + " тысяч" + ending(thousands, "feminine") + " " + this.convNumToWords(number % 1000, order);
                 case 5:
                 case 6:
                     thousands = Math.floor(number / 1000);
-                    return this.convNumToWords(thousands, 3) + ' тысяч' + _ending(thousands, 'feminine') + ' ' + this.convNumToWords(number % 1000);
+                    return this.convNumToWords(thousands, 3) + " тысяч" + _ending(thousands, "feminine") + " " + this.convNumToWords(number % 1000);
                 case 7:
                 case 8:
                     millions = Math.floor(number / 1000000);
                     if (millions < 20)
                         millionsInWords = numbersAsWords[0][millions];
                     else
-                        millionsInWords = numbersAsWords[1][Math.floor(millions / 10)] + ' ' + this.convNumToWords(millions % 10);
+                        millionsInWords = numbersAsWords[1][Math.floor(millions / 10)] + " " + this.convNumToWords(millions % 10);
                         
-                    return millionsInWords + ' миллион' + _ending(millions, 'masculine') + ' ' + this.convNumToWords(number % 1000000, 3);
+                    return millionsInWords + " миллион" + _ending(millions, "masculine") + " " + this.convNumToWords(number % 1000000, 3);
                 case 9:
                     millions = Math.floor(number / 1000000);
-                    return this.convNumToWords(millions) + ' миллион' + _ending(millions, 'masculine') + ' ' + this.convNumToWords(number % 1000000);
+                    return this.convNumToWords(millions) + " миллион" + _ending(millions, "masculine") + " " + this.convNumToWords(number % 1000000);
                 default:
-                    return '';
+                    return "";
             }
         }
     };                

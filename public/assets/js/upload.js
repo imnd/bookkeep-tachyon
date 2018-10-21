@@ -1,5 +1,31 @@
-var file = (function() {
+/**
+ * Компонент работы с файламию
+ * 
+ * Использование:
+ * <form>
+ *      <input type="file" id="file" />
+ *      <input type="button" id="file-upload" value="Отправить" />
+ * </form>
+ * <script> 
+ * Upload.defaults({
+ *     "chunk-size" : 120000,
+ *     "file-id" : "file",
+ *     "upload-url" : "accept.php",
+ *     "complete-callback" : function() {
+ *         ...
+ *     },
+ * });
+ * dom.findById('file-upload').addEventListener('click', Upload.run, false);
+ * </script>
+ * 
+ * @constructor
+ * @this  {Upload}
+ */
+var Upload = (function() {
     var
+        /**
+         * параметры
+         */
         settings = {
             /**
              * путь обработчика загрузки
@@ -16,13 +42,16 @@ var file = (function() {
             /**
              * что делать после удачной загрузки
              */
-            "success-callback" : function() {
+            "complete-callback" : function() {
                 alert("Готово");
             }
         },
 
         /**
-         * считывание и загрузки фрагмента файла
+         * Считывание и загрузки фрагмента файла
+         * 
+         * @param {array} options параметры
+         * @return {void} 
          */
         uploadBlob = function(options) {
             var
@@ -39,7 +68,7 @@ var file = (function() {
             ;
             // если мы используем onloadend, нам нужно проверить readyState.
             reader.onloadend = function() {
-                $ajax.post(
+                ajax.post(
                     settings["upload-url"],
                     {
                         "data" : reader.result,
@@ -49,7 +78,7 @@ var file = (function() {
                     },
                     function(data) {
                         if (data.complete==true) {
-                            settings["success-callback"]();
+                            settings["complete-callback"]();
                         }
                     },
                     "json",
@@ -65,7 +94,14 @@ var file = (function() {
             }
             reader.readAsDataURL(blob);
         },
-    
+
+        /**
+         * Установка значения параметра
+         *
+         * @param {string} varName
+         * @param {array} options параметры
+         * @return {void} 
+         */
         setValue = function(varName, options) {
             if (options[varName]!==undefined) {
                 settings[varName] = options[varName];
@@ -74,7 +110,12 @@ var file = (function() {
     ;
 
     return {
-        upload : function() {
+        /**
+         * Загрузка файла по частям на сервер
+         *
+         * @return {void} 
+         */
+        run : function() {
             if (window.File && window.FileReader && window.FileList && window.Blob) {
                 var files = dom.findById(settings["file-id"]).files;
                 if (!files.length) {
@@ -94,8 +135,15 @@ var file = (function() {
                 }
             }
         },
+
+        /**
+         * Установка значений параметров
+         *
+         * @param {array} options параметры
+         * @return {void} 
+         */
         defaults: function(options) {
-            var varNames = ["file-id", "chunk-size", "upload-url", "success-callback"];
+            var varNames = ["file-id", "chunk-size", "upload-url", "complete-callback"];
             for (var key in varNames) {
                 setValue(varNames[key], options);
             }

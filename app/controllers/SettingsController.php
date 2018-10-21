@@ -1,6 +1,8 @@
 <?php
 namespace app\controllers;
 
+use tachyon\helpers\FilesHelper;
+
 /**
  * Контроллер настроек приложения
  * 
@@ -78,5 +80,32 @@ class SettingsController extends \app\components\CrudController
         $this->layout('backup', array(
             'paths' => $this->get('Settings')->getPaths(),
         ));
+    }
+
+    /**
+     * Загрузка файла на сервер по частям
+     */
+    public function upload()
+    {
+        $this->layout('upload');
+    }
+
+    /**
+     * AJAX-handler загрузки частей файла на сервер и сборки файла
+     */
+    public function acceptFile()
+    {
+        $complete = false;
+
+        $data = $_FILES['data'];
+
+        FilesHelper::saveChunk($data['tmp_name']);
+
+        $chunks = FilesHelper::getFiles(FilesHelper::CHUNKS_DIR);
+        if (count($chunks)==$_GET['chunksNum']) {
+            $complete = FilesHelper::spliceChunks($chunks, $data['name']);
+        }
+
+        echo json_encode(compact('complete'));
     }
 }

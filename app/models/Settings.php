@@ -29,7 +29,7 @@ class Settings extends \tachyon\db\models\ArModel
         'key' => 'ключ',
         'value' => 'значение',
     );
-    
+
     public function rules(): array
     {
         return array(
@@ -97,5 +97,25 @@ class Settings extends \tachyon\db\models\ArModel
     {
         $row = $this->getByKey($key);
         return $row['name'];
+    }
+
+    /**
+     * Пути для сохранения бэкапов
+     * 
+     * @return array
+     */
+    public function getPaths()
+    {
+        /*"
+            SELECT {$this->tableColumns}
+            FROM " . static::$tableName . "
+            WHERE `key` LIKE '%path%'
+            ORDER BY `key`
+        "*/
+
+        return array(
+            $this->getValueByKey('path0'),
+            $this->getValueByKey('path1'),
+        );
     }
 }

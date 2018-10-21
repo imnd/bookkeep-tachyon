@@ -44,7 +44,7 @@ class Bills extends \tachyon\db\models\ArModel
         'plural' => 'платежи'
     );
 
-    public function rules()
+    public function rules(): array
     {
         return array(
             'contract_num' => array('integer', 'required'),

@@ -1,6 +1,10 @@
-<script type="text/javascript" src="/assets/js/dom.js"></script>
-<script type="text/javascript" src="/assets/js/ajax.js"></script>
-<script type="text/javascript" src="/assets/js/upload.js"></script>
+<?php 
+use \tachyon\helpers\AssetHelper;
+
+echo AssetHelper::getCore("dom.js");
+echo AssetHelper::getCore("ajax.js");
+echo AssetHelper::getCore("upload.js");
+?>
 <form>
     <input type="file" id="file" />
     <input type="button" id="file-upload" value="Отправить" />&nbsp;

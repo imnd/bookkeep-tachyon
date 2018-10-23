@@ -3,8 +3,8 @@
 <head>
 	<title><?=$this->pageTitle?></title>
 	<meta http-equiv="content-type" content="text/html; charset=<?=$this->config->getOption('encoding')?>" />
-	<link rel="stylesheet" href="/assets/css/style.css" type="text/css" media="screen" charset="<?=$this->config->getOption('encoding')?>" />
-    <script type="text/javascript" src="/assets/js/dom.js"></script>
+    <link rel="stylesheet" href="/assets/css/style.css" type="text/css" media="screen" charset="<?=$this->config->getOption('encoding')?>" />
+    <?=\tachyon\helpers\AssetHelper::getCore("dom.js")?>
 </head>
 <body class="<?=$this->getProperty('bodyClass')?>">
 	<div class="main" id="menu">

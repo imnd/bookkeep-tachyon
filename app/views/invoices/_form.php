@@ -1,20 +1,22 @@
+<?=\tachyon\helpers\AssetHelper::getCore("ajax.js")?>
 <script type="text/javascript" src="/assets/js/table.js"></script>
-<script type="text/javascript" src="/assets/js/ajax.js"></script>
 <script type="text/javascript" src="/assets/js/prices.js"></script>
-<?php
-use tachyon\dic\Container;
+
+<?php 
+echo $this->html->formOpen(array('method' => 'POST'));
 
 $modelName = $model->getClassName();
-echo $this->html->formOpen(array('method' => 'POST'));
 ?>
     <div class="row">
         <?=$this->html->labelEx($model, 'number')?>
         <?=$this->html->inputEx($model, 'number')?>
     </div>
     <div class="row">
+        <?=
+        $this->html->labelEx($model, 'date'),
+        $this->html->inputEx($model, 'date')
+        ?>
         <?php
-        echo $this->html->labelEx($model, 'date');
-        echo $this->html->inputEx($model, 'date');
         $this->widget(array(
             'class' => 'Datepicker',
             'fieldNames' => array("{$modelName}[date]"),
@@ -51,12 +53,6 @@ echo $this->html->formOpen(array('method' => 'POST'));
             foreach ($model->rows as $row)
                 $this->display('_row', compact('row', 'articles'));
         ?>
-        <?php /*
-        <tr>
-            <td colspan="4"><b>Оплачено:</b></td>
-            <td><?=$this->html->inputEx($model, 'payed'); ?></td>
-        </tr>
-        */?>
         <tr class="total">
             <td colspan="4"><b>Итого:</b></td>
             <td class="total"><?=$model->sum?></td>
@@ -82,5 +78,5 @@ echo $this->html->formOpen(array('method' => 'POST'));
         dom.findByName(prices.modelName + "[contract_num]").addEventListener("change", prices.updatePrices);
     });
 </script>
-<script type="text/javascript" src="/assets/js/bindBtnHandlers.js"></script>
+<script type="text/javascript" src="/assets/js/bind-btn-handlers.js"></script>
 

@@ -1,7 +1,8 @@
+<?=\tachyon\helpers\AssetHelper::getCore("ajax.js")?>
 <script type="text/javascript" src="/assets/js/table.js"></script>
-<script type="text/javascript" src="/assets/js/ajax.js"></script>
 <script type="text/javascript" src="/assets/js/prices.js"></script>
-<?php
+
+<?php 
 $modelName = $model->getClassName();
 echo $this->html->formOpen(array('method' => 'POST'));
 ?>
@@ -100,4 +101,4 @@ echo $this->html->formOpen(array('method' => 'POST'));
         prices.setModelName('<?=$modelName?>');
     });
 </script>
-<script type="text/javascript" src="/assets/js/bindBtnHandlers.js"></script>
+<script type="text/javascript" src="/assets/js/bind-btn-handlers.js"></script>

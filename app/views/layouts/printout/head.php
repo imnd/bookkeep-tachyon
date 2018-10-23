@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title><?=$this->pageTitle?></title>
+
     <link rel="stylesheet" type="text/css" href="/assets/print/css/style.css" />
-    <script type="text/javascript" src="/assets/js/dom.js"></script>
+    <?=\tachyon\helpers\AssetHelper::getCore("dom.js")?>
     <script type="text/javascript" src="/assets/print/js/utils.js"></script>
 </head>
 <body class="print <?=$this->controller->getId()?>">

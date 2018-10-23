@@ -1,5 +1,8 @@
-<?=
-$this->html->formOpen(),
+<?=\tachyon\helpers\AssetHelper::getCore("ajax.js")?>
+<script type="text/javascript" src="/assets/js/prices.js"></script>
+
+<?php 
+echo $this->html->formOpen(),
     'за: ', $this->html->input(array(
         'name' => 'date',
         'value' => $date
@@ -16,8 +19,6 @@ $this->html->formOpen(),
 $this->pageTitle = 'Собираем закупку';
 if (!empty($items)) {?>
     <hr />
-    <script type="text/javascript" src="/assets/js/ajax.js"></script>
-    <script type="text/javascript" src="/assets/js/prices.js"></script>
     <script><!--
         dom.ready(function() {
             bindInpsChange('quantity');

@@ -19,9 +19,9 @@
  * </script>
  * 
  * @constructor
- * @this  {Upload}
+ * @this  {upload}
  */
-var Upload = (function() {
+var upload = (function() {
     var
         /**
          * параметры
@@ -58,13 +58,13 @@ var Upload = (function() {
                 file = options["file"],
                 startByte = options["startByte"],
                 stopByte = options["stopByte"],
-                chunksNum = options["chunksNum"] || 0,
+                chunksCount = options["chunksCount"] || 0,
                 fileNum = options["fileNum"] || 0
             ;
             var
                 reader = new FileReader(),
                 start = parseInt(startByte) || 0,
-                stop = (parseInt(stopByte) || file.size - 1) + 1
+                stop = parseInt(stopByte) || file.size - 1
             ;
             // если мы используем onloadend, нам нужно проверить readyState.
             reader.onloadend = function() {
@@ -72,8 +72,9 @@ var Upload = (function() {
                     settings["upload-url"],
                     {
                         "data" : reader.result,
-                        "name" : file.name,
-                        "chunksNum" : chunksNum,
+                        "fileName" : file.name,
+                        "fileType" : file.type,
+                        "chunksCount" : chunksCount,
                         "fileNum" : fileNum,
                     },
                     function(data) {
@@ -123,13 +124,13 @@ var Upload = (function() {
                     return;
                 }
                 var file = files[0];
-                var chunksNum = Math.ceil(file.size / settings["chunk-size"]);
-                for (var fileNum = 0; fileNum < chunksNum; fileNum++) {
+                var chunksCount = Math.ceil(file.size / settings["chunk-size"]);
+                for (var fileNum = 0; fileNum < chunksCount; fileNum++) {
                     uploadBlob({
                         "file" : file,
                         "startByte" : settings["chunk-size"] * fileNum,
                         "stopByte" : settings["chunk-size"] * (fileNum + 1),
-                        "chunksNum" : chunksNum,
+                        "chunksCount" : chunksCount,
                         "fileNum" : fileNum,
                     });
                 }

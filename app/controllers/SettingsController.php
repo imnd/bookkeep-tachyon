@@ -101,8 +101,8 @@ class SettingsController extends \app\components\CrudController
 
         FilesHelper::saveChunk($data['tmp_name']);
 
-        $chunks = FilesHelper::getFiles(FilesHelper::CHUNKS_DIR);
-        if (count($chunks)==$_GET['chunksNum']) {
+        $chunks = FilesHelper::getChunkNames();
+        if (count($chunks)==$_GET['chunksCount']) {
             $complete = FilesHelper::spliceChunks($chunks, $data['name']);
         }
 

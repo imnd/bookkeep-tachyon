@@ -7,14 +7,14 @@
     <span id="complete" style="color: green;"></span>
 </form>
 <script><!--
-    Upload.defaults({
-        "chunk-size" : 120000,
+    upload.defaults({
+        "chunk-size" : 600000,
         "file-id" : "file",
         "upload-url" : "/settings/acceptFile",
         "complete-callback" : function() {
             dom.findById('complete').innerHTML = 'Готово';
         },
     });
-    dom.findById('file-upload').addEventListener('click', Upload.run, false);
+    dom.findById('file-upload').addEventListener('click', upload.run, false);
 //--></script>
 </html>

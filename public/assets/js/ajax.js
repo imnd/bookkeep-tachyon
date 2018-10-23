@@ -31,36 +31,27 @@ var ajax = {
             return;            
         }
         var
+            sendData,
             path = options["path"] + "?ajax=true",
             callback = options["callback"],
             requestType = options["type"],
             data = options["data"] || {},
-            sendData = '',
             respType = options["respType"] || "json",
             contentType = options["contentType"] || "application/x-www-form-urlencoded"
         ;
 
         if (requestType=="GET") {
-            for (var key in data)
-                path += "&" + key + "=" + data[key];
-        }
-        if (contentType=="multipart/form-data") {
+            path = this.appendPath(path, data);
+        } else if (contentType=="multipart/form-data") {
             var boundary = String(Math.random()).slice(2);
             contentType += '; boundary=' + boundary;
-            var
-                boundaryMiddle = '--' + boundary + '\r\n',
-                boundaryLast = '--' + boundary + '--\r\n',
-                fileName = data.name
-            ;
-            sendData = '\r\n' + boundaryMiddle + 'Content-Disposition: form-data; name="data"; filename="' + fileName + '"\r\nContent-Type: image/jpeg\r\n\r\n' + data.data + '\r\n';
-            sendData += boundaryLast;
-            delete(data.name);
-            delete(data.data);
-            for (var key in data) {
-                path += "&" + key + "=" + data[key];
-            }
+            sendData = '\r\n--' + boundary + '\r\nContent-Disposition: form-data; name="data"; filename="' + data.fileName + '"\r\nContent-Type: ' + data.fileType + '\r\n\r\n' + data.data + '\r\n--' + boundary + '--\r\n';
+            delete data.fileName;
+            delete data.fileType;
+            delete data.data;
+            path = this.appendPath(path, data);
         } else {
-            var sendData = [];
+            sendData = [];
             for (var key in data) {
                 sendData.push(key + "=" + data[key]);
             }
@@ -73,12 +64,12 @@ var ajax = {
                 if (xhr.status === 200) {
                     var rData = xhr.responseText;
                     if (respType==="json") {
-                        if (rData=="true")
+                        if (rData=="true") {
                             return {success: true};
-
-                        if (rData=="false")
+                        }
+                        if (rData=="false") {
                             return {success: false};
-
+                        }
                         var eData = !(/[^,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]/.test(rData.replace(/"(\\.|[^"\\])*"/g, ""))) && eval("(" + rData + ")");
                         var eArray = new Object(eData);
                         callback(eArray);
@@ -91,7 +82,13 @@ var ajax = {
         // Тело запроса готово, отправляем
         xhr.send(sendData);
     },
-    createRequest : function () {
+    appendPath : function(path, data) {
+        for (var key in data) {
+            path += "&" + key + "=" + data[key];
+        }
+        return path;
+    },
+    createRequest : function() {
         if (window.XMLHttpRequest) {
             return new XMLHttpRequest();
         } else if (window.ActiveXObject) {

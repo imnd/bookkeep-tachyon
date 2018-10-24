@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <title><?=$this->pageTitle?></title>
 
-    <link rel="stylesheet" type="text/css" href="/assets/print/css/style.css" />
-    <?=$this->assetManager->coreJs("dom")?>
-    <script type="text/javascript" src="/assets/print/js/utils.js"></script>
+    <?=
+    $this->assetManager->css("style", array('assets', 'print', 'css')),
+    $this->assetManager->coreJs("dom"),
+    $this->assetManager->js("utils", array('assets', 'print', 'js'))
+    ?>
 </head>
 <body class="print <?=$this->controller->getId()?>">
     <div id="container">

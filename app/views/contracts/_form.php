@@ -1,10 +1,9 @@
-<?=$this->assetManager->coreJs("ajax")?>
-<script type="text/javascript" src="/assets/js/table.js"></script>
-<script type="text/javascript" src="/assets/js/prices.js"></script>
+<?=
+    $this->assetManager->coreJs("ajax"),
+    $this->assetManager->js("table"),
+    $this->assetManager->js("prices"),
 
-<?php 
-$modelName = $model->getClassName();
-echo $this->html->formOpen(array('method' => 'POST'));
+    $this->html->formOpen(array('method' => 'POST'))
 ?>
     <div class="row">
         <?php /*
@@ -41,7 +40,9 @@ echo $this->html->formOpen(array('method' => 'POST'));
         $this->html->inputEx($model, 'term_end')
         ?>
     </div>
-    <?php $this->widget(array(
+    <?php
+    $modelName = $model->getClassName();
+    $this->widget(array(
         'class' => 'Datepicker',
         'fieldNames' => array("{$modelName}[date]", "{$modelName}[term_start]", "{$modelName}[term_end]"),
     ))?>
@@ -101,4 +102,4 @@ echo $this->html->formOpen(array('method' => 'POST'));
         prices.setModelName('<?=$modelName?>');
     });
 </script>
-<script type="text/javascript" src="/assets/js/bind-btn-handlers.js"></script>
+<?=$this->assetManager->js("bind-btn-handlers")?>

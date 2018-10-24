@@ -1,8 +1,10 @@
-<?=$this->assetManager->coreJs("ajax")?>
-<script type="text/javascript" src="/assets/js/table.js"></script>
-<script type="text/javascript" src="/assets/js/prices.js"></script>
+<?=
+    $this->assetManager->coreJs("ajax"),
+    $this->assetManager->js("table"),
+    $this->assetManager->js("prices"),
 
-<?=$this->html->formOpen(array('method' => 'POST'))?>
+    $this->html->formOpen(array('method' => 'POST'))
+?>
     <div class="row">
         <?=
         $this->html->labelEx($model, 'number'),
@@ -81,5 +83,4 @@
         dom.findByName(prices.modelName + "[contract_num]").addEventListener("change", prices.updatePrices);
     });
 </script>
-<script type="text/javascript" src="/assets/js/bind-btn-handlers.js"></script>
-
+<?=$this->assetManager->js("bind-btn-handlers")?>

@@ -1,8 +1,9 @@
-<?=$this->assetManager->coreJs("ajax")?>
-<script type="text/javascript" src="/assets/js/prices.js"></script>
+<?=
+$this->assetManager->coreJs("ajax"),
+$this->assetManager->js("prices"),
 
-<?php 
-echo $this->html->formOpen(),
+$this->html->formOpen(),
+
     'за: ', $this->html->input(array(
         'name' => 'date',
         'value' => $date
@@ -14,7 +15,8 @@ echo $this->html->formOpen(),
     )),
     '&nbsp;',
     $this->html->submit('Собрать'),
-    $this->html->formClose();
+
+$this->html->formClose();
 
 $this->pageTitle = 'Собираем закупку';
 if (!empty($items)) {?>

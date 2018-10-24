@@ -2,14 +2,12 @@
 <script type="text/javascript" src="/assets/js/table.js"></script>
 <script type="text/javascript" src="/assets/js/prices.js"></script>
 
-<?php 
-echo $this->html->formOpen(array('method' => 'POST'));
-
-$modelName = $model->getClassName();
-?>
+<?=$this->html->formOpen(array('method' => 'POST'))?>
     <div class="row">
-        <?=$this->html->labelEx($model, 'number')?>
-        <?=$this->html->inputEx($model, 'number')?>
+        <?=
+        $this->html->labelEx($model, 'number'),
+        $this->html->inputEx($model, 'number')
+        ?>
     </div>
     <div class="row">
         <?=
@@ -17,6 +15,7 @@ $modelName = $model->getClassName();
         $this->html->inputEx($model, 'date')
         ?>
         <?php
+        $modelName = $model->getClassName();
         $this->widget(array(
             'class' => 'Datepicker',
             'fieldNames' => array("{$modelName}[date]"),
@@ -24,15 +23,19 @@ $modelName = $model->getClassName();
         ?>
     </div>
     <div class="row">
-        <?=$this->html->labelEx($model, 'contract_num')?>
-        <?=$this->html->inputEx($model, 'contract_num')?>
+        <?=
+        $this->html->labelEx($model, 'contract_num'),
+        $this->html->inputEx($model, 'contract_num')
+        ?>
     </div>
     <div class="row">
-        <?=$this->html->labelEx($model, 'client_id')?>
-        <?=$this->html->selectEx($model, array(
+        <?=
+        $this->html->labelEx($model, 'client_id'),
+        $this->html->selectEx($model, array(
             'name' => 'client_id',
             'options' => app\models\Clients::getSelectList()
-        ))?>
+        ))
+        ?>
     </div>
     <table class="invoice">
         <tr>

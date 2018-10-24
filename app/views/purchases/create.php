@@ -1,4 +1,4 @@
-<?=\tachyon\helpers\AssetHelper::getCore("ajax.js")?>
+<?=$this->assetManager->publishJs("ajax")?>
 <script type="text/javascript" src="/assets/js/prices.js"></script>
 
 <?php 

@@ -1,9 +1,7 @@
-<?php 
-use \tachyon\helpers\AssetHelper;
-
-echo AssetHelper::getCore("dom.js");
-echo AssetHelper::getCore("ajax.js");
-echo AssetHelper::getCore("upload.js");
+<?= 
+$this->assetManager->publishJs("dom"),
+$this->assetManager->publishJs("ajax"),
+$this->assetManager->publishJs("upload")
 ?>
 <form>
     <input type="file" id="file" />

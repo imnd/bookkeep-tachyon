@@ -25,7 +25,7 @@ foreach ($items as $key => $value) {
     ?>
     <a class="button <?=$buttonClass;?> <?=(strpos($action, '/')!==false) ? substr($action, 0, strpos($action, '/')) : $action;?>" title="<?=$title;?>" href="<?=$widget->getBtnHref($action);?>" id="<?=$widget->getBtnId($action);?>"><?=$title;?></a>
     <?php if (!is_null($type) && $type==='ajax') {?>
-    <?=\tachyon\helpers\AssetHelper::getCore("ajax.js")?>
+    <?=$this->assetManager->publishJs("ajax")?>
     <script><!--
     dom.findById('<?=$widget->getBtnId($action);?>').addEventListener("click", function(e) {
         e.preventDefault();

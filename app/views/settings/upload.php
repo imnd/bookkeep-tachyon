@@ -1,7 +1,7 @@
 <?= 
-$this->assetManager->js("dom"),
-$this->assetManager->js("ajax"),
-$this->assetManager->js("upload")
+$this->assetManager->coreJs("dom"),
+$this->assetManager->coreJs("ajax"),
+$this->assetManager->coreJs("upload")
 ?>
 <form>
     <input type="file" id="file" />

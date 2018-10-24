@@ -1,4 +1,4 @@
-<?=$this->assetManager->publishJs("ajax")?>
+<?=$this->assetManager->js("ajax")?>
 <script type="text/javascript" src="/assets/js/prices.js"></script>
 
 <?php 

@@ -1,7 +1,7 @@
 <?= 
-$this->assetManager->publishJs("dom"),
-$this->assetManager->publishJs("ajax"),
-$this->assetManager->publishJs("upload")
+$this->assetManager->js("dom"),
+$this->assetManager->js("ajax"),
+$this->assetManager->js("upload")
 ?>
 <form>
     <input type="file" id="file" />

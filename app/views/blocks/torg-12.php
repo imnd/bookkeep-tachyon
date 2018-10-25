@@ -1,6 +1,5 @@
 <?php use \tachyon\helpers\DateTimeHelper?>
-
-<link rel="stylesheet" type="text/css" href="/assets/print/css/torg-12.css" />
+<?=$this->assetManager->css('torg-12', 'print/css')?>
 
 <table cellspacing="0">
     <colgroup>

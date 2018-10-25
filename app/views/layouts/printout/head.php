@@ -5,9 +5,9 @@
     <title><?=$this->pageTitle?></title>
 
     <?=
-    $this->assetManager->css("style", array('assets', 'print', 'css')),
-    $this->assetManager->coreJs("dom"),
-    $this->assetManager->js("utils", array('assets', 'print', 'js'))
+    $this->assetManager->css('style', 'print/css'),
+    $this->assetManager->coreJs('dom'),
+    $this->assetManager->js('utils', 'print/js')
     ?>
 </head>
 <body class="print <?=$this->controller->getId()?>">

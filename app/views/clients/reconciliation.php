@@ -1,5 +1,4 @@
-<link rel="stylesheet" type="text/css" href="/assets/print/css/reconciliation.css" />
-
+<?=$this->assetManager->css('reconciliation', 'print/css')?>
 <table>
     <tr class="center bold font-size-14">
         <td colspan=8>Акт сверки</td>

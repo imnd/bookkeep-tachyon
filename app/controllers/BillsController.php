@@ -10,8 +10,14 @@ namespace app\controllers;
  */ 
 class BillsController extends \app\components\CrudController
 {
-    protected $mainMenu = array(
-        'index' => 'баланс',
-        'create' => 'добавить запись',
-    );
+    /** @inheritdoc */
+    public function init()
+    {
+        parent::init();
+
+        $this->mainMenu = array(
+            'index' => 'баланс',
+            'create' => 'добавить запись',
+        );
+    }
 }

@@ -10,11 +10,17 @@ namespace app\controllers;
  */ 
 class ContractsController extends \app\components\CrudController
 {
-    protected $mainMenu = array(
-        'index/contract' => 'список контрактов',
-        'index/agreement' => 'список договоров',
-        'create' => 'добавить',
-    );
+    /** @inheritdoc */
+    public function init()
+    {
+        parent::init();
+
+        $this->mainMenu = array(
+            'index/contract' => 'список контрактов',
+            'index/agreement' => 'список договоров',
+            'create' => 'добавить',
+        );
+    }
 
 	/**
      * Главная страница, список договоров

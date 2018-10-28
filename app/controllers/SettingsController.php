@@ -11,15 +11,14 @@ class SettingsController extends \app\components\CrudController
 {
     use \tachyon\dic\FilesManager;
 
-    protected $mainMenu = array(
-        'requisites' => 'реквизиты',
-        'backup' => 'резервная копия',
-    );
-
     public function init()
     {
         parent::init();
 
+        $this->mainMenu = array(
+            'requisites' => 'реквизиты',
+            'backup' => 'резервная копия',
+        );
         $this->view->setPageTitle('Администрирование');
     }
 

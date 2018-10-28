@@ -7,6 +7,17 @@ namespace app\traits;
  */ 
 trait MenuTrait
 {
+    /**
+     * Главное меню
+     * @var $mainMenu array
+     */
+    protected $mainMenu = array();
+    /**
+     * Меню страницы
+     * @var $subMenu array
+     */
+    protected $subMenu = array();
+
     # сеттеры
 
     /**

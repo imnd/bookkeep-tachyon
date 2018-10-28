@@ -12,14 +12,6 @@ class CrudController extends \tachyon\Controller
 {
     use \app\traits\MenuTrait;
 
-    /**
-     * @inheritdoc
-     */
-    protected $mainMenu = array(
-        'index' => 'список',
-        'create' => 'добавить',
-    );
-
     protected $modelName;
     protected $model;
     protected $message;
@@ -32,6 +24,10 @@ class CrudController extends \tachyon\Controller
     /** @inheritdoc */
     public function init()
     {
+        $this->mainMenu = array(
+            'index' => 'список',
+            'create' => 'добавить',
+        );
         $this->view->setProperty('bodyClass', "{$this->id} {$this->action}");
 
         $modelName = ucfirst($this->id);

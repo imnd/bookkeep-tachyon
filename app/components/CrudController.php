@@ -10,6 +10,8 @@ namespace app\components;
  */
 class CrudController extends \tachyon\Controller
 {
+    use \app\traits\MenuTrait;
+
     /**
      * @inheritdoc
      */
@@ -168,7 +170,7 @@ class CrudController extends \tachyon\Controller
         }
     }
 
-    # Геттеры
+    # геттеры
 
     /**
      * @return string

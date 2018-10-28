@@ -1,8 +1,6 @@
 <?php
 namespace app\controllers;
 
-use app\models\Users;
-
 /**
  * Контроллер начальной страницы
  * 
@@ -11,6 +9,8 @@ use app\models\Users;
  */ 
 class IndexController extends \tachyon\Controller
 {
+    use \app\traits\MenuTrait;
+
     /**
      * Главная страница
      */

@@ -3,9 +3,9 @@ foreach ($items as $key => $value) {
     $type = null;
     if (is_numeric($key)) {
         if (is_array($value)) {
-            if (!isset($value['action']))
-                throw new Exception('Property "action" in menu is undetermined.');
-
+            if (!isset($value['action'])) {
+                throw new \Exception($this->msg->i18n('Property "action" in menu is undetermined.'));
+            }
             if (isset($value['type']))
                 $type = $value['type'];
 

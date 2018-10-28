@@ -1,8 +1,6 @@
 <?php
 namespace app\controllers;
 
-use tachyon\helpers\FilesHelper;
-
 /**
  * Контроллер настроек приложения
  * 
@@ -11,6 +9,8 @@ use tachyon\helpers\FilesHelper;
  */ 
 class SettingsController extends \app\components\CrudController
 {
+    use \tachyon\dic\FilesManager;
+
     protected $mainMenu = array(
         'requisites' => 'реквизиты',
         'backup' => 'резервная копия',
@@ -99,11 +99,11 @@ class SettingsController extends \app\components\CrudController
 
         $data = $_FILES['data'];
 
-        FilesHelper::saveChunk($data['tmp_name']);
+        $this->filesManager->saveChunk($data['tmp_name']);
 
-        $chunks = FilesHelper::getChunkNames();
+        $chunks = $this->filesManager->getChunkNames();
         if (count($chunks)==$_GET['chunksCount']) {
-            $complete = FilesHelper::spliceChunks($chunks, $data['name']);
+            $complete = $this->filesManager->spliceChunks($chunks, $data['name']);
         }
 
         echo json_encode(compact('complete'));

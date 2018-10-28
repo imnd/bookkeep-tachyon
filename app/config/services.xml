@@ -75,5 +75,9 @@
     <service id="Menu" class="\app\components\widgets\menu\Menu"></service>
 
     <service id="CrudController" class="\app\components\CrudController"></service>
-    <service id="SettingsController" class="\app\controllers\SettingsController"></service>
+    <service id="SettingsController" class="\app\controllers\SettingsController">
+        <property name="filesManager">
+            <ref id="FilesManager"/>
+        </property>
+    </service>
 </services>

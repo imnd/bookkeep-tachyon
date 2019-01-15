@@ -1,3 +1,3 @@
-<?php array (
+<?php return array (
     
 );

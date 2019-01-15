@@ -1,6 +1,8 @@
 <?php
 namespace app\controllers;
 
+use app\models\Users;
+
 /**
  * Контроллер начальной страницы
  * 

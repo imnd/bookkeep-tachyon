@@ -16,9 +16,10 @@ class InvoicesController extends \app\components\CrudController
             ->with('rows')
             ->with('client')
             ->with('contract')
-            ->findByPk($pk))
-                $this->error(404, 'Такой фактуры не существует');
-
+            ->findByPk($pk)
+        ) {
+            $this->error(404, 'Такой фактуры не существует');
+        }
         $client = $item->client;
         $contractType = $item->getContractType();
         $contractNum = $item->contract_num;

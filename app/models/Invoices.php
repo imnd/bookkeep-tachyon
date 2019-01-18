@@ -46,7 +46,7 @@ class Invoices extends \app\components\HasRowsModel
         'number' => 'номер',
         'contract_num' => 'номер договора',
         'client_id' => 'клиент',
-        'clientName' => 'клиент',
+        'client_name' => 'клиент',
         'date' => 'дата',
         'dateFrom' => 'дата с',
         'dateTo' => 'дата по',
@@ -95,7 +95,7 @@ class Invoices extends \app\components\HasRowsModel
             ->select(array(
                 '*',
                 'sum-payed' => 'balance',
-                'cl.name' => 'clientName',
+                'cl.name' => 'client_name',
             ));
 
         return parent::getAll($conditions);
@@ -160,7 +160,6 @@ class Invoices extends \app\components\HasRowsModel
     public function getLastNumber(): int
     {
         $item = $this
-            //->setSearchConditions()
             ->select('number')
             ->limit(1)
             ->getOne();

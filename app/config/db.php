@@ -1,8 +1,17 @@
 <?php
+/*return array (
+    'engine' => 'mysql',
+    'host' => 'localhost',
+    'dbname' => 'bookkeep',
+    'user' => 'root',
+    'password' => '',
+    'charset' => 'utf8',
+);*/
 return array (
+    'engine' => 'pgsql',
 	'host' => 'localhost',
-    'name' => 'bookkeep',
-	'user' => 'root',
-	'password' => '',
-	'char_set' => 'utf8',
+    'dbname' => 'bookkeep',
+	'user' => 'postgres',
+	'password' => 'postgres',
+    'charset' => 'utf8',
 );

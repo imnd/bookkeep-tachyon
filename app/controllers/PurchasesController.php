@@ -1,10 +1,7 @@
 <?php
 namespace app\controllers;
 
-use tachyon\{
-    helpers\DateTimeHelper,
-    dic\Container
-};
+use tachyon\helpers\DateTimeHelper;
 
 /**
  * class Purchases

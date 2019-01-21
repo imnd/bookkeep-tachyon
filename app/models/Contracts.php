@@ -135,6 +135,7 @@ class Contracts extends \app\components\HasRowsModel
 
     /**
      * @param array $conditions условия поиска
+     * @return array
      */
     public function getAll(array $conditions=array()): array
     {
@@ -176,8 +177,9 @@ class Contracts extends \app\components\HasRowsModel
     
     /**
      * @param array $conditions условия поиска
+     * @return array
      */
-    public function getItem($conditions=array()): Contracts
+    public function getItem($conditions=array()): array
     {
         $item = $this->getOne($conditions);
         $item['rows'] = $this->get('ContractsRows')

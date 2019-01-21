@@ -85,15 +85,17 @@ class IndexController extends \tachyon\Controller
      */
     public function activate()
     {
-        if ($user = $this->get('Users')->findOne(array(
-            'email' => $this->get['email'],
-        )));
-        if ($user->confirm_code===$this->get['confirm_code']) {
+        if (
+                $user = $this->get('Users')->findOne(array(
+                    'email' => $this->get['email'],
+                ))
+            and $user->confirm_code===$this->get['confirm_code']
+        ) {
             $user->setAttribute('confirmed', Users::STATUS_CONFIRMED);
             $user->update();
-            $msg = "Регистрация прошла успешно.";
+            $msg = 'Регистрация прошла успешно.';
         } else {
-            $error = "Неправильная ссылка.";
+            $error = 'Неправильная ссылка.';
         }
         $this->layout('register-end', compact('msg', 'error'));
     }

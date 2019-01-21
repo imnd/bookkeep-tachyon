@@ -39,11 +39,10 @@ class Settings extends \tachyon\db\models\ArModel
     }
 
     /**
-     * getRequisites
      * Реквизиты фирмы
      * 
      * @param $from string какой фирмы
-     * @return array
+     * @return object
      */
     public function getRequisites($from)
     {
@@ -56,8 +55,6 @@ class Settings extends \tachyon\db\models\ArModel
     }
 
     /**
-     * findByKey
-     * 
      * @param $key string
      * @return \tachyon\db\models\ArModel
      */
@@ -76,8 +73,6 @@ class Settings extends \tachyon\db\models\ArModel
     }
 
     /**
-     * getValueByKey
-     * 
      * @param $key string
      * @return string
      */
@@ -88,8 +83,6 @@ class Settings extends \tachyon\db\models\ArModel
     }
 
     /**
-     * getNameByKey
-     * 
      * @param $key string
      * @return string
      */
@@ -106,13 +99,6 @@ class Settings extends \tachyon\db\models\ArModel
      */
     public function getPaths()
     {
-        /*"
-            SELECT {$this->tableColumns}
-            FROM " . static::$tableName . "
-            WHERE `key` LIKE '%path%'
-            ORDER BY `key`
-        "*/
-
         return array(
             $this->getValueByKey('path0'),
             $this->getValueByKey('path1'),

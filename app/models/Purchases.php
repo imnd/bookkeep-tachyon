@@ -66,7 +66,7 @@ class Purchases extends \app\components\HasRowsModel
         if (is_null($dateTo))
             $dateTo = $dateFrom;
 
-        return $this->db->queryAll("
+        return $this->getDb()->queryAll("
             SELECT
                   ROUND(SUM(sup.quantity), 1) AS quantity
                 , MIN(sup.price) AS min_price

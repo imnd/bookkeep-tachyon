@@ -32,7 +32,7 @@ class Users extends \tachyon\db\models\ArModel
      * Извлекает пользователя
      * 
      * @param array $attributes
-     * @return integer
+     * @return Users
      */
     public function find($attributes)
     {
@@ -45,7 +45,7 @@ class Users extends \tachyon\db\models\ArModel
      * Добавляет нового пользователя
      * 
      * @param array $attributes
-     * @return integer
+     * @return Users
      */
     public function add($attributes)
     {

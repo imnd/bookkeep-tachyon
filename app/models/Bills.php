@@ -7,7 +7,7 @@ namespace app\models;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class Bills extends \tachyon\db\models\ArModel
+class Bills extends \tachyon\db\models\ActiveRecord
 {
     use \tachyon\dic\behaviours\ListBehaviour;
     use \tachyon\dic\behaviours\DateTime;

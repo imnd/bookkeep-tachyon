@@ -7,7 +7,7 @@ namespace app\models;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class ArticleCats extends \tachyon\db\models\ArModel
+class ArticleCats extends \tachyon\db\models\ActiveRecord
 {
     public static $primKey = 'id';
     public static $tableName = 'article_cats';

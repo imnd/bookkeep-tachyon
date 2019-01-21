@@ -7,7 +7,7 @@ namespace app\components;
  * 
  * Класс модели табличного документа
  */
-class HasRowsModel extends \tachyon\db\models\ArModel
+class HasRowsModel extends \tachyon\db\models\ActiveRecord
 {
     protected $rowModelName;
     protected $rowFk;

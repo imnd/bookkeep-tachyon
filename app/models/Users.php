@@ -7,7 +7,7 @@ namespace app\models;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */ 
-class Users extends \tachyon\db\models\ArModel
+class Users extends \tachyon\db\models\ActiveRecord
 {
     const STATUS_NOTCONFIRMED = 0;
     const STATUS_CONFIRMED = 1;

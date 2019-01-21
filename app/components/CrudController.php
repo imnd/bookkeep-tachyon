@@ -143,7 +143,7 @@ class CrudController extends \tachyon\Controller
     }
 
     /**
-     * @param $model \tachyon\db\models\ArModel
+     * @param $model \tachyon\db\models\ActiveRecord
      * @return void
      */
     protected function saveModel($model=null)

@@ -7,7 +7,7 @@ namespace app\models;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class Settings extends \tachyon\db\models\ArModel
+class Settings extends \tachyon\db\models\ActiveRecord
 {
     public static $tableName = 'settings';
     public static $primKey = 'id';
@@ -56,7 +56,7 @@ class Settings extends \tachyon\db\models\ArModel
 
     /**
      * @param $key string
-     * @return \tachyon\db\models\ArModel
+     * @return \tachyon\db\models\ActiveRecord
      */
     public function findByKey($key)
     {

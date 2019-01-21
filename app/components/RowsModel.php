@@ -8,7 +8,7 @@ namespace app\components;
  * class RowsModel
  * Класс модели строк табличного документа
  */
-class RowsModel extends \tachyon\db\models\ArModel
+class RowsModel extends \tachyon\db\models\ActiveRecord
 {
     protected static $parentKey = '';
 

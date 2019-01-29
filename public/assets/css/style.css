@@ -154,6 +154,10 @@ body.error #container #container {
     color: #A00;
     font-style: italic;
 }
+.success {
+    color: #0A0;
+    font-style: italic;
+}
 /* МЕНЮ */
 ul.top_menu,
 ul.main_menu

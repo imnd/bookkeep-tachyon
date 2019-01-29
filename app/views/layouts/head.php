@@ -30,7 +30,6 @@ $this->controller->setMainMenu([
             ],
             'view' => 'top',
         ]);
-
         $this->widget([
             'class' => 'Menu',
             'items' => $this->controller->getMainMenu(),
@@ -46,3 +45,9 @@ $this->controller->setMainMenu([
             'view' => 'sub',
         ))?>
         <h1><?=$this->pageTitle?></h1>
+
+        <div class="messages">
+            <?php foreach (\tachyon\helpers\FlashHelper::getAll() as $type => $message) {?>
+                <div class="<?=$type?>"><?=$message?></div>
+            <?php }?>
+        </div>

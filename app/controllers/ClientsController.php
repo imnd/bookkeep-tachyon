@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use app\entities\Client;
+use tachyon\helpers\FlashHelper;
 
 /**
  * Контроллер клиентов фирмы
@@ -63,7 +64,7 @@ class ClientsController extends \app\components\CrudController
             $client->setAttributes($this->post['Client'] ?? $this->post);
             //if ($client->validate()) {
                 if ($client->getDbContext()->commit()) {
-                    $this->message = 'Сохранено успешно';
+                    FlashHelper::set('Сохранено успешно', FlashHelper::TYPE_SUCCESS);
                     $this->redirect("/{$this->id}");
                 }
             //}

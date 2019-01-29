@@ -1,5 +1,6 @@
 <?php
 $this->setLayout('list');
+$this->setPageTitle('Клиенты, список');
 ?>
 <table>
     <tr>

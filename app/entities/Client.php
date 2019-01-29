@@ -210,6 +210,15 @@ class Client extends Entity
         return $entity;
     }
 
+    public function rules(): array
+    {
+        return [
+            'name' => ['alphaExt', 'required'],
+            'address, bank' => 'alphaExt',
+            'INN, KPP, BIK, sort, active, region_id' => 'integer',
+        ];
+    }
+
     # Setters
 
     public function setName(string $value = null): Client

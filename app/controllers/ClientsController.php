@@ -37,8 +37,10 @@ class ClientsController extends \app\components\CrudController
          */
         $client = $this->clientRepository->create();
         $this->save($client);
-        $regions = $this->regionRepository->findAll();
-        $this->layout('create', compact('client', 'regions'));
+        $this->layout('create', [
+            'client' => $client,
+            'regions' => $this->regionRepository->findAll()
+        ]);
     }
 
     public function update($pk)
@@ -50,25 +52,27 @@ class ClientsController extends \app\components\CrudController
             $this->error(404, $this->msg->i18n('Wrong address.'));
         }
         $this->save($client);
-        $regions = $this->regionRepository->findAll();
-        $this->layout('update', compact('client', 'regions'));
+        $this->layout('update', [
+            'client' => $client,
+            'regions' => $this->regionRepository->findAll()
+        ]);
     }
 
     /**
-     * @param $client Client
+     * @param Client $client
      * @return void
      */
     protected function save(Client $client)
     {
         if (!empty($this->post)) {
             $client->setAttributes($this->post['Client'] ?? $this->post);
-            //if ($client->validate()) {
+            if ($client->validate()) {
                 if ($client->getDbContext()->commit()) {
                     FlashHelper::set('Сохранено успешно', FlashHelper::TYPE_SUCCESS);
                     $this->redirect("/{$this->id}");
                 }
-            //}
-            $this->message = 'Что то пошло не так';
+            }
+            $this->message = 'Что то пошло не так, ' . $client->getErrorsSummary();
         }
     }
 

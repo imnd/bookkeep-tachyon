@@ -4,17 +4,17 @@ $this->setPageTitle('Клиенты, список');
 ?>
 <table>
     <tr>
-        <th><?=$entity->getAttributeCaption('name')?></th>
-        <th><?=$entity->getAttributeCaption('address')?></th>
-        <th><?=$entity->getAttributeCaption('telephone')?></th>
-        <th><?=$entity->getAttributeCaption('fax')?></th>
-        <th><?=$entity->getAttributeCaption('contactFullName')?></th>
-        <th><?=$entity->getAttributeCaption('contactPost')?></th>
-        <th><?=$entity->getAttributeCaption('bank')?></th>
-        <th><?=$entity->getAttributeCaption('account')?></th>
-        <th><?=$entity->getAttributeCaption('INN')?></th>
-        <th><?=$entity->getAttributeCaption('KPP')?></th>
-        <th><?=$entity->getAttributeCaption('BIK')?></th>
+        <th><?=$entity->getCaption('name')?></th>
+        <th><?=$entity->getCaption('address')?></th>
+        <th><?=$entity->getCaption('telephone')?></th>
+        <th><?=$entity->getCaption('fax')?></th>
+        <th><?=$entity->getCaption('contactFullName')?></th>
+        <th><?=$entity->getCaption('contactPost')?></th>
+        <th><?=$entity->getCaption('bank')?></th>
+        <th><?=$entity->getCaption('account')?></th>
+        <th><?=$entity->getCaption('INN')?></th>
+        <th><?=$entity->getCaption('KPP')?></th>
+        <th><?=$entity->getCaption('BIK')?></th>
         <th>операции</th>
     </tr>
     <?php

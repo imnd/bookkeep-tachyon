@@ -1,1 +1,4 @@
-<?php $this->display('_form', compact('model'));
+<?php
+$this->setLayout('form');
+$this->setPageTitle('Клиент, редактирование');
+$this->display('_form', compact('client', 'regions'));

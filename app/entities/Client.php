@@ -189,6 +189,7 @@ class Client extends Entity
     public function fromState(array $state): Entity
     {
         $entity = clone($this);
+
         $entity->id = $state['id'];
         $entity->name = $state['name'] ?? null;
         $entity->address = $state['address'] ?? null;
@@ -205,7 +206,7 @@ class Client extends Entity
         $entity->active = $state['active'] ?? null;
         $entity->regionId = $state['region_id'] ?? null;
 
-        //$entity->markNew();
+        //$entity->markClean();
         return $entity;
     }
 

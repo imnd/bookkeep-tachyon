@@ -1,3 +1,4 @@
 <?php
-$this->display('_form', compact('model'));
-echo $this->controller->getMessage();
+$this->setLayout('form');
+$this->setPageTitle('Клиент, создание');
+$this->display('_form', compact('client', 'regions'));

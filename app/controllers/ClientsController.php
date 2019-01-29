@@ -1,6 +1,8 @@
 <?php
 namespace app\controllers;
 
+use app\entities\Client;
+
 /**
  * Контроллер клиентов фирмы
  * 
@@ -9,11 +11,76 @@ namespace app\controllers;
  */ 
 class ClientsController extends \app\components\CrudController
 {
+    use \app\dic\ClientRepository;
+    use \app\dic\Client;
+    use \app\dic\RegionRepository;
+
     public function init()
     {
         parent::init();
-
         $this->mainMenu['/regions'] = 'районы';
+    }
+
+    public function index()
+    {
+        $this->layout('index', array(
+            'entity' => $this->client,
+            'clients' => $this->clientRepository->findAll(),
+        ));
+    }
+
+    public function create()
+    {
+        /**
+         * @var Client $client
+         */
+        $client = $this->clientRepository->create();
+        $this->save($client);
+        $regions = $this->regionRepository->findAll();
+        $this->layout('create', compact('client', 'regions'));
+    }
+
+    public function update($pk)
+    {
+        /**
+         * @var Client $client
+         */
+        if (!$client = $this->clientRepository->findByPk($pk)) {
+            $this->error(404, $this->msg->i18n('Wrong address.'));
+        }
+        $this->save($client);
+        $regions = $this->regionRepository->findAll();
+        $this->layout('update', compact('client', 'regions'));
+    }
+
+    /**
+     * @param $client Client
+     * @return void
+     */
+    protected function save(Client $client)
+    {
+        if (!empty($this->post)) {
+            $client->setAttributes($this->post['Client'] ?? $this->post);
+            //if ($client->validate()) {
+                if ($client->getDbContext()->commit()) {
+                    $this->message = 'Сохранено успешно';
+                    $this->redirect("/{$this->id}");
+                }
+            //}
+            $this->message = 'Что то пошло не так';
+        }
+    }
+
+    public function delete($pk)
+    {
+        if (!$client = $this->clientRepository->findByPk($pk)) {
+            $this->error(404, $this->msg->i18n('Wrong address.'));
+        }
+        echo json_encode(array(
+            'success' => $this->clientRepository
+                ->findByPk($pk)
+                ->delete()
+        ));
     }
 
     public function printout($pk)

@@ -42,13 +42,13 @@ class ContractsRows extends \app\components\RowsModel
      */
     public function getAllByContract($contractId=null): array
     {
-        return $this->getAll(array('contract_id' => $contractId));
+        return $this->findAllScalar(array('contract_id' => $contractId));
     }
     
     /**
      * @param array $conditions условия поиска
      */
-    public function getAll(array $conditions=array()): array
+    public function findAllScalar(array $conditions=array()): array
     {
         $this
             ->join(
@@ -75,6 +75,6 @@ class ContractsRows extends \app\components\RowsModel
             ))
             ->sortBy('cat.id');
 
-        return parent::getAll($conditions);
+        return parent::findAllScalar($conditions);
     }
 }

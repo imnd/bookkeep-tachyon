@@ -12,6 +12,7 @@ use app\models\Users;
 class IndexController extends \tachyon\Controller
 {
     use \app\traits\MenuTrait;
+    use \app\dic\Users;
 
     /**
      * Главная страница
@@ -27,7 +28,7 @@ class IndexController extends \tachyon\Controller
     public function login()
     {
         if ($this->isRequestPost()) {
-            if ($user = $this->get('Users')->find(array(
+            if ($user = $this->users->find(array(
                 'username' => $this->post['username'],
                 'password' => $this->post['password'],
             ))) {
@@ -49,7 +50,7 @@ class IndexController extends \tachyon\Controller
     public function logout()
     {
         $this->_logout();
-        $this->redirect('/blogs');
+        $this->redirect('/index');
     }
 
     /**

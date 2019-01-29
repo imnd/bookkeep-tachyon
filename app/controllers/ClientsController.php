@@ -18,6 +18,7 @@ class ClientsController extends \app\components\CrudController
 
     public function printout($pk)
     {
+        $this->layout = 'printout';
         $client = $this->model->findByPk($pk);
         if (empty($this->get)) {
             $this->layout('printout', compact('client'));

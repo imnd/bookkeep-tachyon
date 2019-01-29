@@ -7,7 +7,7 @@ namespace app\models;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class Regions extends \tachyon\db\models\ActiveRecord
+class Regions extends \tachyon\db\activeRecord\ActiveRecord
 {
     use \tachyon\dic\behaviours\ListBehaviour;
     use \tachyon\traits\GetList;

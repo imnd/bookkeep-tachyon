@@ -69,7 +69,7 @@
     </table>
     <?=$this->html->submit($this->i18n('save')); ?>
 <?=$this->html->formClose() ?>
-<span style="display: none" id="prices"><?=json_encode($this->get('Articles')->getAll())?></span>
+<span style="display: none" id="prices"><?=json_encode($this->get('Articles')->findAllScalar())?></span>
 
 <script>
     dom.ready(function() {

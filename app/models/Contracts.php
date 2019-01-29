@@ -137,7 +137,7 @@ class Contracts extends \app\components\HasRowsModel
      * @param array $conditions условия поиска
      * @return array
      */
-    public function getAll(array $conditions=array()): array
+    public function findAllScalar(array $conditions=array()): array
     {
         $list = array();
         $this
@@ -153,7 +153,7 @@ class Contracts extends \app\components\HasRowsModel
             ))
             ->groupBy('t.contract_num');
         
-        $listExecuted = parent::getAll($conditions);
+        $listExecuted = parent::findAllScalar($conditions);
 
         $this
             ->asa('t')
@@ -163,7 +163,7 @@ class Contracts extends \app\components\HasRowsModel
             ))
             ->groupBy('t.contract_num');
 
-        $listPayed = parent::getAll(array_merge($conditions, array('b.contents' => 'payment')));
+        $listPayed = parent::findAllScalar(array_merge($conditions, array('b.contents' => 'payment')));
 
         foreach ($listExecuted as $key => $contract) {
             $payed = !empty($listPayed[$key]['payed']) ? $listPayed[$key]['payed'] : 0;
@@ -181,12 +181,12 @@ class Contracts extends \app\components\HasRowsModel
      */
     public function getItem($conditions=array()): array
     {
-        $item = $this->getOne($conditions);
+        $item = $this->findOneScalar($conditions);
         $item['rows'] = $this->get('ContractsRows')
             ->addWhere(array(
                 'contract_id' => $item['id'],
             ))
-            ->getAll();
+            ->findAllScalar();
 
         return $item;
     }
@@ -199,7 +199,7 @@ class Contracts extends \app\components\HasRowsModel
     {
         $items = $this
             ->select('contract_num')
-            ->getAll($conditions);
+            ->findAllScalar($conditions);
 
         return $this->listBehaviour->getValsList($items, 'contract_num');
     }

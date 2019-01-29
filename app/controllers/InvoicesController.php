@@ -11,6 +11,8 @@ class InvoicesController extends \app\components\CrudController
 {
     public function printout($pk)
     {
+        $this->layout = 'printout';
+
         $type = $this->get['type'];
         if (!$item = $this->model
             ->with('rows')

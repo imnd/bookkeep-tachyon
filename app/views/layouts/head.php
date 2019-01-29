@@ -8,12 +8,18 @@
     $this->assetManager->coreJs('dom')
     ?>
 </head>
-<body class="<?=$this->getProperty('bodyClass')?>">
+<?php
+$this->controller->setMainMenu([
+    'index' => 'список',
+    'create' => 'добавить',
+]);
+?>
+<body class="<?="{$this->controller->getId()} {$this->controller->getAction()}"?>">
 	<div class="main" id="menu">
         <?php
-        $this->widget(array(
+        $this->widget([
             'class' => 'Menu',
-            'items' => array(
+            'items' => [
                 'invoices' => 'фактуры',
                 'contracts' => 'договоры и контракты',
                 'purchases' => 'закупки',
@@ -21,15 +27,15 @@
                 'clients' => 'клиенты',
                 'bills' => 'платежи',
                 'settings' => 'администрирование',
-            ),
+            ],
             'view' => 'top',
-        ));
+        ]);
 
-        $this->widget(array(
+        $this->widget([
             'class' => 'Menu',
             'items' => $this->controller->getMainMenu(),
             'view' => 'main',
-        ));
+        ]);
         ?>
     </div>
     <div class="clear"></div>

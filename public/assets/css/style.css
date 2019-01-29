@@ -229,6 +229,7 @@ body.contracts_and_agreements li.contracts,
 body.contracts li.contracts,
 body.agreements li.contracts,
 body.articles li.articles,
+body.client li.clients,
 body.clients li.clients,
 body.regions li.clients,
 body.bills li.bills,
@@ -254,6 +255,7 @@ body.agreements li.contracts a,
 
 body.articles li.articles a,
 
+body.client li.clients a,
 body.clients li.clients a,
 body.regions li.clients a,
 
@@ -279,7 +281,9 @@ body.articles.create li.create,
 body.bills.index li.index,
 body.bills.create li.create,
 
+body.client.index li.index,
 body.clients.index li.index,
+body.client.create li.create,
 body.clients.create li.create,
 
 body.settings.index li.index,
@@ -486,7 +490,9 @@ form.search-form select.required
 {
     border: 1px solid #AAA;
 }
-body.clients.index form.search-form input[type="text"] {
+body.client.index form.search-form input[type="text"],
+body.clients.index form.search-form input[type="text"]
+ {
     width: 200px;
 }
 .settings.requisites label {

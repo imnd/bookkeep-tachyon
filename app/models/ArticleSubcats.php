@@ -7,7 +7,7 @@ namespace app\models;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class ArticleSubcats extends \tachyon\db\models\ActiveRecord
+class ArticleSubcats extends \tachyon\db\activeRecord\ActiveRecord
 {
     use \tachyon\dic\behaviours\ListBehaviour;
     use \tachyon\traits\GetList;

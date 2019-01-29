@@ -7,7 +7,7 @@ namespace app\models;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class Articles extends \tachyon\db\models\ActiveRecord
+class Articles extends \tachyon\db\activeRecord\ActiveRecord
 {
     use \tachyon\dic\behaviours\Active;
     use \tachyon\dic\behaviours\ListBehaviour;

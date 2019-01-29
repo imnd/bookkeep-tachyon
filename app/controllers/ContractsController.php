@@ -33,12 +33,14 @@ class ContractsController extends \app\components\CrudController
             'items' => $this->model
                 ->setSearchConditions($this->get)
                 ->setSortConditions($this->get)
-                ->getAll(compact('type')),
+                ->findAllScalar(compact('type')),
         ));
 	}
 
     public function printout($pk)
     {
+        $this->layout = 'printout';
+
         $contract = $this->model
             ->with('client')
             ->findByPk($pk);

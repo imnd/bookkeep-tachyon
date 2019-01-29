@@ -7,7 +7,7 @@ namespace app\components;
  * 
  * Класс модели табличного документа
  */
-class HasRowsModel extends \tachyon\db\models\ActiveRecord
+class HasRowsModel extends \tachyon\db\activeRecord\ActiveRecord
 {
     protected $rowModelName;
     protected $rowFk;
@@ -23,13 +23,13 @@ class HasRowsModel extends \tachyon\db\models\ActiveRecord
     {
         $item = $this
             ->addWhere($where)
-            ->getOne();
+            ->findOneScalar();
             
         $item['rows'] = $this->get($this->rowModelName)
             ->addWhere(array(
                 $this->rowFk => $item['id'],
             ))
-            ->getAll();
+            ->findAllScalar();
 
         return $item;
     }
@@ -39,7 +39,7 @@ class HasRowsModel extends \tachyon\db\models\ActiveRecord
         if ($result = $this
             ->addWhere($where)
             ->select('SUM(sum) AS total')
-            ->getAll())
+            ->findAllScalar())
             return $result[0]['total'];
         
         return 0;
@@ -52,7 +52,7 @@ class HasRowsModel extends \tachyon\db\models\ActiveRecord
             ->joinRelation(array('rows' => 'r'))
             ->select('SUM(r.quantity) AS quantitySum');
 
-        if ($result = parent::getAll(array(static::$primKey => $pk)))
+        if ($result = parent::findAllScalar(array(static::$primKey => $pk)))
             return $result[0]['quantitySum'];
 
         return 0;
@@ -61,7 +61,7 @@ class HasRowsModel extends \tachyon\db\models\ActiveRecord
     protected function afterSave(): bool
     {
         // удаляем строки
-        $this->delRelModels('rows');
+        $this->deleteRelatedModels('rows');
 
         $sum = 0;
         if (isset($_POST[$this->rowModelName])) {
@@ -78,7 +78,7 @@ class HasRowsModel extends \tachyon\db\models\ActiveRecord
         }
         $this->saveAttrs(compact('sum'));
     }
-    
+
     # геттеры
     
     public function getRowModelName()

@@ -37,6 +37,8 @@ class PurchasesController extends \app\components\CrudController
 
     public function printout($pk)
     {
+        $this->layout = 'printout';
+
         $item = $this->model
             ->with('rows')
             ->findByPk($pk);

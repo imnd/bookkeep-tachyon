@@ -63,7 +63,11 @@
     <service id="Settings" class="\app\models\Settings"></service>
     <service id="Users" class="\app\models\Users"></service>
 
-    <service id="IndexController" class="\app\controllers\IndexController"></service>
+    <service id="IndexController" class="\app\controllers\IndexController">
+        <property name="users">
+            <ref id="Users"/>
+        </property>
+    </service>
     <service id="ArticlesController" class="\app\controllers\ArticlesController"></service>
     <service id="BillsController" class="\app\controllers\BillsController"></service>
     <service id="ClientsController" class="\app\controllers\ClientsController"></service>
@@ -72,12 +76,42 @@
     <service id="PurchasesController" class="\app\controllers\PurchasesController"></service>
     <service id="RegionsController" class="\app\controllers\RegionsController"></service>
 
-    <service id="Menu" class="\app\components\widgets\menu\Menu"></service>
-
     <service id="CrudController" class="\app\components\CrudController"></service>
     <service id="SettingsController" class="\app\controllers\SettingsController">
         <property name="filesManager">
             <ref id="FilesManager"/>
+        </property>
+    </service>
+
+    <service id="Menu" class="\app\components\widgets\menu\Menu"></service>
+    
+    
+    <service id="ClientController" class="\app\controllers\ClientController">
+        <property name="client">
+            <ref id="Client"/>
+        </property>
+        <property name="clientRepository">
+            <ref id="ClientRepository"/>
+        </property>
+        <property name="regionRepository">
+            <ref id="RegionRepository"/>
+        </property>
+    </service>
+
+    <service id="Client" class="\app\entities\Client"></service>
+    <service id="Region" class="\app\entities\Region"></service>
+    <service id="ClientRepository" class="\app\repositories\ClientRepository">
+        <property name="client">
+            <ref id="Client"/>
+        </property>
+        <property name="regionRepository">
+            <ref id="RegionRepository"/>
+        </property>
+    </service>
+
+    <service id="RegionRepository" class="\app\repositories\RegionRepository">
+        <property name="region">
+            <ref id="Region"/>
         </property>
     </service>
 </services>

@@ -1,4 +1,5 @@
-<?php $this->controller->setSubMenu(array(
+<?php 
+$this->controller->setSubMenu(array(
     "delete/$pk",
     "update/$pk",
     array(

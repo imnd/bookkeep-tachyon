@@ -7,7 +7,7 @@ namespace app\models;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class Clients extends \tachyon\db\models\ActiveRecord
+class Clients extends \tachyon\db\activeRecord\ActiveRecord
 {
     use \tachyon\dic\behaviours\Active;
     use \tachyon\dic\behaviours\ListBehaviour;
@@ -51,9 +51,9 @@ class Clients extends \tachyon\db\models\ActiveRecord
         'active' => 'checkbox',
     );
     protected static $attributeNames = array(
+        'region_id' => 'район',
         'name' => 'название',
         'address' => 'адрес',
-        'region_id' => 'район',
         'telephone' => 'телефон',
         'fax' => 'факс',
         'contact_fio' => 'контакт. лицо',

@@ -88,7 +88,7 @@ class Invoices extends \app\components\HasRowsModel
      * @param array $conditions условия поиска
      * @return array
      */
-    public function getAll(array $conditions=array()): array
+    public function findAllScalar(array $conditions=array()): array
     {
         $this
             ->join(array('clients' => 'cl'), array('client_id', 'id'))
@@ -98,7 +98,7 @@ class Invoices extends \app\components\HasRowsModel
                 'cl.name' => 'client_name',
             ));
 
-        return parent::getAll($conditions);
+        return parent::findAllScalar($conditions);
     }
 
     /**
@@ -122,7 +122,7 @@ class Invoices extends \app\components\HasRowsModel
         if (!empty($conditions['contract_num']))
             $this->addWhere(array('cn.contract_num' => $conditions['contract_num']));
             
-        return $this->getAll();
+        return $this->findAllScalar();
     }
 
     /**
@@ -146,7 +146,7 @@ class Invoices extends \app\components\HasRowsModel
         if (!empty($conditions['contract_num']))
             $this->addWhere(array('cn.contract_num' => $conditions['contract_num']));
 
-        $item = $this->getOne();
+        $item = $this->findOneScalar();
         if ($value = $item['total'])
             return $value;
             
@@ -162,7 +162,7 @@ class Invoices extends \app\components\HasRowsModel
         $item = $this
             ->select('number')
             ->limit(1)
-            ->getOne();
+            ->findOneScalar();
 
         return $item['number'];
     }

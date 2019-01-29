@@ -1,3 +1,16 @@
+<?php
+if (empty($this->controller->getSubMenu())) {
+    $this->controller->setSubMenu(array(
+        array(
+            'action' => "delete/$pk",
+            'type' => 'ajax',
+            'confirmMsg' => 'удалить?',
+            'callback' => "window.location='/{$this->id}/'",
+        ),
+        "printout/$pk",
+    ));
+}
+?>
 <h2>
     <b>от:</b> <?=$model->get('dateTime')->convDateToReadable($model->date)?><br />
     <b>клиент:</b> <?=$model->getClientName()?><br />

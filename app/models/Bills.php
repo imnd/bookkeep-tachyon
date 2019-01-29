@@ -7,7 +7,7 @@ namespace app\models;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class Bills extends \tachyon\db\models\ActiveRecord
+class Bills extends \tachyon\db\activeRecord\ActiveRecord
 {
     use \tachyon\dic\behaviours\ListBehaviour;
     use \tachyon\dic\behaviours\DateTime;
@@ -74,7 +74,7 @@ class Bills extends \tachyon\db\models\ActiveRecord
                 'cl.name' => 'clientName',
             ));
 
-        return parent::getAll($conditions);
+        return parent::findAllScalar($conditions);
     }
 
     /**
@@ -98,7 +98,7 @@ class Bills extends \tachyon\db\models\ActiveRecord
         if (!empty($conditions['contract_num'])) {
             $this->addWhere(array('cn.contract_num' => $conditions['contract_num']));
         }
-        return $this->getAll();
+        return $this->findAllScalar();
     }
 
     /**
@@ -123,7 +123,7 @@ class Bills extends \tachyon\db\models\ActiveRecord
         if (!empty($conditions['contract_num']))
             $this->addWhere(array('cn.contract_num' => $conditions['contract_num']));
             
-        $item = $this->getOne();
+        $item = $this->findOneScalar();
         
         if ($value = $item['total'])
             return $value;

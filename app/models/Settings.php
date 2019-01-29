@@ -7,7 +7,7 @@ namespace app\models;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class Settings extends \tachyon\db\models\ActiveRecord
+class Settings extends \tachyon\db\activeRecord\ActiveRecord
 {
     public static $tableName = 'settings';
     public static $primKey = 'id';
@@ -56,7 +56,7 @@ class Settings extends \tachyon\db\models\ActiveRecord
 
     /**
      * @param $key string
-     * @return \tachyon\db\models\ActiveRecord
+     * @return \tachyon\db\activeRecord\ActiveRecord
      */
     public function findByKey($key)
     {
@@ -69,7 +69,7 @@ class Settings extends \tachyon\db\models\ActiveRecord
      */
     public function getByKey($key)
     {
-        return $this->getOne(compact('key'));
+        return $this->findOneScalar(compact('key'));
     }
 
     /**

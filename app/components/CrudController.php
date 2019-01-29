@@ -17,37 +17,21 @@ class CrudController extends \tachyon\Controller
     protected $message;
 
     protected $postActions = array('delete', 'deactivate');
-
     /** @inheritdoc */
     protected $protectedActions = '*';
 
     /** @inheritdoc */
     public function init()
     {
-        $this->mainMenu = array(
+        $this->mainMenu = [
             'index' => 'список',
             'create' => 'добавить',
-        );
-        $this->view->setProperty('bodyClass', "{$this->id} {$this->action}");
-
-        $modelName = ucfirst($this->id);
-        if (is_null($this->modelName))
-            $this->modelName = $modelName;
-
-        $this->model = $this->get($modelName);
+        ];
+        if (is_null($this->modelName)) {
+            $this->modelName = ucfirst($this->id);
+        }
+        $this->model = $this->get($this->modelName);
         $this->model->setAttributes($this->get);
-    }
-
-    /** @inheritdoc */
-    public function beforeAction(): bool
-    {
-        if (!parent::beforeAction())
-            return false;
-
-        if ($this->action=='printout')
-            $this->layout = 'printout';
-
-        return true;
     }
 
     /**
@@ -61,15 +45,15 @@ class CrudController extends \tachyon\Controller
             'items' => $this->model
                 ->setSearchConditions($this->get)
                 ->setSortConditions($this->get)
-                ->getAll(),
+                ->findAllScalar(),
         ));
     }
 
     public function view($pk)
     {
-        if (!$model = $this->model->findByPk($pk))
+        if (!$model = $this->model->findByPk($pk)) {
             $this->error(404, $this->msg->i18n('Wrong address.'));
-
+        }
         $this->view->setPageTitle(ucfirst($this->model->getEntityName('single')) . " №{$model->number}, просмотр");
 
         $this->layout('view', compact('model', 'pk'));
@@ -85,24 +69,13 @@ class CrudController extends \tachyon\Controller
 
     public function update($pk)
     {
-        if (!$model = $this->model->findByPk($pk))
+        if (!$model = $this->model->findByPk($pk)) {
             $this->error(404, $this->msg->i18n('Wrong address.'));
-
-        if (is_null($this->subMenu)) {
-            $this->subMenu = array(
-                array(
-                    'action' => "delete/$pk",
-                    'type' => 'ajax',
-                    'confirmMsg' => 'удалить?',
-                    'callback' => "window.location='/{$this->id}/'",
-                ),
-                "printout/$pk",
-            );
         }
         $this->view->setPageTitle(ucfirst($this->model->getEntityName('single')) . ', редактирование');
         $this->saveModel($model);
 
-        $this->layout('update', compact('model', 'pk'));
+        $this->layout('update', compact('model'));
     }
 
     public function delete($pk)
@@ -129,33 +102,16 @@ class CrudController extends \tachyon\Controller
     }
 
     /**
-     * Вывод сообщения об ошибке
-     * todo: вынести в компонент
-     * @param string $msg
-     * @return void
-     */
-    public function error($code, $msg)
-    {
-        $codes = array(404 => 'Not Found');
-        header("HTTP/1.0 $code {$codes[$code]}");
-        $this->layout('/../error', compact('code', 'msg'));
-        die;
-    }
-
-    /**
-     * @param $model \tachyon\db\models\ActiveRecord
+     * @param $model \tachyon\db\activeRecord\ActiveRecord
      * @return void
      */
     protected function saveModel($model=null)
     {
-        if (is_null($model))
+        if (is_null($model)) {
             $model = $this->model;
-
+        }
         if (!empty($this->post)) {
-            if (!empty($this->post[$model->getClassName()]))
-                $model->setAttributes($this->post[$model->getClassName()]);
-            else
-                $model->setAttributes($this->post);
+            $model->setAttributes($this->post[$model->getClassName()] ?? $this->post);
 
             if ($model->save()) {
                 // TODO: сделать flash-сообщения

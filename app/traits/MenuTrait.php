@@ -21,12 +21,20 @@ trait MenuTrait
     # сеттеры
 
     /**
+     * @return void
+     */
+    public function setMainMenu(array $menu)
+    {
+        $this->mainMenu = $menu;
+    }
+
+    /**
      * @param $subMenu array
      * @return void
      */
-    public function setSubMenu(array $subMenu)
+    public function setSubMenu(array $menu)
     {
-        $this->subMenu = $subMenu;
+        $this->subMenu = $menu;
     }
 
     # геттеры

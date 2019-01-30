@@ -13,6 +13,5 @@
 <body class="print <?=$this->controller->getId()?>">
     <div id="container">
         @contents
-    </div>
-</body>
-</html>
+
+@include('foot')

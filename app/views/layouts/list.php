@@ -1,7 +1,5 @@
-@include('head')
-    
-    <link rel="stylesheet" href="/assets/widgets/grid/style.css" type="text/css" media="screen">
+@extends('main')
 
-    @contents
+<link rel="stylesheet" href="/assets/widgets/grid/style.css" type="text/css" media="screen">
 
-@include('foot')
+@contents

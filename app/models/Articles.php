@@ -48,7 +48,7 @@ class Articles extends \tachyon\db\activeRecord\ActiveRecord
     /**
      * @param array $conditions условия поиска
      */
-    public function setSearchConditions($conditions=array()): Articles
+    public function setSearchConditions(array $conditions=array()): Articles
     {
         $this->gt($conditions, 'price', 'priceFrom');
         $this->lt($conditions, 'price', 'priceTo');

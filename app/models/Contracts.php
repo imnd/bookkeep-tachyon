@@ -94,7 +94,7 @@ class Contracts extends \app\components\HasRowsModel
     /**
      * @param array $conditions условия поиска
      */
-    public function setSearchConditions($where=array()): Contracts
+    public function setSearchConditions(array $where=array()): Contracts
     {
         \tachyon\helpers\DateTimeHelper::setYearBorders($this, $where);
         return $this;

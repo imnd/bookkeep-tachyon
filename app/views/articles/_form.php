@@ -17,5 +17,5 @@ $this->get('FormBuilder')
             'name',
             'price',
         ),
-        'fieldValues' => $this->getController()->getQuery('get'),
+        'fieldValues' => $this->getController()->getGet(),
     ));

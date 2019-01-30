@@ -16,16 +16,16 @@ class Invoices extends \app\components\HasRowsModel
 
     public static $tableName = 'invoices';
     public static $primKey = 'id';
-    public static $fields = array(
+    public static $fields = [
         'client_id',
         'number',
         'date',
         'contract_num',
         'sum',
         'payed',
-    );
+    ];
 
-    protected static $fieldTypes = array(
+    protected static $fieldTypes = [
         'id' => 'int',
         'client_id' => 'smallint',
         'number' => 'tinytext',
@@ -33,16 +33,16 @@ class Invoices extends \app\components\HasRowsModel
         'contract_num' => 'tinytext',
         'sum' => 'float',
         'payed' => 'float',
-    );
-    protected static $attributeTypes = array(
+    ];
+    protected static $attributeTypes = [
         'number' => 'input',
         'contract_num' => 'input',
         'client_id' => 'select',
         'date' => 'input',
         'dateFrom' => 'input',
         'dateTo' => 'input',
-    );
-    protected static $attributeNames = array(
+    ];
+    protected static $attributeNames = [
         'number' => 'номер',
         'contract_num' => 'номер договора',
         'client_id' => 'клиент',
@@ -52,33 +52,33 @@ class Invoices extends \app\components\HasRowsModel
         'dateTo' => 'дата по',
         'sum' => 'сумма',
         'payed' => 'оплачено',
-    );
+    ];
     protected $scalarFields = array('number', 'contract_num');
-    protected $entityNames = array(
+    protected $entityNames = [
         'single' => 'фактура',
         'plural' => 'фактуры'
-    );
-    protected $relations = array(
+    ];
+    protected $relations = [
         'client' => array('Clients', 'has_one', 'client_id'),
         'contract' => array('Contracts', 'has_one', array('contract_num', 'contract_num')),
-    );
+    ];
     protected $rowFk = 'invoice_id';
     protected $rowModelName = 'InvoicesRows';
     protected $defSortBy = array('number' => 'DESC');
 
     public function rules(): array
     {
-        return array(
+        return [
             'date, contract_num, client_id, name, number' => array('required'),
             'number, client_id' => array('numerical'),
             'name' => array('alphaExt'),
-        );
+        ];
     }
 
     /**
      * @param array $conditions условия поиска
      */
-    public function setSearchConditions($conditions = array()): Invoices
+    public function setSearchConditions(array $conditions = array()): Invoices
     {
         \tachyon\helpers\DateTimeHelper::setYearBorders($this, $conditions);
         return $this;
@@ -92,11 +92,11 @@ class Invoices extends \app\components\HasRowsModel
     {
         $this
             ->join(array('clients' => 'cl'), array('client_id', 'id'))
-            ->select(array(
+            ->select([
                 '*',
                 'sum-payed' => 'balance',
                 'cl.name' => 'client_name',
-            ));
+            ]);
 
         return parent::findAllScalar($conditions);
     }

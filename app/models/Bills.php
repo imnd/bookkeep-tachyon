@@ -56,7 +56,7 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
     /**
      * @param array $conditions условия поиска
      */
-    public function setSearchConditions($conditions=array()): Bills
+    public function setSearchConditions(array $conditions=array()): Bills
     {
         \tachyon\helpers\DateTimeHelper::setYearBorders($this, $conditions);
         return $this;

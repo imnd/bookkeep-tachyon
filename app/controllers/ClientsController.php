@@ -16,18 +16,32 @@ class ClientsController extends \app\components\CrudController
     use \app\dic\Client;
     use \app\dic\RegionRepository;
 
+    protected $entityName;
+    protected $repositoryName;
+
     public function init()
     {
         parent::init();
+
         $this->mainMenu['/regions'] = 'районы';
+        if (is_null($this->entityName)) {
+            $this->entityName = $this->id;
+        }
+        if (is_null($this->repositoryName)) {
+            $this->repositoryName = "{$this->entityName}Repository";
+        }
     }
 
-    public function index()
+    public function list()
     {
-        $this->layout('index', array(
+        $this->layout('list', [
             'entity' => $this->client,
-            'clients' => $this->clientRepository->findAll(),
-        ));
+            'clients' => $this
+                ->clientRepository
+                ->setSearchConditions($this->get)
+                ->setSort($this->get)
+                ->findAll(),
+        ]);
     }
 
     public function create()
@@ -72,7 +86,7 @@ class ClientsController extends \app\components\CrudController
                     $this->redirect("/{$this->id}");
                 }
             }
-            $this->message = 'Что то пошло не так, ' . $client->getErrorsSummary();
+            $this->message = "Что то пошло не так, {$client->getErrorsSummary()}";
         }
     }
 

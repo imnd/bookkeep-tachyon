@@ -47,7 +47,7 @@ class Purchases extends \app\components\HasRowsModel
     /**
      * @param array $conditions условия поиска
      */
-    public function setSearchConditions($where=array()): Purchases
+    public function setSearchConditions(array $where=array()): Purchases
     {
         \tachyon\helpers\DateTimeHelper::setYearBorders($this, $where);
         return $this;

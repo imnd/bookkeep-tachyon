@@ -83,7 +83,7 @@ class Clients extends \tachyon\db\activeRecord\ActiveRecord
         );
     }
 
-    public function setSearchConditions($where=array()): Clients
+    public function setSearchConditions(array $where=array()): Clients
     {
         $this->like($where, 'name');
         $this->like($where, 'address');

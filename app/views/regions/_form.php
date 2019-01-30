@@ -7,5 +7,5 @@ $this->get('FormBuilder')
         ),
         'model' => $model,
         'fields' => $model::$fields,
-        'fieldValues' => $this->getController()->getQuery('get'),
+        'fieldValues' => $this->getController()->getGet(),
     ));

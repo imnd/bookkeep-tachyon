@@ -19,5 +19,5 @@ $this->get('FormBuilder')
                 'listData' => $model->getListBehaviour()->getSelectListFromArr($model->getContentsList(), true, false)
             ),
         ),
-        'fieldValues' => $this->getController()->getQuery('get'),
+        'fieldValues' => $this->getController()->getGet(),
     ));

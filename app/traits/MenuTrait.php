@@ -11,7 +11,10 @@ trait MenuTrait
      * Главное меню
      * @var $mainMenu array
      */
-    protected $mainMenu = array();
+    protected $mainMenu = [
+        'index' => 'список',
+        'create' => 'добавить',
+    ];
     /**
      * Меню страницы
      * @var $subMenu array

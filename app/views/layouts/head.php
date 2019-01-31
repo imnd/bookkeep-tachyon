@@ -8,12 +8,7 @@
     $this->assetManager->coreJs('dom')
     ?>
 </head>
-<?php
-$this->controller->setMainMenu([
-    'index' => 'список',
-    'create' => 'добавить',
-]);
-?>
+
 <body class="<?="{$this->controller->getId()} {$this->controller->getAction()}"?>">
 	<div class="main" id="menu">
         <?php
@@ -39,11 +34,11 @@ $this->controller->setMainMenu([
     </div>
     <div class="clear"></div>
     <div id="container">
-        <?php $this->widget(array(
+        <?php $this->widget([
             'class' => 'Menu',
             'items' => $this->controller->getSubMenu(),
             'view' => 'sub',
-        ))?>
+        ])?>
         <h1><?=$this->pageTitle?></h1>
 
         <div class="messages">

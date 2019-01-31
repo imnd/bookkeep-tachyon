@@ -1,4 +1,6 @@
 <?php return array(
+    // контроллер по умолчанию
+    'defaultController' => 'Index',
     // язык
     'lang' => 'ru',
     // кодировка

@@ -18,9 +18,9 @@ class IndexController extends \tachyon\Controller
      * Главная страница
      */
     public function index()
-	{
-		$this->layout();
-	}
+    {
+        $this->layout();
+    }
 
     /**
      * Страница логина
@@ -34,7 +34,7 @@ class IndexController extends \tachyon\Controller
             ))) {
                 if ($user->confirmed == Users::STATUS_CONFIRMED) {
                     $this->_login($this->post['remember']);
-                    $this->redirect('/');
+                    $this->redirect($this->getReferer());
                 }
                 $error = 'Вы не подтвердили свою регистрацию.';
             } else {

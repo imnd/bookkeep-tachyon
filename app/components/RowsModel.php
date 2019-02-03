@@ -14,7 +14,7 @@ class RowsModel extends \tachyon\db\activeRecord\ActiveRecord
 
     public function __construct()
     {
-        static::$fields = array_merge(static::$fields, array(static::$parentKey, 'quantity', 'price'));
+        $this->fields = array_merge($this->fields, array(static::$parentKey, 'quantity', 'price'));
         $this->fieldTypes = array_merge($this->fieldTypes, [
             'id' => 'int',
             static::$parentKey => 'int',

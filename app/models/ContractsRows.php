@@ -11,9 +11,9 @@ class ContractsRows extends \app\components\RowsModel
 {
     use \app\traits\ArticleTrait;
 
-    public static $tableName = 'contracts_rows';
+    protected static $tableName = 'contracts_rows';
     protected $pkName = 'id';
-    public static $fields = array('article_id');
+    protected $fields = array('article_id');
 
     protected static $parentKey = 'contract_id';
     protected $fieldTypes = array(
@@ -56,12 +56,12 @@ class ContractsRows extends \app\components\RowsModel
                 array('article_id', 'id')
             )
             ->join(
-                array(ArticleSubcats::$tableName => 'subcat'),
+                array(ArticleSubcats::getTableName() => 'subcat'),
                 array('subcat_id', 'id'),
                 'art'
             )
             ->join(
-                array(ArticleCats::$tableName => 'cat'),
+                array(ArticleCats::getTableName() => 'cat'),
                 array('cat_id', 'id'),
                 'subcat'
             )

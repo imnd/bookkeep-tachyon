@@ -14,9 +14,9 @@ class Invoices extends \app\components\HasRowsModel
     use \app\traits\ClientTrait;
     use \app\traits\ContractTrait;
 
-    public static $tableName = 'invoices';
+    protected static $tableName = 'invoices';
     protected $pkName = 'id';
-    public static $fields = [
+    protected $fields = [
         'client_id',
         'number',
         'date',

@@ -14,9 +14,9 @@ class Contracts extends \app\components\HasRowsModel
 
     use \app\traits\ClientTrait;
 
-    public static $tableName = 'contracts';
+    protected static $tableName = 'contracts';
     protected $pkName = 'id';
-    public static $fields = array('contract_num', 'client_id', 'sum', 'payed', 'date', 'term_start', 'term_end', 'type');
+    protected $fields = array('contract_num', 'client_id', 'sum', 'payed', 'date', 'term_start', 'term_end', 'type');
 
     protected $scalarFields = array('contract_num');
     protected $fieldTypes = array(

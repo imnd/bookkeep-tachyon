@@ -6,6 +6,6 @@ $this->get('FormBuilder')
             'method' => 'POST',
         ),
         'model' => $model,
-        'fields' => $model::$fields,
+        'fields' => $model->getFields(),
         'fieldValues' => $this->getController()->getGet(),
     ));

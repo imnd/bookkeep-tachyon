@@ -12,9 +12,9 @@ class Regions extends \tachyon\db\activeRecord\ActiveRecord
     use \tachyon\dic\behaviours\ListBehaviour;
     use \tachyon\traits\GetList;
 
-    public static $tableName = 'regions';
+    protected static $tableName = 'regions';
     protected $pkName = 'id';
-    public static $fields = array('name', 'description');
+    protected $fields = array('name', 'description');
 
     protected $fieldTypes = array(
         'id' => 'smallint',

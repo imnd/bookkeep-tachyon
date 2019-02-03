@@ -13,9 +13,9 @@ class Clients extends \tachyon\db\activeRecord\ActiveRecord
     use \tachyon\dic\behaviours\ListBehaviour;
     use \tachyon\traits\GetList;
 
+    protected static $tableName = 'clients';
     protected $pkName = 'id';
-    public static $tableName = 'clients';
-    public static $fields = array('name', 'address', 'region_id', 'telephone', 'fax', 'contact_fio', 'contact_post', 'account', 'bank', 'INN', 'KPP', 'BIK', 'sort', 'active');
+    protected $fields = array('name', 'address', 'region_id', 'telephone', 'fax', 'contact_fio', 'contact_post', 'account', 'bank', 'INN', 'KPP', 'BIK', 'sort', 'active');
 
     protected $fieldTypes = [
         'id' => 'smallint',

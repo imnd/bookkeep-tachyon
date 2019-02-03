@@ -13,9 +13,9 @@ class Purchases extends \app\components\HasRowsModel
 
     use \app\traits\ClientTrait;
 
-    public static $tableName = 'purchases';
+    protected static $tableName = 'purchases';
     protected $pkName = 'id';
-    public static $fields = array('number', 'date', 'sum');
+    protected $fields = array('number', 'date', 'sum');
 
     protected $fieldTypes = array(
         'number' => 'tinytext',

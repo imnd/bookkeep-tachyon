@@ -14,8 +14,8 @@ class Articles extends \tachyon\db\activeRecord\ActiveRecord
     use \tachyon\traits\GetList;
 
     protected $pkName = 'id';
-    public static $tableName = 'articles';
-    public static $fields = array('subcat_id', 'name', 'unit', 'price', 'active');
+    protected static $tableName = 'articles';
+    protected $fields = array('subcat_id', 'name', 'unit', 'price', 'active');
 
     protected $fieldTypes = array(
         'id' => 'smallint',

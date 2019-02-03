@@ -15,8 +15,8 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
     use \app\traits\ClientTrait;
 
     protected $pkName = 'id';
-    public static $tableName = 'bills';
-    public static $fields = array('client_id', 'contract_num', 'sum', 'remainder', 'date', 'contents');
+    protected static $tableName = 'bills';
+    protected $fields = array('client_id', 'contract_num', 'sum', 'remainder', 'date', 'contents');
 
     protected $fieldTypes = array(
         'id' => 'mediumint',

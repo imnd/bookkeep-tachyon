@@ -9,9 +9,9 @@ namespace app\models;
  */
 class Settings extends \tachyon\db\activeRecord\ActiveRecord
 {
-    public static $tableName = 'settings';
+    protected static $tableName = 'settings';
     protected $pkName = 'id';
-    public static $fields = array('name', 'key', 'value');
+    protected $fields = array('name', 'key', 'value');
 
     protected $fieldTypes = array(
         'id' => 'smallint',

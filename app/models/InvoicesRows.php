@@ -11,9 +11,9 @@ class InvoicesRows extends \app\components\RowsModel
 {
     use \app\traits\ArticleTrait;
 
-    public static $tableName = 'invoices_rows';
+    protected static $tableName = 'invoices_rows';
     protected $pkName = 'id';
-    public static $fields = array('article_id');
+    protected $fields = array('article_id');
 
     protected static $parentKey = 'invoice_id';
     protected $fieldTypes = array(

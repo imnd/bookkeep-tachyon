@@ -12,11 +12,11 @@ class ArticleSubcats extends \tachyon\db\activeRecord\ActiveRecord
     use \tachyon\dic\behaviours\ListBehaviour;
     use \tachyon\traits\GetList;
 
-    public static $primKey = 'id';
+    protected $pkName = 'id';
     public static $tableName = 'article_subcats';
     public static $fields = array('name', 'cat_id');
 
-    protected static $fieldTypes = array(
+    protected $fieldTypes = array(
         'id' => 'smallint',
         'cat_id' => 'smallint',
         'name' => 'tinytext',

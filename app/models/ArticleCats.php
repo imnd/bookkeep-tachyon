@@ -9,11 +9,11 @@ namespace app\models;
  */
 class ArticleCats extends \tachyon\db\activeRecord\ActiveRecord
 {
-    public static $primKey = 'id';
+    protected $pkName = 'id';
     public static $tableName = 'article_cats';
     public static $fields = array('name', 'description');
 
-    protected static $fieldTypes = array(
+    protected $fieldTypes = array(
         'id' => 'smallint',
         'name' => 'varchar',
         'description' => 'varchar',

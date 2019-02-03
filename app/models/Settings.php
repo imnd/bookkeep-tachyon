@@ -10,21 +10,21 @@ namespace app\models;
 class Settings extends \tachyon\db\activeRecord\ActiveRecord
 {
     public static $tableName = 'settings';
-    public static $primKey = 'id';
+    protected $pkName = 'id';
     public static $fields = array('name', 'key', 'value');
 
-    protected static $fieldTypes = array(
+    protected $fieldTypes = array(
         'id' => 'smallint',
         'name' => 'tinytext',
         'key' => 'tinytext',
         'value' => 'tinytext',
     );
-    protected static $attributeTypes = array(
+    protected $attributeTypes = array(
         'name' => 'input',
         'key' => 'input',
         'value' => 'input',
     );
-    protected static $attributeNames = array(
+    protected $attributeNames = array(
         'name' => 'название',
         'key' => 'ключ',
         'value' => 'значение',

@@ -12,17 +12,17 @@ class InvoicesRows extends \app\components\RowsModel
     use \app\traits\ArticleTrait;
 
     public static $tableName = 'invoices_rows';
-    public static $primKey = 'id';
+    protected $pkName = 'id';
     public static $fields = array('article_id');
 
     protected static $parentKey = 'invoice_id';
-    protected static $fieldTypes = array(
+    protected $fieldTypes = array(
         'article_id' => 'smallint',
     );
-    protected static $attributeTypes = array(
+    protected $attributeTypes = array(
         'article_id' => 'select',
     );
-    protected static $attributeNames = array(
+    protected $attributeNames = array(
         'article_id' => 'товар',
     );
     protected $relations = array(

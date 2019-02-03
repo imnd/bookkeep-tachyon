@@ -52,7 +52,7 @@ class HasRowsModel extends \tachyon\db\activeRecord\ActiveRecord
             ->joinRelation(array('rows' => 'r'))
             ->select('SUM(r.quantity) AS quantitySum');
 
-        if ($result = parent::findAllScalar(array(static::$primKey => $pk)))
+        if ($result = parent::findAllScalar(array($this->pkName => $pk)))
             return $result[0]['quantitySum'];
 
         return 0;
@@ -66,7 +66,7 @@ class HasRowsModel extends \tachyon\db\activeRecord\ActiveRecord
         $sum = 0;
         if (isset($_POST[$this->rowModelName])) {
             $rowsData = \tachyon\helpers\ArrayHelper::transposeArray($_POST[$this->rowModelName]);
-            $thisPk = $this->getPrimKeyVal();
+            $thisPk = $this->getPk();
             $rowFk = $this->rowFk;
             foreach ($rowsData as $rowData) {
                 $row = $this->get($this->rowModelName);

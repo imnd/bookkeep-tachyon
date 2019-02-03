@@ -13,11 +13,11 @@ class Clients extends \tachyon\db\activeRecord\ActiveRecord
     use \tachyon\dic\behaviours\ListBehaviour;
     use \tachyon\traits\GetList;
 
-    public static $primKey = 'id';
+    protected $pkName = 'id';
     public static $tableName = 'clients';
     public static $fields = array('name', 'address', 'region_id', 'telephone', 'fax', 'contact_fio', 'contact_post', 'account', 'bank', 'INN', 'KPP', 'BIK', 'sort', 'active');
 
-    protected static $fieldTypes = array(
+    protected $fieldTypes = [
         'id' => 'smallint',
         'region_id' => 'smallint',
         'name' => 'tinytext',
@@ -33,8 +33,8 @@ class Clients extends \tachyon\db\activeRecord\ActiveRecord
         'BIK' => 'bigint',
         'sort' => 'smallint',
         'active' => 'enum',
-    );
-    protected static $attributeTypes = array(
+    ];
+    protected $attributeTypes = [
         'name' => 'input',
         'address' => 'input',
         'region_id' => 'select',
@@ -49,8 +49,8 @@ class Clients extends \tachyon\db\activeRecord\ActiveRecord
         'BIK' => 'input',
         'sort' => 'input',
         'active' => 'checkbox',
-    );
-    protected static $attributeNames = array(
+    ];
+    protected $attributeNames = [
         'region_id' => 'район',
         'name' => 'название',
         'address' => 'адрес',
@@ -65,22 +65,22 @@ class Clients extends \tachyon\db\activeRecord\ActiveRecord
         'BIK' => 'БИК',
         'sort' => 'порядок сортировки',
         'active' => 'активный',
-    );
+    ];
     protected $defSortBy = array('sort');
-    protected $entityNames = array(
+    protected $entityNames = [
         'single' => 'клиент',
         'plural' => 'клиенты'
-    );
-    protected $relations = array(
+    ];
+    protected $relations = [
         'region' => array('Regions', 'belongs_to', 'region_id'),
-    );
+    ];
 
     public function rules(): array
     {
-        return array(
+        return [
             'name' => array('alphaExt', 'required'),
             'address' => array('alphaExt'),
-        );
+        ];
     }
 
     public function setSearchConditions(array $where=array()): Clients

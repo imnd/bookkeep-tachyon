@@ -75,7 +75,7 @@ class CrudController extends \tachyon\Controller
         $this->view->setPageTitle(ucfirst($this->model->getEntityName('single')) . ', редактирование');
         $this->saveModel($model);
 
-        $this->layout('update', compact('model'));
+        $this->layout('update', compact('model', 'pk'));
     }
 
     public function delete($pk)

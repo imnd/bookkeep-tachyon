@@ -15,7 +15,7 @@ class Invoices extends \app\components\HasRowsModel
     use \app\traits\ContractTrait;
 
     public static $tableName = 'invoices';
-    public static $primKey = 'id';
+    protected $pkName = 'id';
     public static $fields = [
         'client_id',
         'number',
@@ -25,7 +25,7 @@ class Invoices extends \app\components\HasRowsModel
         'payed',
     ];
 
-    protected static $fieldTypes = [
+    protected $fieldTypes = [
         'id' => 'int',
         'client_id' => 'smallint',
         'number' => 'tinytext',
@@ -34,7 +34,7 @@ class Invoices extends \app\components\HasRowsModel
         'sum' => 'float',
         'payed' => 'float',
     ];
-    protected static $attributeTypes = [
+    protected $attributeTypes = [
         'number' => 'input',
         'contract_num' => 'input',
         'client_id' => 'select',
@@ -42,7 +42,7 @@ class Invoices extends \app\components\HasRowsModel
         'dateFrom' => 'input',
         'dateTo' => 'input',
     ];
-    protected static $attributeNames = [
+    protected $attributeNames = [
         'number' => 'номер',
         'contract_num' => 'номер договора',
         'client_id' => 'клиент',

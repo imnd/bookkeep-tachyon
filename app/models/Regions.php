@@ -13,19 +13,19 @@ class Regions extends \tachyon\db\activeRecord\ActiveRecord
     use \tachyon\traits\GetList;
 
     public static $tableName = 'regions';
-    public static $primKey = 'id';
+    protected $pkName = 'id';
     public static $fields = array('name', 'description');
 
-    protected static $fieldTypes = array(
+    protected $fieldTypes = array(
         'id' => 'smallint',
         'name' => 'varchar',
         'description' => 'varchar',
     );
-    protected static $attributeNames = array(
+    protected $attributeNames = array(
         'name' => 'название',
         'description' => 'описание',
     );
-    protected static $attributeTypes = array(
+    protected $attributeTypes = array(
         'name' => 'input',
         'description' => 'textarea',
     );

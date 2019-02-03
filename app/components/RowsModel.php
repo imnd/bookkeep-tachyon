@@ -15,20 +15,20 @@ class RowsModel extends \tachyon\db\activeRecord\ActiveRecord
     public function __construct()
     {
         static::$fields = array_merge(static::$fields, array(static::$parentKey, 'quantity', 'price'));
-        static::$fieldTypes = array_merge(static::$fieldTypes, array(
+        $this->fieldTypes = array_merge($this->fieldTypes, [
             'id' => 'int',
             static::$parentKey => 'int',
             'quantity' => 'double',
             'price' => 'double',
-        ));
-        static::$attributeTypes = array_merge(static::$attributeTypes, array(
+        ]);
+        $this->attributeTypes = array_merge($this->attributeTypes, [
             'quantity' => 'input',
             'price' => 'input',
-        ));
-        static::$attributeNames = array_merge(static::$attributeNames, array(
+        ]);
+        $this->attributeNames = array_merge($this->attributeNames, [
             'quantity' => 'количество',
             'price' => 'цена',
-        ));
+        ]);
 
         parent::__construct();
     }

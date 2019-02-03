@@ -15,11 +15,11 @@ class Contracts extends \app\components\HasRowsModel
     use \app\traits\ClientTrait;
 
     public static $tableName = 'contracts';
-    public static $primKey = 'id';
+    protected $pkName = 'id';
     public static $fields = array('contract_num', 'client_id', 'sum', 'payed', 'date', 'term_start', 'term_end', 'type');
 
     protected $scalarFields = array('contract_num');
-    protected static $fieldTypes = array(
+    protected $fieldTypes = array(
         'id' => 'mediumint',
         'client_id' => 'tinyint',
         'contract_num' => 'tinytext',
@@ -30,7 +30,7 @@ class Contracts extends \app\components\HasRowsModel
         'term_end' => 'date',
         'type' => 'enum',
     );
-    protected static $attributeTypes = array(
+    protected $attributeTypes = array(
         'contract_num' => 'input',
         'client_id' => 'select',
         'date' => 'input',
@@ -42,7 +42,7 @@ class Contracts extends \app\components\HasRowsModel
         'payed' => 'input',
         'type' => 'select',
     );
-    protected static $attributeNames = array(
+    protected $attributeNames = array(
         'contract_num' => 'номер',
         'client_id' => 'клиент',
         'clientName' => 'клиент',

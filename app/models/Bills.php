@@ -14,11 +14,11 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
 
     use \app\traits\ClientTrait;
 
-    public static $primKey = 'id';
+    protected $pkName = 'id';
     public static $tableName = 'bills';
     public static $fields = array('client_id', 'contract_num', 'sum', 'remainder', 'date', 'contents');
 
-    protected static $fieldTypes = array(
+    protected $fieldTypes = array(
         'id' => 'mediumint',
         'client_id' => 'smallint',
         'contract_num' => 'tinytext',
@@ -27,7 +27,7 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
         'date' => 'date',
         'contents' => 'tinytext',
     );
-    protected static $attributeNames = array(
+    protected $attributeNames = array(
         'client_id' => 'клиент',
         'clientName' => 'клиент',
         'contract_num' => 'номер договора',

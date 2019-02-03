@@ -14,15 +14,15 @@ class Purchases extends \app\components\HasRowsModel
     use \app\traits\ClientTrait;
 
     public static $tableName = 'purchases';
-    public static $primKey = 'id';
+    protected $pkName = 'id';
     public static $fields = array('number', 'date', 'sum');
 
-    protected static $fieldTypes = array(
+    protected $fieldTypes = array(
         'number' => 'tinytext',
         'date' => 'date',
         'sum' => 'double',
     );
-    protected static $attributeNames = array(
+    protected $attributeNames = array(
         'number' => 'номер',
         'date' => 'дата',
         'dateFrom' => 'дата с',

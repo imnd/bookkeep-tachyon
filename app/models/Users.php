@@ -13,9 +13,9 @@ class Users extends \tachyon\db\activeRecord\ActiveRecord
     const STATUS_CONFIRMED = 1;
 
     public static $tableName = 'users';
-    public static $primKey = 'id';
+    protected $pkName = 'id';
     public static $fields = array('username', 'email', 'password_hash', 'confirmed', 'confirm_code');
-    protected static $attributeNames = array(
+    protected $attributeNames = array(
         'username' => 'Логин',
         'email' => 'Email',
         'password' => 'Пароль',

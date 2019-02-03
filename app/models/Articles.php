@@ -13,11 +13,11 @@ class Articles extends \tachyon\db\activeRecord\ActiveRecord
     use \tachyon\dic\behaviours\ListBehaviour;
     use \tachyon\traits\GetList;
 
-    public static $primKey = 'id';
+    protected $pkName = 'id';
     public static $tableName = 'articles';
     public static $fields = array('subcat_id', 'name', 'unit', 'price', 'active');
 
-    protected static $fieldTypes = array(
+    protected $fieldTypes = array(
         'id' => 'smallint',
         'subcat_id' => 'smallint',
         'name' => 'tinytext',
@@ -25,7 +25,7 @@ class Articles extends \tachyon\db\activeRecord\ActiveRecord
         'price' => 'tinyint',
         'active' => 'enum',
     );
-    protected static $attributeNames = array(
+    protected $attributeNames = array(
         'subcat_id' => 'подкатегория',
         'subcatName' => 'подкатегория',
         'name' => 'название',

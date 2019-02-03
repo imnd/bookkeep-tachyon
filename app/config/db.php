@@ -9,9 +9,9 @@ return array (
 );
 /*return array (
     'engine' => 'pgsql',
-	'host' => 'localhost',
+    'host' => 'localhost',
     'dbname' => 'bookkeep',
-	'user' => 'postgres',
-	'password' => 'postgres',
+    'user' => 'postgres',
+    'password' => 'postgres',
     'charset' => 'utf8',
 );*/

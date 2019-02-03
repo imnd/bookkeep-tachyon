@@ -12,11 +12,11 @@ if ($quantity == floor($quantity)) {
     
 ?>
 <tr class="total">
-	<td colspan="3"><b>Итого: </b></td>
-	<td><?=$quantity?></td>
-	<td></td>
-	<td><?=$sum?></td>
-	<td colspan="2"></td>
-	<td><?=$sum?></td>
-	<td colspan="2"></td>
+    <td colspan="3"><b>Итого: </b></td>
+    <td><?=$quantity?></td>
+    <td></td>
+    <td><?=$sum?></td>
+    <td colspan="2"></td>
+    <td><?=$sum?></td>
+    <td colspan="2"></td>
 </tr>

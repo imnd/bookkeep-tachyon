@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="<?=$this->controller->getLanguage()?>">
 <head>
-	<title><?=$this->pageTitle?></title>
-	<meta http-equiv="content-type" content="text/html; charset=<?=$this->config->getOption('encoding')?>" />
+    <title><?=$this->pageTitle?></title>
+    <meta http-equiv="content-type" content="text/html; charset=<?=$this->config->getOption('encoding')?>" />
     <?=
     $this->assetManager->css('style'),
     $this->assetManager->coreJs('dom')
@@ -10,7 +10,7 @@
 </head>
 
 <body class="<?="{$this->controller->getId()} {$this->controller->getAction()}"?>">
-	<div class="main" id="menu">
+    <div class="main" id="menu">
         <?php
         $this->widget([
             'class' => 'Menu',

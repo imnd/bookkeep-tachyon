@@ -26,9 +26,9 @@ class SettingsController extends \app\components\CrudController
      * Главная страница
      */
     public function index()
-	{
-		$this->layout();
-	}
+    {
+        $this->layout();
+    }
 
     /**
      * Установка реквизитов

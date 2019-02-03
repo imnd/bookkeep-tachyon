@@ -22,11 +22,11 @@ class ContractsController extends \app\components\CrudController
         );
     }
 
-	/**
+    /**
      * Главная страница, список договоров
      */
     public function index($type=null)
-	{
+    {
         $this->layout('index', array(
             'type' => $type,
             'model' => $this->model,
@@ -35,7 +35,7 @@ class ContractsController extends \app\components\CrudController
                 ->setSortConditions($this->get)
                 ->findAllScalar(compact('type')),
         ));
-	}
+    }
 
     public function printout($pk)
     {

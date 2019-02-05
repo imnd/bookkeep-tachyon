@@ -22,6 +22,7 @@
                 'clients' => 'клиенты',
                 'bills' => 'платежи',
                 'settings' => 'администрирование',
+                'index/' . ($this->controller->isAuthorised() ? 'logout' : 'login') => $this->controller->isAuthorised() ? 'выйти' : 'войти',
             ],
             'view' => 'top',
         ]);

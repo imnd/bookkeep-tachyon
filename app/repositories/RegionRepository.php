@@ -10,7 +10,6 @@ use app\entities\Region;
 class RegionRepository extends \tachyon\db\dataMapper\Repository
 {
     use \app\dic\Region;
-    use \app\dic\RegionRepository;
 
     protected $tableName = 'regions';
 }

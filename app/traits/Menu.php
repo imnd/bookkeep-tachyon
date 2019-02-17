@@ -5,7 +5,7 @@ namespace app\traits;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */ 
-trait MenuTrait
+trait Menu
 {
     /**
      * Главное меню

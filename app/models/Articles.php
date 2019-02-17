@@ -13,19 +13,19 @@ class Articles extends \tachyon\db\activeRecord\ActiveRecord
     use \tachyon\dic\behaviours\ListBehaviour;
     use \tachyon\traits\GetList;
 
-    protected $pkName = 'id';
     protected static $tableName = 'articles';
+    protected $pkName = 'id';
     protected $fields = array('subcat_id', 'name', 'unit', 'price', 'active');
 
-    protected $fieldTypes = array(
+    protected $fieldTypes = [
         'id' => 'smallint',
         'subcat_id' => 'smallint',
         'name' => 'tinytext',
         'unit' => 'float',
         'price' => 'tinyint',
         'active' => 'enum',
-    );
-    protected $attributeNames = array(
+    ];
+    protected $attributeNames = [
         'subcat_id' => 'подкатегория',
         'subcatName' => 'подкатегория',
         'name' => 'название',
@@ -35,15 +35,16 @@ class Articles extends \tachyon\db\activeRecord\ActiveRecord
         'priceTo' => 'цена до',
         'active' => 'активный',
         'activeText' => 'активный',
-    );
+    ];
     protected $defSortBy = array('name');
-    protected $entityNames = array(
+    // TODO: на выпил
+    protected $entityNames = [
         'single' => 'товар',
         'plural' => 'товары'
-    );
-    protected $relations = array(
+    ];
+    protected $relations = [
         'subcategory' => array('ArticleSubcats', 'belongs_to', 'subcat_id'),
-    );
+    ];
 
     /**
      * @param array $conditions условия поиска
@@ -52,7 +53,7 @@ class Articles extends \tachyon\db\activeRecord\ActiveRecord
     {
         $this->gt($conditions, 'price', 'priceFrom');
         $this->lt($conditions, 'price', 'priceTo');
-        $this->addWhere($conditions);
+        parent::setSearchConditions($conditions);
 
         return $this;
     }

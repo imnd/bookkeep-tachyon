@@ -10,7 +10,8 @@ namespace app\components;
  */
 class CrudController extends \tachyon\Controller
 {
-    use \app\traits\MenuTrait;
+    use \tachyon\traits\Authentication;
+    use \app\traits\Menu;
 
     protected $modelName;
     protected $model;
@@ -32,6 +33,21 @@ class CrudController extends \tachyon\Controller
         }
         $this->model = $this->get($this->modelName);
         $this->model->setAttributes($this->get);
+    }
+
+    /**
+     * Хук, срабатывающий перед запуском экшна
+     * @return boolean
+     */
+    public function beforeAction()
+    {
+        if (!parent::beforeAction()) {
+            return false;
+        }
+        if ($this->protectedActions==='*' || in_array($this->action, $this->protectedActions)) {
+            $this->checkAccess();
+        }
+        return true;
     }
 
     /**

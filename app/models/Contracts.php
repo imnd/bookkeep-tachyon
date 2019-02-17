@@ -12,14 +12,15 @@ class Contracts extends \app\components\HasRowsModel
     use \tachyon\dic\behaviours\ListBehaviour;
     use \tachyon\dic\behaviours\DateTime;
 
-    use \app\traits\ClientTrait;
+    use \app\traits\DateTime;
+    use \app\traits\Client;
 
     protected static $tableName = 'contracts';
     protected $pkName = 'id';
     protected $fields = array('contract_num', 'client_id', 'sum', 'payed', 'date', 'term_start', 'term_end', 'type');
 
     protected $scalarFields = array('contract_num');
-    protected $fieldTypes = array(
+    protected $fieldTypes = [
         'id' => 'mediumint',
         'client_id' => 'tinyint',
         'contract_num' => 'tinytext',
@@ -29,8 +30,8 @@ class Contracts extends \app\components\HasRowsModel
         'term_start' => 'date',
         'term_end' => 'date',
         'type' => 'enum',
-    );
-    protected $attributeTypes = array(
+    ];
+    protected $attributeTypes = [
         'contract_num' => 'input',
         'client_id' => 'select',
         'date' => 'input',
@@ -41,8 +42,8 @@ class Contracts extends \app\components\HasRowsModel
         'sum' => 'input',
         'payed' => 'input',
         'type' => 'select',
-    );
-    protected $attributeNames = array(
+    ];
+    protected $attributeNames = [
         'contract_num' => 'номер',
         'client_id' => 'клиент',
         'clientName' => 'клиент',
@@ -57,61 +58,62 @@ class Contracts extends \app\components\HasRowsModel
         'executed' => 'выбрано',
         'execRemind' => 'осталось выбрать',
         'type' => 'тип',
-    );
+    ];
 
-    protected $relations = array(
+    protected $relations = [
         'client' => array('Clients', 'has_one', 'client_id'),
-    );
+    ];
     protected $rowFk = 'contract_id';
     protected $rowModelName = 'ContractsRows';
     protected $defSortBy = array('contract_num' => 'DESC');
-    protected $entityNames = array(
+    protected $entityNames = [
         'single' => 'договор',
         'plural' => 'договоры'
-    );
+    ];
 
     /**
      * Названия типов
      * @var $_types array
      */
-    private $_types = array(
+    private $_types = [
         'contract' => 'контракт',
         'agreement' => 'договор',
-    );
+    ];
 
     public function rules(): array
     {
-        return array(
+        return [
             'contract_num' => array('integer', 'required'),
             'client_id' => array('integer', 'required'),
             'date' => array('required'),
             'term_start' => array('required'),
             'term_end' => array('required'),
 //            'type' => array('in' => array_keys($this->_types)), // TODO: сделать
-        );
+        ];
     }
     
     /**
      * @param array $conditions условия поиска
      */
-    public function setSearchConditions(array $where=array()): Contracts
+    public function setSearchConditions(array $conditions=array()): Contracts
     {
-        \tachyon\helpers\DateTimeHelper::setYearBorders($this, $where);
+        $this->setYearBorders($conditions);
+        parent::setSearchConditions($conditions);
+
         return $this;
     }
 
     /**
-     * getTypeName
      * Название типа
      * 
      * @return string
      */
     public function getTypeName($type=null, $case='nom'): string
     {
-        if (is_null($type))
+        if (is_null($type)) {
             $type = $this->type;
-
-        if ($case==='gen')
+        }
+        if ($case==='gen') {
             $this->_types = array_map(
                 function($key, $val) {
                     return $val . 'ов';
@@ -119,7 +121,7 @@ class Contracts extends \app\components\HasRowsModel
                 array_keys($this->_types),
                 array_values($this->_types)
             );
-
+        }
         return $this->_types[$type] ?? implode(' и ', $this->_types);
     }
 

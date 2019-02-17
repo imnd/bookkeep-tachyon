@@ -9,31 +9,31 @@ namespace app\models;
  */
 class ContractsRows extends \app\components\RowsModel
 {
-    use \app\traits\ArticleTrait;
+    use \app\traits\Article;
 
     protected static $tableName = 'contracts_rows';
     protected $pkName = 'id';
     protected $fields = array('article_id');
 
-    protected static $parentKey = 'contract_id';
-    protected $fieldTypes = array(
+    protected $parentKey = 'contract_id';
+    protected $fieldTypes = [
         'article_id' => 'smallint',
-    );
-    protected $attributeTypes = array(
+    ];
+    protected $attributeTypes = [
         'article_id' => 'select',
-    );
-    protected $attributeNames = array(
+    ];
+    protected $attributeNames = [
         'article_id' => 'товар',
-    );
-    protected $relations = array(
+    ];
+    protected $relations = [
         'article' => array('Articles', 'has_one', 'article_id'),
-    );
+    ];
 
     public function rules(): array
     {
-        return array_merge(parent::rules(), array(
+        return array_merge(parent::rules(), [
             'article_id' => array('numerical'),
-        ));
+        ]);
     }
 
     /**
@@ -65,14 +65,14 @@ class ContractsRows extends \app\components\RowsModel
                 array('cat_id', 'id'),
                 'subcat'
             )
-            ->select(array(
+            ->select([
                 '*',
                 'art.name' => 'art_name',
                 'art.unit' => 'art_unit',
                 'subcat.name' => 'subcat_name',
                 'cat.name' => 'cat_name',
                 'cat.description' => 'cat_description',
-            ))
+            ])
             ->sortBy('cat.id');
 
         return parent::findAllScalar($conditions);

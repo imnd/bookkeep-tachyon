@@ -11,8 +11,9 @@ class Invoices extends \app\components\HasRowsModel
 {
     use \tachyon\dic\behaviours\DateTime;
 
-    use \app\traits\ClientTrait;
-    use \app\traits\ContractTrait;
+    use \app\traits\DateTime;
+    use \app\traits\Client;
+    use \app\traits\Contract;
 
     protected static $tableName = 'invoices';
     protected $pkName = 'id';
@@ -80,7 +81,9 @@ class Invoices extends \app\components\HasRowsModel
      */
     public function setSearchConditions(array $conditions = array()): Invoices
     {
-        \tachyon\helpers\DateTimeHelper::setYearBorders($this, $conditions);
+        $this->setYearBorders($conditions);
+        parent::setSearchConditions($conditions);
+
         return $this;
     }
 
@@ -140,16 +143,16 @@ class Invoices extends \app\components\HasRowsModel
             ->lt($conditions, 'cn.date', 'dateTo')
         ;
             
-        if (!empty($conditions['client_id']))
+        if (!empty($conditions['client_id'])) {
             $this->addWhere(array('cl.id' => $conditions['client_id']));
-
-        if (!empty($conditions['contract_num']))
+        }
+        if (!empty($conditions['contract_num'])) {
             $this->addWhere(array('cn.contract_num' => $conditions['contract_num']));
-
+        }
         $item = $this->findOneScalar();
-        if ($value = $item['total'])
+        if ($value = $item['total']) {
             return $value;
-            
+        }
         return 0;
     }
     

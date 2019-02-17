@@ -3,6 +3,8 @@
     'defaultController' => 'Index',
     // язык
     'lang' => 'ru',
+    // продолжительность логина при нажатой кнопке "remember me"
+    'remember' => 7, // неделя
     // кодировка
     'encoding' => 'utf-8',
     'base_path' => '/',

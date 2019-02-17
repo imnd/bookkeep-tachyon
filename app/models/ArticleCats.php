@@ -9,8 +9,8 @@ namespace app\models;
  */
 class ArticleCats extends \tachyon\db\activeRecord\ActiveRecord
 {
-    protected $pkName = 'id';
     protected static $tableName = 'article_cats';
+    protected $pkName = 'id';
     protected $fields = array('name', 'description');
 
     protected $fieldTypes = array(

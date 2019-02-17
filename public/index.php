@@ -1,5 +1,4 @@
 <?php
 include('..\\vendor\\tachyon\\autoload.php');
 
-$frontController = \tachyon\dic\Container::getInstanceOf('FrontController');
-$frontController->dispatch();
+\tachyon\dic\Container::getInstanceOf('Router')->dispatch();

@@ -2,7 +2,7 @@
 $this->get('FormBuilder')
     ->build(array(
         'options' => array(
-            'action' => $this->getController()->getRoute(),
+            'action' => $this->controller->getRoute(),
             'method' => 'POST',
             'submitCaption' => $this->i18n('save'),
         ),
@@ -19,5 +19,5 @@ $this->get('FormBuilder')
                 'listData' => $model->getListBehaviour()->getSelectListFromArr($model->getContentsList(), true, false)
             ),
         ),
-        'fieldValues' => $this->getController()->getGet(),
+        'fieldValues' => $this->controller->getGet(),
     ));

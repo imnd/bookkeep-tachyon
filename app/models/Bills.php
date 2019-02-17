@@ -12,13 +12,13 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
     use \tachyon\dic\behaviours\ListBehaviour;
     use \tachyon\dic\behaviours\DateTime;
 
-    use \app\traits\ClientTrait;
+    use \app\traits\DateTime;
+    use \app\traits\Client;
 
-    protected $pkName = 'id';
     protected static $tableName = 'bills';
+    protected $pkName = 'id';
     protected $fields = array('client_id', 'contract_num', 'sum', 'remainder', 'date', 'contents');
-
-    protected $fieldTypes = array(
+    protected $fieldTypes = [
         'id' => 'mediumint',
         'client_id' => 'smallint',
         'contract_num' => 'tinytext',
@@ -26,8 +26,8 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
         'remainder' => 'double',
         'date' => 'date',
         'contents' => 'tinytext',
-    );
-    protected $attributeNames = array(
+    ];
+    protected $attributeNames = [
         'client_id' => 'клиент',
         'clientName' => 'клиент',
         'contract_num' => 'номер договора',
@@ -37,20 +37,19 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
         'dateFrom' => 'дата с',
         'dateTo' => 'дата по',
         'contents' => 'содержание',
-    );
-
-    protected $entityNames = array(
+    ];
+    protected $entityNames = [
         'single' => 'платеж',
         'plural' => 'платежи'
-    );
+    ];
 
     public function rules(): array
     {
-        return array(
+        return [
             'contract_num' => array('integer', 'required'),
             'client_id' => array('integer', 'required'),
             'date' => array('required'),
-        );
+        ];
     }
 
     /**
@@ -58,7 +57,9 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
      */
     public function setSearchConditions(array $conditions=array()): Bills
     {
-        \tachyon\helpers\DateTimeHelper::setYearBorders($this, $conditions);
+        $this->setYearBorders($conditions);
+        parent::setSearchConditions($conditions);
+
         return $this;
     }
 
@@ -118,16 +119,17 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
             ->lt($conditions, 'cn.date', 'dateTo')
         ;
 
-        if (!empty($conditions['client_id']))
+        if (!empty($conditions['client_id'])) {
             $this->addWhere(array('cl.id' => $conditions['client_id']));
-        if (!empty($conditions['contract_num']))
+        }
+        if (!empty($conditions['contract_num'])) {
             $this->addWhere(array('cn.contract_num' => $conditions['contract_num']));
-            
+        }
         $item = $this->findOneScalar();
         
-        if ($value = $item['total'])
+        if ($value = $item['total']) {
             return $value;
-            
+        }
         return 0;
     }
 
@@ -136,9 +138,9 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
      */
     public function getContentsList(): array
     {
-        return array(
+        return [
             'payment' => 'платёж',
             'purchase' => 'закуп',
-        );
+        ];
     }
 }

@@ -2,7 +2,7 @@
 /** @var app\entities\Client $client */
 /** @var app\entities\Region $region */
 ?>
-<form method="POST" action="<?=$this->getController()->getRoute()?>">
+<form method="POST" action="<?=$this->controller->getRoute()?>">
     <div class="row">
         <label>название*:</label>
         <input name="name" value="<?=$client->getName()?>" class="required" type="text">

@@ -2,7 +2,6 @@
 namespace app\controllers;
 
 /**
- * class Articles
  * Контроллер товаров
  * 
  * @author Андрей Сердюк

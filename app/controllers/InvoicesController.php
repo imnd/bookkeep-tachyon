@@ -9,6 +9,9 @@ namespace app\controllers;
  */ 
 class InvoicesController extends \app\components\CrudController
 {
+    /**
+     * @inheritdoc 
+     */
     public function printout($pk)
     {
         $this->layout = 'printout';

@@ -27,6 +27,8 @@ class ClientRepository extends Repository
                 );
             }
         }
+        parent::setSearchConditions($conditions);
+
         return $this;
     }
 }

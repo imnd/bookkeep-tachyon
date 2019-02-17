@@ -1,20 +1,12 @@
 <?php
-$this->setLayout('list');
-$this->setPageTitle('Клиенты, список');
-?>
+$this->layout = 'list';
+$this->pageTitle = 'Клиенты, список';
 
-<form class="search-form" action="<?=$this->controller->getRoute()?>">
-    <?=$this->display('../_search_input', [
-        'entity' => $entity,
-        'name' => 'name'
-    ])?>
-    <?=$this->display('../_search_input', [
-        'entity' => $entity,
-        'name' => 'address'
-    ])?>
-    <input type="submit" class="button" id="submit_imnd_frm_0" value="поиск">
-    <div class="clear"></div>
-</form>
+echo $this->display('../_search-form', [
+    'entity' => $entity,
+    'fields' => ['name', 'address'],
+]);
+?>
 
 <table>
     <tr>
@@ -31,10 +23,7 @@ $this->setPageTitle('Клиенты, список');
         <th><?=$entity->getCaption('BIK')?></th>
         <th>операции</th>
     </tr>
-    <?php
-    // таблица
-    foreach ($clients as $client) {
-        ?>
+    <?php foreach ($clients as $client) {?>
         <tr>
             <td><?=$this->escape( $client->getName() )?></td>
             <td><?=$this->escape( $client->getAddress() )?></td>
@@ -49,6 +38,5 @@ $this->setPageTitle('Клиенты, список');
             <td><?=$this->escape( $client->getBIK() )?></td>
             <td><a class="button-update" title="update" href="/clients/update/<?=$client->getId()?>"></a></td>
         </tr>
-        <?php 
-    }?>
+    <?php }?>
 </table>

@@ -5,15 +5,16 @@ namespace app\traits;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */ 
-trait ContractTrait
+trait Contract
 {
     /**
      * @return integer
      */
     public function getContractId()
     {
-        if ($contract = $this->contract)
+        if ($contract = $this->contract) {
             return $contract->id;
+        }
     }
 
     /**
@@ -21,7 +22,8 @@ trait ContractTrait
      */
     public function getContractType()
     {
-        if ($contract = $this->contract)
+        if ($contract = $this->contract) {
             return $contract->getTypeName();
+        }
     }
 }

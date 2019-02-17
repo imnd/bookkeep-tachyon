@@ -12,8 +12,8 @@ class ArticleSubcats extends \tachyon\db\activeRecord\ActiveRecord
     use \tachyon\dic\behaviours\ListBehaviour;
     use \tachyon\traits\GetList;
 
-    protected $pkName = 'id';
     protected static $tableName = 'article_subcats';
+    protected $pkName = 'id';
     protected $fields = array('name', 'cat_id');
 
     protected $fieldTypes = array(

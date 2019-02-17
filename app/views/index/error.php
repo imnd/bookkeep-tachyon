@@ -1,2 +1,4 @@
-<h3 class="error"><?=$code?></h3>
-<div class="error"><?=$error?></div>
+<div class="error-msg">
+    <h3>Ошибка <?=$code?></h3>
+    <p><?=$msg?></p>
+</div>

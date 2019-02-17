@@ -5,15 +5,16 @@ namespace app\traits;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */ 
-trait ClientTrait
+trait Client
 {
     /**
      * @return string
      */
     public function getClientName()
     {
-        if ($client = $this->client)
+        if ($client = $this->client) {
             return $client->name;
+        }
     }
 
     /**
@@ -21,8 +22,9 @@ trait ClientTrait
      */
     public function getClientAccount()
     {
-        if ($client = $this->client)
+        if ($client = $this->client) {
             return $client->account;
+        }
     }
 
     /**
@@ -30,8 +32,9 @@ trait ClientTrait
      */
     public function getClientAddress()
     {
-        if ($client = $this->client)
+        if ($client = $this->client) {
             return $client->address;
+        }
     }
 
     /**
@@ -39,8 +42,9 @@ trait ClientTrait
      */
     public function getClientBank()
     {
-        if ($client = $this->client)
+        if ($client = $this->client) {
             return $client->bank;
+        }
     }
 
     /**
@@ -48,8 +52,9 @@ trait ClientTrait
      */
     public function getClientContactPost()
     {
-        if ($client = $this->client)
+        if ($client = $this->client) {
             return $client->contact_post;
+        }
     }
 
     /**
@@ -57,8 +62,9 @@ trait ClientTrait
      */
     public function getClientContactFio()
     {
-        if ($client = $this->client)
+        if ($client = $this->client) {
             return $client->contact_fio;
+        }
     }
 
     /**
@@ -66,8 +72,9 @@ trait ClientTrait
      */
     public function getClientINN()
     {
-        if ($client = $this->client)
+        if ($client = $this->client) {
             return $client->INN;
+        }
     }
 
     /**
@@ -75,8 +82,9 @@ trait ClientTrait
      */
     public function getClientKPP()
     {
-        if ($client = $this->client)
+        if ($client = $this->client) {
             return $client->KPP;
+        }
     }
 
     /**
@@ -84,8 +92,9 @@ trait ClientTrait
      */
     public function getClientBIK()
     {
-        if ($client = $this->client)
+        if ($client = $this->client) {
             return $client->BIK;
+        }
     }
 
     /**
@@ -93,7 +102,8 @@ trait ClientTrait
      */
     public function getClientCorrSchet()
     {
-        if ($client = $this->client)
+        if ($client = $this->client) {
             return $client->korr_schet;
+        }
     }
 }

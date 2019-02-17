@@ -11,45 +11,48 @@ class Purchases extends \app\components\HasRowsModel
 {
     use \tachyon\dic\behaviours\DateTime;
 
-    use \app\traits\ClientTrait;
+    use \app\traits\DateTime;
+    use \app\traits\Client;
 
     protected static $tableName = 'purchases';
     protected $pkName = 'id';
     protected $fields = array('number', 'date', 'sum');
 
-    protected $fieldTypes = array(
+    protected $fieldTypes = [
         'number' => 'tinytext',
         'date' => 'date',
         'sum' => 'double',
-    );
-    protected $attributeNames = array(
+    ];
+    protected $attributeNames = [
         'number' => 'номер',
         'date' => 'дата',
         'dateFrom' => 'дата с',
         'dateTo' => 'дата по',
         'sum' => 'сумма',
-    );
-    protected $entityNames = array(
+    ];
+    protected $entityNames = [
         'single' => 'закупка',
         'plural' => 'закупки'
-    );
+    ];
     protected $rowFk = 'purchase_id';
     protected $rowModelName = 'PurchasesRows';
 
     public function rules(): array
     {
-        return array(
+        return [
             'date, sum, number' => array('required'),
             'number' => array('numerical', 'unique'),
-        );
+        ];
     }
 
     /**
      * @param array $conditions условия поиска
      */
-    public function setSearchConditions(array $where=array()): Purchases
+    public function setSearchConditions(array $conditions=array()): Purchases
     {
-        \tachyon\helpers\DateTimeHelper::setYearBorders($this, $where);
+        $this->setYearBorders($conditions);
+        parent::setSearchConditions($conditions);
+
         return $this;
     }
 

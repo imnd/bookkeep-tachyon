@@ -23,7 +23,8 @@ class PurchasesController extends \app\components\CrudController
             $date = $this->get['date'];
             $items = $model->getReport($date);
         } else {
-            $date = DateTimeHelper::getCurDate();
+            // Текущая дата в стандартном формате
+            $date = date('Y-m-d');
             $items = array();
         }
         $model->date = $date;

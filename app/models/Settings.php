@@ -11,8 +11,8 @@ class Settings extends \tachyon\db\activeRecord\ActiveRecord
 {
     protected static $tableName = 'settings';
     protected $pkName = 'id';
-    protected $fields = array('name', 'key', 'value');
 
+    protected $fields = array('name', 'key', 'value');
     protected $fieldTypes = array(
         'id' => 'smallint',
         'name' => 'tinytext',

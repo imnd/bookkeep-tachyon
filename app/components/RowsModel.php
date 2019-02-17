@@ -10,14 +10,14 @@ namespace app\components;
  */
 class RowsModel extends \tachyon\db\activeRecord\ActiveRecord
 {
-    protected static $parentKey = '';
+    protected $parentKey = '';
 
     public function __construct()
     {
-        $this->fields = array_merge($this->fields, array(static::$parentKey, 'quantity', 'price'));
+        $this->fields = array_merge($this->fields, array($this->parentKey, 'quantity', 'price'));
         $this->fieldTypes = array_merge($this->fieldTypes, [
             'id' => 'int',
-            static::$parentKey => 'int',
+            $this->parentKey => 'int',
             'quantity' => 'double',
             'price' => 'double',
         ]);

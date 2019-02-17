@@ -11,8 +11,10 @@ use app\models\Users;
  */ 
 class IndexController extends \tachyon\Controller
 {
-    use \app\traits\MenuTrait;
     use \app\dic\Users;
+
+    use \tachyon\traits\Authentication;
+    use \app\traits\Menu;
 
     /**
      * Главная страница

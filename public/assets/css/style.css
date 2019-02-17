@@ -150,7 +150,7 @@ body.error #container #container {
     margin-top: 20px;
     padding: 0 10px;
 }
-.error {
+.error-msg {
     color: #A00;
     font-style: italic;
 }

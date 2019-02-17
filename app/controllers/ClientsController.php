@@ -23,13 +23,13 @@ class ClientsController extends \app\components\CrudController
     {
         parent::init();
 
-        $this->mainMenu['/regions'] = 'районы';
         if (is_null($this->entityName)) {
             $this->entityName = $this->id;
         }
         if (is_null($this->repositoryName)) {
             $this->repositoryName = "{$this->entityName}Repository";
         }
+        $this->mainMenu['/regions'] = 'районы';
     }
 
     public function list()

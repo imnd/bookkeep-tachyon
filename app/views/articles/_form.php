@@ -1,21 +1,21 @@
 <?php
 $this->get('FormBuilder')
-    ->build(array(
-        'options' => array(
-            'action' => $this->getController()->getRoute(),
+    ->build([
+        'options' => [
+            'action' => $this->controller->getRoute(),
             'method' => 'POST',
             'submitCaption' => $this->i18n('save'),
-        ),
+        ],
         'model' => $model,
-        'fields' => array(
-            'subcat_id' => array(
+        'fields' => [
+            'subcat_id' => [
                 'listData' => app\models\ArticleSubcats::getSelectList()
-            ),
-            'unit' => array(
+            ],
+            'unit' => [
                 'listData' => $model->getListBehaviour()->getSelectListFromArr($model->getUnits())
-            ),
+            ],
             'name',
             'price',
-        ),
-        'fieldValues' => $this->getController()->getGet(),
-    ));
+        ],
+        'fieldValues' => $this->controller->getGet(),
+    ]);

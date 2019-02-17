@@ -9,13 +9,13 @@ namespace app\models;
  */
 class InvoicesRows extends \app\components\RowsModel
 {
-    use \app\traits\ArticleTrait;
+    use \app\traits\Article;
 
     protected static $tableName = 'invoices_rows';
     protected $pkName = 'id';
     protected $fields = array('article_id');
 
-    protected static $parentKey = 'invoice_id';
+    protected $parentKey = 'invoice_id';
     protected $fieldTypes = array(
         'article_id' => 'smallint',
     );

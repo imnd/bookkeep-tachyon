@@ -4,7 +4,7 @@ foreach ($items as $key => $value) {
     if (is_numeric($key)) {
         if (is_array($value)) {
             if (!isset($value['action'])) {
-                throw new \Exception($this->msg->i18n('Property "action" in menu is undetermined.'));
+                throw new \ErrorException($this->msg->i18n('Property "action" in menu is undetermined.'));
             }
             if (isset($value['type']))
                 $type = $value['type'];

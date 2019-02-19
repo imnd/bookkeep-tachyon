@@ -11,10 +11,9 @@ use app\models\Users;
  */ 
 class IndexController extends \tachyon\Controller
 {
-    use \app\dic\Users;
-
-    use \tachyon\traits\Authentication;
-    use \app\traits\Menu;
+    use \app\dic\Users,
+        \tachyon\traits\Authentication,
+        \app\traits\Menu;
 
     /**
      * Главная страница

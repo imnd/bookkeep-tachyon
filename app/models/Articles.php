@@ -9,9 +9,9 @@ namespace app\models;
  */
 class Articles extends \tachyon\db\activeRecord\ActiveRecord
 {
-    use \tachyon\dic\behaviours\Active;
-    use \tachyon\dic\behaviours\ListBehaviour;
-    use \tachyon\traits\GetList;
+    use \tachyon\dic\behaviours\Active,
+        \tachyon\dic\behaviours\ListBehaviour,
+        \tachyon\traits\GetList;
 
     protected static $tableName = 'articles';
     protected $pkName = 'id';

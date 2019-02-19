@@ -10,8 +10,8 @@ namespace app\components;
  */
 class CrudController extends \tachyon\Controller
 {
-    use \tachyon\traits\Authentication;
-    use \app\traits\Menu;
+    use \tachyon\traits\Authentication,
+        \app\traits\Menu;
 
     protected $modelName;
     protected $model;

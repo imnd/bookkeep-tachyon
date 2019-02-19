@@ -9,8 +9,8 @@ use \tachyon\db\dataMapper\Repository;
  */
 class ClientRepository extends Repository
 {
-    use \app\dic\Client;
-    use \app\dic\RegionRepository;
+    use \app\dic\Client,
+        \app\dic\RegionRepository;
 
     protected $tableName = 'clients';
 

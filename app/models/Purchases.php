@@ -9,10 +9,10 @@ namespace app\models;
  */
 class Purchases extends \app\components\HasRowsModel
 {
-    use \tachyon\dic\behaviours\DateTime;
+    use \tachyon\dic\behaviours\DateTime,
 
-    use \app\traits\DateTime;
-    use \app\traits\Client;
+        \app\traits\DateTime,
+        \app\traits\Client;
 
     protected static $tableName = 'purchases';
     protected $pkName = 'id';

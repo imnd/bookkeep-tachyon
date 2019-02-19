@@ -9,8 +9,8 @@ namespace app\models;
  */
 class ArticleSubcats extends \tachyon\db\activeRecord\ActiveRecord
 {
-    use \tachyon\dic\behaviours\ListBehaviour;
-    use \tachyon\traits\GetList;
+    use \tachyon\dic\behaviours\ListBehaviour,
+        \tachyon\traits\GetList;
 
     protected static $tableName = 'article_subcats';
     protected $pkName = 'id';

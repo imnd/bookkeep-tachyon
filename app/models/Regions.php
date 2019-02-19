@@ -9,8 +9,8 @@ namespace app\models;
  */
 class Regions extends \tachyon\db\activeRecord\ActiveRecord
 {
-    use \tachyon\dic\behaviours\ListBehaviour;
-    use \tachyon\traits\GetList;
+    use \tachyon\dic\behaviours\ListBehaviour,
+        \tachyon\traits\GetList;
 
     protected static $tableName = 'regions';
     protected $pkName = 'id';

@@ -1,8 +1,8 @@
 <?php
 namespace app\controllers;
 
-use app\entities\Client;
-use tachyon\helpers\FlashHelper;
+use app\entities\Client,
+    tachyon\helpers\FlashHelper;
 
 /**
  * Контроллер клиентов фирмы
@@ -12,9 +12,9 @@ use tachyon\helpers\FlashHelper;
  */ 
 class ClientsController extends \app\components\CrudController
 {
-    use \app\dic\ClientRepository;
-    use \app\dic\Client;
-    use \app\dic\RegionRepository;
+    use \app\dic\ClientRepository,
+        \app\dic\Client,
+        \app\dic\RegionRepository;
 
     protected $entityName;
     protected $repositoryName;

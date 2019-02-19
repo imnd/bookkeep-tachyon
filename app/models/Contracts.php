@@ -9,11 +9,11 @@ namespace app\models;
  */
 class Contracts extends \app\components\HasRowsModel
 {
-    use \tachyon\dic\behaviours\ListBehaviour;
-    use \tachyon\dic\behaviours\DateTime;
+    use \tachyon\dic\behaviours\ListBehaviour,
+        \tachyon\dic\behaviours\DateTime,
 
-    use \app\traits\DateTime;
-    use \app\traits\Client;
+        \app\traits\DateTime,
+        \app\traits\Client;
 
     protected static $tableName = 'contracts';
     protected $pkName = 'id';

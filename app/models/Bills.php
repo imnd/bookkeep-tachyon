@@ -9,11 +9,10 @@ namespace app\models;
  */
 class Bills extends \tachyon\db\activeRecord\ActiveRecord
 {
-    use \tachyon\dic\behaviours\ListBehaviour;
-    use \tachyon\dic\behaviours\DateTime;
-
-    use \app\traits\DateTime;
-    use \app\traits\Client;
+    use \tachyon\dic\behaviours\ListBehaviour,
+        \tachyon\dic\behaviours\DateTime,
+        \app\traits\DateTime,
+        \app\traits\Client;
 
     protected static $tableName = 'bills';
     protected $pkName = 'id';
@@ -70,10 +69,10 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
     {
         $this
             ->join(array('clients' => 'cl'), array('client_id', 'id'))
-            ->select(array(
+            ->select([
                 '*',
                 'cl.name' => 'clientName',
-            ));
+            ]);
 
         return parent::findAllScalar($conditions);
     }

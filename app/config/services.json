@@ -1,0 +1,240 @@
+[
+    {
+        "id" : "Articles",
+        "class" : "\\app\\models\\Articles",
+        "properties" : [
+            {
+                "name" : "activeBehaviour",
+                "ref" : "Active",
+                "properties" : [
+                    {
+                        "name" : "activeField",
+                        "value" : "active"
+                    }
+                ]
+            },
+            {
+                "name" : "listBehaviour",
+                "ref" : "List",
+                "properties" : [
+                    {
+                        "name" : "valueField",
+                        "value" : "name"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id" : "ArticleCats",
+        "class" : "\\app\\models\\ArticleCats"
+    },
+    {
+        "id" : "ArticleSubcats",
+        "class" : "\\app\\models\\ArticleSubcats",
+        "properties" : [
+            {
+                "name" : "listBehaviour",
+                "ref" : "List",
+                "properties" : [
+                    {
+                        "name" : "valueField",
+                        "value" : "name"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id" : "Bills",
+        "class" : "\\app\\models\\Bills",
+        "properties" : [
+            {
+                "name" : "dateTime",
+                "ref" : "DateTime"
+            }
+        ]
+    },
+    {
+        "id" : "Clients",
+        "class" : "\\app\\models\\Clients",
+        "properties" : [
+            {
+                "name" : "listBehaviour",
+                "ref" : "List",
+                "properties" : [
+                    {
+                        "name" : "valueField",
+                        "value" : "name"
+                    },
+                    {
+                        "name" : "valsGlue",
+                        "value" : " :: "
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id" : "Contracts",
+        "class" : "\\app\\models\\Contracts",
+        "properties" : [
+            {
+                "name" : "dateTime",
+                "ref" : "DateTime"
+            }
+        ]
+    },
+    {
+        "id" : "ContractsRows",
+        "class" : "\\app\\models\\ContractsRows"
+    },
+    {
+        "id" : "Invoices",
+        "class" : "\\app\\models\\Invoices",
+        "properties" : [
+            {
+                "name" : "dateTime",
+                "ref" : "DateTime"
+            }
+        ]
+    },
+    {
+        "id" : "InvoicesRows",
+        "class" : "\\app\\models\\InvoicesRows"
+    },
+    {
+        "id" : "Purchases",
+        "class" : "\\app\\models\\Purchases"
+    },
+    {
+        "id" : "PurchasesRows",
+        "class" : "\\app\\models\\PurchasesRows"
+    },
+    {
+        "id" : "Regions",
+        "class" : "\\app\\models\\Regions",
+        "properties" : [
+            {
+                "name" : "listBehaviour",
+                "ref" : "List",
+                "properties" : [
+                    {
+                        "name" : "valueField",
+                        "value" : "name"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id" : "Settings",
+        "class" : "\\app\\models\\Settings"
+    },
+    {
+        "id" : "Users",
+        "class" : "\\app\\models\\Users"
+    },
+    {
+        "id" : "IndexController",
+        "class" : "\\app\\controllers\\IndexController",
+        "properties" : [
+            {
+                "name" : "users",
+                "ref" : "Users"
+            }
+        ]
+    },
+    {
+        "id" : "ArticlesController",
+        "class" : "\\app\\controllers\\ArticlesController"
+    },
+    {
+        "id" : "BillsController",
+        "class" : "\\app\\controllers\\BillsController"
+    },
+    {
+        "id" : "ClientsController",
+        "class" : "\\app\\controllers\\ClientsController",
+        "properties" : [
+            {
+                "name" : "client",
+                "ref" : "Client"
+            },
+            {
+                "name" : "clientRepository",
+                "ref" : "ClientRepository"
+            },
+            {
+                "name" : "regionRepository",
+                "ref" : "RegionRepository"
+            }
+        ]
+    },
+    {
+        "id" : "ContractsController",
+        "class" : "\\app\\controllers\\ContractsController"
+    },
+    {
+        "id" : "InvoicesController",
+        "class" : "\\app\\controllers\\InvoicesController"
+    },
+    {
+        "id" : "PurchasesController",
+        "class" : "\\app\\controllers\\PurchasesController"
+    },
+    {
+        "id" : "RegionsController",
+        "class" : "\\app\\controllers\\RegionsController"
+    },
+    {
+        "id" : "CrudController",
+        "class" : "\\app\\components\\CrudController"
+    },
+    {
+        "id" : "SettingsController",
+        "class" : "\\app\\controllers\\SettingsController",
+        "properties" : [
+            {
+                "name" : "filesManager",
+                "ref" : "FilesManager"
+            }
+        ]
+    },
+    {
+        "id" : "Menu",
+        "class" : "\\app\\components\\widgets\\menu\\Menu"
+    },
+    {
+        "id" : "Client",
+        "class" : "\\app\\entities\\Client"
+    },
+    {
+        "id" : "Region",
+        "class" : "\\app\\entities\\Region"
+    },
+    {
+        "id" : "ClientRepository",
+        "class" : "\\app\\repositories\\ClientRepository",
+        "properties" : [
+            {
+                "name" : "client",
+                "ref" : "Client"
+            },
+            {
+                "name" : "regionRepository",
+                "ref" : "RegionRepository"
+            }
+        ]
+    },
+    {
+        "id" : "RegionRepository",
+        "class" : "\\app\\repositories\\RegionRepository",
+        "properties" : [
+            {
+                "name" : "region",
+                "ref" : "Region"
+            }
+        ]
+    }
+]

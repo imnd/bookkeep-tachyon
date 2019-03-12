@@ -29,15 +29,16 @@ foreach ($items as $key => $value) {
     <script><!--
     dom.findById('<?=$widget->getBtnId($action);?>').addEventListener("click", function(e) {
         e.preventDefault();
-        if (confirm("<?=$confirmMsg;?>")!==true)
+        if (confirm("<?=$confirmMsg;?>")!==true) {
             return false;
-
+        }
         ajax.post(
             '<?=$widget->getBtnHref($action);?>',
             {<?="'{$controller->tokenId}':'{$controller->tokenVal}',"?>},
             function(data) {
-                if (data.success==true)
+                if (data.success==true) {
                     <?=$callback;?>
+                }
             }
         );
         return false;

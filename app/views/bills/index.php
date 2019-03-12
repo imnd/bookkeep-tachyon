@@ -1,28 +1,32 @@
 <?php
 // таблица
-$this->widget(array(
+$this->widget([
     'class' => 'Grid',
     'model' => $model,
     'items' => $items,
-    'columns' => array('contents' => '$model->getContentsList()[$item["contents"]]', 'contract_num', 'clientName', 'sum', 'remainder', 'date'),
+    'columns' => [
+        'contents' => '$model->getContentsList()[$item["contents"]]',
+        'contract_num',
+        'clientName',
+        'sum',
+        'remainder',
+        'date'
+    ],
     // фильтры
-    'searchFields' => array(
+    'searchFields' => [
         'dateFrom' => array('type' => 'date'),
         'dateTo' => array('type' => 'date'),
         'contract_num',
-        'client_id' => array(
+        'client_id' => [
             'listData' => app\models\Clients::getSelectList(),
-        ),
-        /*'contents' => array(
-            'listData' => $model->getListBehaviour()->getSelectListFromArr($model->getContentsList(), true)
-        ),*/
-    ),
+        ],
+    ],
     'sumFields' => array('sum'),
     // кнопки
-    'buttons' => array(
-        'delete' => array(
+    'buttons' => [
+        'delete' => [
             'type' => 'ajax',
-        ),
+        ],
         'update',
-    ),
+    ],
 ));

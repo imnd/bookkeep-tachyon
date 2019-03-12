@@ -14,14 +14,14 @@ class Users extends \tachyon\db\activeRecord\ActiveRecord
 
     protected static $tableName = 'users';
     protected $pkName = 'id';
-    protected $fields = array('username', 'email', 'password_hash', 'confirmed', 'confirm_code');
-    protected $attributeNames = array(
+    protected $fields = array('username', 'email', 'password', 'confirmed', 'confirm_code');
+    protected $attributeNames = [
         'username' => 'Логин',
         'email' => 'Email',
         'password' => 'Пароль',
         'confirmed' => 'Подтвержден',
         'confirm_code' => 'Код подтверждения',
-    );
+    ];
     /**
      * соль для шифровки пароля
      * @var string $salt
@@ -34,9 +34,9 @@ class Users extends \tachyon\db\activeRecord\ActiveRecord
      * @param array $attributes
      * @return Users
      */
-    public function find($attributes)
+    public function findByPassword($attributes)
     {
-        $attributes['password_hash'] = $this->hashPassword($attributes['password']);
+        $attributes['password'] = $this->hashPassword($attributes['password']);
         unset($attributes['password']);
         return $this->findOne($attributes);
     }
@@ -68,7 +68,7 @@ class Users extends \tachyon\db\activeRecord\ActiveRecord
         if ($this->hasErrors()) {
             return $this;
         }
-        $attributes['password_hash'] = $this->hashPassword($attributes['password']);
+        $attributes['password'] = $this->hashPassword($attributes['password']);
         unset($attributes['password']);
         $attributes['confirm_code'] = $this->hashPassword(time());
         $this->setAttributes($attributes);

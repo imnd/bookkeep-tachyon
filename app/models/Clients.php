@@ -51,9 +51,9 @@ class Clients extends \tachyon\db\activeRecord\ActiveRecord
         'active' => 'checkbox',
     ];
     protected $attributeNames = [
-        'region_id' => 'район',
         'name' => 'название',
         'address' => 'адрес',
+        'region_id' => 'район',
         'telephone' => 'телефон',
         'fax' => 'факс',
         'contact_fio' => 'контакт. лицо',

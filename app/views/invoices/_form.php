@@ -54,22 +54,25 @@
                 'row' => $this->get('InvoicesRows'),
                 'articles' => $articles
             ));
-        } else
-            foreach ($model->rows as $row)
+        } else {
+            foreach ($model->rows as $row) {
                 $this->display('_row', compact('row', 'articles'));
-        ?>
+            }
+        }?>
         <tr class="total">
             <td colspan="4"><b>Итого:</b></td>
             <td class="total"><?=$model->sum?></td>
         </tr>
         <tr>
             <td colspan="5"></td>
-            <td class="add" id="add"><?=$this->html->button(); ?></td>
+            <td class="add" id="add"><?=$this->html->button()?></td>
         </tr>
     </table>
-    <?=$this->html->submit($this->i18n('save')); ?>
-<?=$this->html->formClose() ?>
-<span style="display: none" id="prices"><?=json_encode($this->get('Articles')->findAllScalar())?></span>
+    <?=$this->html->submit($this->i18n('save'))?>
+    
+<?=$this->html->formClose()?>
+
+<span style="display:none" id="prices"><?=json_encode($this->get('Articles')->findAllScalar())?></span>
 
 <script>
     dom.ready(function() {
@@ -83,4 +86,5 @@
         dom.findByName(prices.modelName + "[contract_num]").addEventListener("change", prices.updatePrices);
     });
 </script>
+
 <?=$this->assetManager->js("bind-btn-handlers")?>

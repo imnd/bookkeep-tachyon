@@ -14,12 +14,7 @@ class SettingsController extends \app\components\CrudController
     public function init()
     {
         parent::init();
-
-        $this->mainMenu = array(
-            'requisites' => 'реквизиты',
-            'backup' => 'резервная копия',
-        );
-        $this->view->setPageTitle('Администрирование');
+        $this->layout = 'settings';
     }
 
     /**

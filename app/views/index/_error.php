@@ -1,4 +1,3 @@
-<div>
-    <span class="error"><?= $error ?? ''?></span>
+<div class="error">
+    <?=$error ?? ''?>
 </div>
-<br />

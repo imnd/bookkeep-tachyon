@@ -1,32 +1,34 @@
 <?php
-if (!is_null($type))
+if (!is_null($type)) {
     $this->setProperty('bodyClass', $this->getProperty('bodyClass') . " $type");
-else
+} else {
     $this->setProperty('bodyClass', 'contracts_and_agreements');
-
+}
 $this->pageTitle = "Список {$model->getTypeName($type, 'gen')}";
-$this->widget(array(
+$this->widget([
     'class' => 'Grid',
     'model' => $model,
     'items' => $items,
-    'columns' => array('contract_num', 'date', 'term_start', 'term_end',
-    'clientName' => '"{$item["clientName"]} ({$item["clientAddr"]})"',
-    'sum', 'executed', 'execRemind', 'payed', 'payedRemind'),
+    'columns' => [
+        'contract_num', 'date', 'term_start', 'term_end',
+        'clientName' => '"{$item["clientName"]} ({$item["clientAddr"]})"',
+        'sum', 'executed', 'execRemind', 'payed', 'payedRemind'
+    ],
     // фильтры
-    'searchFields' => array(
+    'searchFields' => [
         'dateFrom' => array('type' => 'date'),
         'dateTo' => array('type' => 'date'),
-        'client_id' => array(
+        'client_id' => [
             'listData' => app\models\Clients::getSelectList(),
-        ),
+        ],
         'contract_num',
-    ),
+   ],
     // поля по которым выводится сумма внизу таблицы
     'sumFields' => array('sum', 'executed', 'execRemind', 'payed', 'payedRemind'),
     // кнопки
-    'buttons' => array(
+    'buttons' => [
         'delete',
         'update',
         'printout',
-    ),
-));
+    ],
+]);

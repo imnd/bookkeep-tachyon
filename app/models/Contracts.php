@@ -11,7 +11,6 @@ class Contracts extends \app\components\HasRowsModel
 {
     use \tachyon\dic\behaviours\ListBehaviour,
         \tachyon\dic\behaviours\DateTime,
-
         \app\traits\DateTime,
         \app\traits\Client;
 

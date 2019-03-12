@@ -25,18 +25,18 @@ echo $this->display('../_search-form', [
     </tr>
     <?php foreach ($clients as $client) {?>
         <tr>
-            <td>{{ $client->getName() }}</td>
-            <td>{{ $client->getAddress() }}</td>
-            <td>{{ $client->getPhone() }}</td>
-            <td>{{ $client->getFax() }}</td>
-            <td>{{ $client->getContactFullName() }}</td>
-            <td>{{ $client->getContactPost() }}</td>
-            <td>{{ $client->getBank() }}</td>
-            <td>{{ $client->getAccount() }}</td>
-            <td>{{ $client->getINN() }}</td>
-            <td>{{ $client->getKPP() }}</td>
-            <td>{{ $client->getBIK() }}</td>
-            <td><a class="button-update" title="update" href="/clients/update/{{$client->getId()}}"></a></td>
+            <td><?=$this->escape( $client->getName() )?></td>
+            <td><?=$this->escape( $client->getAddress() )?></td>
+            <td><?=$this->escape( $client->getPhone() )?></td>
+            <td><?=$this->escape( $client->getFax() )?></td>
+            <td><?=$this->escape( $client->getContactFullName() )?></td>
+            <td><?=$this->escape( $client->getContactPost() )?></td>
+            <td><?=$this->escape( $client->getBank() )?></td>
+            <td><?=$this->escape( $client->getAccount() )?></td>
+            <td><?=$this->escape( $client->getINN() )?></td>
+            <td><?=$this->escape( $client->getKPP() )?></td>
+            <td><?=$this->escape( $client->getBIK() )?></td>
+            <td><a class="button-update" title="update" href="/clients/update/<?=$this->escape($client->getId())?>"></a></td>
         </tr>
     <?php }?>
 </table>

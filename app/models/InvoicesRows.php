@@ -16,23 +16,29 @@ class InvoicesRows extends \app\components\RowsModel
     protected $fields = array('article_id');
 
     protected $parentKey = 'invoice_id';
-    protected $fieldTypes = array(
+    protected $fieldTypes = [
         'article_id' => 'smallint',
-    );
-    protected $attributeTypes = array(
+        'quantity' => 'smallint',
+        'price' => 'smallint',
+    ];
+    protected $attributeTypes = [
         'article_id' => 'select',
-    );
-    protected $attributeNames = array(
+        'quantity' => 'input',
+        'price' => 'input',
+    ];
+    protected $attributeNames = [
         'article_id' => 'товар',
-    );
-    protected $relations = array(
+        'quantity' => 'количество',
+        'price' => 'цена',
+    ];
+    protected $relations = [
         'article' => array('Articles', 'has_one', 'article_id'),
-    );
+    ];
 
     public function rules(): array
     {
-        return array_merge(parent::rules(), array(
+        return array_merge(parent::rules(), [
             'article_id' => array('numerical'),
-        ));
+        ]);
     }
 }

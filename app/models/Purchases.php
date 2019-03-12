@@ -10,7 +10,6 @@ namespace app\models;
 class Purchases extends \app\components\HasRowsModel
 {
     use \tachyon\dic\behaviours\DateTime,
-
         \app\traits\DateTime,
         \app\traits\Client;
 

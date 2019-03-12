@@ -29,7 +29,7 @@ class IndexController extends \tachyon\Controller
     public function login()
     {
         if ($this->isRequestPost()) {
-            if ($user = $this->users->find(array(
+            if ($user = $this->users->findByPassword(array(
                 'username' => $this->post['username'],
                 'password' => $this->post['password'],
             ))) {

@@ -1,6 +1,6 @@
 <form class="search-form" action="<?=$this->controller->getRoute()?>">
     <?php foreach ($fields as $field) {
-        echo $this->display('_search-input', [
+        echo $this->display('../_search-input', [
             'name' => $field,
             'caption' => $entity->getCaption($field),
         ]);

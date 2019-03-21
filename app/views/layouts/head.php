@@ -28,7 +28,7 @@
         ]);
         $this->widget([
             'class' => 'app\components\widgets\menu\Menu',
-            'items' => $mainMenu,
+            'items' => $mainMenu ?? [],
             'viewsPath' => 'main',
         ]);
         ?>

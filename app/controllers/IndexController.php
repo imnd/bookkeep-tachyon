@@ -12,8 +12,7 @@ use app\models\Users,
  */ 
 class IndexController extends \tachyon\Controller
 {
-    use \tachyon\traits\Authentication,
-        \app\traits\Menu;
+    use \tachyon\traits\Authentication;
 
     /**
      * @var app\models\Users

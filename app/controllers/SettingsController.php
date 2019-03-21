@@ -12,23 +12,6 @@ use tachyon\components\FilesManager,
  */ 
 class SettingsController extends \app\components\CrudController
 {
-    /**
-     * @var tachyon\components\FilesManager $filesManager
-     */
-    protected $filesManager;
-    /**
-     * @var app\models\Settings
-     */
-    protected $settings;
-
-    public function __construct(FilesManager $filesManager, Settings $settings, ...$params)
-    {
-        $this->filesManager = $filesManager;
-        $this->settings = $settings;
-
-        parent::__construct(...$params);
-    }
-
     public function init()
     {
         parent::init();
@@ -86,11 +69,12 @@ class SettingsController extends \app\components\CrudController
 
     /**
      * Создание резервной копии и установка путей для её сохранения
+     * @param app\models\Settings $settings
      */
-    public function backup()
+    public function backup(Settings $settings)
     {
         $this->layout('backup', array(
-            'paths' => $this->settings->getPaths(),
+            'paths' => $settings->getPaths(),
         ));
     }
 
@@ -104,18 +88,18 @@ class SettingsController extends \app\components\CrudController
 
     /**
      * AJAX-handler загрузки частей файла на сервер и сборки файла
+     * @param tachyon\components\FilesManager $filesManager
      */
-    public function acceptFile()
+    public function acceptFile(FilesManager $filesManager)
     {
         $complete = false;
 
         $data = $_FILES['data'];
 
-        $this->filesManager->saveChunk($data['tmp_name']);
-
-        $chunks = $this->filesManager->getChunkNames();
+        $filesManager->saveChunk($data['tmp_name']);
+        $chunks = $filesManager->getChunkNames();
         if (count($chunks)==$_GET['chunksCount']) {
-            $complete = $this->filesManager->spliceChunks($chunks, $data['name']);
+            $complete = $filesManager->spliceChunks($chunks, $data['name']);
         }
 
         echo json_encode(compact('complete'));

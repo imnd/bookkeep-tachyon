@@ -14,7 +14,7 @@ class ArticlesController extends \app\components\CrudController
      */
     public function index()
     {
-        $this->layout('index', array(
+        $this->layout('index', [
             'model' => $this->model,
             'items' => $this->model
                 ->join(array(\app\models\ArticleSubcats::getTableName() => 'sс'), array('subcat_id', 'id'))
@@ -22,6 +22,6 @@ class ArticlesController extends \app\components\CrudController
                 ->setSearchConditions($this->get)
                 ->setSortConditions($this->get)
                 ->findAllScalar(),
-        ));
+        ]);
     }
 }

@@ -1,7 +1,8 @@
 <?php
 namespace app\components;
 
-use tachyon\components\Flash,
+use tachyon\Controller,
+    tachyon\components\Flash,
     tachyon\dic\Container;
 
 /**
@@ -11,7 +12,7 @@ use tachyon\components\Flash,
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class CrudController extends \tachyon\Controller
+class CrudController extends Controller
 {
     use \tachyon\traits\Authentication;
 

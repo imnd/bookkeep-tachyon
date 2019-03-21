@@ -1,7 +1,7 @@
 <?php
 namespace app\controllers;
 
-use 
+use tachyon\Controller,
     app\entities\Client,
     app\repositories\ClientRepository,
     app\repositories\RegionRepository,
@@ -16,14 +16,13 @@ use
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */ 
-class ClientsController extends \app\components\CrudController
+class ClientsController extends Controller
 {
-    protected $layout = 'clients';
+    use \tachyon\traits\Authentication;
 
-    /**
-     * @var app\entities\Client
-     */
-    protected $client;
+    protected $layout = 'clients';
+    protected $defaultAction = 'list';
+
     /**
      * @var app\repositories\ClientRepository
      */
@@ -32,43 +31,30 @@ class ClientsController extends \app\components\CrudController
      * @var app\repositories\RegionRepository
      */
     protected $regionRepository;
-    /**
-     * @var app\models\Bills
-     */
-    protected $bills;
-    /**
-     * @var app\models\Invoices
-     */
-    protected $invoices;
-    /**
-     * @var app\models\Settings
-     */
-    protected $settings;
 
+    /**
+     * @param ClientRepository $clientRepository
+     * @param RegionRepository $regionRepository
+     */
     public function __construct(
-        Client $client,
         ClientRepository $clientRepository,
         RegionRepository $regionRepository,
-        Bills $bills,
-        Invoices $invoices,
-        Settings $settings,
         ...$params
     )
     {
-        $this->client = $client;
         $this->clientRepository = $clientRepository;
         $this->regionRepository = $regionRepository;
-        $this->bills = $bills;
-        $this->invoices = $invoices;
-        $this->settings = $settings;
 
         parent::__construct(...$params);
     }
 
-    public function list()
+    /**
+     * @param Client $client
+     */
+    public function list(Client $client)
     {
         $this->layout('list', [
-            'entity' => $this->client,
+            'entity' => $client,
             'clients' => $this
                 ->clientRepository
                 ->setSearchConditions($this->get)
@@ -90,6 +76,9 @@ class ClientsController extends \app\components\CrudController
         ]);
     }
 
+    /**
+     * @param int $pk
+     */
     public function update($pk)
     {
         /**
@@ -123,6 +112,9 @@ class ClientsController extends \app\components\CrudController
         }
     }
 
+    /**
+     * @param int $pk
+     */
     public function delete($pk)
     {
         if (!$client = $this->clientRepository->findByPk($pk)) {
@@ -135,28 +127,34 @@ class ClientsController extends \app\components\CrudController
         ]);
     }
 
-    public function printout($pk)
+    /**
+     * @param Bills $bills
+     * @param Invoices $invoices
+     * @param Settings $settings
+     * @param int $pk
+     */
+    public function printout(Bills $bills, Invoices $invoices, Settings $settings, $pk)
     {
         $this->layout = 'printout';
-        $client = $this->model->findByPk($pk);
+        $client = $this->clientRepository->findByPk($pk);
         if (empty($this->get)) {
             $this->layout('printout', compact('client'));
             return;
         }
         $where = array_merge(array('client_id' => $pk), $this->get);
-        $debetSum = $this->invoices->getTotalByContract($where);
-        $creditSum = $this->bills->getTotalByContract($where);
-        $this->layout('reconciliation', array(
+        $debetSum = $invoices->getTotalByContract($where);
+        $creditSum = $bills->getTotalByContract($where);
+        $this->layout('reconciliation', [
             'client' => $client,
-            'sender' => $this->settings->getRequisites('firm'),
+            'sender' => $settings->getRequisites('firm'),
             'dateFrom' => $this->convDateToReadable($this->get['dateFrom']),
             'dateTo' => $this->convDateToReadable($this->get['dateTo']),
-            'bills' => $this->bills->getAllByContract($where),
-            'invoices' => $this->invoices->getAllByContract($where),
+            'bills' => $bills->getAllByContract($where),
+            'invoices' => $invoices->getAllByContract($where),
             'debetSum' => number_format($debetSum, 2, '.', ''),
             'creditSum' => number_format($creditSum, 2, '.', ''),
             'saldo' => number_format($debetSum - $creditSum, 2, '.', ''),
             'saldoStart' => 0
-        ));
+        ]);
     }
 }

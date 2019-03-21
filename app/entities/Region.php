@@ -19,10 +19,6 @@ class Region extends Entity
      * @var string
      */
     private $name;
-    /**
-     * @var string
-     */
-    private $description;
 
     # Setters
 
@@ -38,19 +34,12 @@ class Region extends Entity
         return $this;
     }
 
-    public function setDescription(string $value): Entity
-    {
-        $this->description = $value;
-        return $this;
-    }
-
     public function fromState(array $state): Entity
     {
         $entity = clone($this);
         $entity
             ->setId($state['id'] ?? null)
             ->setName($state['name'] ?? null)
-            ->setDescription($state['description'] ?? null)
         ;
         return $entity;
     }
@@ -65,11 +54,6 @@ class Region extends Entity
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function getDescription(): string
-    {
-        return $this->description;
     }
 
     public function getId(): int

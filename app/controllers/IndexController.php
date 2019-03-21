@@ -1,7 +1,8 @@
 <?php
 namespace app\controllers;
 
-use app\models\Users,
+use tachyon\Config,
+    app\models\Users,
     tachyon\components\Flash;
 
 /**
@@ -15,6 +16,10 @@ class IndexController extends \tachyon\Controller
     use \tachyon\traits\Authentication;
 
     /**
+     * @var tachyon\Config $config
+     */
+    protected $config;
+    /**
      * @var app\models\Users
      */
     protected $users;
@@ -23,8 +28,14 @@ class IndexController extends \tachyon\Controller
      */
     protected $flash;
 
-    public function __construct(Users $users, Flash $flash, ...$params)
+    /**
+     * @param Config $config
+     * @param Users $users
+     * @param Flash $flash
+     */
+    public function __construct(Config $config, Users $users, Flash $flash, ...$params)
     {
+        $this->config = $config;
         $this->users = $users;
         $this->flash = $flash;
 

@@ -16,23 +16,6 @@ class ContractsController extends \app\components\CrudController
     protected $layout = 'contracts';
 
     /**
-     * @var app\models\ContractsRows
-     */
-    protected $contractsRows;
-    /**
-     * @var app\models\Settings
-     */
-    protected $settings;
-
-    public function __construct(ContractsRows $contractsRows, Settings $settings, ...$params)
-    {
-        $this->contractsRows = $contractsRows;
-        $this->settings = $settings;
-
-        parent::__construct(...$params);
-    }
-
-    /**
      * Главная страница, список договоров
      */
     public function index($type=null)
@@ -43,11 +26,16 @@ class ContractsController extends \app\components\CrudController
             'items' => $this->model
                 ->setSearchConditions($this->get)
                 ->setSortConditions($this->get)
-                ->findAllScalar(is_null($type) ? array() : compact('type')),
+                ->findAllScalar(/*is_null($type) ? array() : compact('type')*/),
         ]);
     }
 
-    public function printout($pk)
+    /**
+     * @param Settings $settings
+     * @param ContractsRows $contractsRows
+     * @param int $pk
+     */
+    public function printout(Settings $settings, ContractsRows $contractsRows, $pk)
     {
         $this->layout = 'printout';
 
@@ -61,8 +49,8 @@ class ContractsController extends \app\components\CrudController
         $termStart = $contract->convDateToReadable($contract->term_start);
         $termEnd = $contract->convDateToReadable($contract->term_end);
         $term = "с $termStart по $termEnd";
-        $rows = $this->contractsRows->getAllByContract($pk);
-        $firm = $this->settings->getRequisites('firm');
+        $rows = $contractsRows->getAllByContract($pk);
+        $firm = $settings->getRequisites('firm');
         $this->layout('printout', compact('contract', 'rows', 'quantitySum', 'typeName', 'term', 'firm'));
     }
 

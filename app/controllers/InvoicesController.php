@@ -12,21 +12,10 @@ use app\models\Settings;
 class InvoicesController extends \app\components\CrudController
 {
     /**
-     * @var app\models\Settings
+     * @param Settings $settings
+     * @param int $pk
      */
-    protected $settings;
-
-    public function __construct(Settings $settings, ...$params)
-    {
-        $this->settings = $settings;
-
-        parent::__construct(...$params);
-    }
-
-    /**
-     * @inheritdoc 
-     */
-    public function printout($pk)
+    public function printout(Settings $settings, $pk)
     {
         $this->layout = 'printout';
 
@@ -43,7 +32,7 @@ class InvoicesController extends \app\components\CrudController
         $contractType = $item->getContractType();
         $contractNum = $item->contract_num;
         $quantitySum = $this->model->getQuantitySum($pk);
-        $sender = $this->settings->getRequisites('firm');
+        $sender = $settings->getRequisites('firm');
         $this->layout("printout/$type", compact('item', 'contractType', 'contractNum', 'quantitySum', 'sender', 'client'));
     }
 }

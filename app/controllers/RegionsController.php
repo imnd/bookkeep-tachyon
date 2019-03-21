@@ -18,6 +18,9 @@ class RegionsController extends \app\components\CrudController
      */
     protected $regions;
 
+    /**
+     * @param Regions $regions
+     */
     public function __construct(Regions $regions, ...$params)
     {
         $this->regions = $regions;

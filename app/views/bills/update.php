@@ -1,3 +1,1 @@
-<?php
-$this->controller->setSubMenu(array());
-$this->display('_form', compact('model'));
+<?php $this->display('_form', compact('model'));

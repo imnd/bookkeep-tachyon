@@ -142,8 +142,7 @@ class CrudController extends \tachyon\Controller
             $model->setAttributes($this->post[$model->getClassName()] ?? $this->post);
 
             if ($model->save()) {
-                // TODO: сделать flash-сообщения
-                $this->message = 'Сохранено успешно';
+                $this->flash->setFlash('Сохранено успешно', self::FLASH_TYPE_SUCCESS);
                 $this->redirect("/{$this->id}");
             }
             $this->message = 'Что то пошло не так';

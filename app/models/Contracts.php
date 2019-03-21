@@ -165,7 +165,7 @@ class Contracts extends \app\components\HasRowsModel
      */
     public function getTypes(): array
     {
-        return $this->listBehaviour->getSelectListFromArr($this->_types, true);
+        return $this->getSelectListFromArr($this->_types, true);
     }
 
     /**
@@ -236,6 +236,6 @@ class Contracts extends \app\components\HasRowsModel
             ->select('contract_num')
             ->findAllScalar($conditions);
 
-        return $this->listBehaviour->getValsList($items, 'contract_num');
+        return $this->getValsList($items, 'contract_num');
     }
 }

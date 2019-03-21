@@ -1,16 +1,16 @@
 <?php 
-$this->controller->setSubMenu(array(
+$subMenu = [
     "delete/$pk",
     "update/$pk",
-    array(
+    [
         'action' => "printout/type/bill/$pk",
         'title' => 'распечатать фактуру',
-    ),
-    array(
+    ],
+    [
         'action' => "printout/type/invoice/$pk",
         'title' => 'распечатать накладную',
-    ),
-))?>
+    ],
+]?>
 <h2>
     <b>№:</b> <?=$model->number?><br />
     <b>от:</b> <?=$model->convDateToReadable($model->date)?><br />

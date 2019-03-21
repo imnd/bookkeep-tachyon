@@ -57,7 +57,6 @@ class Articles extends \tachyon\db\activeRecord\ActiveRecord
         'activeText' => 'активный',
     ];
     protected $defSortBy = array('name');
-    // TODO: на выпил
     protected $entityNames = [
         'single' => 'товар',
         'plural' => 'товары'

@@ -16,7 +16,7 @@ use tachyon\dic\Container,
                 'listData' => ArticleSubcats::getAllSelectList()
             ],
             'unit' => [
-                'listData' => $model->listBehaviour->getSelectListFromArr($model->getUnits())
+                'listData' => $model->getSelectListFromArr($model->getUnits())
             ],
             'name',
             'price',

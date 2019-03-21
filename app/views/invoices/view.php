@@ -13,7 +13,7 @@ $this->controller->setSubMenu(array(
 ))?>
 <h2>
     <b>№:</b> <?=$model->number?><br />
-    <b>от:</b> <?=$model->get('dateTime')->convDateToReadable($model->date)?><br />
+    <b>от:</b> <?=$model->convDateToReadable($model->date)?><br />
     <b>клиент:</b> <?=$model->getClientName()?><br />
     <b>№ договора:</b> <a href="/contracts/view/<?=$model->contractId?>"><?=$model->contract_num?></a>
 </h2>

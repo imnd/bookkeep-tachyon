@@ -1,8 +1,7 @@
 <?php
 namespace app\models;
 
-use app\models\ContractsRows,
-    tachyon\behaviours\DateTime;
+use app\models\ContractsRows;
 
 /**
  * Класс модели договоров (приложений к договорам)
@@ -12,8 +11,8 @@ use app\models\ContractsRows,
  */
 class Contracts extends \app\components\HasRowsModel
 {
-    use \app\traits\DateTime,
-        \app\traits\Client,
+    use \app\traits\Client,
+        \tachyon\traits\DateTime,
         \tachyon\traits\ListTrait;
 
     /**
@@ -39,7 +38,7 @@ class Contracts extends \app\components\HasRowsModel
 
     protected static $tableName = 'contracts';
     protected $pkName = 'id';
-    protected $fields = array('contract_num', 'client_id', 'sum', 'payed', 'date', 'term_start', 'term_end', 'type');
+    protected $fields = ['contract_num', 'client_id', 'sum', 'payed', 'date', 'term_start', 'term_end', 'type'];
 
     protected $scalarFields = array('contract_num');
     protected $fieldTypes = [
@@ -106,15 +105,10 @@ class Contracts extends \app\components\HasRowsModel
      * @var app\models\ContractsRows
      */
     protected $contractsRows;
-    /**
-     * @var tachyon\behaviours\DateTime $dateTimeBehaviour
-     */
-    protected $dateTime;
 
-    public function __construct(ContractsRows $contractsRows, DateTime $dateTime, ...$params)
+    public function __construct(ContractsRows $contractsRows, ...$params)
     {
         $this->contractsRows = $contractsRows;
-        $this->dateTime = $dateTime;
 
         parent::__construct(...$params);
     }

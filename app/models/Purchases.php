@@ -1,8 +1,6 @@
 <?php
 namespace app\models;
 
-use tachyon\behaviours\DateTime;
-
 /**
  * Класс модели закупок
  * 
@@ -11,7 +9,7 @@ use tachyon\behaviours\DateTime;
  */
 class Purchases extends \app\components\HasRowsModel
 {
-    use \app\traits\DateTime,
+    use \tachyon\traits\DateTime,
         \app\traits\Client;
 
     protected static $tableName = 'purchases';
@@ -36,18 +34,6 @@ class Purchases extends \app\components\HasRowsModel
     ];
     protected $rowFk = 'purchase_id';
     protected $rowModelName = 'PurchasesRows';
-
-    /**
-     * @var \tachyon\behaviours\DateTime $dateTime
-     */
-    protected $dateTime;
-
-    public function __construct(DateTime $dateTime, ...$params)
-    {
-        $this->dateTime = $dateTime;
-
-        parent::__construct(...$params);
-    }
 
     public function rules(): array
     {

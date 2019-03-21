@@ -9,24 +9,24 @@ namespace app\helpers;
  */
 class StringHelper
 {
-    public static function getNumEnding($number, $endingArray = array('', 'a', 'ов'))
+    public static function getNumEnding($number, $endings = array('', 'a', 'ов'))
     {
         $number = $number % 100;
         if ($number >= 11 && $number <= 19)
-            $ending = $endingArray[2];
+            $ending = $endings[2];
         else {
             $i = $number % 10;
             switch ($i) {
                 case (1):
-                    $ending = $endingArray[0];
+                    $ending = $endings[0];
                     break;
                 case (2):
                 case (3):
                 case (4):
-                    $ending = $endingArray[1];
+                    $ending = $endings[1];
                     break;
                 default:
-                    $ending = $endingArray[2];
+                    $ending = $endings[2];
             }
         }
         return $ending;

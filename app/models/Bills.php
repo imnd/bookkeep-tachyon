@@ -1,8 +1,6 @@
 <?php
 namespace app\models;
 
-use tachyon\behaviours\DateTime;
-
 /**
  * Класс модели биллинга
  * 
@@ -11,8 +9,8 @@ use tachyon\behaviours\DateTime;
  */
 class Bills extends \tachyon\db\activeRecord\ActiveRecord
 {
-    use \app\traits\DateTime,
-        \app\traits\Client,
+    use \app\traits\Client,
+        \tachyon\traits\DateTime,
         \tachyon\traits\ListTrait;
 
     /**
@@ -63,18 +61,6 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
         'single' => 'платеж',
         'plural' => 'платежи'
     ];
-
-    /**
-     * @var \tachyon\behaviours\DateTime $dateTime
-     */
-    protected $dateTime;
-
-    public function __construct(DateTime $dateTime, ...$params)
-    {
-        $this->dateTime = $dateTime;
-
-        parent::__construct(...$params);
-    }
 
     public function rules(): array
     {

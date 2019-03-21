@@ -69,8 +69,8 @@ class ContractsController extends \app\components\CrudController
         $quantitySum = $this->model->getQuantitySum($pk);
         $typeName = $this->model->getTypeName($contract->type);
         
-        $termStart = $contract->dateTime->convDateToReadable($contract->term_start);
-        $termEnd = $contract->dateTime->convDateToReadable($contract->term_end);
+        $termStart = $contract->convDateToReadable($contract->term_start);
+        $termEnd = $contract->convDateToReadable($contract->term_end);
         $term = "с $termStart по $termEnd";
         $rows = $this->contractsRows->getAllByContract($pk);
         $firm = $this->settings->getRequisites('firm');

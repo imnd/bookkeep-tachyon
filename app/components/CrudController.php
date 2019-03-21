@@ -13,9 +13,9 @@ use tachyon\components\Flash,
  */
 class CrudController extends \tachyon\Controller
 {
-    use \tachyon\traits\Authentication,
-        \app\traits\Menu;
+    use \tachyon\traits\Authentication;
 
+    protected $layout = 'crud';
     protected $modelName;
     protected $model;
     protected $message;
@@ -39,10 +39,6 @@ class CrudController extends \tachyon\Controller
     /** @inheritdoc */
     public function init()
     {
-        $this->mainMenu = [
-            'index' => 'список',
-            'create' => 'добавить',
-        ];
         if (is_null($this->modelName)) {
             $this->modelName = ucfirst($this->id);
         }

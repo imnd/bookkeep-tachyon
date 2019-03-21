@@ -28,7 +28,7 @@
         ]);
         $this->widget([
             'class' => 'app\components\widgets\menu\Menu',
-            'items' => $this->controller->getMainMenu(),
+            'items' => $mainMenu,
             'viewsPath' => 'main',
         ]);
         ?>
@@ -37,7 +37,7 @@
     <div id="container">
         <?php $this->widget([
             'class' => 'app\components\widgets\menu\Menu',
-            'items' => $this->controller->getSubMenu(),
+            'items' => $subMenu ?? [],
             'viewsPath' => 'sub',
         ])?>
         <h1><?=$this->pageTitle?></h1>

@@ -18,6 +18,8 @@ use
  */ 
 class ClientsController extends \app\components\CrudController
 {
+    protected $layout = 'clients';
+
     /**
      * @var app\entities\Client
      */
@@ -61,14 +63,6 @@ class ClientsController extends \app\components\CrudController
         $this->settings = $settings;
 
         parent::__construct(...$params);
-    }
-
-    public function init()
-    {
-        parent::init();
-
-        // переместить в шаблон
-        $this->mainMenu['/regions'] = 'районы';
     }
 
     public function list()

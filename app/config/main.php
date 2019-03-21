@@ -9,7 +9,7 @@
     'encoding' => 'utf-8',
     'base_path' => '/',
     // режим исполнения приложения
-    'mode' => 'production',
+    'mode' => 'debug',
     'csrf_check' => false,
     // переменные сайта
     'site_vars' =>  [

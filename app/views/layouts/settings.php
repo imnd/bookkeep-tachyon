@@ -1,7 +1,7 @@
 @extends('main')
 
 <?php
-$this->mainMenu = [
+$mainMenu = [
     'requisites' => 'реквизиты',
     'backup' => 'резервная копия',
 ];

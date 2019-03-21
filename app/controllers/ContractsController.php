@@ -13,6 +13,8 @@ use app\models\ContractsRows,
  */ 
 class ContractsController extends \app\components\CrudController
 {
+    protected $layout = 'contracts';
+
     /**
      * @var app\models\ContractsRows
      */
@@ -28,19 +30,6 @@ class ContractsController extends \app\components\CrudController
         $this->settings = $settings;
 
         parent::__construct(...$params);
-    }
-    
-    /** @inheritdoc */
-    public function init()
-    {
-        parent::init();
-
-        // переместить в шаблон
-        $this->mainMenu = [
-            'index/contract' => 'список контрактов',
-            'index/agreement' => 'список договоров',
-            'create' => 'добавить',
-        ];
     }
 
     /**

@@ -1,21 +1,21 @@
 <?php
 // таблица
-$this->widget(array(
-    'class' => 'Grid',
+$this->widget([
+    'class' => 'tachyon\components\widgets\grid\Grid',
     'model' => $model,
     'items' => $items,
-    'columns' => array('name', 'address', 'telephone', 'fax', 'contact_fio', 'contact_post', 'account', 'bank', 'INN', 'KPP', 'BIK'),
+    'columns' => ['name', 'address', 'telephone', 'fax', 'contact_fio', 'contact_post', 'account', 'bank', 'INN', 'KPP', 'BIK'],
     // фильтры
-    'searchFields' => array(
+    'searchFields' => [
         'name',
         'address',
-    ),
+    ],
     // кнопки
-    'buttons' => array(
-        'deactivate' => array(
+    'buttons' => [
+        'deactivate' => [
             'type' => 'ajax',
-        ),
+        ],
         'update',
         'printout',
-    ),
-));
+    ],
+]);

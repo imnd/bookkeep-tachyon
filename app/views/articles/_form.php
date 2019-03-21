@@ -1,5 +1,9 @@
 <?php
-$this->get('FormBuilder')
+use tachyon\dic\Container,
+    app\models\ArticleSubcats;
+
+
+(new Container)->get('\tachyon\components\html\FormBuilder')
     ->build([
         'options' => [
             'action' => $this->controller->getRoute(),
@@ -9,10 +13,10 @@ $this->get('FormBuilder')
         'model' => $model,
         'fields' => [
             'subcat_id' => [
-                'listData' => app\models\ArticleSubcats::getSelectList()
+                'listData' => ArticleSubcats::getAllSelectList()
             ],
             'unit' => [
-                'listData' => $model->getListBehaviour()->getSelectListFromArr($model->getUnits())
+                'listData' => $model->listBehaviour->getSelectListFromArr($model->getUnits())
             ],
             'name',
             'price',

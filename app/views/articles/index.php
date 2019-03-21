@@ -1,37 +1,37 @@
 <?php
 $this->pageTitle = 'Список товаров';
 // таблица
-$this->widget(array(
-    'class' => 'Grid',
+$this->widget([
+    'class' => 'tachyon\components\widgets\grid\Grid',
     'model' => $model,
     'items' => $items,
-    'columns' => array(
+    'columns' => [
         'subcatName',
         'name',
         'unit',
         'price',
-        'activeText' => '$model->get("activeBehaviour")->getActiveText($model, $item)'
-    ),
+        'activeText' => '$model->getActiveBehaviour()->getActiveText($model, $item)'
+    ],
     // фильтры
-    'searchFields' => array(
-        'subcat_id' => array(
-            'listData' => app\models\ArticleSubcats::getSelectList(),
-        ),
+    'searchFields' => [
+        'subcat_id' => [
+            'listData' => app\models\ArticleSubcats::getAllSelectList(),
+        ],
         'name',
-        'unit' => array(
-            'listData' => $model->getListBehaviour()->getSelectListFromArr($model->getUnits()),
-        ),
+        'unit' => [
+            'listData' => $model->getSelectListFromArr($model->getUnits()),
+        ],
         'priceFrom',
         'priceTo',
-        'active' => array(
-            'listData' => $model->getListBehaviour()->getYesNoListData(),
-        ),
-    ),
+        'active' => [
+            'listData' => $model->getYesNoListData(),
+        ],
+    ],
     // кнопки
-    'buttons' => array(
-        'deactivate' => array(
+    'buttons' => [
+        'deactivate' => [
             'type' => 'ajax',
-        ),
+        ],
         'update',
-    ),
-));
+    ],
+]);

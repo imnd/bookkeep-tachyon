@@ -41,5 +41,4 @@ trait DateTime
         }
         $this->lt($conditions, 'date', 'dateTo');
     }
-
 }

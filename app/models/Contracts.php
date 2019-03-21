@@ -1,6 +1,9 @@
 <?php
 namespace app\models;
 
+use app\models\ContractsRows,
+    tachyon\behaviours\DateTime;
+
 /**
  * Класс модели договоров (приложений к договорам)
  * 
@@ -9,10 +12,30 @@ namespace app\models;
  */
 class Contracts extends \app\components\HasRowsModel
 {
-    use \tachyon\dic\behaviours\ListBehaviour,
-        \tachyon\dic\behaviours\DateTime,
-        \app\traits\DateTime,
-        \app\traits\Client;
+    use \app\traits\DateTime,
+        \app\traits\Client,
+        \tachyon\traits\ListTrait;
+
+    /**
+     * Поле модели, которое попадает в подпись элемента селекта
+     * @var $valueField string | array
+     */
+    protected $valueField = 'value';
+    /**
+     * В случае, если $valueField - массив это строка, склеивающая возвращаемые значения
+     * @var $valsGlue string
+     */
+    protected $valsGlue = ' :: ';
+    /**
+     * Поле первичного ключа модели
+     * @var $pkField integer
+     */
+    protected $pkField = 'id';
+    /**
+     * Пустое значение в начале списка для селекта. Равно false если выводить не надо.
+     * @var $pkField integer | boolean
+     */
+    protected $emptyVal = '...';
 
     protected static $tableName = 'contracts';
     protected $pkName = 'id';
@@ -78,6 +101,23 @@ class Contracts extends \app\components\HasRowsModel
         'contract' => 'контракт',
         'agreement' => 'договор',
     ];
+
+    /**
+     * @var app\models\ContractsRows
+     */
+    protected $contractsRows;
+    /**
+     * @var tachyon\behaviours\DateTime $dateTimeBehaviour
+     */
+    protected $dateTime;
+
+    public function __construct(ContractsRows $contractsRows, DateTime $dateTime, ...$params)
+    {
+        $this->contractsRows = $contractsRows;
+        $this->dateTime = $dateTime;
+
+        parent::__construct(...$params);
+    }
 
     public function rules(): array
     {
@@ -183,10 +223,10 @@ class Contracts extends \app\components\HasRowsModel
     public function getItem($conditions=array()): array
     {
         $item = $this->findOneScalar($conditions);
-        $item['rows'] = $this->get('ContractsRows')
-            ->addWhere(array(
+        $item['rows'] = $this->contractsRows
+            ->addWhere([
                 'contract_id' => $item['id'],
-            ))
+            ])
             ->findAllScalar();
 
         return $item;

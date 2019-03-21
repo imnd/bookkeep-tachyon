@@ -1,5 +1,7 @@
 <?php
-$this->get('FormBuilder')
+use tachyon\dic\Container;
+
+(new Container)->get('\tachyon\components\html\FormBuilder')
     ->build(array(
         'options' => array(
             'submitCaption' => $this->i18n('save'),

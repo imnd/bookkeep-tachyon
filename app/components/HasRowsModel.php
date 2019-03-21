@@ -1,6 +1,9 @@
 <?php
 namespace app\components;
 
+use tachyon\dic\Container,
+    tachyon\helpers\ArrayHelper;
+
 /**
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
@@ -12,11 +15,11 @@ class HasRowsModel extends \tachyon\db\activeRecord\ActiveRecord
     protected $rowModelName;
     protected $rowFk;
 
-    public function __construct()
+    public function __construct(...$params)
     {
         $this->relations['rows'] = array($this->rowModelName, 'has_many', $this->rowFk);
 
-        parent::__construct();
+        parent::__construct(...$params);
     }
 
     public function getItem($where=array())
@@ -25,16 +28,16 @@ class HasRowsModel extends \tachyon\db\activeRecord\ActiveRecord
             ->addWhere($where)
             ->findOneScalar();
             
-        $item['rows'] = $this->get($this->rowModelName)
-            ->addWhere(array(
+        $item['rows'] = (new Container)->get("\\app\\models\\{$this->rowModelName}")
+            ->addWhere([
                 $this->rowFk => $item['id'],
-            ))
+            ])
             ->findAllScalar();
 
         return $item;
     }
 
-    public function getTotal($where=array())
+    public function getTotal($where = array())
     {
         if ($result = $this
             ->addWhere($where)
@@ -52,9 +55,9 @@ class HasRowsModel extends \tachyon\db\activeRecord\ActiveRecord
             ->joinRelation(array('rows' => 'r'))
             ->select('SUM(r.quantity) AS quantitySum');
 
-        if ($result = parent::findAllScalar(array($this->pkName => $pk)))
+        if ($result = parent::findAllScalar(array($this->pkName => $pk))) {
             return $result[0]['quantitySum'];
-
+        }
         return 0;
     }
 
@@ -65,11 +68,12 @@ class HasRowsModel extends \tachyon\db\activeRecord\ActiveRecord
 
         $sum = 0;
         if (isset($_POST[$this->rowModelName])) {
-            $rowsData = \tachyon\helpers\ArrayHelper::transposeArray($_POST[$this->rowModelName]);
+            $rowsData = ArrayHelper::transposeArray($_POST[$this->rowModelName]);
             $thisPk = $this->getPk();
             $rowFk = $this->rowFk;
+            $container = new Container;
             foreach ($rowsData as $rowData) {
-                $row = $this->get($this->rowModelName);
+                $row = $container->get($this->rowModelName);
                 $row->setAttributes($rowData);
                 $row->$rowFk = $thisPk;
                 $row->save();

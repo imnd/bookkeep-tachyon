@@ -1,7 +1,9 @@
 <?php
 namespace app\repositories;
 
-use \tachyon\db\dataMapper\Repository;
+use tachyon\db\dataMapper\Repository,
+    app\entities\Client,
+    app\repositories\RegionRepository;
 
 /**
  * @author Андрей Сердюк
@@ -9,10 +11,24 @@ use \tachyon\db\dataMapper\Repository;
  */
 class ClientRepository extends Repository
 {
-    use \app\dic\Client,
-        \app\dic\RegionRepository;
-
     protected $tableName = 'clients';
+
+    /**
+     * @var app\entities\Client
+     */
+    protected $client;
+    /**
+     * @var app\repositories\RegionRepository
+     */
+    protected $regionRepository;
+
+    public function __construct(Client $client, RegionRepository $regionRepository, ...$params)
+    {
+        $this->client = $client;
+        $this->regionRepository = $regionRepository;
+
+        parent::__construct(...$params);
+    }
 
     /**
      * @param array $conditions условия поиска

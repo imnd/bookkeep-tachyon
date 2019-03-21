@@ -1,6 +1,8 @@
 <?php
 namespace app\controllers;
 
+use app\models\Regions;
+
 /**
  * class Regions
  * Контроллер районов города
@@ -11,14 +13,26 @@ namespace app\controllers;
 class RegionsController extends \app\components\CrudController
 {
     /**
+     * Regions model
+     * @var app\models\Regions
+     */
+    protected $regions;
+
+    public function __construct(Regions $regions, ...$params)
+    {
+        $this->regions = $regions;
+
+        parent::__construct(...$params);
+    }
+
+    /**
      * Список районов
      */
     public function index()
     {
-        $model = $this->get('Regions');
         $this->layout('index', array(
-            'model' => $model,
-            'items' => $model
+            'model' => $this->regions,
+            'items' => $this->regions
                 ->setSearchConditions($this->get)
                 ->setSortConditions($this->get)
                 ->findAllScalar(),

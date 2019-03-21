@@ -1,6 +1,8 @@
 <?php
 namespace app\models;
 
+use tachyon\behaviours\Active;
+
 /**
  * Класс модели клиентов фирмы
  * 
@@ -9,14 +11,31 @@ namespace app\models;
  */
 class Clients extends \tachyon\db\activeRecord\ActiveRecord
 {
-    use \tachyon\dic\behaviours\Active,
-        \tachyon\dic\behaviours\ListBehaviour,
-        \tachyon\traits\GetList;
+    use \tachyon\traits\ListTrait;
+    /**
+     * Поле модели, которое попадает в подпись элемента селекта
+     * @var $valueField string | array
+     */
+    protected $valueField = 'name';
+    /**
+     * В случае, если $valueField - массив это строка, склеивающая возвращаемые значения
+     * @var $valsGlue string
+     */
+    protected $valsGlue = ' :: ';
+    /**
+     * Поле первичного ключа модели
+     * @var $pkField integer
+     */
+    protected $pkField = 'id';
+    /**
+     * Пустое значение в начале списка для селекта. Равно false если выводить не надо.
+     * @var $pkField integer | boolean
+     */
+    protected $emptyVal = '...';
 
     protected static $tableName = 'clients';
     protected $pkName = 'id';
     protected $fields = ['name', 'address', 'region_id', 'telephone', 'fax', 'contact_fio', 'contact_post', 'account', 'bank', 'INN', 'KPP', 'BIK', 'sort', 'active'];
-
     protected $fieldTypes = [
         'id' => 'smallint',
         'region_id' => 'smallint',
@@ -74,6 +93,18 @@ class Clients extends \tachyon\db\activeRecord\ActiveRecord
     protected $relations = [
         'region' => array('Regions', 'belongs_to', 'region_id'),
     ];
+
+    /**
+     * @var tachyon\behaviours\Active $activeBehaviour
+     */
+    protected $activeBehaviour;
+
+    public function __construct(Active $activeBehaviour, ...$params)
+    {
+        $this->activeBehaviour = $activeBehaviour;
+
+        parent::__construct(...$params);
+    }
 
     public function rules(): array
     {

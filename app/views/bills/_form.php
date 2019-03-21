@@ -1,5 +1,8 @@
 <?php
-$this->get('FormBuilder')
+use tachyon\dic\Container,
+    app\models\Clients;
+
+(new Container)->get('\tachyon\components\html\FormBuilder')
     ->build([
         'options' => [
             'action' => $this->controller->getRoute(),
@@ -10,13 +13,13 @@ $this->get('FormBuilder')
         'fields' => [
             'contract_num',
             'client_id' => [
-                'listData' => app\models\Clients::getSelectList(),
+                'listData' => Clients::getAllSelectList(),
             ],
             'date' => array('type' => 'date'),
             'sum',
             'remainder',
             'contents' => [
-                'listData' => $model->getListBehaviour()->getSelectListFromArr($model->getContentsList(), true, false)
+                'listData' => $model->listBehaviour->getSelectListFromArr($model->getContentsList(), true, false)
             ],
         ],
         'fieldValues' => $this->controller->getGet(),

@@ -1,6 +1,8 @@
 <?php
 namespace app\models;
 
+use tachyon\behaviours\DateTime;
+
 /**
  * Класс модели фактур
  * 
@@ -9,9 +11,7 @@ namespace app\models;
  */
 class Invoices extends \app\components\HasRowsModel
 {
-    use \tachyon\dic\behaviours\DateTime,
-
-        \app\traits\DateTime,
+    use \app\traits\DateTime,
         \app\traits\Client,
         \app\traits\Contract;
 
@@ -66,6 +66,18 @@ class Invoices extends \app\components\HasRowsModel
     protected $rowFk = 'invoice_id';
     protected $rowModelName = 'InvoicesRows';
     protected $defSortBy = array('number' => 'DESC');
+
+    /**
+     * @var \tachyon\behaviours\DateTime $dateTime
+     */
+    protected $dateTime;
+
+    public function __construct(DateTime $dateTime, ...$params)
+    {
+        $this->dateTime = $dateTime;
+
+        parent::__construct(...$params);
+    }
 
     public function rules(): array
     {

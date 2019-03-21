@@ -19,9 +19,9 @@ class Menu extends \tachyon\components\widgets\Widget
     public function run()
     {
         if (!empty($this->items)) {
-            $this->display($this->view, array(
+            $this->display($this->viewsPath, [
                 'items' => $this->items,
-            ));
+            ]);
         }
     }
 

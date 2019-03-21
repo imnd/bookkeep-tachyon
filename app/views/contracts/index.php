@@ -6,7 +6,7 @@ if (!is_null($type)) {
 }
 $this->pageTitle = "Список {$model->getTypeName($type, 'gen')}";
 $this->widget([
-    'class' => 'Grid',
+    'class' => 'tachyon\components\widgets\grid\Grid',
     'model' => $model,
     'items' => $items,
     'columns' => [
@@ -19,7 +19,7 @@ $this->widget([
         'dateFrom' => array('type' => 'date'),
         'dateTo' => array('type' => 'date'),
         'client_id' => [
-            'listData' => app\models\Clients::getSelectList(),
+            'listData' => app\models\Clients::getAllSelectList(),
         ],
         'contract_num',
    ],

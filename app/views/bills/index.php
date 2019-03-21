@@ -1,7 +1,7 @@
 <?php
 // таблица
 $this->widget([
-    'class' => 'Grid',
+    'class' => 'tachyon\components\widgets\grid\Grid',
     'model' => $model,
     'items' => $items,
     'columns' => [
@@ -18,7 +18,7 @@ $this->widget([
         'dateTo' => array('type' => 'date'),
         'contract_num',
         'client_id' => [
-            'listData' => app\models\Clients::getSelectList(),
+            'listData' => app\models\Clients::getAllSelectList(),
         ],
     ],
     'sumFields' => array('sum'),
@@ -29,4 +29,4 @@ $this->widget([
         ],
         'update',
     ],
-));
+]);

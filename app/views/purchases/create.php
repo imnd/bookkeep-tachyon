@@ -4,15 +4,15 @@ $this->assetManager->js("prices"),
 
 $this->html->formOpen(),
 
-    'за: ', $this->html->input(array(
+    'за: ', $this->html->input([
         'name' => 'date',
         'value' => $date
-    )),
-    $this->widget(array(
-        'class' => 'Datepicker',
+    ]),
+    $this->widget([
+        'class' => 'tachyon\components\widgets\Datepicker',
         'fieldNames' => array('date'),
         'return' => true,
-    )),
+    ]),
     '&nbsp;',
     $this->html->submit('Собрать'),
 
@@ -39,25 +39,25 @@ if (!empty($items)) {?>
         </tr>
         <?php foreach ($items as $i => $item) {?>
             <tr class="row">
-                <?=$this->html->hiddenEx($rowModel, array(
+                <?=$this->html->hiddenEx($rowModel, [
                     'name' => 'article_subcategory_id',
                     'value' => $item['article_subcat_id'],
                     'multiple' => true,
-                ))?>
+                ])?>
                 <td><?=$item['article_subcat']?></td>
-                <td class="quantity"><?=$this->html->hiddenEx($rowModel, array(
+                <td class="quantity"><?=$this->html->hiddenEx($rowModel, [
                     'name' => 'quantity',
                     'value' => $item['quantity'],
                     'multiple' => true,
-                )), $item['quantity']?></td>
-                <td class="price"><?=$this->html->inputEx($rowModel, array(
+                ]), $item['quantity']?></td>
+                <td class="price"><?=$this->html->inputEx($rowModel, [
                     'name' => 'price',
                     'multiple' => true,
-                ))?></td>
-                <td class="sum"><?=$this->html->input(array(
+                ])?></td>
+                <td class="sum"><?=$this->html->input([
                     'name' => 'sum',
                     'readonly' => 'readonly',
-                ))?></td>
+                ])?></td>
             </tr>
         <?php }?>
         <tr class="total">

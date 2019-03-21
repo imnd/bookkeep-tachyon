@@ -1,7 +1,8 @@
 <?php
 namespace app\controllers;
 
-use app\models\Users;
+use app\models\Users,
+    tachyon\components\Flash;
 
 /**
  * Контроллер начальной страницы
@@ -11,9 +12,25 @@ use app\models\Users;
  */ 
 class IndexController extends \tachyon\Controller
 {
-    use \app\dic\Users,
-        \tachyon\traits\Authentication,
+    use \tachyon\traits\Authentication,
         \app\traits\Menu;
+
+    /**
+     * @var app\models\Users
+     */
+    protected $users;
+    /**
+     * @var tachyon\components\Flash
+     */
+    protected $flash;
+
+    public function __construct(Users $users, Flash $flash, ...$params)
+    {
+        $this->users = $users;
+        $this->flash = $flash;
+
+        parent::__construct(...$params);
+    }
 
     /**
      * Главная страница
@@ -60,7 +77,7 @@ class IndexController extends \tachyon\Controller
     public function register()
     {
         if ($this->isRequestPost()) {
-            if ($user = $this->get('Users')->add(array(
+            if ($user = $this->users->add(array(
                 'username' => $this->post['username'],
                 'email' => $this->post['email'],
                 'password' => $this->post['password'],
@@ -88,7 +105,7 @@ class IndexController extends \tachyon\Controller
     public function activate()
     {
         if (
-                $user = $this->get('Users')->findOne(array(
+                $user = $this->users->findOne(array(
                     'email' => $this->get['email'],
                 ))
             and $user->confirm_code===$this->get['confirm_code']

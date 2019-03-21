@@ -1,6 +1,9 @@
 <?php
 namespace app\controllers;
 
+use app\models\ContractsRows,
+    app\models\Settings;
+
 /**
  * class Index
  * Контроллер
@@ -10,16 +13,34 @@ namespace app\controllers;
  */ 
 class ContractsController extends \app\components\CrudController
 {
+    /**
+     * @var app\models\ContractsRows
+     */
+    protected $contractsRows;
+    /**
+     * @var app\models\Settings
+     */
+    protected $settings;
+
+    public function __construct(ContractsRows $contractsRows, Settings $settings, ...$params)
+    {
+        $this->contractsRows = $contractsRows;
+        $this->settings = $settings;
+
+        parent::__construct(...$params);
+    }
+    
     /** @inheritdoc */
     public function init()
     {
         parent::init();
 
-        $this->mainMenu = array(
+        // переместить в шаблон
+        $this->mainMenu = [
             'index/contract' => 'список контрактов',
             'index/agreement' => 'список договоров',
             'create' => 'добавить',
-        );
+        ];
     }
 
     /**
@@ -27,14 +48,14 @@ class ContractsController extends \app\components\CrudController
      */
     public function index($type=null)
     {
-        $this->layout('index', array(
+        $this->layout('index', [
             'type' => $type,
             'model' => $this->model,
             'items' => $this->model
                 ->setSearchConditions($this->get)
                 ->setSortConditions($this->get)
-                ->findAllScalar(compact('type')),
-        ));
+                ->findAllScalar(is_null($type) ? array() : compact('type')),
+        ]);
     }
 
     public function printout($pk)
@@ -51,8 +72,8 @@ class ContractsController extends \app\components\CrudController
         $termStart = $contract->dateTime->convDateToReadable($contract->term_start);
         $termEnd = $contract->dateTime->convDateToReadable($contract->term_end);
         $term = "с $termStart по $termEnd";
-        $rows = $this->get('ContractsRows')->getAllByContract($pk);
-        $firm = $this->get('Settings')->getRequisites('firm');
+        $rows = $this->contractsRows->getAllByContract($pk);
+        $firm = $this->settings->getRequisites('firm');
         $this->layout('printout', compact('contract', 'rows', 'quantitySum', 'typeName', 'term', 'firm'));
     }
 

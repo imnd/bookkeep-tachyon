@@ -12,13 +12,13 @@
     'mode' => 'production',
     'csrf_check' => false,
     // переменные сайта
-    'site_vars' =>  array(
+    'site_vars' =>  [
         'copyright' => 'а.сердюк',
         'author_email' => 'imndsu@gmail.com',
-    ),
+    ],
     'db' => require 'db.php',
-    'cache' => array(
+    'cache' => [
         'enabled' => true,
         'serialize' => true,
-    ),
+    ],
 );

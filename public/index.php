@@ -1,4 +1,4 @@
 <?php
 include('..\\vendor\\tachyon\\autoload.php');
 
-\tachyon\dic\Container::getInstanceOf('Router')->dispatch();
+(new \tachyon\dic\Container)->get('\tachyon\Router')->dispatch();

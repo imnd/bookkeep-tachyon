@@ -1,6 +1,8 @@
 <?php
 namespace app\models;
 
+use tachyon\behaviours\DateTime;
+
 /**
  * Класс модели биллинга
  * 
@@ -9,10 +11,30 @@ namespace app\models;
  */
 class Bills extends \tachyon\db\activeRecord\ActiveRecord
 {
-    use \tachyon\dic\behaviours\ListBehaviour,
-        \tachyon\dic\behaviours\DateTime,
-        \app\traits\DateTime,
-        \app\traits\Client;
+    use \app\traits\DateTime,
+        \app\traits\Client,
+        \tachyon\traits\ListTrait;
+
+    /**
+     * Поле модели, которое попадает в подпись элемента селекта
+     * @var $valueField string | array
+     */
+    protected $valueField = 'value';
+    /**
+     * В случае, если $valueField - массив это строка, склеивающая возвращаемые значения
+     * @var $valsGlue string
+     */
+    protected $valsGlue = ' :: ';
+    /**
+     * Поле первичного ключа модели
+     * @var $pkField integer
+     */
+    protected $pkField = 'id';
+    /**
+     * Пустое значение в начале списка для селекта. Равно false если выводить не надо.
+     * @var $pkField integer | boolean
+     */
+    protected $emptyVal = '...';
 
     protected static $tableName = 'bills';
     protected $pkName = 'id';
@@ -42,6 +64,18 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
         'plural' => 'платежи'
     ];
 
+    /**
+     * @var \tachyon\behaviours\DateTime $dateTime
+     */
+    protected $dateTime;
+
+    public function __construct(DateTime $dateTime, ...$params)
+    {
+        $this->dateTime = $dateTime;
+
+        parent::__construct(...$params);
+    }
+
     public function rules(): array
     {
         return [
@@ -63,9 +97,9 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
     }
 
     /**
-     * @param array $conditions условия поиска
+     * @inheritdoc
      */
-    public function getAllByConditions($conditions=array()): array
+    public function findAllScalar(array $conditions=array()): array
     {
         $this
             ->join(array('clients' => 'cl'), array('client_id', 'id'))

@@ -1,6 +1,8 @@
 <?php
 namespace app\controllers;
 
+use app\models\Settings;
+
 /**
  * Контроллер фактур
  * 
@@ -9,6 +11,18 @@ namespace app\controllers;
  */ 
 class InvoicesController extends \app\components\CrudController
 {
+    /**
+     * @var app\models\Settings
+     */
+    protected $settings;
+
+    public function __construct(Settings $settings, ...$params)
+    {
+        $this->settings = $settings;
+
+        parent::__construct(...$params);
+    }
+
     /**
      * @inheritdoc 
      */
@@ -29,7 +43,7 @@ class InvoicesController extends \app\components\CrudController
         $contractType = $item->getContractType();
         $contractNum = $item->contract_num;
         $quantitySum = $this->model->getQuantitySum($pk);
-        $sender = $this->get('Settings')->getRequisites('firm');
+        $sender = $this->settings->getRequisites('firm');
         $this->layout("printout/$type", compact('item', 'contractType', 'contractNum', 'quantitySum', 'sender', 'client'));
     }
 }

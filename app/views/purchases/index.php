@@ -1,21 +1,21 @@
 <?php
-$this->widget(array(
-    'class' => 'Grid',
+$this->widget([
+    'class' => 'tachyon\components\widgets\grid\Grid',
     'model' => $model,
     'columns' => array('number', 'date', 'sum'),
     'items' => $items,
     // фильтры
-    'searchFields' => array(
+    'searchFields' => [
         'dateFrom' => array('type' => 'date'),
         'dateTo' => array('type' => 'date'),
         'number',
-    ),
+    ],
     'sumFields' => array('sum'),
     // кнопки
-    'buttons' => array(
-        'delete' => array(
+    'buttons' => [
+        'delete' => [
             'type' => 'ajax',
-        ),
+        ],
         'printout',
-    ),
-));
+    ],
+]);

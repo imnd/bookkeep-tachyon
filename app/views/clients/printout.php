@@ -20,10 +20,10 @@
         ?>
     </div>
     <?php
-    $this->widget(array(
-        'class' => 'Datepicker',
+    $this->widget([
+        'class' => 'tachyon\components\widgets\Datepicker',
         'fieldNames' => array('dateFrom', 'dateTo'),
-    ));
+    ]);
 
     echo $this->html->submit($this->i18n('print'));
 

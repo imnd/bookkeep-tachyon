@@ -9,7 +9,17 @@ use app\entities\Region;
  */
 class RegionRepository extends \tachyon\db\dataMapper\Repository
 {
-    use \app\dic\Region;
+    /**
+     * @var app\entities\Region
+     */
+    protected $region;
+
+    public function __construct(Region $region, ...$params)
+    {
+        $this->region = $region;
+
+        parent::__construct(...$params);
+    }
 
     protected $tableName = 'regions';
 }

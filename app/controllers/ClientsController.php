@@ -1,8 +1,14 @@
 <?php
 namespace app\controllers;
 
-use app\entities\Client,
-    tachyon\helpers\FlashHelper;
+use 
+    app\entities\Client,
+    app\repositories\ClientRepository,
+    app\repositories\RegionRepository,
+    app\models\Bills,
+    app\models\Invoices,
+    app\models\Settings
+;
 
 /**
  * Контроллер клиентов фирмы
@@ -12,23 +18,56 @@ use app\entities\Client,
  */ 
 class ClientsController extends \app\components\CrudController
 {
-    use \app\dic\ClientRepository,
-        \app\dic\Client,
-        \app\dic\RegionRepository;
+    /**
+     * @var app\entities\Client
+     */
+    protected $client;
+    /**
+     * @var app\repositories\ClientRepository
+     */
+    protected $clientRepository;
+    /**
+     * @var app\repositories\RegionRepository
+     */
+    protected $regionRepository;
+    /**
+     * @var app\models\Bills
+     */
+    protected $bills;
+    /**
+     * @var app\models\Invoices
+     */
+    protected $invoices;
+    /**
+     * @var app\models\Settings
+     */
+    protected $settings;
 
-    protected $entityName;
-    protected $repositoryName;
+    public function __construct(
+        Client $client,
+        ClientRepository $clientRepository,
+        RegionRepository $regionRepository,
+        Bills $bills,
+        Invoices $invoices,
+        Settings $settings,
+        ...$params
+    )
+    {
+        $this->client = $client;
+        $this->clientRepository = $clientRepository;
+        $this->regionRepository = $regionRepository;
+        $this->bills = $bills;
+        $this->invoices = $invoices;
+        $this->settings = $settings;
+
+        parent::__construct(...$params);
+    }
 
     public function init()
     {
         parent::init();
 
-        if (is_null($this->entityName)) {
-            $this->entityName = $this->id;
-        }
-        if (is_null($this->repositoryName)) {
-            $this->repositoryName = "{$this->entityName}Repository";
-        }
+        // переместить в шаблон
         $this->mainMenu['/regions'] = 'районы';
     }
 
@@ -82,7 +121,7 @@ class ClientsController extends \app\components\CrudController
             $client->setAttributes($this->post['Client'] ?? $this->post);
             if ($client->validate()) {
                 if ($client->getDbContext()->commit()) {
-                    FlashHelper::set('Сохранено успешно', FlashHelper::TYPE_SUCCESS);
+                    $this->flash->setFlash('Сохранено успешно', self::FLASH_TYPE_SUCCESS);
                     $this->redirect("/{$this->id}");
                 }
             }
@@ -95,11 +134,11 @@ class ClientsController extends \app\components\CrudController
         if (!$client = $this->clientRepository->findByPk($pk)) {
             $this->error(404, $this->msg->i18n('Wrong address.'));
         }
-        echo json_encode(array(
+        echo json_encode([
             'success' => $this->clientRepository
                 ->findByPk($pk)
                 ->delete()
-        ));
+        ]);
     }
 
     public function printout($pk)
@@ -111,19 +150,15 @@ class ClientsController extends \app\components\CrudController
             return;
         }
         $where = array_merge(array('client_id' => $pk), $this->get);
-        /** @var \app\models\Invoices */
-        $invoicesModel = $this->get('Invoices');
-        $debetSum = $invoicesModel->getTotalByContract($where);
-        /** @var \app\models\Bills */
-        $billsModel = $this->get('Bills');
-        $creditSum = $billsModel->getTotalByContract($where);
+        $debetSum = $this->invoices->getTotalByContract($where);
+        $creditSum = $this->bills->getTotalByContract($where);
         $this->layout('reconciliation', array(
             'client' => $client,
-            'sender' => $this->get('Settings')->getRequisites('firm'),
+            'sender' => $this->settings->getRequisites('firm'),
             'dateFrom' => $this->dateTime->convDateToReadable($this->get['dateFrom']),
             'dateTo' => $this->dateTime->convDateToReadable($this->get['dateTo']),
-            'bills' => $billsModel->getAllByContract($where),
-            'invoices' => $invoicesModel->getAllByContract($where),
+            'bills' => $this->bills->getAllByContract($where),
+            'invoices' => $this->invoices->getAllByContract($where),
             'debetSum' => number_format($debetSum, 2, '.', ''),
             'creditSum' => number_format($creditSum, 2, '.', ''),
             'saldo' => number_format($debetSum - $creditSum, 2, '.', ''),

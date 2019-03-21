@@ -3,38 +3,38 @@
  * @var \tachyon\View $this
  */
 
-$this->widget(array(
-    'class' => 'Grid',
+$this->widget([
+    'class' => 'tachyon\components\widgets\grid\Grid',
     'model' => $model,
     'items' => $items,
     'columns' => array('number', 'date', 'client_name', 'contract_num', 'sum'),
     // фильтры
-    'searchFields' => array(
+    'searchFields' => [
         'dateFrom' => array('type' => 'date'),
         'dateTo' => array('type' => 'date'),
         'number',
         'contract_num',
-        'client_id' => array(
-            'listData' => app\models\Clients::getSelectList(),
-        ),
-    ),
+        'client_id' => [
+            'listData' => app\models\Clients::getAllSelectList(),
+        ],
+    ],
     'sumFields' => array('sum'),
     // кнопки
-    'buttons' => array(
+    'buttons' => [
         'view',
-        'delete' => array(
+        'delete' => [
             'type' => 'ajax',
-        ),
+        ],
         'update',
-        array(
+        [
             'action' => 'printout',
             'title' => 'распечатать фактуру',
             'vars' => array('type' => 'bill')
-        ),
-        array(
+        ],
+        [
             'action' => 'printout',
             'title' => 'распечатать накладную',
             'vars' => array('type' => 'invoice')
-        ),
-    ),
-));
+        ],
+    ],
+]);

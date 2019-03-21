@@ -1,7 +1,8 @@
 <?php
 namespace app\controllers;
 
-use tachyon\helpers\DateTimeHelper;
+use tachyon\helpers\DateTimeHelper,
+    app\models\Settings;
 
 /**
  * class Purchases
@@ -13,12 +14,25 @@ use tachyon\helpers\DateTimeHelper;
 class PurchasesController extends \app\components\CrudController
 {
     /**
+     * @var app\models\Settings
+     */
+    protected $settings;
+
+    public function __construct(Settings $settings, ...$params)
+    {
+        $this->settings = $settings;
+
+        parent::__construct(...$params);
+    }
+
+    /**
      * Собираем закупку за определенное число
      */
     public function create()
     {
-        $model = $this->get($this->modelName);
-        $rowModel = $this->get($model->getRowModelName());
+        $container = new \tachyon\dic\Container;
+        $model = $container->get($this->modelName);
+        $rowModel = $container->get($model->getRowModelName());
         if (!empty($this->get['date'])) {
             $date = $this->get['date'];
             $items = $model->getReport($date);
@@ -48,8 +62,8 @@ class PurchasesController extends \app\components\CrudController
             'item' => $item,
             'contractType' => 'Договор',
             'quantitySum' => $this->model->getQuantitySum($pk),
-            'sender' => $this->get('Settings')->getRequisites('supplier'),
-            'client' => (object)$this->get('Settings')->getRequisites('firm'),
+            'sender' => $this->settings->getRequisites('supplier'),
+            'client' => (object)$this->settings->getRequisites('firm'),
         ));
     }
 }

@@ -1,6 +1,9 @@
 <?php
 namespace app\components;
 
+use tachyon\components\Flash,
+    tachyon\dic\Container;
+
 /**
  * class Controller
  * Базовый класс для всех контроллеров
@@ -21,6 +24,18 @@ class CrudController extends \tachyon\Controller
     /** @inheritdoc */
     protected $protectedActions = '*';
 
+    /**
+     * @var tachyon\components\Flash
+     */
+    protected $flash;
+
+    public function __construct(Flash $flash, ...$params)
+    {
+        $this->flash = $flash;
+
+        parent::__construct(...$params);
+    }
+
     /** @inheritdoc */
     public function init()
     {
@@ -31,7 +46,7 @@ class CrudController extends \tachyon\Controller
         if (is_null($this->modelName)) {
             $this->modelName = ucfirst($this->id);
         }
-        $this->model = $this->get($this->modelName);
+        $this->model = (new Container)->get("\\app\\models\\{$this->modelName}");
         $this->model->setAttributes($this->get);
     }
 
@@ -56,13 +71,13 @@ class CrudController extends \tachyon\Controller
     public function index()
     {
         $this->view->setPageTitle(ucfirst($this->model->getEntityName('plural')) . ', список');
-        $this->layout('index', array(
+        $this->layout('index', [
             'model' => $this->model,
             'items' => $this->model
                 ->setSearchConditions($this->get)
                 ->setSortConditions($this->get)
                 ->findAllScalar(),
-        ));
+        ]);
     }
 
     public function view($pk)
@@ -96,11 +111,11 @@ class CrudController extends \tachyon\Controller
 
     public function delete($pk)
     {
-        echo json_encode(array(
+        echo json_encode([
             'success' => $this->model
                 ->findByPk($pk)
                 ->delete()
-        ));
+        ]);
     }
 
     /**
@@ -109,12 +124,13 @@ class CrudController extends \tachyon\Controller
      */
     public function deactivate($pk)
     {
-        echo json_encode(array(
+        // переписать
+        echo json_encode([
             'success' => $this->model
                 ->findByPk($pk)
                 ->get('activeBehaviour')
                 ->deactivate($this->model)
-        ));
+        ]);
     }
 
     /**

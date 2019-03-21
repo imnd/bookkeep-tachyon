@@ -1,6 +1,8 @@
 <?php
 namespace app\models;
 
+use tachyon\behaviours\Active;
+
 /**
  * Класс модели товаров
  * 
@@ -9,9 +11,27 @@ namespace app\models;
  */
 class Articles extends \tachyon\db\activeRecord\ActiveRecord
 {
-    use \tachyon\dic\behaviours\Active,
-        \tachyon\dic\behaviours\ListBehaviour,
-        \tachyon\traits\GetList;
+    use \tachyon\traits\ListTrait;
+    /**
+     * Поле модели, которое попадает в подпись элемента селекта
+     * @var $valueField string | array
+     */
+    protected $valueField = 'name';
+    /**
+     * В случае, если $valueField - массив это строка, склеивающая возвращаемые значения
+     * @var $valsGlue string
+     */
+    protected $valsGlue = ', ';
+    /**
+     * Поле первичного ключа модели
+     * @var $pkField integer
+     */
+    protected $pkField = 'id';
+    /**
+     * Пустое значение в начале списка для селекта. Равно false если выводить не надо.
+     * @var $pkField integer | boolean
+     */
+    protected $emptyVal = '...';
 
     protected static $tableName = 'articles';
     protected $pkName = 'id';
@@ -47,6 +67,22 @@ class Articles extends \tachyon\db\activeRecord\ActiveRecord
     ];
 
     /**
+     * @var tachyon\behaviours\Active $activeBehaviour
+     */
+    protected $activeBehaviour;
+    /**
+     * @var tachyon\behaviours\ListBehaviour $listbehaviour
+     */
+    protected $listBehaviour;
+
+    public function __construct(Active $activeBehaviour, ...$params)
+    {
+        $this->activeBehaviour = $activeBehaviour;
+
+        parent::__construct(...$params);
+    }
+
+    /**
      * @param array $conditions условия поиска
      */
     public function setSearchConditions(array $conditions=array()): Articles
@@ -80,5 +116,13 @@ class Articles extends \tachyon\db\activeRecord\ActiveRecord
     public function getUnits(): array
     {
         return array('кг', 'шт');
+    }
+
+    /**
+     * @return tachyon\behaviours\Active
+     */
+    public function getActiveBehaviour()
+    {
+        return $this->activeBehaviour;
     }
 }

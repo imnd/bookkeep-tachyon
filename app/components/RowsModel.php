@@ -12,7 +12,7 @@ class RowsModel extends \tachyon\db\activeRecord\ActiveRecord
 {
     protected $parentKey = '';
 
-    public function __construct()
+    public function __construct(...$params)
     {
         $this->fields = array_merge($this->fields, array($this->parentKey, 'quantity', 'price'));
         $this->fieldTypes = array_merge($this->fieldTypes, [
@@ -30,7 +30,7 @@ class RowsModel extends \tachyon\db\activeRecord\ActiveRecord
             'price' => 'цена',
         ]);
 
-        parent::__construct();
+        parent::__construct(...$params);
     }
 
     public function rules(): array

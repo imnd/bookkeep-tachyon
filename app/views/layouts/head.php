@@ -13,7 +13,7 @@
     <div class="main" id="menu">
         <?php
         $this->widget([
-            'class' => 'Menu',
+            'class' => 'app\components\widgets\menu\Menu',
             'items' => [
                 'invoices' => 'фактуры',
                 'contracts' => 'договоры и контракты',
@@ -24,26 +24,26 @@
                 'settings' => 'администрирование',
                 'index/' . ($this->controller->isAuthorised() ? 'logout' : 'login') => $this->controller->isAuthorised() ? 'выйти' : 'войти',
             ],
-            'view' => 'top',
+            'viewsPath' => 'top',
         ]);
         $this->widget([
-            'class' => 'Menu',
+            'class' => 'app\components\widgets\menu\Menu',
             'items' => $this->controller->getMainMenu(),
-            'view' => 'main',
+            'viewsPath' => 'main',
         ]);
         ?>
     </div>
     <div class="clear"></div>
     <div id="container">
         <?php $this->widget([
-            'class' => 'Menu',
+            'class' => 'app\components\widgets\menu\Menu',
             'items' => $this->controller->getSubMenu(),
-            'view' => 'sub',
+            'viewsPath' => 'sub',
         ])?>
         <h1><?=$this->pageTitle?></h1>
 
         <div class="messages">
-            <?php foreach (\tachyon\helpers\FlashHelper::getAll() as $type => $message) {?>
+            <?php foreach ($this->flash->getAllFlashes() as $type => $message) {?>
                 <div class="<?=$type?>"><?=$message?></div>
             <?php }?>
         </div>

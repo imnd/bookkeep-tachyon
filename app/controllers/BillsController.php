@@ -15,9 +15,9 @@ class BillsController extends \app\components\CrudController
     {
         parent::init();
 
-        $this->mainMenu = array(
+        $this->mainMenu = [
             'index' => 'баланс',
             'create' => 'добавить запись',
-        );
+        ];
     }
 }

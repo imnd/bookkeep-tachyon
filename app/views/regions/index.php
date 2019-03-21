@@ -1,16 +1,16 @@
 <?php
 $this->pageTitle = 'Список районов';
 // таблица
-$this->widget(array(
-    'class' => 'Grid',
+$this->widget([
+    'class' => 'tachyon\components\widgets\grid\Grid',
     'model' => $model,
     'items' => $items,
-    'columns' => array('name'),
+    'columns' => ['name'],
     // фильтры
-    'searchFields' => array('name'),
+    'searchFields' => ['name'],
     // кнопки
-    'buttons' => array(
+    'buttons' => [
         'delete',
         'update',
-    ),
-));
+    ],
+]);

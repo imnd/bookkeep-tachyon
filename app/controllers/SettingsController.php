@@ -1,6 +1,9 @@
 <?php
 namespace app\controllers;
 
+use tachyon\components\FilesManager,
+    app\models\Settings;
+
 /**
  * Контроллер настроек приложения
  * 
@@ -9,7 +12,22 @@ namespace app\controllers;
  */ 
 class SettingsController extends \app\components\CrudController
 {
-    use \tachyon\dic\FilesManager;
+    /**
+     * @var tachyon\components\FilesManager $filesManager
+     */
+    protected $filesManager;
+    /**
+     * @var app\models\Settings
+     */
+    protected $settings;
+
+    public function __construct(FilesManager $filesManager, Settings $settings, ...$params)
+    {
+        $this->filesManager = $filesManager;
+        $this->settings = $settings;
+
+        parent::__construct(...$params);
+    }
 
     public function init()
     {
@@ -72,7 +90,7 @@ class SettingsController extends \app\components\CrudController
     public function backup()
     {
         $this->layout('backup', array(
-            'paths' => $this->get('Settings')->getPaths(),
+            'paths' => $this->settings->getPaths(),
         ));
     }
 

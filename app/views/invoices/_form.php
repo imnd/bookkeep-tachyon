@@ -5,6 +5,7 @@
 
     $this->html->formOpen(array('method' => 'POST'))
 ?>
+<?php $container = new \tachyon\dic\Container?>
     <div class="row">
         <?=
         $this->html->labelEx($model, 'number'),
@@ -12,16 +13,16 @@
         ?>
     </div>
     <div class="row">
-        <?=
-        $this->html->labelEx($model, 'date'),
-        $this->html->inputEx($model, 'date')
-        ?>
         <?php
+        echo
+        $this->html->labelEx($model, 'date'),
+        $this->html->inputEx($model, 'date');
+
         $modelName = $model->getClassName();
-        $this->widget(array(
-            'class' => 'Datepicker',
+        $this->widget([
+            'class' => 'tachyon\components\widgets\Datepicker',
             'fieldNames' => array("{$modelName}[date]"),
-        ));
+        ]);
         ?>
     </div>
     <div class="row">
@@ -33,10 +34,10 @@
     <div class="row">
         <?=
         $this->html->labelEx($model, 'client_id'),
-        $this->html->selectEx($model, array(
+        $this->html->selectEx($model, [
             'name' => 'client_id',
-            'options' => app\models\Clients::getSelectList()
-        ))
+            'options' => app\models\Clients::getAllSelectList()
+        ])
         ?>
     </div>
     <table class="invoice">
@@ -48,12 +49,12 @@
             <th>Сумма</th>
         </tr>
         <?php
-        $articles = app\models\Articles::getSelectList();
+        $articles = app\models\Articles::getAllSelectList();
         if ($model->isNew) {
-            $this->display('_row', array(
-                'row' => $this->get('InvoicesRows'),
+            $this->display('_row', [
+                'row' => $container->get('InvoicesRows'),
                 'articles' => $articles
-            ));
+            ]);
         } else {
             foreach ($model->rows as $row) {
                 $this->display('_row', compact('row', 'articles'));
@@ -72,7 +73,7 @@
     
 <?=$this->html->formClose()?>
 
-<span style="display:none" id="prices"><?=json_encode($this->get('Articles')->findAllScalar())?></span>
+<span style="display:none" id="prices"><?=json_encode($container->get('Articles')->findAllScalar())?></span>
 
 <script>
     dom.ready(function() {

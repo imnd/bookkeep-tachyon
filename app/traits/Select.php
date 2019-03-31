@@ -19,7 +19,10 @@ trait Select
     {
         $items = $this->findAll($where, $sort);
         $getter = 'get' . ucfirst($valueField);
-        $ret = array();
+        $ret = [[
+            'id' => '',
+            'value' => '...',
+        ]];
         foreach ($items as $item) {
             $ret[] = [
                 'id' => $item->getId(),

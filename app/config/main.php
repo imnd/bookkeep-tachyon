@@ -1,6 +1,4 @@
 <?php return [
-    // контроллер по умолчанию
-    'defaultController' => 'Index',
     // язык
     'lang' => 'ru',
     // продолжительность логина при нажатой кнопке "remember me"
@@ -16,9 +14,9 @@
         'copyright' => 'а.сердюк',
         'author_email' => 'imndsu@gmail.com',
     ],
-    'db' => require 'db.php',
     'cache' => [
         'enabled' => true,
         'serialize' => true,
     ],
+    'db' => require 'db.php',
 ];

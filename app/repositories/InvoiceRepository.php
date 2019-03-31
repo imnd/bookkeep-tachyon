@@ -15,6 +15,8 @@ use Iterator,
  */
 class InvoiceRepository extends HasRowsRepository implements InvoiceRepositoryInterface
 {
+    use \tachyon\traits\DateTime;
+
     /**
      * @var app\entities\Invoice
      */
@@ -44,6 +46,8 @@ class InvoiceRepository extends HasRowsRepository implements InvoiceRepositoryIn
      */
     public function setSearchConditions($conditions = array()): Repository
     {
+        $conditions = $this->setYearBorders($conditions);
+
         parent::setSearchConditions($conditions);
 
         return $this;

@@ -1,4 +1,4 @@
-<?php return array(
+<?php return [
     // контроллер по умолчанию
     'defaultController' => 'Index',
     // язык
@@ -21,4 +21,4 @@
         'enabled' => true,
         'serialize' => true,
     ],
-);
+];

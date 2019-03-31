@@ -31,20 +31,21 @@ var dom = (function() {
             return typeof(obj)==="object" ? obj : this.findById(obj, doc) || this.findByName(obj, doc);
         },
         findById : function(id, doc) {
-            if (doc===undefined)
+            if (doc===undefined) {
                 doc = document;
-
+            }
             return doc.getElementById ? doc.getElementById(id) : doc.all ? doc.all[id][1] : doc.layers[id];
         },
         findByTag : function(name, doc) {
             return this.findAllByTag(name, doc)[0];
         },
         findAllByTag : function(name, doc) {
-            if (doc===undefined)
+            if (doc===undefined) {
                 doc = document;
-
-            if (doc.getElementsByTagName)
+            }
+            if (doc.getElementsByTagName) {
                 return doc.getElementsByTagName(name);
+            }
         },
         findByName : function(name, doc) {
             if (doc===undefined)
@@ -78,10 +79,10 @@ var dom = (function() {
 
         val : function(obj, value) {
             var obj = this.findObj(obj);
-            const objType = obj.type;
-            if (obj===null || typeof obj==="undefined") {
+            if (obj===null || obj===undefined) {
                 return "";
             }
+            const objType = obj.type;
             if (objType==="checkbox") {
                 if (value===undefined) {
                     return obj.checked;
@@ -149,9 +150,11 @@ var dom = (function() {
         },
         clear : function(obj) {
             var obj = this.findObj(obj);
+            if (obj===undefined) {
+                return;
+            }
             const objType = obj.type;
-
-            if (typeof obj==="undefined") {
+            if (objType===undefined) {
                 return;
             }
             if (objType==="checkbox") {

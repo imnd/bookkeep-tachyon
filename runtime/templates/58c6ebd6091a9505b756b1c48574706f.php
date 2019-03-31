@@ -25,18 +25,18 @@ echo $this->display('../_search-form', [
     </tr>
     <?php foreach ($clients as $client) {?>
         <tr>
-            <td><?=$this->escape( $client->getName() )?></td>
-            <td><?=$this->escape( $client->getAddress() )?></td>
-            <td><?=$this->escape( $client->getPhone() )?></td>
-            <td><?=$this->escape( $client->getFax() )?></td>
-            <td><?=$this->escape( $client->getContactFullName() )?></td>
-            <td><?=$this->escape( $client->getContactPost() )?></td>
-            <td><?=$this->escape( $client->getBank() )?></td>
-            <td><?=$this->escape( $client->getAccount() )?></td>
-            <td><?=$this->escape( $client->getINN() )?></td>
-            <td><?=$this->escape( $client->getKPP() )?></td>
-            <td><?=$this->escape( $client->getBIK() )?></td>
-            <td><a class="button-update" title="update" href="/clients/update/<?=$this->escape($client->getId())?>"></a></td>
+            <td><?=trim($this->escape( $client->getName() ))?></td>
+            <td><?=trim($this->escape( $client->getAddress() ))?></td>
+            <td><?=trim($this->escape( $client->getPhone() ))?></td>
+            <td><?=trim($this->escape( $client->getFax() ))?></td>
+            <td><?=trim($this->escape( $client->getContactFullName() ))?></td>
+            <td><?=trim($this->escape( $client->getContactPost() ))?></td>
+            <td><?=trim($this->escape( $client->getBank() ))?></td>
+            <td><?=trim($this->escape( $client->getAccount() ))?></td>
+            <td><?=trim($this->escape( $client->getINN() ))?></td>
+            <td><?=trim($this->escape( $client->getKPP() ))?></td>
+            <td><?=trim($this->escape( $client->getBIK() ))?></td>
+            <td><a class="button-update" title="update" href="/clients/update/<?=trim($this->escape($client->getId()))?>"></a></td>
         </tr>
     <?php }?>
 </table>

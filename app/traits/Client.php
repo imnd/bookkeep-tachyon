@@ -8,22 +8,52 @@ namespace app\traits;
 trait Client
 {
     /**
+     * @return int
+     */
+    public function getClientId()
+    {
+        return $this->clientId;
+    }
+
+    /**
      * @return string
      */
     public function getClientName()
     {
-        if ($client = $this->client) {
-            return $client->name;
-        }
+        return $this->clientName;
     }
 
+    /**
+     * @return string
+     */
+    public function getClientNameAndAddress()
+    {
+        $str = $this->clientName;
+        if (!empty($this->clientAddress)) {
+            $str .= " ({$this->clientAddress})";
+        }
+        return $str;
+    }
+
+    /**
+     * @return string
+     */
+    public function setClientId(int $value = null)
+    {
+        return $this->_setAttribute('clientId', $value);
+    }
+    
+    
+    
+    // переделать
+    
     /**
      * @return string
      */
     public function getClientAccount()
     {
         if ($client = $this->client) {
-            return $client->account;
+            return $client->getAccount();
         }
     }
 
@@ -33,7 +63,7 @@ trait Client
     public function getClientAddress()
     {
         if ($client = $this->client) {
-            return $client->address;
+            return $client->getAddress();
         }
     }
 
@@ -43,7 +73,7 @@ trait Client
     public function getClientBank()
     {
         if ($client = $this->client) {
-            return $client->bank;
+            return $client->getBank();
         }
     }
 
@@ -53,7 +83,7 @@ trait Client
     public function getClientContactPost()
     {
         if ($client = $this->client) {
-            return $client->contact_post;
+            return $client->getContactPost();
         }
     }
 
@@ -63,7 +93,7 @@ trait Client
     public function getClientContactFio()
     {
         if ($client = $this->client) {
-            return $client->contact_fio;
+            return $client->getContactFio();
         }
     }
 
@@ -73,7 +103,7 @@ trait Client
     public function getClientINN()
     {
         if ($client = $this->client) {
-            return $client->INN;
+            return $client->getINN();
         }
     }
 
@@ -83,7 +113,7 @@ trait Client
     public function getClientKPP()
     {
         if ($client = $this->client) {
-            return $client->KPP;
+            return $client->getKPP();
         }
     }
 
@@ -93,7 +123,7 @@ trait Client
     public function getClientBIK()
     {
         if ($client = $this->client) {
-            return $client->BIK;
+            return $client->getBIK();
         }
     }
 
@@ -103,7 +133,7 @@ trait Client
     public function getClientCorrSchet()
     {
         if ($client = $this->client) {
-            return $client->korr_schet;
+            return $client->getCorrSchet();
         }
     }
 }

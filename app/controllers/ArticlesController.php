@@ -1,27 +1,55 @@
 <?php
 namespace app\controllers;
 
+use app\entities\Article,
+    app\interfaces\ArticleRepositoryInterface,
+    app\interfaces\ArticleSubcatRepositoryInterface;
+
 /**
  * Контроллер товаров
  * 
  * @author Андрей Сердюк
- * @copyright (c) 2018 IMND
+ * @copyright (c) 2019 IMND
  */ 
-class ArticlesController extends \app\components\CrudController
+class ArticlesController extends CrudController
 {
+    use \tachyon\traits\Authentication;
+
     /**
-     * Главная страница, список товаров
+     * @var ArticleRepositoryInterface
      */
-    public function index()
+    protected $repository;
+    /**
+     * @var ArticleSubcatRepositoryInterface
+     */
+    protected $subcatRepository;
+
+    /**
+     * @param ArticleRepositoryInterface $repository
+     * @param array $params
+     */
+    public function __construct(ArticleRepositoryInterface $repository, ...$params)
     {
-        $this->layout('index', [
-            'model' => $this->model,
-            'items' => $this->model
-                ->join(array(\app\models\ArticleSubcats::getTableName() => 'sс'), array('subcat_id', 'id'))
-                ->select(array('*', 'sс.name' => 'subcatName'))
-                ->setSearchConditions($this->get)
-                ->setSortConditions($this->get)
-                ->findAllScalar(),
-        ]);
+        $this->repository = $repository;
+
+        parent::__construct(...$params);
+    }
+
+    /**
+     * Главная страница, список товаров.
+     * 
+     * @param Article $entity
+     */
+    public function index(Article $entity)
+    {
+        $this->_index($entity);
+    }
+
+    /**
+     * @param int $pk
+     */
+    public function update($pk)
+    {
+        $this->_update($pk, ['regions' => $regionRepository->findAll()]);
     }
 }

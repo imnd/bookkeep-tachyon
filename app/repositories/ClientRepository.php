@@ -2,38 +2,35 @@
 namespace app\repositories;
 
 use tachyon\db\dataMapper\Repository,
-    app\entities\Client,
-    app\repositories\RegionRepository;
+    app\interfaces\ClientRepositoryInterface,
+    app\entities\Client;
 
 /**
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class ClientRepository extends Repository
+class ClientRepository extends Repository implements ClientRepositoryInterface
 {
-    protected $tableName = 'clients';
+    use \app\traits\Select;
 
+    protected $tableName = 'clients';
     /**
      * @var app\entities\Client
      */
     protected $client;
-    /**
-     * @var app\repositories\RegionRepository
-     */
-    protected $regionRepository;
 
-    public function __construct(Client $client, RegionRepository $regionRepository, ...$params)
+    public function __construct(Client $client, ...$params)
     {
         $this->client = $client;
-        $this->regionRepository = $regionRepository;
 
         parent::__construct(...$params);
     }
 
     /**
      * @param array $conditions условия поиска
+     * @return ClientRepository
      */
-    public function setSearchConditions($conditions=array()): Repository
+    public function setSearchConditions($conditions = array()): Repository
     {
         foreach (['name', 'address'] as $field) {
             if (!empty($where = $this->terms->like($conditions, $field))) {

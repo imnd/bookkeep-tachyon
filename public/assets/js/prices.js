@@ -1,24 +1,32 @@
+/**
+ * Компонент для работы с фактурами, счетами и договорами
+ * 
+ * @constructor
+ * @this {prices}
+ */
 var prices = (function() {
     var
         self = this,
-        modelName = '',
-        pricesArr = []
-    ;
-    
-    return {
-        calcPrice : function(row) {
-            var sumElt = dom.find('.sum', row);
-            var sumInp = dom.find('input', sumElt);
-            var quantityElt = dom.find('.quantity', row);
+        entityName = '',
+        pricesArr = [],
+
+        calcPrice = function(row) {
+            var
+                sumElt = dom.find('.sum', row),
+                sumInp = dom.find('input', sumElt),
+                quantityElt = dom.find('.quantity', row),
+                priceInp = dom.find('input', dom.find('.price', row)),
+                sum,
+                quantity
+            ;
             if (sumInp.length==0) {
                 // если это не форма а обычная таблица
-                var sum = dom.val(sumElt);
-                var quantity = dom.val(quantityElt);
+                sum = dom.val(sumElt);
+                quantity = dom.val(quantityElt);
             } else {
-                var sum = dom.val(sumInp);
-                var quantity = dom.val(dom.find('input', quantityElt));
+                sum = dom.val(sumInp);
+                quantity = dom.val(dom.find('input', quantityElt));
             }
-            var priceInp = dom.find('input', dom.find('.price', row));
             if (sum!=='' && quantity!=='') {
                 var price = sum / quantity;
                 price = price.toFixed(2);
@@ -30,27 +38,18 @@ var prices = (function() {
             return 0;
         },
 
-        calcPrices : function() {
-            var total = 0;
-            var rows = dom.findAll('tr.row');
-            for (var key=0; key<rows.length; key++) {
-                var row = rows[key];
-                total += self.calcPrice(row);
-            }
-            dom.val(dom.find('td.total'), total);
-        },
-
-        calcSum : function(row) {
+        calcSum = function(row) {
             var priceElt = dom.find('.price', row);
             var priceInp = dom.find('input', priceElt);
             var quantityElt = dom.find('.quantity', row);
             // если это не форма а обычная таблица
+            var price, quantity;
             if (priceInp.length==0) {
-                var price = dom.val(priceElt);
-                var quantity = dom.val(quantityElt);
+                price = dom.val(priceElt);
+                quantity = dom.val(quantityElt);
             } else {
-                var price = dom.val(priceInp);
-                var quantity = dom.val(dom.find('input', quantityElt));
+                price = dom.val(priceInp);
+                quantity = dom.val(dom.find('input', quantityElt));
             }
             var sumInp = dom.find('input', dom.find('.sum', row));
             if (price!=='' && quantity!=='') {
@@ -66,20 +65,42 @@ var prices = (function() {
             return 0;
         },
 
+        /**
+         * обновляем цены
+         */
+        updatePriceInputs = function() {
+            var selects = dom.findAll(".article select");
+            for (var key=0; key<selects.length; key++) {
+                this.updatePriceInput(selects[key]);
+            }    
+        }
+    ;
+    
+    return {
+        calcPrices : function() {
+            var total = 0;
+            var rows = dom.findAll('tr.row');
+            for (var key=0; key<rows.length; key++) {
+                var row = rows[key];
+                total += calcPrice(row);
+            }
+            dom.val(dom.find('td.total'), total);
+        },
+
         calcSums : function() {
             var total = 0;
             var rows = dom.findAll('tr.row');
             for (var key=0; key<rows.length; key++) {
                 var row = rows[key];
-                total += self.calcSum(row);
+                total += calcSum(row);
             }
             dom.val(dom.find('td.total'), total.toFixed(2));
         },
 
         updatePrices : function() {
-            var contractNum = dom.val(dom.findByName(modelName + "[contract_num]"));
+            var contractNum = dom.val(dom.findByName(entityName + "[contract_num]"));
             if (contractNum==='') {
-                self.fillPricesArray();
+                this.fillPricesArray();
                 return;
             }
             ajax.get(
@@ -87,7 +108,7 @@ var prices = (function() {
                 function(data) {
                     var contract = data;
                     if (contract==false)
-                        self.fillPricesArray();
+                        this.fillPricesArray();
                     else {
                         // заполняем массив цен
                         pricesArr = [];
@@ -97,22 +118,13 @@ var prices = (function() {
                             pricesArr[row['article_id']] = row['price'];
                         }
                         // меняем цены
-                        self.updatePriceInputs();
-                        self.calcSums();
+                        updatePriceInputs();
+                        this.calcSums();
                         // меняем содержимое поля "клиент"
-                        dom.val(dom.findByName(modelName + "[client_id]"), contract['client_id']);
+                        dom.val(dom.findByName(entityName + "[client_id]"), contract['client_id']);
                     }
                 }
             );
-        },
-
-        /**
-         * обновляем цены
-         */
-        updatePriceInputs : function() {
-            var selects = dom.findAll(".article select");
-            for (var key=0; key<selects.length; key++)
-                self.updatePriceInput(selects[key]);        
         },
 
         updatePriceInput : function(select) {
@@ -126,7 +138,7 @@ var prices = (function() {
         },
 
         fillPricesArray : function() {
-            var defPrices = eval(dom.val(dom.find('#self')));
+            var defPrices = eval(dom.val(dom.find('#prices')));
             pricesArr = [];
             for (var key = 0; key < defPrices.length; key++) {
                 var arr = defPrices[key];
@@ -134,8 +146,8 @@ var prices = (function() {
             }
         },
 
-        setModelName : function(str) {
-            modelName = str;
+        setEntityName : function(str) {
+            this.entityName = str;
         }
     };
 }());

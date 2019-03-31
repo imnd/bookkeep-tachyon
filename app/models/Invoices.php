@@ -7,7 +7,7 @@ namespace app\models;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class Invoices extends \app\components\HasRowsModel
+class Invoices extends \app\models\HasRowsModel
 {
     use \tachyon\traits\DateTime,
         \app\traits\Client,
@@ -23,7 +23,6 @@ class Invoices extends \app\components\HasRowsModel
         'sum',
         'payed',
     ];
-
     protected $fieldTypes = [
         'id' => 'int',
         'client_id' => 'smallint',
@@ -76,6 +75,7 @@ class Invoices extends \app\components\HasRowsModel
 
     /**
      * @param array $conditions условия поиска
+     * @return Invoices
      */
     public function setSearchConditions(array $conditions = array()): Invoices
     {
@@ -89,7 +89,7 @@ class Invoices extends \app\components\HasRowsModel
      * @param array $conditions условия поиска
      * @return array
      */
-    public function findAllScalar(array $conditions=array()): array
+    public function findAllRaw(array $conditions=array()): array
     {
         $this
             ->join(array('clients' => 'cl'), array('client_id', 'id'))
@@ -99,14 +99,15 @@ class Invoices extends \app\components\HasRowsModel
                 'cl.name' => 'client_name',
             ]);
 
-        return parent::findAllScalar($conditions);
+        return parent::findAllRaw($conditions);
     }
 
     /**
      * Список фактур отфильтрованных по дате контракта
-     * 
+     *
      * @param array $conditions условия поиска
      * @returns array
+     * @return array
      */
     public function getAllByContract($conditions=array()): array
     {
@@ -123,7 +124,7 @@ class Invoices extends \app\components\HasRowsModel
         if (!empty($conditions['contract_num']))
             $this->addWhere(array('cn.contract_num' => $conditions['contract_num']));
             
-        return $this->findAllScalar();
+        return $this->findAllRaw();
     }
 
     /**
@@ -147,13 +148,13 @@ class Invoices extends \app\components\HasRowsModel
         if (!empty($conditions['contract_num'])) {
             $this->addWhere(array('cn.contract_num' => $conditions['contract_num']));
         }
-        $item = $this->findOneScalar();
+        $item = $this->findOneRaw();
         if ($value = $item['total']) {
             return $value;
         }
         return 0;
     }
-    
+
     /**
      * Возвращает последний (максимальный) номер
      * @return integer
@@ -163,7 +164,7 @@ class Invoices extends \app\components\HasRowsModel
         $item = $this
             ->select('number')
             ->limit(1)
-            ->findOneScalar();
+            ->findOneRaw();
 
         return $item['number'];
     }

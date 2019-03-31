@@ -69,7 +69,7 @@ class Settings extends \tachyon\db\activeRecord\ActiveRecord
      */
     public function getByKey($key)
     {
-        return $this->findOneScalar(compact('key'));
+        return $this->findOneRaw(compact('key'));
     }
 
     /**

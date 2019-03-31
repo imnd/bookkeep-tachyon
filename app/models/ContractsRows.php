@@ -7,7 +7,7 @@ namespace app\models;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class ContractsRows extends \app\components\RowsModel
+class ContractsRows extends RowsModel
 {
     use \app\traits\Article;
 
@@ -42,13 +42,14 @@ class ContractsRows extends \app\components\RowsModel
      */
     public function getAllByContract($contractId=null): array
     {
-        return $this->findAllScalar(array('contract_id' => $contractId));
+        return $this->findAllRaw(array('contract_id' => $contractId));
     }
-    
+
     /**
      * @param array $conditions условия поиска
+     * @return array
      */
-    public function findAllScalar(array $conditions=array()): array
+    public function findAllRaw(array $conditions=array()): array
     {
         $this
             ->join(
@@ -75,6 +76,6 @@ class ContractsRows extends \app\components\RowsModel
             ])
             ->sortBy('cat.id');
 
-        return parent::findAllScalar($conditions);
+        return parent::findAllRaw($conditions);
     }
 }

@@ -1,5 +1,5 @@
-@include('head')
+<?php $this->display('../layouts/head')?>
 
     @contents
 
-@include('foot')
+<?php $this->display('../layouts/foot')?>

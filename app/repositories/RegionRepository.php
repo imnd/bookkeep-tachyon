@@ -1,14 +1,20 @@
 <?php
 namespace app\repositories;
 
-use app\entities\Region;
+use tachyon\db\dataMapper\Repository,
+    app\interfaces\RegionRepositoryInterface,
+    app\entities\Region;
 
 /**
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class RegionRepository extends \tachyon\db\dataMapper\Repository
+class RegionRepository extends Repository implements RegionRepositoryInterface
 {
+    /**
+     * @inheritdoc
+     */
+    protected $tableName = 'regions';
     /**
      * @var app\entities\Region
      */
@@ -20,6 +26,4 @@ class RegionRepository extends \tachyon\db\dataMapper\Repository
 
         parent::__construct(...$params);
     }
-
-    protected $tableName = 'regions';
 }

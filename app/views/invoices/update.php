@@ -1,4 +1,5 @@
 <?php
+$pk = $entity->getPk();
 $subMenu = [
     "delete/$pk",
     "view/$pk",
@@ -11,4 +12,4 @@ $subMenu = [
         'title' => 'распечатать накладную',
     ],
 ];
-$this->display('_form', compact('model'));
+$this->display('_form', compact('entity', 'row', 'rows', 'articlesList', 'articles', 'clients'));

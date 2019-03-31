@@ -1,10 +1,9 @@
 <?php
 namespace app\controllers;
 
-use tachyon\Controller,
-    app\entities\Client,
-    app\repositories\ClientRepository,
-    app\repositories\RegionRepository,
+use app\entities\Client,
+    app\interfaces\ClientRepositoryInterface,
+    app\interfaces\RegionRepositoryInterface,
     app\models\Bills,
     app\models\Invoices,
     app\models\Settings
@@ -14,36 +13,24 @@ use tachyon\Controller,
  * Контроллер клиентов фирмы
  * 
  * @author Андрей Сердюк
- * @copyright (c) 2018 IMND
+ * @copyright (c) 2019 IMND
  */ 
-class ClientsController extends Controller
+class ClientsController extends CrudController
 {
     use \tachyon\traits\Authentication;
 
-    protected $layout = 'clients';
-    protected $defaultAction = 'list';
+    /**
+     * @var app\repositories\ClientRepositoryInterface
+     */
+    protected $repository;
 
     /**
-     * @var app\repositories\ClientRepository
+     * @param ClientRepositoryInterface $repository
+     * @param array $params
      */
-    protected $clientRepository;
-    /**
-     * @var app\repositories\RegionRepository
-     */
-    protected $regionRepository;
-
-    /**
-     * @param ClientRepository $clientRepository
-     * @param RegionRepository $regionRepository
-     */
-    public function __construct(
-        ClientRepository $clientRepository,
-        RegionRepository $regionRepository,
-        ...$params
-    )
+    public function __construct(ClientRepositoryInterface $repository, ...$params)
     {
-        $this->clientRepository = $clientRepository;
-        $this->regionRepository = $regionRepository;
+        $this->repository = $repository;
 
         parent::__construct(...$params);
     }
@@ -51,80 +38,26 @@ class ClientsController extends Controller
     /**
      * @param Client $client
      */
-    public function list(Client $client)
+    public function index(Client $entity)
     {
-        $this->layout('list', [
-            'entity' => $client,
-            'clients' => $this
-                ->clientRepository
-                ->setSearchConditions($this->get)
-                ->setSort($this->get)
-                ->findAll(),
-        ]);
-    }
-
-    public function create()
-    {
-        /**
-         * @var Client $client
-         */
-        $client = $this->clientRepository->create();
-        $this->save($client);
-        $this->layout('create', [
-            'client' => $client,
-            'regions' => $this->regionRepository->findAll()
-        ]);
+        $this->_index($entity);
     }
 
     /**
+     * @param RegionRepositoryInterface $regionRepository
+     */
+    public function create(RegionRepositoryInterface $regionRepository)
+    {
+        $this->_create(['regions' => $regionRepository->findAll()]);
+    }
+
+    /**
+     * @param RegionRepositoryInterface $regionRepository
      * @param int $pk
      */
-    public function update($pk)
+    public function update(RegionRepositoryInterface $regionRepository, $pk)
     {
-        /**
-         * @var Client $client
-         */
-        if (!$client = $this->clientRepository->findByPk($pk)) {
-            $this->error(404, $this->msg->i18n('Wrong address.'));
-        }
-        $this->save($client);
-        $this->layout('update', [
-            'client' => $client,
-            'regions' => $this->regionRepository->findAll()
-        ]);
-    }
-
-    /**
-     * @param Client $client
-     * @return void
-     */
-    protected function save(Client $client)
-    {
-        if (!empty($this->post)) {
-            $client->setAttributes($this->post['Client'] ?? $this->post);
-            if ($client->validate()) {
-                if ($client->getDbContext()->commit()) {
-                    $this->flash->setFlash('Сохранено успешно', self::FLASH_TYPE_SUCCESS);
-                    $this->redirect("/{$this->id}");
-                }
-            }
-            $this->message = "Что то пошло не так, {$client->getErrorsSummary()}";
-        }
-    }
-
-    /**
-     * @param int $pk
-     */
-    public function delete($pk)
-    {
-        if (!$client = $this->clientRepository->findByPk($pk)) {
-            $this->error(404, $this->msg->i18n('Wrong address.'));
-        }
-        echo json_encode([
-            'success' => $this->clientRepository
-                ->findByPk($pk)
-                ->delete()
-        ]);
+        $this->_update($pk, ['regions' => $regionRepository->findAll()]);
     }
 
     /**
@@ -136,7 +69,7 @@ class ClientsController extends Controller
     public function printout(Bills $bills, Invoices $invoices, Settings $settings, $pk)
     {
         $this->layout = 'printout';
-        $client = $this->clientRepository->findByPk($pk);
+        $client = $this->repository->findByPk($pk);
         if (empty($this->get)) {
             $this->layout('printout', compact('client'));
             return;

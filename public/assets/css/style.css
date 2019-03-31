@@ -378,7 +378,7 @@ th.ASC
 th.DESC
     {background-image: url('../img/triangle_down.jpg');}
 td.operations
-    {width: 0;}
+    {width: 10px;}
 
 td input
 {
@@ -480,6 +480,7 @@ form.search-form {
 }
 form.search-form input {
     margin-left: 9px;
+    width: 100px;
 }
 form.search-form label {
     width: auto;

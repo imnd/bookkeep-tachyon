@@ -19,4 +19,3 @@ $this->assetManager->coreJs("upload")
     });
     dom.findById('file-upload').addEventListener('click', upload.run, false);
 //--></script>
-</html>

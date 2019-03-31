@@ -1,30 +1,34 @@
 <tr class="row">
     <td class="article">
-        <?=$this->html->selectEx($row, array(
-            'options' => $articles,
-            'name' => 'article_id',
-            'multiple' =>true,
-        ))?>
+        <?php $this->display('../blocks/select', [
+            'label' => false,
+            'entity' => $row,
+            'name' => 'articleId[]',
+            'options' => $articlesList,
+        ])?>
     </td>
     <td>кг</td>
     <td class="quantity">
-        <?=$this->html->inputEx($row, array(
-            'name' => 'quantity',
-            'multiple' =>true,
-         ))?>
+        <?php $this->display('../blocks/input', [
+            'label' => false,
+            'entity' => $row,
+            'name' => 'quantity[]',
+        ])?>
     </td>
     <td class="price">
-        <?=$this->html->inputEx($row, array(
-            'name' => 'price',
-            'multiple' =>true,
-        ))?>
+        <?php $this->display('../blocks/input', [
+            'label' => false,
+            'entity' => $row,
+            'name' => 'price[]',
+        ])?>
     </td>
     <td class="sum">
-        <?=$this->html->inputEx($row, array(
-            'name' => 'sum',
-            'multiple' =>true,
+        <?php $this->display('../blocks/input', [
+            'label' => false,
+            'entity' => $row,
+            'name' => 'row_sum[]',
             'readonly' => 'readonly',
-        ))?>
+        ])?>
     </td>
     <td class="delete-btn"><?=$this->html->button()?></td>
 </tr>

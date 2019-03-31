@@ -14,4 +14,4 @@
     <div id="container">
         @contents
 
-@include('foot')
+<?php $this->display('../layouts/foot')?>

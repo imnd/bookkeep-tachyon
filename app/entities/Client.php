@@ -31,63 +31,63 @@ class Client extends Entity
     /**
      * @var int
      */
-    private $id;
+    protected $id;
     /**
      * @var string
      */
-    private $name;
+    protected $name;
     /**
      * @var string
      */
-    private $address;
+    protected $address;
     /**
      * @var string
      */
-    private $phone;
+    protected $phone;
     /**
      * @var string
      */
-    private $fax;
+    protected $fax;
     /**
      * @var string
      */
-    private $contactFullName;
+    protected $contactFullName;
     /**
      * @var string
      */
-    private $contactPost;
+    protected $contactPost;
     /**
      * @var string
      */
-    private $account;
+    protected $account;
     /**
      * @var string
      */
-    private $bank;
+    protected $bank;
     /**
      * @var int
      */
-    private $INN;
+    protected $INN;
     /**
      * @var int
      */
-    private $KPP;
+    protected $KPP;
     /**
      * @var int
      */
-    private $BIK;
+    protected $BIK;
     /**
      * @var int
      */
-    private $sort;
+    protected $sort;
     /**
      * @var int
      */
-    private $active;
+    protected $active;
     /**
      * @var int
      */
-    private $regionId;
+    protected $regionId;
 
     # GETTERS
 

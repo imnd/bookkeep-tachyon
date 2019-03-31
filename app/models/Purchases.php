@@ -7,7 +7,7 @@ namespace app\models;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class Purchases extends \app\components\HasRowsModel
+class Purchases extends \app\models\HasRowsModel
 {
     use \tachyon\traits\DateTime,
         \app\traits\Client;
@@ -45,6 +45,7 @@ class Purchases extends \app\components\HasRowsModel
 
     /**
      * @param array $conditions условия поиска
+     * @return Purchases
      */
     public function setSearchConditions(array $conditions=array()): Purchases
     {
@@ -60,7 +61,7 @@ class Purchases extends \app\components\HasRowsModel
      * @param string $dateFrom
      * @param string $dateTo
      *
-     * @returns array
+     * @return array
      */
     public function getReport($dateFrom=null, $dateTo=null): array
     {
@@ -76,12 +77,12 @@ class Purchases extends \app\components\HasRowsModel
                 , artsub.name AS article_subcat
                 , artsub.id AS article_subcat_id
                 , GROUP_CONCAT(i.number) AS inv_numbers
-            FROM `" . \app\models\Invoices::getTableName() . "` i
-            LEFT JOIN `" . \app\models\InvoicesRows::getTableName() . "` sup
+            FROM `" . Invoices::getTableName() . "` i
+            LEFT JOIN `" . InvoicesRows::getTableName() . "` sup
                 ON sup.invoice_id=i.id
-            LEFT JOIN `" . \app\models\Articles::getTableName() . "` art
+            LEFT JOIN `" . Articles::getTableName() . "` art
                 ON art.id=sup.article_id
-            LEFT JOIN `" . \app\models\ArticleSubcats::getTableName(). "` artsub
+            LEFT JOIN `" . ArticleSubcats::getTableName(). "` artsub
                 ON artsub.id=art.subcat_id
             " . (!is_null($dateFrom) ? "WHERE i.date>='$dateFrom' AND i.date<='$dateTo'" : '') . "
             GROUP BY artsub.id 

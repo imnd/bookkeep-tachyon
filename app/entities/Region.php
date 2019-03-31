@@ -14,11 +14,11 @@ class Region extends Entity
     /**
      * @var int
      */
-    private $id;
+    protected $id;
     /**
      * @var string
      */
-    private $name;
+    protected $name;
 
     # Setters
 

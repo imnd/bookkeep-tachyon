@@ -2,39 +2,43 @@
 /**
  * @var \tachyon\View $this
  */
+$this->layout = 'list';
+$this->pageTitle = 'Список фактур';
 
-$this->widget([
-    'class' => 'tachyon\components\widgets\grid\Grid',
-    'model' => $model,
-    'items' => $items,
-    'columns' => array('number', 'date', 'client_name', 'contract_num', 'sum'),
-    // фильтры
-    'searchFields' => [
-        'dateFrom' => array('type' => 'date'),
-        'dateTo' => array('type' => 'date'),
+// фильтр
+$this->display('../blocks/search-form', [
+    'entity' => $entity,
+    'fields' => [
+        'dateFrom' => ['type' => 'date'],
+        'dateTo' => ['type' => 'date'],
         'number',
         'contract_num',
-        'client_id' => [
-            'listData' => app\models\Clients::getAllSelectList(),
-        ],
-    ],
-    'sumFields' => array('sum'),
-    // кнопки
-    'buttons' => [
-        'view',
-        'delete' => [
-            'type' => 'ajax',
-        ],
-        'update',
         [
-            'action' => 'printout',
-            'title' => 'распечатать фактуру',
-            'vars' => array('type' => 'bill')
-        ],
-        [
-            'action' => 'printout',
-            'title' => 'распечатать накладную',
-            'vars' => array('type' => 'invoice')
-        ],
+            'name' => 'client_id',
+            'type' => 'select',
+            'options' => $clients,
+        ]
     ],
 ]);
+?>
+<table>
+    <tr>
+        <th><?=$entity->getCaption('number')?></th>
+        <th style="width: 18%"><?=$entity->getCaption('date')?></th>
+        <th><?=$entity->getCaption('clientName')?></th>
+        <th><?=$entity->getCaption('contractNum')?></th>
+        <th><?=$entity->getCaption('sum')?></th>
+    </tr>
+    <?php foreach ($items as $item) {?>
+        <tr>
+            <td>{{ $item->getNumber() }}</td>
+            <td>{{ $item->getDate() }}</td>
+            <td>{{ $item->getClientNameAndAddress() }}</td>
+            <td>{{ $item->getContractNum() }}</td>
+            <td>{{ $item->getSum() }}</td>
+            <td><a class="button-update" title="редактировать" href="update/{{$item->getPk()}}"></a></td>
+            <td><a class="button-printout" title="распечатать фактуру" href="printout/{{$item->getPk()}}/type/bill"></a></td>
+            <td><a class="button-printout" title="распечатать накладную" href="printout/{{$item->getPk()}}/type/invoice"></a></td>
+        </tr>
+    <?php }?>
+</table>

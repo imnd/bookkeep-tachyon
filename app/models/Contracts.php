@@ -9,7 +9,7 @@ use app\models\ContractsRows;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class Contracts extends \app\components\HasRowsModel
+class Contracts extends \app\models\HasRowsModel
 {
     use \app\traits\Client,
         \tachyon\traits\DateTime,
@@ -124,9 +124,10 @@ class Contracts extends \app\components\HasRowsModel
 //            'type' => array('in' => array_keys($this->_types)), // TODO: сделать
         ];
     }
-    
+
     /**
      * @param array $conditions условия поиска
+     * @return Contracts
      */
     public function setSearchConditions(array $conditions=array()): Contracts
     {
@@ -172,33 +173,31 @@ class Contracts extends \app\components\HasRowsModel
      * @param array $conditions условия поиска
      * @return array
      */
-    public function findAllScalar(array $conditions=array()): array
+    public function findAllRaw(array $conditions=array()): array
     {
         $list = array();
         $this
             ->asa('t')
             ->join(array('clients' => 'cl'), array('client_id', 'id'))
             ->join(array('invoices' => 'i'), array('contract_num', 'contract_num'))
-            ->select(array(
+            ->select([
                 '*',
                 'cl.name' => 'clientName',
                 'cl.address' => 'clientAddr',
                 'SUM(i.sum)' => 'executed',
                 't.sum - SUM(i.sum)' => 'execRemind',
-            ))
+            ])
             ->groupBy('t.contract_num');
         
-        $listExecuted = parent::findAllScalar($conditions);
+        $listExecuted = parent::findAllRaw($conditions);
 
         $this
             ->asa('t')
             ->join(array('billing' => 'b'), array('contract_num', 'contract_num'))
-            ->select(array(
-                'SUM(b.sum)' => 'payed',
-            ))
+            ->select(array('SUM(b.sum)' => 'payed'))
             ->groupBy('t.contract_num');
 
-        $listPayed = parent::findAllScalar(array_merge($conditions, array('b.contents' => 'payment')));
+        $listPayed = parent::findAllRaw(array_merge($conditions, array('b.contents' => 'payment')));
 
         foreach ($listExecuted as $key => $contract) {
             $payed = !empty($listPayed[$key]['payed']) ? $listPayed[$key]['payed'] : 0;
@@ -216,12 +215,12 @@ class Contracts extends \app\components\HasRowsModel
      */
     public function getItem($conditions=array()): array
     {
-        $item = $this->findOneScalar($conditions);
+        $item = $this->findOneRaw($conditions);
         $item['rows'] = $this->contractsRows
             ->addWhere([
                 'contract_id' => $item['id'],
             ])
-            ->findAllScalar();
+            ->findAllRaw();
 
         return $item;
     }
@@ -234,7 +233,7 @@ class Contracts extends \app\components\HasRowsModel
     {
         $items = $this
             ->select('contract_num')
-            ->findAllScalar($conditions);
+            ->findAllRaw($conditions);
 
         return $this->getValsList($items, 'contract_num');
     }

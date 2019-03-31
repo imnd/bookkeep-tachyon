@@ -41,7 +41,7 @@ class Articles extends \tachyon\db\activeRecord\ActiveRecord
         'id' => 'smallint',
         'subcat_id' => 'smallint',
         'name' => 'tinytext',
-        'unit' => 'float',
+        'unit' => 'string',
         'price' => 'tinyint',
         'active' => 'enum',
     ];
@@ -83,6 +83,7 @@ class Articles extends \tachyon\db\activeRecord\ActiveRecord
 
     /**
      * @param array $conditions условия поиска
+     * @return Articles
      */
     public function setSearchConditions(array $conditions=array()): Articles
     {

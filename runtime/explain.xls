@@ -1,3 +1,0 @@
-query: SELECT clients.name,clients.address,clients.region_id,clients.telephone,clients.fax,clients.contact_fio,clients.contact_post,clients.account,clients.bank,clients.INN,clients.KPP,clients.BIK,clients.sort,clients.active,clients.id FROM clients ORDER BY clients.sort ASC
-id	select_type	table	type	possible_keys	key	key_len	ref	rows	Extra
-1	SIMPLE	clients		ALL					138	100.00	Using filesort	

@@ -10,13 +10,9 @@ use tachyon\components\FilesManager,
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */ 
-class SettingsController extends \app\components\CrudController
+class SettingsController extends CrudController
 {
-    public function init()
-    {
-        parent::init();
-        $this->layout = 'settings';
-    }
+    protected $layout = 'settings';
 
     /**
      * Главная страница
@@ -29,39 +25,40 @@ class SettingsController extends \app\components\CrudController
     /**
      * Установка реквизитов
      */
-    public function requisites()
+    public function requisites(Settings $settings)
     {
-        $requisiteKeys = array(
-            'firm' => array('director', 'name_short', 'name', 'inn', 'bank', 'account', 'address', 'certificate', 'okud', 'okpo',),
-            'supplier' => array('name_short', 'name', 'bik', 'inn', 'kpp', 'bank', 'account', 'address', 'certificate', 'okud', 'okpo'),
-        );
+        $requisiteKeys = [
+            'firm' => ['director', 'name_short', 'name', 'inn', 'bank', 'account', 'address', 'certificate', 'okud', 'okpo'],
+            'supplier' => ['name_short', 'name', 'bik', 'inn', 'kpp', 'bank', 'account', 'address', 'certificate', 'okud', 'okpo'],
+        ];
         if (!empty($this->post)) {
             $result = true;
-            foreach ($requisiteKeys as $type => $keys)
+            foreach ($requisiteKeys as $type => $keys) {
                 foreach ($keys as $key) {
                     $confKey = $type . "_$key";
-                    $model = $this->model->findByKey($confKey);
+                    $model = $settings->findByKey($confKey);
                     $value = $this->post[$confKey];
-                    if ($value!=$model->value) {
+                    if ($value != $model->value) {
                         $model->value = $value;
                         $result = $result && $model->save();
                     }
                 }
-
-            if ($result)
+            }
+            if ($result) {
                 $this->redirect($this->getRoute());
+            }
         }
-        $requisitesAll = array(
+        $requisitesAll = [
             'firm' => array(),
             'supplier' => array(),
-        );
+        ];
         foreach ($requisiteKeys as $type => $keys) {
             foreach ($keys as $key) {
                 $confKey = $type . "_$key";
-                $requisitesAll[$type][$key] = array(
-                    'name' => $this->model->getNameByKey($confKey),
-                    'value' => $this->model->getValueByKey($confKey),
-                );
+                $requisitesAll[$type][$key] = [
+                    'name' => $settings->getNameByKey($confKey),
+                    'value' => $settings->getValueByKey($confKey),
+                ];
             }
         }
         $this->layout('requisites', compact('requisitesAll'));
@@ -73,9 +70,9 @@ class SettingsController extends \app\components\CrudController
      */
     public function backup(Settings $settings)
     {
-        $this->layout('backup', array(
+        $this->layout('backup', [
             'paths' => $settings->getPaths(),
-        ));
+        ]);
     }
 
     /**
@@ -94,7 +91,7 @@ class SettingsController extends \app\components\CrudController
     {
         $complete = false;
 
-        $data = $_FILES['data'];
+        $data = $this->files['data'];
 
         $filesManager->saveChunk($data['tmp_name']);
         $chunks = $filesManager->getChunkNames();

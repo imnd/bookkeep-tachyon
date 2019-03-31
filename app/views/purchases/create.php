@@ -1,6 +1,6 @@
 <?=
-$this->assetManager->coreJs("ajax"),
-$this->assetManager->js("prices"),
+$this->assetManager->coreJs('ajax'),
+$this->assetManager->js('prices'),
 
 $this->html->formOpen(),
 

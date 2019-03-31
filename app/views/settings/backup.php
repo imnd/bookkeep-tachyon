@@ -1,12 +1,17 @@
-<h1><?=$head?></h1>
+<?php $this->pageTitle = ''?>
 
-<?=form_open("/admin/MakeBackup/false", array('style'=>"float:left;margin-right:10px;padding-right:10px;border-right: 1px solid #999;"))?>
-    <input class="submit orange_back" type="submit" value="создать резервную копию" />
-<?=form_close()?>
-<?=form_open_multipart("/admin/RestoreFromBackup/")?>
+<h1><?=$this->pageTitle?></h1>
+
+<form method="POST" action="/settings/backup">
+
+<?=form_open("", array('style'=>"float:left;margin-right:10px;padding-right:10px;border-right: 1px solid #999;"))?>
+    <input type="submit" value="создать резервную копию" />
+</form>
+
+<form enctype="multipart/form-data" method="POST" action="/settings/restore">
+    <input type="file" name="backup" />
     <input class="submit orange_back" type="submit" value="восстановить из резервной копии" />
-    <?=form_upload("backup_path") ?>
-<?=form_close()?>
+</form>
 <hr />
 <p><b>Пути для сохранения резервной копии:</b></p>
 <form method="post" id="setPaths" action="/admin/SetBackupPaths">

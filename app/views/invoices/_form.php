@@ -1,90 +1,92 @@
 <?=
-    $this->assetManager->coreJs("ajax"),
-    $this->assetManager->js("table"),
-    $this->assetManager->js("prices"),
-
-    $this->html->formOpen(array('method' => 'POST'))
+    $this->assetManager->coreJs('ajax'),
+    $this->assetManager->js('table'),
+    $this->assetManager->js('prices')
 ?>
-<?php $container = new \tachyon\dic\Container?>
+<form method="POST" action="<?=$this->controller->getRoute()?>">
     <div class="row">
-        <?=
-        $this->html->labelEx($model, 'number'),
-        $this->html->inputEx($model, 'number')
-        ?>
+        <?php $this->display('../blocks/input', [
+            'entity' => $entity,
+            'name' => 'number',
+        ])?>
     </div>
     <div class="row">
-        <?php
-        echo
-        $this->html->labelEx($model, 'date'),
-        $this->html->inputEx($model, 'date');
+        <?php $this->display('../blocks/input', [
+            'entity' => $entity,
+            'name' => 'date',
+        ])?>
+    </div>
 
-        $modelName = $model->getClassName();
-        $this->widget([
-            'class' => 'tachyon\components\widgets\Datepicker',
-            'fieldNames' => array("{$modelName}[date]"),
-        ]);
-        ?>
-    </div>
+    <?php
+    $entityName = $entity->getClassName();
+    $this->widget([
+        'class' => 'tachyon\components\widgets\Datepicker',
+        'fieldNames' => ["{$entityName}[date]", "{$entityName}[term_start]", "{$entityName}[term_end]"],
+    ])?>
+
     <div class="row">
-        <?=
-        $this->html->labelEx($model, 'contract_num'),
-        $this->html->inputEx($model, 'contract_num')
-        ?>
+        <?php $this->display('../blocks/input', [
+            'entity' => $entity,
+            'name' => 'contract_num',
+            'class' => 'required',
+        ])?>
     </div>
+
     <div class="row">
-        <?=
-        $this->html->labelEx($model, 'client_id'),
-        $this->html->selectEx($model, [
+        <?php $this->display('../blocks/select', [
+            'entity' => $entity,
             'name' => 'client_id',
-            'options' => app\models\Clients::getAllSelectList()
-        ])
-        ?>
+            'options' => $clients
+        ])?>
     </div>
+    <?php $this->widget([
+        'class' => 'tachyon\components\widgets\Datepicker',
+        'controller' => $this->getController(),
+        'fieldNames' => array('date'),
+    ])?>
+
     <table class="invoice">
         <tr>
-            <th>Наименование товара</th>
+            <th><?=$row->getCaption('articleId')?></th>
             <th>Ед.</th>
-            <th>Кол-во</th>
-            <th>Цена</th>
-            <th>Сумма</th>
+            <th><?=$row->getCaption('quantity')?></th>
+            <th><?=$row->getCaption('price')?></th>
+            <th><?=$row->getCaption('sum')?></th>
         </tr>
-        <?php
-        $articles = app\models\Articles::getAllSelectList();
-        if ($model->isNew) {
-            $this->display('_row', [
-                'row' => $container->get('InvoicesRows'),
-                'articles' => $articles
-            ]);
-        } else {
-            foreach ($model->rows as $row) {
-                $this->display('_row', compact('row', 'articles'));
+        <?php if ($rows = $entity->getRows()) {
+            foreach ($entity->getRows() as $row) {
+                $this->display('_row', compact('row', 'articlesList'));
             }
+        } else {
+            $this->display('_row', compact('row', 'articlesList'));
         }?>
         <tr class="total">
             <td colspan="4"><b>Итого:</b></td>
-            <td class="total"><?=$model->sum?></td>
+            <td class="total"><?=$entity->getSum()?></td>
         </tr>
         <tr>
             <td colspan="5"></td>
-            <td class="add" id="add"><?=$this->html->button()?></td>
+            <td class="add" id="add"><input type="button"/></td>
         </tr>
     </table>
-    <?=$this->html->submit($this->i18n('save'))?>
-    
-<?=$this->html->formClose()?>
 
-<span style="display:none" id="prices"><?=json_encode($container->get('Articles')->findAllScalar())?></span>
+    <input type="submit" class="button" value="<?=$this->i18n('save')?>">
+    <div class="clear"></div>
+</form>
+
+<span style="display:none" id="prices"><?=json_encode($articles)?></span>
 
 <script>
     dom.ready(function() {
-        prices.setModelName('<?=$modelName?>');
+        prices.setEntityName('<?=$entityName?>');
+        prices.calcSums();
         /**
          * при смене номера договора
          * - меняем содержимое поля "клиент";
          * - заполняем массив цен;
          * - меняем цены;
          */
-        dom.findByName(prices.modelName + "[contract_num]").addEventListener("change", prices.updatePrices);
+        dom.findByName("contract_num").addEventListener("change", prices.updatePrices);
     });
 </script>
 

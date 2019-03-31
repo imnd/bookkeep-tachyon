@@ -7,7 +7,7 @@ namespace app\models;
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class PurchasesRows extends \app\components\RowsModel
+class PurchasesRows extends RowsModel
 {
     use \app\traits\Article;
 

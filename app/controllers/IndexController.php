@@ -16,15 +16,15 @@ class IndexController extends \tachyon\Controller
     use \tachyon\traits\Authentication;
 
     /**
-     * @var tachyon\Config $config
+     * @var Config $config
      */
     protected $config;
     /**
-     * @var app\models\Users
+     * @var Users
      */
     protected $users;
     /**
-     * @var tachyon\components\Flash
+     * @var Flash
      */
     protected $flash;
 

@@ -1,8 +1,14 @@
 <?php
 namespace app\controllers;
 
-use tachyon\helpers\DateTimeHelper,
-    app\models\Settings;
+use tachyon\db\dataMapper\Entity,
+    app\entities\Purchase,
+    app\interfaces\ArticleRepositoryInterface,
+    app\interfaces\ClientRepositoryInterface,
+    app\interfaces\PurchaseRowRepositoryInterface,
+    app\interfaces\PurchaseRepositoryInterface,
+    app\interfaces\SettingsRepositoryInterface
+;
 
 /**
  * class Purchases
@@ -11,31 +17,102 @@ use tachyon\helpers\DateTimeHelper,
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */ 
-class PurchasesController extends \app\components\CrudController
+class PurchasesController extends HasRowsController
 {
+    /**
+     * @param PurchaseRepositoryInterface $repository
+     * @param PurchaseRowRepositoryInterface $rowRepository
+     * @param array $params
+     */
+    public function __construct(
+        PurchaseRepositoryInterface $repository,
+        PurchaseRowRepositoryInterface $rowRepository,
+        ...$params
+    )
+    {
+        $this->repository = $repository;
+        $this->rowRepository = $rowRepository;
+
+        parent::__construct(...$params);
+    }
+
+    /**
+     * Главная страница, список договоров.
+     * 
+     * @param Purchase $entity
+     */
+    public function index(
+        Purchase $entity,
+        ClientRepositoryInterface $clientRepository,
+        $type = null
+    )
+    {
+        $this->_index($entity, [
+            'type' => $type,
+            'clients' => $clientRepository->getSelectList()
+        ]);
+    }
+
     /**
      * Собираем закупку за определенное число
      */
-    public function create()
+    public function create(
+        ContractRowRepositoryInterface $rowsRepository,
+        ArticleRepositoryInterface $articleRepository,
+        ClientRepositoryInterface $clientRepository
+    )
     {
-        $container = new \tachyon\dic\Container;
-        $model = $container->get($this->modelName);
-        $rowModel = $container->get($model->getRowModelName());
+        $row = $rowRepository->create();
+        $this->_create([
+            'clients' => $clientRepository->getSelectList(),
+            'articlesList' => $articleRepository->getSelectList(),
+            'articles' => $articleRepository->findAllRaw(),
+            'row' => $row,
+            'rows' => array($row),
+        ]);
+    }
+
+     
+    public function create__()
+    {
+        $rowModel = $this->rowModel;
         if (!empty($this->get['date'])) {
             $date = $this->get['date'];
-            $items = $model->getReport($date);
+            $items = $this->model->getReport($date);
         } else {
             // Текущая дата в стандартном формате
             $date = date('Y-m-d');
             $items = array();
         }
-        $model->date = $date;
+        $this->model->date = $date;
         if (!empty($this->post)) {
-            $model->setAttributes($this->post[$this->modelName]);
-            if ($model->save())
+            $this->model->setAttributes($this->post[$this->modelName]);
+            if ($this->model->save())
                 $this->redirect("/{$this->id}");
         }
         $this->layout('create', compact('model', 'rowModel', 'date', 'items'));
+    }
+
+    /**
+     * @param PurchaseRowRepositoryInterface $rowsRepository
+     * @param ArticleRepositoryInterface $articleRepository
+     * @param ClientRepositoryInterface $clientRepository
+     * @param int $pk
+     * @param array $params
+     */
+    public function update(
+        PurchaseRowRepositoryInterface $rowRepository,
+        ArticleRepositoryInterface $articleRepository,
+        ClientRepositoryInterface $clientRepository,
+        $pk
+    )
+    {
+        $this->_update($pk, [
+            'row' => $this->rowRepository->create(false),
+            'clients' => $clientRepository->getSelectList(),
+            'articlesList' => $articleRepository->getSelectList(),
+            'articles' => $articleRepository->findAllRaw(),
+        ]);
     }
 
     /**

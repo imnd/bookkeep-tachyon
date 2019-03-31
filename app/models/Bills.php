@@ -73,6 +73,7 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
 
     /**
      * @param array $conditions условия поиска
+     * @return Bills
      */
     public function setSearchConditions(array $conditions=array()): Bills
     {
@@ -85,7 +86,7 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function findAllScalar(array $conditions=array()): array
+    public function findAllRaw(array $conditions=array()): array
     {
         $this
             ->join(array('clients' => 'cl'), array('client_id', 'id'))
@@ -94,14 +95,14 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
                 'cl.name' => 'clientName',
             ]);
 
-        return parent::findAllScalar($conditions);
+        return parent::findAllRaw($conditions);
     }
 
     /**
      * Список счетов отфильтрованных по дате контракта
      *
      * @param array $conditions условия поиска
-     * @returns array
+     * @return array
      */
     public function getAllByContract($conditions=array()): array
     {
@@ -118,7 +119,7 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
         if (!empty($conditions['contract_num'])) {
             $this->addWhere(array('cn.contract_num' => $conditions['contract_num']));
         }
-        return $this->findAllScalar();
+        return $this->findAllRaw();
     }
 
     /**
@@ -144,7 +145,7 @@ class Bills extends \tachyon\db\activeRecord\ActiveRecord
         if (!empty($conditions['contract_num'])) {
             $this->addWhere(array('cn.contract_num' => $conditions['contract_num']));
         }
-        $item = $this->findOneScalar();
+        $item = $this->findOneRaw();
         
         if ($value = $item['total']) {
             return $value;

@@ -1,8 +1,14 @@
 <?php
 namespace app\controllers;
 
-use app\models\ContractsRows,
-    app\models\Settings;
+use tachyon\db\dataMapper\Entity,
+    app\entities\Contract,
+    app\interfaces\ArticleRepositoryInterface,
+    app\interfaces\ClientRepositoryInterface,
+    app\interfaces\ContractRowRepositoryInterface,
+    app\interfaces\ContractRepositoryInterface,
+    app\interfaces\SettingsRepositoryInterface
+;
 
 /**
  * class Index
@@ -11,22 +17,83 @@ use app\models\ContractsRows,
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */ 
-class ContractsController extends \app\components\CrudController
+class ContractsController extends HasRowsController
 {
     protected $layout = 'contracts';
 
     /**
-     * Главная страница, список договоров
+     * @param ContractRepositoryInterface $repository
+     * @param array $params
      */
-    public function index($type=null)
+    public function __construct(
+        ContractRepositoryInterface $repository,
+        ContractRowRepositoryInterface $rowRepository,
+        ...$params
+    )
     {
-        $this->layout('index', [
+        $this->repository = $repository;
+        $this->rowRepository = $rowRepository;
+
+        parent::__construct(...$params);
+    }
+
+    /**
+     * Главная страница, список договоров.
+     * 
+     * @param Contract $entity
+     */
+    public function index(
+        Contract $entity,
+        ClientRepositoryInterface $clientRepository,
+        $type = null
+    )
+    {
+        $this->_index($entity, [
             'type' => $type,
-            'model' => $this->model,
-            'items' => $this->model
-                ->setSearchConditions($this->get)
-                ->setSortConditions($this->get)
-                ->findAllScalar(/*is_null($type) ? array() : compact('type')*/),
+            'clients' => $clientRepository->getSelectList()
+        ]);
+    }
+
+    /**
+     * @param ContractRowRepositoryInterface $rowsRepository
+     * @param ArticleRepositoryInterface $articleRepository
+     * @param ClientRepositoryInterface $clientRepository
+     */
+    public function create(
+        ContractRowRepositoryInterface $rowsRepository,
+        ArticleRepositoryInterface $articleRepository,
+        ClientRepositoryInterface $clientRepository
+    )
+    {
+        $row = $rowRepository->create();
+        $this->_create([
+            'clients' => $clientRepository->getSelectList(),
+            'articlesList' => $articleRepository->getSelectList(),
+            'articles' => $articleRepository->findAllRaw(),
+            'row' => $row,
+            'rows' => array($row),
+        ]);
+    }
+
+    /**
+     * @param ContractRowRepositoryInterface $rowsRepository
+     * @param ArticleRepositoryInterface $articleRepository
+     * @param ClientRepositoryInterface $clientRepository
+     * @param int $pk
+     * @param array $params
+     */
+    public function update(
+        ContractRowRepositoryInterface $rowRepository,
+        ArticleRepositoryInterface $articleRepository,
+        ClientRepositoryInterface $clientRepository,
+        $pk
+    )
+    {
+        $this->_update($pk, [
+            'row' => $this->rowRepository->create(false),
+            'clients' => $clientRepository->getSelectList(),
+            'articlesList' => $articleRepository->getSelectList(),
+            'articles' => $articleRepository->findAllRaw(),
         ]);
     }
 

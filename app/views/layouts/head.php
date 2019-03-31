@@ -13,7 +13,7 @@
     <div class="main" id="menu">
         <?php
         $this->widget([
-            'class' => 'app\components\widgets\menu\Menu',
+            'class' => 'app\views\widgets\menu\Menu',
             'items' => [
                 'invoices' => 'фактуры',
                 'contracts' => 'договоры и контракты',
@@ -27,7 +27,7 @@
             'viewsPath' => 'top',
         ]);
         $this->widget([
-            'class' => 'app\components\widgets\menu\Menu',
+            'class' => 'app\views\widgets\menu\Menu',
             'items' => $mainMenu ?? [],
             'viewsPath' => 'main',
         ]);
@@ -36,7 +36,7 @@
     <div class="clear"></div>
     <div id="container">
         <?php $this->widget([
-            'class' => 'app\components\widgets\menu\Menu',
+            'class' => 'app\views\widgets\menu\Menu',
             'items' => $subMenu ?? [],
             'viewsPath' => 'sub',
         ])?>

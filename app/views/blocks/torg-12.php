@@ -1,9 +1,8 @@
+<script>
+    dom.clear();
+</script>
 
-<script><!--
-        dom.clear();
-//--></script>
-
-<?php use \tachyon\helpers\DateTimeHelper?>
+<?php use \tachyon\helpers\DateTimeHelper;?>
 <?=$this->assetManager->css('torg-12', 'print/css')?>
 
 <table cellspacing="0">

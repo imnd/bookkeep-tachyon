@@ -118,7 +118,7 @@ class ContractsController extends HasRowsController
         $term = "с $termStart по $termEnd";
         $rows = $contractsRows->getAllByContract($pk);
         $firm = $settings->getRequisites('firm');
-        $this->layout('printout', compact('contract', 'rows', 'quantitySum', 'typeName', 'term', 'firm'));
+        $this->view('printout', compact('contract', 'rows', 'quantitySum', 'typeName', 'term', 'firm'));
     }
 
     public function getItem($num)

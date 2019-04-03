@@ -71,13 +71,13 @@ class ClientsController extends CrudController
         $this->layout = 'printout';
         $client = $this->repository->findByPk($pk);
         if (empty($this->get)) {
-            $this->layout('printout', compact('client'));
+            $this->view('printout', compact('client'));
             return;
         }
         $where = array_merge(array('client_id' => $pk), $this->get);
         $debetSum = $invoices->getTotalByContract($where);
         $creditSum = $bills->getTotalByContract($where);
-        $this->layout('reconciliation', [
+        $this->view('reconciliation', [
             'client' => $client,
             'sender' => $settings->getRequisites('firm'),
             'dateFrom' => $this->convDateToReadable($this->get['dateFrom']),

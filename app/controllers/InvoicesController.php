@@ -64,7 +64,7 @@ class InvoicesController extends HasRowsController
         if ($this->save($entity)) {
             $this->redirect("/{$this->id}");
         }
-        $this->layout('create', [
+        $this->view('create', [
             'entity' => $entity,
             'row' => $this->rowRepository->create(false),
             'clients' => $clientRepository->getSelectList(),
@@ -96,6 +96,12 @@ class InvoicesController extends HasRowsController
         $this->layout = 'printout';
 
         $type = $this->get['type'];
+        $item = $this->repository
+            //->with('rows')
+            //->with('client')
+            //->with('contract')
+            ->findByPk($pk);
+        
         if (!$item = $this->model
             ->with('rows')
             ->with('client')
@@ -109,6 +115,6 @@ class InvoicesController extends HasRowsController
         $contractNum = $item->contract_num;
         $quantitySum = $this->model->getQuantitySum($pk);
         $sender = $settings->getRequisites('firm');
-        $this->layout("printout/$type", compact('item', 'contractType', 'contractNum', 'quantitySum', 'sender', 'client'));
+        $this->view("printout/$type", compact('item', 'contractType', 'contractNum', 'quantitySum', 'sender', 'client'));
     }
 }

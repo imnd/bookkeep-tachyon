@@ -19,7 +19,7 @@ class SettingsController extends CrudController
      */
     public function index()
     {
-        $this->layout();
+        $this->view();
     }
 
     /**
@@ -61,7 +61,7 @@ class SettingsController extends CrudController
                 ];
             }
         }
-        $this->layout('requisites', compact('requisitesAll'));
+        $this->view('requisites', compact('requisitesAll'));
     }
 
     /**
@@ -70,7 +70,7 @@ class SettingsController extends CrudController
      */
     public function backup(Settings $settings)
     {
-        $this->layout('backup', [
+        $this->view('backup', [
             'paths' => $settings->getPaths(),
         ]);
     }
@@ -80,7 +80,7 @@ class SettingsController extends CrudController
      */
     public function upload()
     {
-        $this->layout('upload');
+        $this->view('upload');
     }
 
     /**

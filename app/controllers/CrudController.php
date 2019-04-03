@@ -59,7 +59,7 @@ class CrudController extends Controller
      */
     protected function _index(Entity $entity, $params = array())
     {
-        $this->layout('index', array_merge([
+        $this->view('index', array_merge([
             'entity' => $entity,
             'items' => $this
                 ->repository
@@ -82,7 +82,7 @@ class CrudController extends Controller
         if ($this->save($entity)) {
             $this->redirect("/{$this->id}");
         }
-        $this->layout('update', array_merge(compact('entity'), $params));
+        $this->view('update', array_merge(compact('entity'), $params));
     }
 
     /**
@@ -97,7 +97,7 @@ class CrudController extends Controller
         if ($this->save($entity)) {
             $this->redirect("/{$this->id}");
         }
-        $this->layout('create', array_merge(compact('entity'), $params));
+        $this->view('create', array_merge(compact('entity'), $params));
     }
 
     /**

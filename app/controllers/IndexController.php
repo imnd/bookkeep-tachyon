@@ -47,7 +47,7 @@ class IndexController extends \tachyon\Controller
      */
     public function index()
     {
-        $this->layout();
+        $this->view();
     }
 
     /**
@@ -69,7 +69,7 @@ class IndexController extends \tachyon\Controller
                 $error = 'Пользователя с таким логином и паролем нет.';
             }
         }
-        $this->layout('login', compact('error'));
+        $this->view('login', compact('error'));
     }
 
     /**
@@ -100,13 +100,13 @@ class IndexController extends \tachyon\Controller
                     mail($email, 'Подтверждение регистрации', "$msg перейдя по ссылке: $activationUrl");
 
                     $msg .= ". На ваш почтовый ящик $email придет письмо со ссылкой подтверждения.";
-                    $this->layout('register-end', compact('msg'));
+                    $this->view('register-end', compact('msg'));
                     return;
                 }
                 $error = $user->getErrorsSummary();
             }
         }
-        $this->layout('register', compact('msg', 'error'));
+        $this->view('register', compact('msg', 'error'));
     }
 
     /**
@@ -126,6 +126,6 @@ class IndexController extends \tachyon\Controller
         } else {
             $error = 'Неправильная ссылка.';
         }
-        $this->layout('register-end', compact('msg', 'error'));
+        $this->view('register-end', compact('msg', 'error'));
     }
 }

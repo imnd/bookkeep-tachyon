@@ -90,7 +90,7 @@ class PurchasesController extends HasRowsController
             if ($this->model->save())
                 $this->redirect("/{$this->id}");
         }
-        $this->layout('create', compact('model', 'rowModel', 'date', 'items'));
+        $this->view('create', compact('model', 'rowModel', 'date', 'items'));
     }
 
     /**

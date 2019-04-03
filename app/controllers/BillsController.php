@@ -38,7 +38,7 @@ class BillsController extends CrudController
      */
     public function index(Bill $entity, ClientRepositoryInterface $clientRepository)
     {
-        $this->layout('index', [
+        $this->view('index', [
             'entity' => $entity,
             'clients' => $clientRepository->getSelectList(),
             'items' => $this

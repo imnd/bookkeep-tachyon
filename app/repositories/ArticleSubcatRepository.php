@@ -22,5 +22,4 @@ class ArticleSubcatRepository extends Repository implements ArticleSubcatReposit
 
         parent::__construct(...$params);
     }
-
 }

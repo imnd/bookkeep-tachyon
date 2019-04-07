@@ -11,7 +11,7 @@ use tachyon\db\dataMapper\Entity;
  */
 class Contract extends Entity
 {
-    use \app\traits\Client,
+    use \app\traits\HasClient,
         \app\traits\HasRows;
 
     protected $attributeCaptions = [
@@ -49,18 +49,6 @@ class Contract extends Entity
      * @var string
      */
     protected $type;
-    /**
-     * @var int
-     */
-    protected $clientId;
-    /**
-     * @var string
-     */
-    protected $clientName;
-    /**
-     * @var string
-     */
-    protected $clientAddress;
     /**
      * @var string
      */

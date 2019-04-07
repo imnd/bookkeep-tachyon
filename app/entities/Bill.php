@@ -11,7 +11,7 @@ use tachyon\db\dataMapper\Entity;
  */
 class Bill extends Entity
 {
-    use \app\traits\Client;
+    use \app\traits\HasClient;
 
     protected $attributeCaptions = [
         'contents' => 'содержание',
@@ -30,14 +30,6 @@ class Bill extends Entity
      * @var int
      */
     protected $id;
-    /**
-     * @var int
-     */
-    protected $clientId;
-    /**
-     * @var string
-     */
-    protected $clientName;
     /**
      * @var string
      */

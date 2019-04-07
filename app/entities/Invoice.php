@@ -11,7 +11,7 @@ use tachyon\db\dataMapper\Entity;
  */
 class Invoice extends Entity
 {
-    use \app\traits\Client,
+    use \app\traits\HasClient,
         \app\traits\HasRows;
 
     protected $attributeCaptions = [
@@ -36,14 +36,6 @@ class Invoice extends Entity
      * @var string
      */
     protected $number;
-    /**
-     * @var int
-     */
-    protected $clientId;
-    /**
-     * @var string
-     */
-    protected $clientName;
     /**
      * @var string
      */

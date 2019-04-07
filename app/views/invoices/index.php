@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \tachyon\View $this
+ * @var \app\entities\Invoice $entity
  */
 $this->layout = 'list';
 $this->pageTitle = 'Список фактур';

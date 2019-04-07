@@ -17,12 +17,9 @@ class CrudController extends Controller
 {
     use \tachyon\traits\Authentication;
 
+    /** @inheritdoc */
     protected $layout = 'crud';
-    /**
-     * @var \app\interfaces\RepositoryInterface
-     */
-    protected $repository;
-
+    /** @inheritdoc */
     protected $postActions = array('delete');
     /** @inheritdoc */
     protected $protectedActions = '*';
@@ -31,6 +28,10 @@ class CrudController extends Controller
      * @var tachyon\components\Flash
      */
     protected $flash;
+    /**
+     * @var \app\interfaces\RepositoryInterface
+     */
+    protected $repository;
 
     public function __construct(Flash $flash, ...$params)
     {
@@ -113,8 +114,8 @@ class CrudController extends Controller
                 return true;
             }
             $this->flash->setFlash("Что то пошло не так, {$entity->getErrorsSummary()}", Flash::FLASH_TYPE_ERROR);
-            return false;
         }
+        return false;
     }
 
     /**

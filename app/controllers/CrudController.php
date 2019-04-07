@@ -3,11 +3,9 @@ namespace app\controllers;
 
 use tachyon\Controller,
     tachyon\components\Flash,
-    tachyon\db\dataMapper\Entity,
-    tachyon\dic\Container;
+    tachyon\db\dataMapper\Entity;
 
 /**
- * class Controller
  * Базовый класс для всех контроллеров
  * 
  * @author Андрей Сердюк

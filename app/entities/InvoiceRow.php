@@ -9,7 +9,7 @@ use tachyon\db\dataMapper\Entity;
  * @author Андрей Сердюк
  * @copyright (c) 2019 IMND
  */
-class InvoiceRow extends RowEntity
+class InvoiceRow extends Row
 {
     public function __construct(...$params)
     {

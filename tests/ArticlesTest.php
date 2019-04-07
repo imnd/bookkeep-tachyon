@@ -7,7 +7,7 @@ use app\models\Articles;
 /**
  * Тестовый класс для модели Articles
  * 
- * cd C:\wamp64\www\tachyon2
+ * cd D:\wamp\www\bookkeep
  * .\vendor\bin\phpunit tests/ArticlesTest
  * 
  * @author Андрей Сердюк

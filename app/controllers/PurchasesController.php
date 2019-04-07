@@ -11,7 +11,6 @@ use tachyon\db\dataMapper\Entity,
 ;
 
 /**
- * class Purchases
  * Контроллер закупок
  * 
  * @author Андрей Сердюк

@@ -9,27 +9,22 @@ use tachyon\db\dataMapper\Entity;
  * @author Андрей Сердюк
  * @copyright (c) 2019 IMND
  */
-class ArticleSubcat extends Entity
+class ArticleCat extends Entity
 {
-    protected $attributeCaptions = [
-        'cat_id' => 'категория',
-        'name' => 'название',
-    ];
-
     /**
      * @var int
      */
     protected $id;
     /**
-     * @var int
-     */
-    protected $catId;
-    /**
      * @var string
      */
     protected $name;
+    /**
+     * @var string
+     */
+    protected $description;
 
-    # GETTERS
+    # Getters
 
     public function getId()
     {
@@ -41,21 +36,11 @@ class ArticleSubcat extends Entity
         return $this->name;
     }
 
-    public function getCatId()
-    {
-        return $this->catId;
-    }
-
-    public function getCatName()
-    {
-        return $this->catId;
-    }
-
     public function getAttributes(): array
     {
         return [
             'name' => $this->name,
-            'cat_id' => $this->catId,
+            'description' => $this->description,
         ];
     }
 
@@ -65,7 +50,7 @@ class ArticleSubcat extends Entity
 
         $entity->id = $state['id'];
         $entity->name = $state['name'] ?? null;
-        $entity->catId = $state['cat_id'] ?? null;
+        $entity->description = $state['description'] ?? null;
 
         return $entity;
     }
@@ -74,27 +59,27 @@ class ArticleSubcat extends Entity
     {
         return [
             'name' => ['alphaExt', 'required'],
-            'cat_id' => 'integer',
+            'description' => ['alphaExt'],
         ];
     }
 
     # Setters
 
-    public function setName(string $value = null): ArticleSubcat
+    public function setName(string $value = null): ArticleCat
     {
         return $this->_setAttribute('name', $value);
     }
 
-    public function setCatId(int $value = null): ArticleSubcat
+    public function setDescription(string $value = null): ArticleCat
     {
-        return $this->_setAttribute('catId', $value);
+        return $this->_setAttribute('description', $value);
     }
 
     public function setAttributes(array $state)
     {
         $this
             ->setName($state['name'] ?? null)
-            ->setCatId($state['cat_id'] ?: null)
+            ->setDescription($state['description'] ?? null)
         ;
     }
 }

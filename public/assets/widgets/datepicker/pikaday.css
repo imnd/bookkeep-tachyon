@@ -86,9 +86,7 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     text-indent: 20px;
     white-space: nowrap;
     overflow: hidden;
-    background-color: transparent;
-    background-position: center center;
-    background-repeat: no-repeat;
+    background: transparent no-repeat center center;
     background-size: 75% 75%;
     opacity: .5;
     *position: absolute;

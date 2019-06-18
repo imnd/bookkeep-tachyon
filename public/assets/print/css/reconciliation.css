@@ -47,7 +47,7 @@ tr.cell td {
     mso-border-right-alt:solid black .5pt;
     padding: 2pt;
     font-size: 9pt;
-    font-family:Arial;
+    font-family: Arial, sans-serif;
 }
 
 .border-top,
@@ -68,7 +68,7 @@ div
     margin: 0;
     padding: 2pt;
     font-size: 12pt;
-    font-family:Arial;
+    font-family: Arial, sans-serif;
 }
 .center,
 .center p,

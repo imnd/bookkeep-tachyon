@@ -62,9 +62,7 @@ a.delete {
 a.printout {
     background-image: url('../img/printout.png')
 }
-a.view_diff {
-    background-image: url('../img/view_diff.gif');
-}
+
 .delete-btn input[type="button"],
 .add input[type="button"] {
     min-width: 16px;
@@ -109,16 +107,6 @@ code
 }
 #body
     {margin: 0 15px;}
-
-p.footer
-{
-    text-align: right;
-    font-size: 11px;
-    border-top: 1px solid #D0D0D0;
-    line-height: 32px;
-    padding: 0 10px;
-    margin: 20px 0 0;
-}
 
 #container,
 #menu
@@ -370,8 +358,7 @@ th
 th.ASC,
 th.DESC
 {
-    background-repeat: no-repeat;
-    background-position: right 2px;
+    background: no-repeat right 2px;
 }
 th.ASC
     {background-image: url('../img/triangle_up.jpg');}
@@ -441,12 +428,6 @@ td.value input
 .agreement td
     {padding: 1px 12px;}
 
-th#execRemind {
-    width: 60px;
-}
-th#term_start, th#term_end {
-    width: 90px;
-}
 th#clientName {
     width: 400px;
 }
@@ -519,14 +500,6 @@ label {
     padding-right: 12px;
 }
 
-  th#number
-, th#date
-, th#client_ID
-, th#contract_num
-, th#sum
-{
-    cursor: pointer;
-}
 input#number,
 input#year
     {margin-right: 12px;}
@@ -563,7 +536,7 @@ input.path {
     width: 260px;
 }
 hr {
-    border: 0.5px solid #D0D0D0;
+    border: 1px solid #D0D0D0;
     margin-top: 12px;
     color: #D0D0D0;
 }

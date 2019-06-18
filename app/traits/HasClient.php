@@ -49,6 +49,7 @@ trait HasClient
     }
 
     /**
+     * @param int|null $value
      * @return string
      */
     public function setClientId(int $value = null)

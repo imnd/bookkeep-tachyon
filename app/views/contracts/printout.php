@@ -93,6 +93,6 @@
     </table>
 </div>
 <script>
-    var totalSumContnr = dom.findById('total-sum-in-words');
-    dom.val(totalSumContnr, priceInWords(dom.val(totalSumContnr)));
+    let totalSumContainer = dom.findById('total-sum-in-words');
+    dom.val(totalSumContainer, utils.convPriceToWords(dom.val(totalSumContainer)));
 </script>

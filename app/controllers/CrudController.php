@@ -1,9 +1,11 @@
 <?php
 namespace app\controllers;
 
-use tachyon\Controller,
+use tachyon\exceptions\HttpException,
+    tachyon\Controller,
     tachyon\components\Flash,
-    tachyon\db\dataMapper\Entity;
+    tachyon\db\dataMapper\Entity
+;
 
 /**
  * Базовый класс для всех контроллеров
@@ -23,7 +25,7 @@ class CrudController extends Controller
     protected $protectedActions = '*';
 
     /**
-     * @var tachyon\components\Flash
+     * @var Flash
      */
     protected $flash;
     /**
@@ -85,7 +87,7 @@ class CrudController extends Controller
     }
 
     /**
-     * 
+     * @param $params
      */
     protected function _create($params)
     {
@@ -101,7 +103,7 @@ class CrudController extends Controller
 
     /**
      * @param Entity $entity
-     * @return void
+     * @return boolean
      */
     protected function save(Entity $entity)
     {
@@ -133,7 +135,7 @@ class CrudController extends Controller
     protected function getEntity($pk)
     {
         if (!$entity = $this->repository->findByPk($pk)) {
-            $this->error(404, $this->msg->i18n('Wrong address.'));
+            throw new HttpException($this->msg->i18n('Wrong address.'), HttpException::NOT_FOUND);
         }
         return $entity;
     }

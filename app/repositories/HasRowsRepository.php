@@ -1,10 +1,7 @@
 <?php
 namespace app\repositories;
 
-use Iterator,
-    tachyon\db\dataMapper\Repository,
-    app\entities\Invoice
-;
+use tachyon\db\dataMapper\Repository;
 
 /**
  * @author Андрей Сердюк
@@ -49,6 +46,7 @@ class HasRowsRepository extends Repository
     /**
      * Возвращает последний (максимальный) номер
      * @return integer
+     * @throws \ErrorException
      */
     public function getLastNumber(): int
     {

@@ -1,7 +1,7 @@
 <?php
 namespace app\repositories;
 
-use Iterator,
+use
     tachyon\db\dataMapper\Repository,
     app\interfaces\PurchaseRowRepositoryInterface,
     app\entities\PurchaseRow;

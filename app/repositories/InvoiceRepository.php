@@ -73,4 +73,65 @@ class InvoiceRepository extends HasRowsRepository implements InvoiceRepositoryIn
 
         return $this->convertArrayData($arrayData);
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAllByContract($where = array()): array
+    {
+        $this
+            ->select(array('date', 'number', 'sum'))
+            ->join(array('clients' => 'cl'), array('client_id', 'id'))
+            ->join(array('contracts' => 'cn'), array('contract_num', 'contract_num'))
+            ->gt($where, 'cn.date', 'dateFrom')
+            ->lt($where, 'cn.date', 'dateTo')
+        ;
+
+        if (!empty($where['client_id']))
+            $this->addWhere(array('cl.id' => $where['client_id']));
+        if (!empty($where['contract_num']))
+            $this->addWhere(array('cn.contract_num' => $where['contract_num']));
+            
+        return $this->findAllRaw();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getTotalByContract($where = array()): int
+    {
+        $this
+            ->asa('i')
+            ->select('SUM(i.sum) as total')
+            ->join(array('clients' => 'cl'), array('client_id', 'id'))
+            ->join(array('contracts' => 'cn'), array('contract_num', 'contract_num'))
+            ->gt($where, 'cn.date', 'dateFrom')
+            ->lt($where, 'cn.date', 'dateTo')
+        ;
+            
+        if (!empty($where['client_id'])) {
+            $this->addWhere(array('cl.id' => $where['client_id']));
+        }
+        if (!empty($where['contract_num'])) {
+            $this->addWhere(array('cn.contract_num' => $where['contract_num']));
+        }
+        $item = $this->findOneRaw();
+        if ($value = $item['total']) {
+            return $value;
+        }
+        return 0;
+    }
+
+    /**
+     * Возвращает последний (максимальный) номер
+     * @return integer
+     */
+    public function getLastNumber(): int
+    {
+        $item = $this
+            ->select('number')
+            ->findOneRaw();
+
+        return $item['number'];
+    }
 }

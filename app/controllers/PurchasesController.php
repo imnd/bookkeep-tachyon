@@ -1,13 +1,11 @@
 <?php
 namespace app\controllers;
 
-use tachyon\db\dataMapper\Entity,
-    app\entities\Purchase,
+use app\entities\Purchase,
     app\interfaces\ArticleRepositoryInterface,
     app\interfaces\ClientRepositoryInterface,
     app\interfaces\PurchaseRowRepositoryInterface,
-    app\interfaces\PurchaseRepositoryInterface,
-    app\interfaces\SettingsRepositoryInterface
+    app\interfaces\PurchaseRepositoryInterface
 ;
 
 /**
@@ -37,8 +35,10 @@ class PurchasesController extends HasRowsController
 
     /**
      * Главная страница, список договоров.
-     * 
+     *
      * @param Purchase $entity
+     * @param ClientRepositoryInterface $clientRepository
+     * @param null $type
      */
     public function index(
         Purchase $entity,
@@ -54,53 +54,35 @@ class PurchasesController extends HasRowsController
 
     /**
      * Собираем закупку за определенное число
+     * @param ArticleRepositoryInterface $articleRepository
+     * @param ClientRepositoryInterface $clientRepository
      */
     public function create(
-        ContractRowRepositoryInterface $rowsRepository,
         ArticleRepositoryInterface $articleRepository,
         ClientRepositoryInterface $clientRepository
     )
     {
-        $row = $rowRepository->create();
-        $this->_create([
+        $entity = $this->repository->create();
+        $entity->setDate($this->get['date'] ?? date('Y-m-d'));
+        if ($this->save($entity)) {
+            $this->redirect("/{$this->id}");
+        }
+        $row = $this->rowRepository->create(false);
+        $this->view('create', [
+            'entity' => $entity,
+            'row' => $row,
             'clients' => $clientRepository->getSelectList(),
             'articlesList' => $articleRepository->getSelectList(),
             'articles' => $articleRepository->findAllRaw(),
-            'row' => $row,
-            'rows' => array($row),
         ]);
     }
 
-     
-    public function create__()
-    {
-        $rowModel = $this->rowModel;
-        if (!empty($this->get['date'])) {
-            $date = $this->get['date'];
-            $items = $this->model->getReport($date);
-        } else {
-            // Текущая дата в стандартном формате
-            $date = date('Y-m-d');
-            $items = array();
-        }
-        $this->model->date = $date;
-        if (!empty($this->post)) {
-            $this->model->setAttributes($this->post[$this->modelName]);
-            if ($this->model->save())
-                $this->redirect("/{$this->id}");
-        }
-        $this->view('create', compact('model', 'rowModel', 'date', 'items'));
-    }
-
     /**
-     * @param PurchaseRowRepositoryInterface $rowsRepository
      * @param ArticleRepositoryInterface $articleRepository
      * @param ClientRepositoryInterface $clientRepository
      * @param int $pk
-     * @param array $params
      */
     public function update(
-        PurchaseRowRepositoryInterface $rowRepository,
         ArticleRepositoryInterface $articleRepository,
         ClientRepositoryInterface $clientRepository,
         $pk

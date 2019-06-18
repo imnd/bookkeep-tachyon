@@ -15,7 +15,7 @@ class ClientRepository extends Repository implements ClientRepositoryInterface
 
     protected $tableName = 'clients';
     /**
-     * @var app\entities\Client
+     * @var Client
      */
     protected $client;
 

@@ -1,13 +1,11 @@
 <?php
 namespace app\controllers;
 
-use tachyon\db\dataMapper\Entity,
-    app\entities\Contract,
+use app\entities\Contract,
     app\interfaces\ArticleRepositoryInterface,
     app\interfaces\ClientRepositoryInterface,
     app\interfaces\ContractRowRepositoryInterface,
-    app\interfaces\ContractRepositoryInterface,
-    app\interfaces\SettingsRepositoryInterface
+    app\interfaces\ContractRepositoryInterface
 ;
 
 /**
@@ -23,6 +21,7 @@ class ContractsController extends HasRowsController
 
     /**
      * @param ContractRepositoryInterface $repository
+     * @param ContractRowRepositoryInterface $rowRepository
      * @param array $params
      */
     public function __construct(
@@ -39,8 +38,10 @@ class ContractsController extends HasRowsController
 
     /**
      * Главная страница, список договоров.
-     * 
+     *
      * @param Contract $entity
+     * @param ClientRepositoryInterface $clientRepository
+     * @param string $type
      */
     public function index(
         Contract $entity,
@@ -55,17 +56,15 @@ class ContractsController extends HasRowsController
     }
 
     /**
-     * @param ContractRowRepositoryInterface $rowsRepository
      * @param ArticleRepositoryInterface $articleRepository
      * @param ClientRepositoryInterface $clientRepository
      */
     public function create(
-        ContractRowRepositoryInterface $rowsRepository,
         ArticleRepositoryInterface $articleRepository,
         ClientRepositoryInterface $clientRepository
     )
     {
-        $row = $rowRepository->create();
+        $row = $this->rowRepository->create();
         $this->_create([
             'clients' => $clientRepository->getSelectList(),
             'articlesList' => $articleRepository->getSelectList(),
@@ -76,14 +75,11 @@ class ContractsController extends HasRowsController
     }
 
     /**
-     * @param ContractRowRepositoryInterface $rowsRepository
      * @param ArticleRepositoryInterface $articleRepository
      * @param ClientRepositoryInterface $clientRepository
      * @param int $pk
-     * @param array $params
      */
     public function update(
-        ContractRowRepositoryInterface $rowRepository,
         ArticleRepositoryInterface $articleRepository,
         ClientRepositoryInterface $clientRepository,
         $pk

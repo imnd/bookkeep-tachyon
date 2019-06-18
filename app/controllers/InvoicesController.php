@@ -1,9 +1,7 @@
 <?php
 namespace app\controllers;
 
-use tachyon\db\dataMapper\Entity,
-    tachyon\components\Flash,
-    app\entities\Invoice,
+use app\entities\Invoice,
     app\interfaces\InvoiceRepositoryInterface,
     app\interfaces\InvoiceRowRepositoryInterface,
     app\interfaces\ArticleRepositoryInterface,
@@ -20,6 +18,7 @@ class InvoicesController extends HasRowsController
 {
     /**
      * @param InvoiceRepositoryInterface $repository
+     * @param InvoiceRowRepositoryInterface $rowRepository
      * @param array $params
      */
     public function __construct(
@@ -36,6 +35,8 @@ class InvoicesController extends HasRowsController
 
     /**
      * Главная страница, список сущностей раздела
+     * @param Invoice $entity
+     * @param ClientRepositoryInterface $clientRepository
      */
     public function index(
         Invoice $entity,
@@ -56,9 +57,6 @@ class InvoicesController extends HasRowsController
         ClientRepositoryInterface $clientRepository
     )
     {
-        /**
-         * @var Entity $entity
-         */
         $entity = $this->repository->create();
         $entity->setAttribute('number', $this->repository->getNextNumber());
         if ($this->save($entity)) {

@@ -19,7 +19,7 @@ use tachyon\dic\Container,
             'sum',
             'remainder',
             'contents' => [
-                'listData' => $model->getSelectListFromArr($model->getContentsList(), true, false)
+                'listData' => $model->getSelectListFromArr($model->getContentsReadable(), true, false)
             ],
         ],
         'fieldValues' => $this->controller->getGet(),

@@ -38,8 +38,8 @@ class Menu extends \tachyon\components\widgets\Widget
 
     /**
      * getBtnHref
-     * 
-     * @param $action string
+     *
+     * @param $url
      * @return string
      */
     public function getBtnHref($url)

@@ -20,8 +20,12 @@ class PurchaseRepository extends HasRowsRepository implements PurchaseRepository
      * @var app\entities\Purchase
      */
     protected $purchase;
+
     /**
-     * @var ClientRepositoryInterface
+     *
+     * @param Purchase $purchase
+     * @param PurchaseRowRepositoryInterface $rowRepository
+     * @param array $params
      */
 
     public function __construct(

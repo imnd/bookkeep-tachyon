@@ -1,8 +1,6 @@
 <?php
 namespace app\interfaces;
 
-use Iterator;
-
 interface ArticleRepositoryInterface extends RepositoryInterface
 {
     /**

@@ -581,16 +581,16 @@
     </tr>
 </table>
 <script>
-    var itemsCount1 = dom.findById('items-count-1');
+    let itemsCount1 = dom.findById('items-count-1');
     dom.val(itemsCount1, utils.convNumToWords(dom.val(itemsCount1)));
-    var itemsCount2 = dom.findById('items-count-2');
+    let itemsCount2 = dom.findById('items-count-2');
     dom.val(itemsCount2, utils.convNumToWords(dom.val(itemsCount2)));
  
-    var quantSum1 = dom.findById('quantity-sum-1');
+    let quantSum1 = dom.findById('quantity-sum-1');
     dom.val(quantSum1, utils.convWeightToWords(dom.val(quantSum1)));
-    var quantSum2 = dom.findById('quantity-sum-2');
+    let quantSum2 = dom.findById('quantity-sum-2');
     dom.val(quantSum2, utils.convWeightToWords(dom.val(quantSum2)));
 
-    var totalSumContnr = dom.findById('total-sum-in-words');
+    let totalSumContnr = dom.findById('total-sum-in-words');
     dom.val(totalSumContnr, utils.convPriceToWords(dom.val(totalSumContnr)));
 </script>

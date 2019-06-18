@@ -192,17 +192,18 @@ class Contract extends Entity
 
     /**
      * Название типа
-     * 
+     *
+     * @param null $type
+     * @param string $case
      * @return string
      */
     public function getTypeName($type=null, $case='nom'): string
     {
         if ($case==='gen') {
             $this->_types = array_map(
-                function($key, $val) {
+                function($val) {
                     return $val . 'ов';
                 },
-                array_keys($this->_types),
                 array_values($this->_types)
             );
         }

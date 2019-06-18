@@ -6,13 +6,13 @@ foreach ($items as $key => $value) {
             if (!isset($value['action'])) {
                 throw new \ErrorException($this->msg->i18n('Property "action" in menu is undetermined.'));
             }
-            if (isset($value['type']))
+            if (isset($value['type'])) {
                 $type = $value['type'];
-
-            $callback = (isset($value['callback'])) ? $value['callback'] : '';
-            $confirmMsg = isset($value['confirmMsg']) ? $value['confirmMsg'] : 'уверены?';
+            }
+            $callback = $value['callback'] ?? '';
+            $confirmMsg = $value['confirmMsg'] ?? 'уверены?';
             $action = $value['action'];
-            $title = isset($value['title']) ? $value['title'] : '';
+            $title = $value['title'] ?? '';
         } else {
             $action = $value;
             $title = '';
@@ -27,7 +27,7 @@ foreach ($items as $key => $value) {
     <?php if (!is_null($type) && $type==='ajax') {?>
     <?=$this->assetManager->coreJs("ajax")?>
     <script><!--
-    dom.findById('<?=$widget->getBtnId($action);?>').addEventListener("click", function(e) {
+    dom.findById('<?=$widget->getBtnId($action)?>').addEventListener("click", e => {
         e.preventDefault();
         if (confirm("<?=$confirmMsg;?>")!==true) {
             return false;
@@ -35,8 +35,8 @@ foreach ($items as $key => $value) {
         ajax.post(
             '<?=$widget->getBtnHref($action);?>',
             {<?="'{$controller->tokenId}':'{$controller->tokenVal}',"?>},
-            function(data) {
-                if (data.success==true) {
+            data => {
+                if (data.success===true) {
                     <?=$callback;?>
                 }
             }

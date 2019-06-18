@@ -51,7 +51,7 @@ interface RepositoryInterface
     /**
      * Получить все сущности по условию $where, отсортированных по $sort
      * в виде массива
-     * 
+     *
      * @param array $where
      * @param array $sort
      * @return Iterator
@@ -68,7 +68,8 @@ interface RepositoryInterface
 
     /**
      * Создает новую сущность.
-     * 
+     *
+     * @param bool $mark
      * @return Entity
      */
     public function create($mark = true);//: ?Entity

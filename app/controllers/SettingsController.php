@@ -2,7 +2,9 @@
 namespace app\controllers;
 
 use tachyon\components\FilesManager,
-    app\models\Settings;
+    app\models\Settings,
+    app\interfaces\SettingsRepositoryInterface
+;
 
 /**
  * Контроллер настроек приложения
@@ -24,6 +26,7 @@ class SettingsController extends CrudController
 
     /**
      * Установка реквизитов
+     * @param Settings $settings
      */
     public function requisites(Settings $settings)
     {
@@ -85,7 +88,7 @@ class SettingsController extends CrudController
 
     /**
      * AJAX-handler загрузки частей файла на сервер и сборки файла
-     * @param tachyon\components\FilesManager $filesManager
+     * @param FilesManager $filesManager
      */
     public function acceptFile(FilesManager $filesManager)
     {

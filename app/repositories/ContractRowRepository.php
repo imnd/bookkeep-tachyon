@@ -1,8 +1,7 @@
 <?php
 namespace app\repositories;
 
-use Iterator,
-    tachyon\db\dataMapper\Repository,
+use tachyon\db\dataMapper\Repository,
     app\interfaces\ContractRowRepositoryInterface,
     app\entities\ContractRow;
 

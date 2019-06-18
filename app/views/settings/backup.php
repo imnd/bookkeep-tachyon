@@ -30,15 +30,16 @@
 </form>
 <script language="JavaScript">
 <!--
-(function() {
+dom.ready(function() {
     // добавление поля
-    $('input[name="add"]').click(function() {
-        var inpClone = $('input[name*="path"]').last().clone();
-        var nextNumb = parseInt(inpClone.attr('id')) + 1;
+    dom.findByName("add").addEventListener("click", () => {
+        let pathElt = dom.findByName("path"),
+            inpClone = pathElt.last().clone(),
+            nextNumb = parseInt(inpClone.attr('id')) + 1;
         inpClone.attr('name', inpClone.attr('class') + nextNumb);
         inpClone.attr('id', nextNumb);
         inpClone.attr('value', '');
-        $('input[name*="path"]').last().after(inpClone);
+        pathElt.last().after(inpClone);
     });
 })();
 //-->

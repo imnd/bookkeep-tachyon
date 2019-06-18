@@ -4,8 +4,8 @@ namespace app\controllers;
 use app\entities\Client,
     app\interfaces\ClientRepositoryInterface,
     app\interfaces\RegionRepositoryInterface,
-    app\models\Bills,
-    app\models\Invoices,
+    app\interfaces\BillRepositoryInterface,
+    app\interfaces\InvoiceRepositoryInterface,
     app\models\Settings
 ;
 
@@ -36,7 +36,7 @@ class ClientsController extends CrudController
     }
 
     /**
-     * @param Client $client
+     * @param Client $entity
      */
     public function index(Client $entity)
     {
@@ -61,12 +61,17 @@ class ClientsController extends CrudController
     }
 
     /**
-     * @param Bills $bills
-     * @param Invoices $invoices
+     * @param BillRepositoryInterface $billRepository
+     * @param InvoiceRepositoryInterface $invoiceRepository
      * @param Settings $settings
      * @param int $pk
      */
-    public function printout(Bills $bills, Invoices $invoices, Settings $settings, $pk)
+    public function printout(
+        BillRepositoryInterface $billRepository,
+        InvoiceRepositoryInterface $invoiceRepository,
+        Settings $settings,
+        $pk
+    )
     {
         $this->layout = 'printout';
         $client = $this->repository->findByPk($pk);
@@ -75,15 +80,15 @@ class ClientsController extends CrudController
             return;
         }
         $where = array_merge(array('client_id' => $pk), $this->get);
-        $debetSum = $invoices->getTotalByContract($where);
-        $creditSum = $bills->getTotalByContract($where);
+        $debetSum = $invoiceRepository->getTotalByContract($where);
+        $creditSum = $billRepository->getTotalByContract($where);
         $this->view('reconciliation', [
             'client' => $client,
             'sender' => $settings->getRequisites('firm'),
             'dateFrom' => $this->convDateToReadable($this->get['dateFrom']),
             'dateTo' => $this->convDateToReadable($this->get['dateTo']),
-            'bills' => $bills->getAllByContract($where),
-            'invoices' => $invoices->getAllByContract($where),
+            'bills' => $billRepository->getAllByContract($where),
+            'invoices' => $invoiceRepository->getAllByContract($where),
             'debetSum' => number_format($debetSum, 2, '.', ''),
             'creditSum' => number_format($creditSum, 2, '.', ''),
             'saldo' => number_format($debetSum - $creditSum, 2, '.', ''),

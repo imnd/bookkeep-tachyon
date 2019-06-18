@@ -25,10 +25,11 @@ class HasRowsController extends CrudController
         if (empty($this->post)) {
             return false;
         }
+        $errors = [];
         // сохраням
         $entity->setAttributes($this->post);
         if (!$entity->save()) {
-            $errors .= "\n{$entity->getErrorsSummary()}";
+            $errors[] = $entity->getErrorsSummary();
         }
         // удалям строки
         if ($rows = $entity->getRows()) {
@@ -39,24 +40,23 @@ class HasRowsController extends CrudController
         // сохраням строки
         $sum = 0;
         $rowsData = ArrayHelper::transposeArray($this->post);
-        $errors = array();
         foreach ($rowsData as $rowData) {
             $row = $this->rowRepository->create();
             $rowData[$row->getRowFk()] = $entity->getPk();
             $row->setAttributes($rowData);
             if (!$row->validate()) {
+                $errors[] = $row->getErrorsSummary();
                 unset($row);
-                $errors .= "\n{$row->getErrorsSummary()}";
             }
             $sum += $rowData['row_sum'];
         }
         // сохраням
         $entity->setSum($sum);
         if (!$entity->getDbContext()->commit()) {
-            $errors .= "\n{$entity->getErrorsSummary()}";
+            $errors[] = $entity->getErrorsSummary();
         }
         if (!empty($errors)) {
-            $this->flash->addFlash("Что то пошло не так, $errors", Flash::FLASH_TYPE_ERROR);
+            $this->flash->addFlash('Что то пошло не так, ' . implode("\n", $errors), Flash::FLASH_TYPE_ERROR);
             return false;
         }
         $this->flash->addFlash('Сохранено успешно', Flash::FLASH_TYPE_SUCCESS);

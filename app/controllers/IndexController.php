@@ -32,6 +32,7 @@ class IndexController extends \tachyon\Controller
      * @param Config $config
      * @param Users $users
      * @param Flash $flash
+     * @param array $params
      */
     public function __construct(Config $config, Users $users, Flash $flash, ...$params)
     {

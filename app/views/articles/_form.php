@@ -1,25 +1,30 @@
-<?php
-use tachyon\dic\Container,
-    app\models\ArticleSubcats;
-
-
-(new Container)->get('\tachyon\components\html\FormBuilder')
-    ->build([
-        'options' => [
-            'action' => $this->controller->getRoute(),
-            'method' => 'POST',
-            'submitCaption' => $this->i18n('save'),
-        ],
-        'model' => $model,
-        'fields' => [
-            'subcat_id' => [
-                'listData' => ArticleSubcats::getAllSelectList()
-            ],
-            'unit' => [
-                'listData' => $model->getSelectListFromArr($model->getUnits())
-            ],
-            'name',
-            'price',
-        ],
-        'fieldValues' => $this->controller->getGet(),
-    ]);
+<form method="POST" action="<?=$this->controller->getRoute()?>">
+    <div class="row">
+        <?php $this->display('../blocks/select', [
+            'entity' => $entity,
+            'name' => 'subcat_id',
+            'options' => $articleSubcats
+        ])?>
+    </div>
+    <div class="row">
+        <?php $this->display('../blocks/select', [
+            'entity' => $entity,
+            'name' => 'unit',
+            'options' => $model->getSelectListFromArr($model->getUnits())
+        ])?>
+    </div>
+    <div class="row">
+        <?php $this->display('../blocks/input', [
+            'entity' => $entity,
+            'name' => 'name',
+        ])?>
+    </div>
+    <div class="row">
+        <?php $this->display('../blocks/input', [
+            'entity' => $entity,
+            'name' => 'price',
+        ])?>
+    </div>
+    <input type="submit" class="button" value="<?=$this->i18n('save')?>">
+    <div class="clear"></div>
+</form>

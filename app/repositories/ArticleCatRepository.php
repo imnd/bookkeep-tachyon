@@ -22,5 +22,4 @@ class ArticleCatRepository extends Repository implements ArticleCatRepositoryInt
 
         parent::__construct(...$params);
     }
-
 }

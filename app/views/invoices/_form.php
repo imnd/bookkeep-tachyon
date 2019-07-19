@@ -1,7 +1,7 @@
 <?=
-    $this->assetManager->coreJs('ajax'),
-    $this->assetManager->js('table'),
-    $this->assetManager->js('prices')
+$this->assetManager->coreJs('ajax'),
+$this->assetManager->js('table'),
+$this->assetManager->js('prices')
 ?>
 <form method="POST" action="<?=$this->controller->getRoute()?>">
     <div class="row">
@@ -31,7 +31,6 @@
             'class' => 'required',
         ])?>
     </div>
-
     <div class="row">
         <?php $this->display('../blocks/select', [
             'entity' => $entity,

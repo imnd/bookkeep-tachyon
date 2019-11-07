@@ -71,7 +71,7 @@ class Purchase extends Entity
     {
         $entity = clone($this);
 
-        $entity->id = $state['id'];
+        $entity->id = $state['ID'];
         $entity->number = $state['number'] ?? null;
         $entity->date = $state['date'] ?? null;
         $entity->sum = $state['sum'] ?? null;

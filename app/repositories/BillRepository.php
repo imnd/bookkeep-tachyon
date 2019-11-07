@@ -5,7 +5,8 @@ use Iterator,
     tachyon\db\dataMapper\Repository,
     app\interfaces\BillRepositoryInterface,
     app\interfaces\ClientRepositoryInterface,
-    app\entities\Bill;
+    app\entities\Bill,
+    tachyon\traits\DateTime;
 
 /**
  * @author Андрей Сердюк
@@ -13,7 +14,7 @@ use Iterator,
  */
 class BillRepository extends Repository implements BillRepositoryInterface
 {
-    use \tachyon\traits\DateTime;
+    use DateTime;
 
     /**
      * @var app\entities\Bill

@@ -80,7 +80,7 @@ class CrudController extends Controller
          * @var Entity $entity
          */
         $entity = $this->getEntity($pk);
-        if ($this->save($entity)) {
+        if ($this->_save($entity)) {
             $this->redirect("/{$this->id}");
         }
         $this->view('update', array_merge(compact('entity'), $params));
@@ -95,7 +95,7 @@ class CrudController extends Controller
          * @var Entity $entity
          */
         $entity = $this->repository->create();
-        if ($this->save($entity)) {
+        if ($this->_save($entity)) {
             $this->redirect("/{$this->id}");
         }
         $this->view('create', array_merge(compact('entity'), $params));
@@ -105,7 +105,7 @@ class CrudController extends Controller
      * @param Entity $entity
      * @return boolean
      */
-    protected function save(Entity $entity)
+    protected function _save(Entity $entity)
     {
         if (!empty($this->post)) {
             $entity->setAttributes($this->post);

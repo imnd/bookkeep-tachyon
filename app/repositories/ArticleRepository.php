@@ -5,7 +5,9 @@ use Iterator,
     tachyon\db\dataMapper\Repository,
     app\interfaces\ArticleRepositoryInterface,
     app\interfaces\ArticleSubcatRepositoryInterface,
-    app\entities\Article;
+    app\entities\Article,
+    app\traits\Select
+;
 
 /**
  * @author Андрей Сердюк
@@ -13,7 +15,7 @@ use Iterator,
  */
 class ArticleRepository extends Repository implements ArticleRepositoryInterface
 {
-    use \app\traits\Select;
+    use Select;
 
     /**
      * @var app\entities\Article

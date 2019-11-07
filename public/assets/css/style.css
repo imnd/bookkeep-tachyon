@@ -569,3 +569,32 @@ input#contract_num {
 .filter input {
     max-width: 100px;
 }
+
+.button-view,
+.button-delete,
+.button-deactivate,
+.button-update,
+.button-printout
+{
+    padding: 0px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    float: left;
+}
+.button-view {
+    background: transparent url(../img/view.png) no-repeat;
+}
+.button-delete {
+    background: transparent url(../img/delete.png) no-repeat;
+}
+.button-deactivate {
+    background: transparent url(../img/deactivate.png) no-repeat;
+}
+.button-update {
+    background: transparent url(../img/update.png) no-repeat;
+}
+.button-printout {
+    background: transparent url(../img/printout.png) no-repeat;
+}

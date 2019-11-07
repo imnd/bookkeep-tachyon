@@ -48,8 +48,25 @@ class ArticlesController extends CrudController
     /**
      * @param int $pk
      */
-    public function update($pk)
+    public function update(
+        $pk,
+        ArticleSubcatRepositoryInterface $articleSubcatRepository,
+        RegionRepositoryInterface $regionRepository
+    )
     {
-        $this->_update($pk, ['regions' => $regionRepository->findAll()]);
+        $this->_update($pk, [
+            'regions' => $regionRepository->findAll(),
+            'articleSubcats' => $articleSubcatRepository->getSelectList(),
+        ]);
+    }
+
+    /**
+     * @param $params
+     */
+    protected function create()
+    {
+        $this->_create($pk, [
+            'regions' => $regionRepository->findAll(),
+        ]);
     }
 }

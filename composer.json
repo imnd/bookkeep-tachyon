@@ -17,9 +17,8 @@
         "phpunit/phpunit": "8.0.0"
     },
     "autoload": {
-        "psr-0": {
-            "app\\": "",
-            "tachyon\\": ""
+        "psr-4": {
+            "app\\": "app/"
         }
     }
 }

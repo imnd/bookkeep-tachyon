@@ -3,7 +3,8 @@ namespace app\controllers;
 
 use app\entities\Article,
     app\interfaces\ArticleRepositoryInterface,
-    app\interfaces\ArticleSubcatRepositoryInterface;
+    app\interfaces\ArticleSubcatRepositoryInterface,
+    tachyon\traits\Authentication;
 
 /**
  * Контроллер товаров
@@ -13,7 +14,7 @@ use app\entities\Article,
  */ 
 class ArticlesController extends CrudController
 {
-    use \tachyon\traits\Authentication;
+    use Authentication;
 
     /**
      * @var ArticleRepositoryInterface

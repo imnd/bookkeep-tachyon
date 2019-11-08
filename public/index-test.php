@@ -6,7 +6,6 @@ use tachyon\dic\Container,
     tachyon\Router;
 
 $container = new Container;
-$config = $this->config = $container->get(Config::class, [
-    'fileName' => 'main-test'
-]);
-$container->get(Router::class, [compact('config')])->dispatch();
+$config = $container->get(Config::class, ['env' => 'test']);
+$router = $container->get(Router::class, [compact('config')]);
+

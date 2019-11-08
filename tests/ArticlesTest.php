@@ -27,7 +27,6 @@ final class ArticlesTest extends TestCase
      * @var GuzzleHttp\Client $client
      */
     protected $httpClient;
-    protected $repository;
 
     /**
      * @inheritdoc

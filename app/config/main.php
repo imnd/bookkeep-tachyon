@@ -5,15 +5,10 @@
     'remember' => 7, // неделя
     // кодировка
     'encoding' => 'utf-8',
-    'base_path' => '/',
+    'base_url' => 'http://bookkeep/',
     // режим исполнения приложения
     'mode' => 'debug',
     'csrf_check' => false,
-    // переменные сайта
-    'site_vars' =>  [
-        'copyright' => 'а.сердюк',
-        'author_email' => 'imndsu@gmail.com',
-    ],
     'cache' => [
         'enabled' => true,
         'serialize' => true,

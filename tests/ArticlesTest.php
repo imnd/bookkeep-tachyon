@@ -2,10 +2,9 @@
 namespace tests;
 
 use
-    PHPUnit\Framework\TestCase,
-    GuzzleHttp\Client,
+    GuzzleHttp\Client as HttpClient,
+    tachyon\components\TestCase,
     tachyon\db\dbal\DbFactory,
-    tachyon\Config,
     tachyon\db\dataMapper\Persistence,
     app\repositories\ArticleRepository,
     app\repositories\ArticleSubcatRepository,
@@ -25,13 +24,9 @@ use
 final class ArticlesTest extends TestCase
 {
     /**
-     * @var GuzzleHttp\Client $client 
+     * @var GuzzleHttp\Client $client
      */
-    protected $client;
-    /**
-     * @var Config $config
-     */
-    protected $config;
+    protected $httpClient;
     protected $repository;
 
     /**
@@ -39,24 +34,10 @@ final class ArticlesTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->config = new Config('main-test');
-        $dbFactory = new DbFactory($this->config);
-        $persistence = new Persistence($dbFactory);
-        $articleSubcatRepository = new ArticleSubcatRepository(new ArticleSubcat, $persistence);
-        $this->repository = new ArticleRepository(new Article, $articleSubcatRepository, $persistence);
-        
-        $this->client = new Client([
-            'base_uri' => $this->config->get('base-url'),
+        $this->httpClient = new HttpClient([
+            'base_uri' => $this->config->get('base_url'),
             'timeout' => 2.0,
         ]);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function tearDown(): void
-    {
-        $this->repository->clear();
     }
 
     /**
@@ -66,7 +47,10 @@ final class ArticlesTest extends TestCase
      */
     public function authenticated_users_can_create_article()
     {
-        
+        $res = $this->httpClient->request('GET', 'login', [
+            'auth' => ['user', 'pass']
+        ]);
+        $this->assertTrue($res->getStatusCode()===200);
     }
 
     /**

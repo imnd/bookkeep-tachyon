@@ -1,7 +1,5 @@
 <?php
-include('..\vendor\autoload.php');
+// режим исполнения приложения
+defined('APP_ENV') or define('APP_ENV', 'debug');
 
-use tachyon\dic\Container,
-    tachyon\Router;
-
-(new Container)->get(Router::class)->dispatch();
+include('bootstrap.php');

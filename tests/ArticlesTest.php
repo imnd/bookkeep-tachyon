@@ -2,7 +2,6 @@
 namespace tests;
 
 use
-    GuzzleHttp\Client as HttpClient,
     tachyon\components\TestCase,
     tachyon\db\dbal\DbFactory,
     tachyon\db\dataMapper\Persistence,
@@ -24,32 +23,13 @@ use
 final class ArticlesTest extends TestCase
 {
     /**
-     * @var GuzzleHttp\Client $client
-     */
-    protected $httpClient;
-
-    /**
-     * @inheritdoc
-     */
-    protected function setUp(): void
-    {
-        $this->httpClient = new HttpClient([
-            'base_uri' => $this->config->get('base_url'),
-            'timeout' => 2.0,
-        ]);
-    }
-
-    /**
      * Авторизированные пользователи могут создавать товары
      * @test
      * @return void
      */
     public function authenticated_users_can_create_article()
     {
-        $res = $this->httpClient->request('GET', 'login', [
-            'auth' => ['user', 'pass']
-        ]);
-        $this->assertTrue($res->getStatusCode()===200);
+        
     }
 
     /**

@@ -1,9 +1,13 @@
 <?php
 namespace app\controllers;
 
-use tachyon\Config,
-    app\models\Users,
-    tachyon\components\Flash;
+use 
+    tachyon\Controller,
+    tachyon\Config,
+    tachyon\traits\Authentication,
+    tachyon\components\Flash,
+    app\models\Users
+;
 
 /**
  * Контроллер начальной страницы
@@ -11,9 +15,9 @@ use tachyon\Config,
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */ 
-class IndexController extends \tachyon\Controller
+class IndexController extends Controller
 {
-    use \tachyon\traits\Authentication;
+    use Authentication;
 
     /**
      * @var Config $config
@@ -56,21 +60,22 @@ class IndexController extends \tachyon\Controller
      */
     public function login()
     {
-        if ($this->isRequestPost()) {
-            if ($user = $this->users->findByPassword(array(
-                'username' => $this->post['username'],
-                'password' => $this->post['password'],
-            ))) {
-                if ($user->confirmed == Users::STATUS_CONFIRMED) {
-                    $this->_login($this->post['remember']);
-                    $this->redirect($this->getReferer());
-                }
-                $error = 'Вы не подтвердили свою регистрацию.';
-            } else {
-                $error = 'Пользователя с таким логином и паролем нет.';
-            }
+        if (!$this->isRequestPost()) {
+            $this->view('login');
+            return;            
         }
-        $this->view('login', compact('error'));
+        if (!$user = $this->users->findByPassword([
+            'username' => $this->post['username'],
+            'password' => $this->post['password'],
+        ])) {
+            $this->unauthorised('Пользователя с таким логином и паролем нет.');
+        }
+        if ($user->confirmed != Users::STATUS_CONFIRMED) {
+            $this->unauthorised('Вы не подтвердили свою регистрацию.');
+        }
+        $this->_login($this->post['remember']);
+
+        $this->redirect($this->getReferer());
     }
 
     /**

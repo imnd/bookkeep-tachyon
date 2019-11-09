@@ -37,7 +37,6 @@ class Users extends \tachyon\db\activeRecord\ActiveRecord
     public function findByPassword($attributes)
     {
         $attributes['password'] = $this->hashPassword($attributes['password']);
-        unset($attributes['password']);
         return $this->findOne($attributes);
     }
 

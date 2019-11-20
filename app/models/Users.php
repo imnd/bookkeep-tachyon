@@ -1,13 +1,15 @@
 <?php
 namespace app\models;
 
+use tachyon\db\activeRecord\ActiveRecord;
+
 /**
  * Модель пользователей
  * 
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */ 
-class Users extends \tachyon\db\activeRecord\ActiveRecord
+class Users extends ActiveRecord
 {
     const STATUS_NOTCONFIRMED = 0;
     const STATUS_CONFIRMED = 1;
@@ -59,10 +61,10 @@ class Users extends \tachyon\db\activeRecord\ActiveRecord
             $this->addError('email', "Пользователь с email {$attributes['email']} уже существует");
         }
         if (empty($attributes['password'])) {
-            $this->addError('password', "Пароль обязателен.");
+            $this->addError('password', 'Пароль обязателен.');
         }
         if ($attributes['password']!==$attributes['password_confirm']) {
-            $this->addError('password', "Пароли должны совпадать.");
+            $this->addError('password', 'Пароли должны совпадать.');
         }
         if ($this->hasErrors()) {
             return $this;

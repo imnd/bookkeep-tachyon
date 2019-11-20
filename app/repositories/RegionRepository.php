@@ -2,14 +2,13 @@
 namespace app\repositories;
 
 use tachyon\db\dataMapper\Repository,
-    app\interfaces\RegionRepositoryInterface,
     app\entities\Region;
 
 /**
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class RegionRepository extends Repository implements RegionRepositoryInterface
+class RegionRepository extends Repository
 {
     /**
      * @inheritdoc

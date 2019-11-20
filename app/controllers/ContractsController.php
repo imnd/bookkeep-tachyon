@@ -2,10 +2,10 @@
 namespace app\controllers;
 
 use app\entities\Contract,
-    app\interfaces\ArticleRepositoryInterface,
-    app\interfaces\ClientRepositoryInterface,
-    app\interfaces\ContractRowRepositoryInterface,
-    app\interfaces\ContractRepositoryInterface
+    app\repositories\ArticleRepository,
+    app\repositories\ClientRepository,
+    app\repositories\ContractRowRepository,
+    app\repositories\ContractRepository
 ;
 
 /**
@@ -20,13 +20,13 @@ class ContractsController extends HasRowsController
     protected $layout = 'contracts';
 
     /**
-     * @param ContractRepositoryInterface $repository
-     * @param ContractRowRepositoryInterface $rowRepository
+     * @param ContractRepository $repository
+     * @param ContractRowRepository $rowRepository
      * @param array $params
      */
     public function __construct(
-        ContractRepositoryInterface $repository,
-        ContractRowRepositoryInterface $rowRepository,
+        ContractRepository $repository,
+        ContractRowRepository $rowRepository,
         ...$params
     )
     {
@@ -40,12 +40,12 @@ class ContractsController extends HasRowsController
      * Главная страница, список договоров.
      *
      * @param Contract $entity
-     * @param ClientRepositoryInterface $clientRepository
+     * @param ClientRepository $clientRepository
      * @param string $type
      */
     public function index(
         Contract $entity,
-        ClientRepositoryInterface $clientRepository,
+        ClientRepository $clientRepository,
         $type = null
     )
     {
@@ -56,12 +56,12 @@ class ContractsController extends HasRowsController
     }
 
     /**
-     * @param ArticleRepositoryInterface $articleRepository
-     * @param ClientRepositoryInterface $clientRepository
+     * @param ArticleRepository $articleRepository
+     * @param ClientRepository $clientRepository
      */
     public function create(
-        ArticleRepositoryInterface $articleRepository,
-        ClientRepositoryInterface $clientRepository
+        ArticleRepository $articleRepository,
+        ClientRepository $clientRepository
     )
     {
         $row = $this->rowRepository->create();
@@ -75,13 +75,13 @@ class ContractsController extends HasRowsController
     }
 
     /**
-     * @param ArticleRepositoryInterface $articleRepository
-     * @param ClientRepositoryInterface $clientRepository
+     * @param ArticleRepository $articleRepository
+     * @param ClientRepository $clientRepository
      * @param int $pk
      */
     public function update(
-        ArticleRepositoryInterface $articleRepository,
-        ClientRepositoryInterface $clientRepository,
+        ArticleRepository $articleRepository,
+        ClientRepository $clientRepository,
         $pk
     )
     {

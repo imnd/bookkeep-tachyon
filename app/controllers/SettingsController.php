@@ -3,7 +3,7 @@ namespace app\controllers;
 
 use tachyon\components\FilesManager,
     app\models\Settings,
-    app\interfaces\SettingsRepositoryInterface
+    app\repositories\SettingsRepository
 ;
 
 /**

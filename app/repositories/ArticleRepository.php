@@ -3,8 +3,7 @@ namespace app\repositories;
 
 use Iterator,
     tachyon\db\dataMapper\Repository,
-    app\interfaces\ArticleRepositoryInterface,
-    app\interfaces\ArticleSubcatRepositoryInterface,
+    app\repositories\ArticleSubcatRepository,
     app\entities\Article,
     app\traits\Select
 ;
@@ -13,7 +12,7 @@ use Iterator,
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class ArticleRepository extends Repository implements ArticleRepositoryInterface
+class ArticleRepository extends Repository
 {
     use Select;
 
@@ -22,13 +21,13 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
      */
     protected $article;
     /**
-     * @var app\interfaces\ArticleSubcatRepositoryInterface
+     * @var app\repositories\ArticleSubcatRepository
      */
     protected $articleSubcatRepository;
 
     public function __construct(
         Article $article,
-        ArticleSubcatRepositoryInterface $articleSubcatRepository,
+        ArticleSubcatRepository $articleSubcatRepository,
         ...$params
     )
     {

@@ -12,7 +12,7 @@ class HasRowsRepository extends Repository
     use \tachyon\traits\ClassName;
 
     /**
-     * @var InvoiceRowRepositoryInterface
+     * @var Repository
      */
     protected $rowRepository;
     /**

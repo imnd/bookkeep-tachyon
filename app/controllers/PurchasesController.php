@@ -2,10 +2,10 @@
 namespace app\controllers;
 
 use app\entities\Purchase,
-    app\interfaces\ArticleRepositoryInterface,
-    app\interfaces\ClientRepositoryInterface,
-    app\interfaces\PurchaseRowRepositoryInterface,
-    app\interfaces\PurchaseRepositoryInterface
+    app\repositories\ArticleRepository,
+    app\repositories\ClientRepository,
+    app\repositories\PurchaseRowRepository,
+    app\repositories\PurchaseRepository
 ;
 
 /**
@@ -17,13 +17,13 @@ use app\entities\Purchase,
 class PurchasesController extends HasRowsController
 {
     /**
-     * @param PurchaseRepositoryInterface $repository
-     * @param PurchaseRowRepositoryInterface $rowRepository
+     * @param PurchaseRepository $repository
+     * @param PurchaseRowRepository $rowRepository
      * @param array $params
      */
     public function __construct(
-        PurchaseRepositoryInterface $repository,
-        PurchaseRowRepositoryInterface $rowRepository,
+        PurchaseRepository $repository,
+        PurchaseRowRepository $rowRepository,
         ...$params
     )
     {
@@ -37,12 +37,12 @@ class PurchasesController extends HasRowsController
      * Главная страница, список договоров.
      *
      * @param Purchase $entity
-     * @param ClientRepositoryInterface $clientRepository
+     * @param ClientRepository $clientRepository
      * @param null $type
      */
     public function index(
         Purchase $entity,
-        ClientRepositoryInterface $clientRepository,
+        ClientRepository $clientRepository,
         $type = null
     )
     {
@@ -54,12 +54,12 @@ class PurchasesController extends HasRowsController
 
     /**
      * Собираем закупку за определенное число
-     * @param ArticleRepositoryInterface $articleRepository
-     * @param ClientRepositoryInterface $clientRepository
+     * @param ArticleRepository $articleRepository
+     * @param ClientRepository $clientRepository
      */
     public function create(
-        ArticleRepositoryInterface $articleRepository,
-        ClientRepositoryInterface $clientRepository
+        ArticleRepository $articleRepository,
+        ClientRepository $clientRepository
     )
     {
         $entity = $this->repository->create();
@@ -78,13 +78,13 @@ class PurchasesController extends HasRowsController
     }
 
     /**
-     * @param ArticleRepositoryInterface $articleRepository
-     * @param ClientRepositoryInterface $clientRepository
+     * @param ArticleRepository $articleRepository
+     * @param ClientRepository $clientRepository
      * @param int $pk
      */
     public function update(
-        ArticleRepositoryInterface $articleRepository,
-        ClientRepositoryInterface $clientRepository,
+        ArticleRepository $articleRepository,
+        ClientRepository $clientRepository,
         $pk
     )
     {

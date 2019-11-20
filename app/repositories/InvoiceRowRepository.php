@@ -3,14 +3,13 @@ namespace app\repositories;
 
 use
     tachyon\db\dataMapper\Repository,
-    app\interfaces\InvoiceRowRepositoryInterface,
     app\entities\InvoiceRow;
 
 /**
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class InvoiceRowRepository extends Repository implements InvoiceRowRepositoryInterface
+class InvoiceRowRepository extends Repository
 {
     /**
      * @var app\entities\InvoiceRow

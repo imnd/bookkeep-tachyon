@@ -29,7 +29,7 @@ class CrudController extends Controller
      */
     protected $flash;
     /**
-     * @var \app\interfaces\RepositoryInterface
+     * @var tachyon\db\dataMapper\Repository
      */
     protected $repository;
 

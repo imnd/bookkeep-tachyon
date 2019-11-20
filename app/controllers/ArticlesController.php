@@ -2,8 +2,8 @@
 namespace app\controllers;
 
 use app\entities\Article,
-    app\interfaces\ArticleRepositoryInterface,
-    app\interfaces\ArticleSubcatRepositoryInterface,
+    app\repositories\ArticleRepository,
+    app\repositories\ArticleSubcatRepository,
     tachyon\traits\Authentication;
 
 /**
@@ -17,19 +17,19 @@ class ArticlesController extends CrudController
     use Authentication;
 
     /**
-     * @var ArticleRepositoryInterface
+     * @var ArticleRepository
      */
     protected $repository;
     /**
-     * @var ArticleSubcatRepositoryInterface
+     * @var ArticleSubcatRepository
      */
     protected $subcatRepository;
 
     /**
-     * @param ArticleRepositoryInterface $repository
+     * @param ArticleRepository $repository
      * @param array $params
      */
-    public function __construct(ArticleRepositoryInterface $repository, ...$params)
+    public function __construct(ArticleRepository $repository, ...$params)
     {
         $this->repository = $repository;
 
@@ -51,8 +51,8 @@ class ArticlesController extends CrudController
      */
     public function update(
         $pk,
-        ArticleSubcatRepositoryInterface $articleSubcatRepository,
-        RegionRepositoryInterface $regionRepository
+        ArticleSubcatRepository $articleSubcatRepository,
+        RegionRepository $regionRepository
     )
     {
         $this->_update($pk, [

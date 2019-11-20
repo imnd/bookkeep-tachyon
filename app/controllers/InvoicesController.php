@@ -2,10 +2,10 @@
 namespace app\controllers;
 
 use app\entities\Invoice,
-    app\interfaces\InvoiceRepositoryInterface,
-    app\interfaces\InvoiceRowRepositoryInterface,
-    app\interfaces\ArticleRepositoryInterface,
-    app\interfaces\ClientRepositoryInterface,
+    app\repositories\InvoiceRepository,
+    app\repositories\InvoiceRowRepository,
+    app\repositories\ArticleRepository,
+    app\repositories\ClientRepository,
     app\models\Settings;
 
 /**
@@ -17,13 +17,13 @@ use app\entities\Invoice,
 class InvoicesController extends HasRowsController
 {
     /**
-     * @param InvoiceRepositoryInterface $repository
-     * @param InvoiceRowRepositoryInterface $rowRepository
+     * @param InvoiceRepository $repository
+     * @param InvoiceRowRepository $rowRepository
      * @param array $params
      */
     public function __construct(
-        InvoiceRepositoryInterface $repository,
-        InvoiceRowRepositoryInterface $rowRepository,
+        InvoiceRepository $repository,
+        InvoiceRowRepository $rowRepository,
         ...$params
     )
     {
@@ -36,11 +36,11 @@ class InvoicesController extends HasRowsController
     /**
      * Главная страница, список сущностей раздела
      * @param Invoice $entity
-     * @param ClientRepositoryInterface $clientRepository
+     * @param ClientRepository $clientRepository
      */
     public function index(
         Invoice $entity,
-        ClientRepositoryInterface $clientRepository
+        ClientRepository $clientRepository
     )
     {
         $this->_index($entity, [
@@ -49,12 +49,12 @@ class InvoicesController extends HasRowsController
     }
 
     /**
-     * @param ArticleRepositoryInterface $articleRepository
-     * @param ClientRepositoryInterface $clientRepository
+     * @param ArticleRepository $articleRepository
+     * @param ClientRepository $clientRepository
      */
     public function create(
-        ArticleRepositoryInterface $articleRepository,
-        ClientRepositoryInterface $clientRepository
+        ArticleRepository $articleRepository,
+        ClientRepository $clientRepository
     )
     {
         $entity = $this->repository->create();
@@ -72,8 +72,8 @@ class InvoicesController extends HasRowsController
     }
 
     public function update(
-        ArticleRepositoryInterface $articleRepository,
-        ClientRepositoryInterface $clientRepository,
+        ArticleRepository $articleRepository,
+        ClientRepository $clientRepository,
         $pk
     )
     {

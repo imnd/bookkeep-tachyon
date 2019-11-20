@@ -2,10 +2,10 @@
 namespace app\controllers;
 
 use app\entities\Client,
-    app\interfaces\ClientRepositoryInterface,
-    app\interfaces\RegionRepositoryInterface,
-    app\interfaces\BillRepositoryInterface,
-    app\interfaces\InvoiceRepositoryInterface,
+    app\repositories\ClientRepository,
+    app\repositories\RegionRepository,
+    app\repositories\BillRepository,
+    app\repositories\InvoiceRepository,
     app\models\Settings
 ;
 
@@ -20,15 +20,15 @@ class ClientsController extends CrudController
     use \tachyon\traits\Authentication;
 
     /**
-     * @var app\repositories\ClientRepositoryInterface
+     * @var app\repositories\ClientRepository
      */
     protected $repository;
 
     /**
-     * @param ClientRepositoryInterface $repository
+     * @param ClientRepository $repository
      * @param array $params
      */
-    public function __construct(ClientRepositoryInterface $repository, ...$params)
+    public function __construct(ClientRepository $repository, ...$params)
     {
         $this->repository = $repository;
 
@@ -44,31 +44,31 @@ class ClientsController extends CrudController
     }
 
     /**
-     * @param RegionRepositoryInterface $regionRepository
+     * @param RegionRepository $regionRepository
      */
-    public function create(RegionRepositoryInterface $regionRepository)
+    public function create(RegionRepository $regionRepository)
     {
         $this->_create(['regions' => $regionRepository->findAll()]);
     }
 
     /**
-     * @param RegionRepositoryInterface $regionRepository
+     * @param RegionRepository $regionRepository
      * @param int $pk
      */
-    public function update(RegionRepositoryInterface $regionRepository, $pk)
+    public function update(RegionRepository $regionRepository, $pk)
     {
         $this->_update($pk, ['regions' => $regionRepository->findAll()]);
     }
 
     /**
-     * @param BillRepositoryInterface $billRepository
-     * @param InvoiceRepositoryInterface $invoiceRepository
+     * @param BillRepository $billRepository
+     * @param InvoiceRepository $invoiceRepository
      * @param Settings $settings
      * @param int $pk
      */
     public function printout(
-        BillRepositoryInterface $billRepository,
-        InvoiceRepositoryInterface $invoiceRepository,
+        BillRepository $billRepository,
+        InvoiceRepository $invoiceRepository,
         Settings $settings,
         $pk
     )

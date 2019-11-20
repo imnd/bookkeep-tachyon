@@ -3,8 +3,7 @@ namespace app\repositories;
 
 use Iterator,
     tachyon\db\dataMapper\Repository,
-    app\interfaces\BillRepositoryInterface,
-    app\interfaces\ClientRepositoryInterface,
+    app\repositories\ClientRepository,
     app\entities\Bill,
     tachyon\traits\DateTime;
 
@@ -12,7 +11,7 @@ use Iterator,
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class BillRepository extends Repository implements BillRepositoryInterface
+class BillRepository extends Repository
 {
     use DateTime;
 
@@ -21,11 +20,11 @@ class BillRepository extends Repository implements BillRepositoryInterface
      */
     protected $bill;
     /**
-     * @var ClientRepositoryInterface
+     * @var ClientRepository
      */
     protected $clientRepository;
 
-    public function __construct(Bill $bill, ClientRepositoryInterface $clientRepository, ...$params)
+    public function __construct(Bill $bill, ClientRepository $clientRepository, ...$params)
     {
         $this->bill = $bill;
         $this->clientRepository = $clientRepository;

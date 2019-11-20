@@ -3,10 +3,9 @@ namespace app\repositories;
 
 use Iterator,
     tachyon\db\dataMapper\Repository,
-    app\interfaces\ContractRepositoryInterface,
-    app\interfaces\ContractRowRepositoryInterface,
-    app\interfaces\ClientRepositoryInterface,
-    app\interfaces\InvoiceRepositoryInterface,
+    app\repositories\ContractRowRepository,
+    app\repositories\ClientRepository,
+    app\repositories\InvoiceRepository,
     app\entities\Contract
 ;
 
@@ -14,7 +13,7 @@ use Iterator,
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class ContractRepository extends HasRowsRepository implements ContractRepositoryInterface
+class ContractRepository extends HasRowsRepository
 {
     use \tachyon\traits\DateTime;
 
@@ -23,19 +22,19 @@ class ContractRepository extends HasRowsRepository implements ContractRepository
      */
     protected $contract;
     /**
-     * @var ClientRepositoryInterface
+     * @var ClientRepository
      */
     protected $clientRepository;
     /**
-     * @var InvoiceRepositoryInterface
+     * @var InvoiceRepository
      */
     protected $invoiceRepository;
 
     public function __construct(
         Contract $contract,
-        ContractRowRepositoryInterface $rowRepository,
-        ClientRepositoryInterface $clientRepository,
-        InvoiceRepositoryInterface $invoiceRepository,
+        ContractRowRepository $rowRepository,
+        ClientRepository $clientRepository,
+        InvoiceRepository $invoiceRepository,
         ...$params
     )
     {

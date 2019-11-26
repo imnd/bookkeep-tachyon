@@ -16,7 +16,7 @@ class Users extends ActiveRecord
 
     protected static $tableName = 'users';
     protected $pkName = 'id';
-    protected $fields = array('username', 'email', 'password', 'confirmed', 'confirm_code');
+    protected $fields = ['username', 'email', 'password', 'confirmed', 'confirm_code'];
     protected $attributeNames = [
         'username' => 'Логин',
         'email' => 'Email',
@@ -24,11 +24,6 @@ class Users extends ActiveRecord
         'confirmed' => 'Подтвержден',
         'confirm_code' => 'Код подтверждения',
     ];
-    /**
-     * соль для шифровки пароля
-     * @var string $salt
-     */
-    protected static $salt = 'cjwgu-k6837hfka--eifjo3ji34bceb76ta2vdu';
 
     /**
      * Извлекает пользователя
@@ -38,8 +33,21 @@ class Users extends ActiveRecord
      */
     public function findByPassword($attributes)
     {
-        $attributes['password'] = $this->hashPassword($attributes['password']);
-        return $this->findOne($attributes);
+        if (
+                $user = $this->findOne(['username' => $attributes['username']])
+            and password_verify($attributes['password'], $user->password)
+        ) {
+            return $user;
+        }
+    }
+
+    public function rules(): array
+    {
+        return [
+            'username' => ['required', 'unique'],
+            'password' => ['required'],
+            'email' => ['unique'],
+        ];
     }
 
     /**
@@ -50,36 +58,19 @@ class Users extends ActiveRecord
      */
     public function add($attributes)
     {
-        if ($this->findOne(array(
-            'username' => $attributes['username'],
-        ))) {
-            $this->addError('username', "Пользователь {$attributes['username']} уже существует");
-        }
-        if ($this->findOne(array(
-            'email' => $attributes['email'],
-        ))) {
-            $this->addError('email', "Пользователь с email {$attributes['email']} уже существует");
-        }
-        if (empty($attributes['password'])) {
-            $this->addError('password', 'Пароль обязателен.');
-        }
+        $this->validate($attributes);
         if ($attributes['password']!==$attributes['password_confirm']) {
             $this->addError('password', 'Пароли должны совпадать.');
         }
         if ($this->hasErrors()) {
             return $this;
         }
-        $attributes['password'] = $this->hashPassword($attributes['password']);
-        unset($attributes['password']);
-        $attributes['confirm_code'] = $this->hashPassword(time());
+        $attributes['password'] = password_hash($attributes['password'], PASSWORD_DEFAULT);
+        $attributes['confirm_code'] = md5(microtime());
+
         $this->setAttributes($attributes);
-
         $this->insert();
-        return $this;
-    }
 
-    public function hashPassword($text)
-    {
-        return hash('md5', $text . self::$salt);
+        return $this;
     }
 }

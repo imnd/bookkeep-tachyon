@@ -5,8 +5,8 @@ use Iterator,
     tachyon\db\dataMapper\Repository,
     app\repositories\InvoiceRowRepository,
     app\repositories\ClientRepository,
-    app\entities\Invoice
-;
+    app\entities\Invoice,
+    tachyon\traits\DateTime;
 
 /**
  * @author Андрей Сердюк
@@ -14,7 +14,7 @@ use Iterator,
  */
 class InvoiceRepository extends HasRowsRepository
 {
-    use \tachyon\traits\DateTime;
+    use DateTime;
 
     /**
      * @var app\entities\Invoice
@@ -67,7 +67,6 @@ class InvoiceRepository extends HasRowsRepository
             ])
             ->from($this->tableName)
             ->with([$this->clientRepository->getTableName() => 'cl'], ['client_id' => 'id'])
-            ->groupBy('t.contract_num')
             ->findAll($where, $sort);
 
         return $this->convertArrayData($arrayData);

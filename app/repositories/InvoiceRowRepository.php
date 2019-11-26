@@ -15,6 +15,7 @@ class InvoiceRowRepository extends Repository
      * @var app\entities\InvoiceRow
      */
     protected $invoiceRow;
+    protected $tableName = 'invoices_rows';
 
     public function __construct(InvoiceRow $row, ...$params)
     {

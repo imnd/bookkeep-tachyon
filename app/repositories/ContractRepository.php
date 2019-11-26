@@ -78,7 +78,7 @@ class ContractRepository extends HasRowsRepository
             ->asa('c')
             ->with([$this->clientRepository->getTableName() => 'cl'], ['client_id' => 'id'])
             ->with([$this->invoiceRepository->getTableName() => 'i'], 'contract_num')
-            ->groupBy('c.contract_num')
+            ->groupBy('c.id, c.contract_num, i.contract_num, c.client_id, cl.id')
             ->findAll($where, $sort);
 
         return $this->convertArrayData($arrayData);

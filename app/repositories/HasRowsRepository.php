@@ -2,6 +2,7 @@
 namespace app\repositories;
 
 use tachyon\db\dataMapper\Repository;
+use tachyon\traits\ClassName;
 
 /**
  * @author Андрей Сердюк
@@ -9,7 +10,7 @@ use tachyon\db\dataMapper\Repository;
  */
 class HasRowsRepository extends Repository
 {
-    use \tachyon\traits\ClassName;
+    use ClassName;
 
     /**
      * @var Repository

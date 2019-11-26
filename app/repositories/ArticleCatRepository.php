@@ -2,7 +2,6 @@
 namespace app\repositories;
 
 use tachyon\db\dataMapper\Repository,
-    app\repositories\ArticleCatRepository,
     app\entities\ArticleCat;
 
 /**

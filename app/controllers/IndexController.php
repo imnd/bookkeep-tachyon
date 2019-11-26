@@ -4,7 +4,7 @@ namespace app\controllers;
 use 
     tachyon\Controller,
     tachyon\Config,
-    tachyon\traits\Authentication,
+    tachyon\traits\AuthActions,
     tachyon\components\Flash,
     app\models\Users
 ;
@@ -17,7 +17,7 @@ use
  */ 
 class IndexController extends Controller
 {
-    use Authentication;
+    use AuthActions;
 
     /**
      * @var Config $config

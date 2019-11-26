@@ -4,7 +4,8 @@ namespace app\controllers;
 use tachyon\exceptions\HttpException,
     tachyon\Controller,
     tachyon\components\Flash,
-    tachyon\db\dataMapper\Entity
+    tachyon\db\dataMapper\Entity,
+    tachyon\traits\AuthActions
 ;
 
 /**
@@ -15,7 +16,7 @@ use tachyon\exceptions\HttpException,
  */
 class CrudController extends Controller
 {
-    use \tachyon\traits\Authentication;
+    use AuthActions;
 
     /** @inheritdoc */
     protected $layout = 'crud';

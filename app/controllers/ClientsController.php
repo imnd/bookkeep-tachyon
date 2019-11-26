@@ -17,8 +17,6 @@ use app\entities\Client,
  */ 
 class ClientsController extends CrudController
 {
-    use \tachyon\traits\Authentication;
-
     /**
      * @var app\repositories\ClientRepository
      */

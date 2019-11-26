@@ -6,5 +6,4 @@ return [
     'user' => 'root',
     'password' => '',
     'charset' => 'utf8',
-    'explain' => false,
 ];

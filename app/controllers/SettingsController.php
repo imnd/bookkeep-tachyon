@@ -1,7 +1,9 @@
 <?php
 namespace app\controllers;
 
-use tachyon\components\FilesManager,
+use 
+    tachyon\components\FilesManager,
+    tachyon\Request,
     app\models\Settings,
     app\repositories\SettingsRepository
 ;
@@ -48,7 +50,7 @@ class SettingsController extends CrudController
                 }
             }
             if ($result) {
-                $this->redirect($this->getRoute());
+                $this->redirect(Request::getRoute());
             }
         }
         $requisitesAll = [

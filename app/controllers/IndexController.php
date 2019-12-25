@@ -6,6 +6,7 @@ use
     tachyon\Config,
     tachyon\traits\AuthActions,
     tachyon\components\Flash,
+    tachyon\Request,
     app\models\Users
 ;
 
@@ -60,7 +61,7 @@ class IndexController extends Controller
      */
     public function login()
     {
-        if (!$this->isRequestPost()) {
+        if (!Request::isPost()) {
             $this->view('login');
             return;            
         }
@@ -75,7 +76,7 @@ class IndexController extends Controller
         }
         $this->_login($this->post['remember']);
 
-        $this->redirect($this->getReferer());
+        $this->redirect(Request::getReferer());
     }
 
     /**
@@ -92,7 +93,7 @@ class IndexController extends Controller
      */
     public function register()
     {
-        if ($this->isRequestPost()) {
+        if (Request::isPost()) {
             if ($user = $this->users->add(array(
                 'username' => $this->post['username'],
                 'email' => $this->post['email'],

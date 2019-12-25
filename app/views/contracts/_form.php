@@ -1,12 +1,15 @@
-<?php /** @var app\entities\Contract $entity */?>
+<?php
+use tachyon\Request;
 
-<?=
-$this->assetManager->coreJs('ajax'),
-$this->assetManager->js('table'),
-$this->assetManager->js('prices')
+/** @var app\entities\Contract $entity */
+
+echo
+    $this->assetManager->coreJs('ajax'),
+    $this->assetManager->js('table'),
+    $this->assetManager->js('prices')
 ?>
 
-<form method="POST" action="<?=$this->controller->getRoute()?>">
+<form method="POST" action="<?=Request::getRoute()?>">
     <?php /*
     <div class="row">
         <?php $this->display('../blocks/select', [

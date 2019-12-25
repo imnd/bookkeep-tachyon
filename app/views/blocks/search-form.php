@@ -1,5 +1,9 @@
-<?php $dateFieldNames = array()?>
-<form class="search-form" action="<?=$this->controller->getRoute()?>">
+<?php
+use tachyon\Request;
+
+$dateFieldNames = array();
+?>
+<form class="search-form" action="<?=Request::getRoute()?>">
     <?php foreach ($fields as $key => $field) {?>
         <div class="control">
             <?php
@@ -20,7 +24,7 @@
                 'name' => $name,
                 'options' => $field['options'] ?? null,
                 'style' => $field['style'] ?? '',
-                'value' => $this->controller->getGet($name) ?? '',
+                'value' => Request::getGet($name) ?? '',
             ]);
             ?>
         </div>

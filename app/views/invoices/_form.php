@@ -1,9 +1,10 @@
+<?php use tachyon\Request?>
 <?=
 $this->assetManager->coreJs('ajax'),
 $this->assetManager->js('table'),
 $this->assetManager->js('prices')
 ?>
-<form method="POST" action="<?=$this->controller->getRoute()?>">
+<form method="POST" action="<?=Request::getRoute()?>">
     <div class="row">
         <?php $this->display('../blocks/input', [
             'entity' => $entity,

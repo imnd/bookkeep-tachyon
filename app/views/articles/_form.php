@@ -1,4 +1,5 @@
-<form method="POST" action="<?=$this->controller->getRoute()?>">
+<?php use tachyon\Request?>
+<form method="POST" action="<?=Request::getRoute()?>">
     <div class="row">
         <?php $this->display('../blocks/select', [
             'entity' => $entity,

@@ -1,8 +1,12 @@
-<?php 
-/** @var app\entities\Client $client */
-/** @var app\entities\Region $region */
+<?php
+use tachyon\Request;
+
+/**
+ * @var app\entities\Client $client
+ * @var app\entities\Region $region
+ */
 ?>
-<form method="POST" action="<?=$this->controller->getRoute()?>">
+<form method="POST" action="<?=Request::getRoute()?>">
     <div class="row">
         <label><?=$entity->getCaption('name')?>*:</label>
         <input name="name" value="<?=$client->getName()?>" class="required" type="text">

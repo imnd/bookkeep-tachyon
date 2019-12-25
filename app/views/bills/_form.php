@@ -1,11 +1,12 @@
 <?php
 use tachyon\dic\Container,
+    tachyon\Request,
     app\models\Clients;
 
 (new Container)->get('\tachyon\components\html\FormBuilder')
     ->build([
         'options' => [
-            'action' => $this->controller->getRoute(),
+            'action' => Request::getRoute(),
             'method' => 'POST',
             'submitCaption' => $this->i18n('save'),
         ],
@@ -22,5 +23,5 @@ use tachyon\dic\Container,
                 'listData' => $model->getSelectListFromArr($model->getContentsReadable(), true, false)
             ],
         ],
-        'fieldValues' => $this->controller->getGet(),
+        'fieldValues' => Request::getGet(),
     ]);

@@ -1,7 +1,7 @@
 <?php
 include('../vendor/autoload.php');
 
-use tachyon\dic\Container,
+use app\ServiceContainer,
     tachyon\Router;
 
-(new Container)->get(Router::class)->dispatch();
+(new ServiceContainer)->get(Router::class)->dispatch();

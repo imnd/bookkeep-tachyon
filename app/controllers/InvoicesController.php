@@ -1,33 +1,28 @@
 <?php
 namespace app\controllers;
 
-use app\entities\Invoice,
-    app\repositories\InvoiceRepository,
-    app\repositories\InvoiceRowRepository,
-    app\repositories\ArticleRepository,
-    app\repositories\ClientRepository,
+use
+    tachyon\Request,
+    app\entities\Invoice,
+    app\repositories\InvoiceRowsRepository,
+    app\repositories\ArticlesRepository,
+    app\repositories\ClientsRepository,
     app\models\Settings;
 
 /**
  * Контроллер фактур
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
- */ 
+ */
 class InvoicesController extends HasRowsController
 {
     /**
-     * @param InvoiceRepository $repository
-     * @param InvoiceRowRepository $rowRepository
+     * @param InvoiceRowsRepository $rowRepository
      * @param array $params
      */
-    public function __construct(
-        InvoiceRepository $repository,
-        InvoiceRowRepository $rowRepository,
-        ...$params
-    )
+    public function __construct(InvoiceRowsRepository $rowRepository, ...$params)
     {
-        $this->repository = $repository;
         $this->rowRepository = $rowRepository;
 
         parent::__construct(...$params);
@@ -36,12 +31,9 @@ class InvoicesController extends HasRowsController
     /**
      * Главная страница, список сущностей раздела
      * @param Invoice $entity
-     * @param ClientRepository $clientRepository
+     * @param ClientsRepository $clientRepository
      */
-    public function index(
-        Invoice $entity,
-        ClientRepository $clientRepository
-    )
+    public function index(Invoice $entity, ClientsRepository $clientRepository)
     {
         $this->_index($entity, [
             'clients' => $clientRepository->getSelectList()
@@ -49,12 +41,12 @@ class InvoicesController extends HasRowsController
     }
 
     /**
-     * @param ArticleRepository $articleRepository
-     * @param ClientRepository $clientRepository
+     * @param ArticlesRepository $articleRepository
+     * @param ClientsRepository $clientRepository
      */
     public function create(
-        ArticleRepository $articleRepository,
-        ClientRepository $clientRepository
+        ArticlesRepository $articleRepository,
+        ClientsRepository $clientRepository
     )
     {
         $entity = $this->repository->create();
@@ -72,8 +64,8 @@ class InvoicesController extends HasRowsController
     }
 
     public function update(
-        ArticleRepository $articleRepository,
-        ClientRepository $clientRepository,
+        ArticlesRepository $articleRepository,
+        ClientsRepository $clientRepository,
         $pk
     )
     {
@@ -93,21 +85,19 @@ class InvoicesController extends HasRowsController
     {
         $this->layout = 'printout';
 
-        $type = $this->get['type'];
-        $item = $this->repository
-            //->with('rows')
-            //->with('client')
-            //->with('contract')
-            ->findByPk($pk);
-        
-        if (!$item = $this->model
+        $type = Request::getGet('type');
+        if (!$item = $this->repository->findByPk($pk)) {
+            $this->error(404, 'Такой фактуры не существует');
+        }
+
+        /*if (!$item = $this->model
             ->with('rows')
             ->with('client')
             ->with('contract')
             ->findByPk($pk)
         ) {
             $this->error(404, 'Такой фактуры не существует');
-        }
+        }*/
         $client = $item->client;
         $contractType = $item->getContractType();
         $contractNum = $item->contract_num;

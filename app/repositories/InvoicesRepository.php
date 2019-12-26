@@ -3,30 +3,37 @@ namespace app\repositories;
 
 use Iterator,
     tachyon\db\dataMapper\Repository,
-    app\repositories\ClientRepository,
-    app\entities\Bill,
+    app\repositories\InvoiceRowsRepository,
+    app\repositories\ClientsRepository,
+    app\entities\Invoice,
     tachyon\traits\DateTime;
 
 /**
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class BillRepository extends Repository
+class InvoicesRepository extends HasRowsRepository
 {
     use DateTime;
 
     /**
-     * @var app\entities\Bill
+     * @var app\entities\Invoice
      */
-    protected $bill;
+    protected $invoice;
     /**
-     * @var ClientRepository
+     * @var ClientsRepository
      */
     protected $clientRepository;
 
-    public function __construct(Bill $bill, ClientRepository $clientRepository, ...$params)
+    public function __construct(
+        Invoice $invoice,
+        InvoiceRowsRepository $rowRepository,
+        ClientsRepository $clientRepository,
+        ...$params
+    )
     {
-        $this->bill = $bill;
+        $this->invoice = $invoice;
+        $this->rowRepository = $rowRepository;
         $this->clientRepository = $clientRepository;
 
         parent::__construct(...$params);
@@ -34,11 +41,11 @@ class BillRepository extends Repository
 
     /**
      * @param array $conditions условия поиска
-     * @return BillRepository
+     * @return InvoicesRepository
      */
     public function setSearchConditions($conditions = array()): Repository
     {
-        $this->where = $this->setYearBorders($conditions);
+        $conditions = $this->setYearBorders($conditions);
 
         parent::setSearchConditions($conditions);
 
@@ -49,16 +56,16 @@ class BillRepository extends Repository
     {
         $arrayData = $this->persistence
             ->select([
-                'b.id',
-                'b.contract_num',
-                'b.sum',
-                'b.remainder',
-                'b.date',
-                'b.contents',
-                'cl.name' => 'clientName'
+                't.id',
+                't.number',
+                't.contract_num',
+                't.sum',
+                't.date',
+                't.payed',
+                'cl.name' => 'clientName',
+                'cl.address' => 'clientAddress',
             ])
             ->from($this->tableName)
-            ->asa('b')
             ->with([$this->clientRepository->getTableName() => 'cl'], ['client_id' => 'id'])
             ->findAll($where, $sort);
 
@@ -68,32 +75,32 @@ class BillRepository extends Repository
     /**
      * @inheritdoc
      */
-    public function getAllByContract($where=array()): array
+    public function getAllByContract($where = array()): array
     {
         $this
-            ->select(array('date', 'sum'))
+            ->select(array('date', 'number', 'sum'))
             ->join(array('clients' => 'cl'), array('client_id', 'id'))
             ->join(array('contracts' => 'cn'), array('contract_num', 'contract_num'))
             ->gt($where, 'cn.date', 'dateFrom')
             ->lt($where, 'cn.date', 'dateTo')
         ;
-        if (!empty($where['client_id'])) {
+
+        if (!empty($where['client_id']))
             $this->addWhere(array('cl.id' => $where['client_id']));
-        }
-        if (!empty($where['contract_num'])) {
+        if (!empty($where['contract_num']))
             $this->addWhere(array('cn.contract_num' => $where['contract_num']));
-        }
+
         return $this->findAllRaw();
     }
 
     /**
      * @inheritdoc
      */
-    public function getTotalByContract($where=array()): int
+    public function getTotalByContract($where = array()): int
     {
         $this
-            ->asa('b')
-            ->select('SUM(b.sum) as total')
+            ->asa('i')
+            ->select('SUM(i.sum) as total')
             ->join(array('clients' => 'cl'), array('client_id', 'id'))
             ->join(array('contracts' => 'cn'), array('contract_num', 'contract_num'))
             ->gt($where, 'cn.date', 'dateFrom')
@@ -107,10 +114,22 @@ class BillRepository extends Repository
             $this->addWhere(array('cn.contract_num' => $where['contract_num']));
         }
         $item = $this->findOneRaw();
-        
         if ($value = $item['total']) {
             return $value;
         }
         return 0;
+    }
+
+    /**
+     * Возвращает последний (максимальный) номер
+     * @return integer
+     */
+    public function getLastNumber(): int
+    {
+        $item = $this
+            ->select('number')
+            ->findOneRaw();
+
+        return $item['number'];
     }
 }

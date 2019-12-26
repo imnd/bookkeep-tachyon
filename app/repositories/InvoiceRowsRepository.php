@@ -9,7 +9,7 @@ use
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class InvoiceRowRepository extends Repository
+class InvoiceRowsRepository extends Repository
 {
     /**
      * @var app\entities\InvoiceRow

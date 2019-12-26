@@ -3,9 +3,9 @@ namespace app\repositories;
 
 use Iterator,
     tachyon\db\dataMapper\Repository,
-    app\repositories\ContractRowRepository,
-    app\repositories\ClientRepository,
-    app\repositories\InvoiceRepository,
+    app\repositories\ContractRowsRepository,
+    app\repositories\ClientsRepository,
+    app\repositories\InvoicesRepository,
     app\entities\Contract
 ;
 
@@ -13,7 +13,7 @@ use Iterator,
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class ContractRepository extends HasRowsRepository
+class ContractsRepository extends HasRowsRepository
 {
     use \tachyon\traits\DateTime;
 
@@ -22,19 +22,19 @@ class ContractRepository extends HasRowsRepository
      */
     protected $contract;
     /**
-     * @var ClientRepository
+     * @var ClientsRepository
      */
     protected $clientRepository;
     /**
-     * @var InvoiceRepository
+     * @var InvoicesRepository
      */
     protected $invoiceRepository;
 
     public function __construct(
         Contract $contract,
-        ContractRowRepository $rowRepository,
-        ClientRepository $clientRepository,
-        InvoiceRepository $invoiceRepository,
+        ContractRowsRepository $rowRepository,
+        ClientsRepository $clientRepository,
+        InvoicesRepository $invoiceRepository,
         ...$params
     )
     {
@@ -48,7 +48,7 @@ class ContractRepository extends HasRowsRepository
 
     /**
      * @param array $conditions условия поиска
-     * @return ContractRepository
+     * @return ContractsRepository
      */
     public function setSearchConditions($conditions = array()): Repository
     {

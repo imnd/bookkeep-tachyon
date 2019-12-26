@@ -8,7 +8,7 @@ use tachyon\db\dataMapper\Repository,
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class ArticleCatRepository extends Repository
+class ArticleCatsRepository extends Repository
 {
     /**
      * @var app\entities\ArticleCat

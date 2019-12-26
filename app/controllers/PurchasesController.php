@@ -1,29 +1,28 @@
 <?php
 namespace app\controllers;
 
-use app\entities\Purchase,
-    app\repositories\ArticleRepository,
-    app\repositories\ClientRepository,
-    app\repositories\PurchaseRowRepository,
-    app\repositories\PurchaseRepository
+use
+    tachyon\Request,
+    app\entities\Purchase,
+    app\repositories\ArticlesRepository,
+    app\repositories\ClientsRepository,
+    app\repositories\PurchaseRowsRepository
 ;
 
 /**
  * Контроллер закупок
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
- */ 
+ */
 class PurchasesController extends HasRowsController
 {
     /**
-     * @param PurchaseRepository $repository
-     * @param PurchaseRowRepository $rowRepository
+     * @param PurchaseRowsRepository $rowRepository
      * @param array $params
      */
     public function __construct(
-        PurchaseRepository $repository,
-        PurchaseRowRepository $rowRepository,
+        PurchaseRowsRepository $rowRepository,
         ...$params
     )
     {
@@ -37,12 +36,12 @@ class PurchasesController extends HasRowsController
      * Главная страница, список договоров.
      *
      * @param Purchase $entity
-     * @param ClientRepository $clientRepository
+     * @param ClientsRepository $clientRepository
      * @param null $type
      */
     public function index(
         Purchase $entity,
-        ClientRepository $clientRepository,
+        ClientsRepository $clientRepository,
         $type = null
     )
     {
@@ -54,16 +53,16 @@ class PurchasesController extends HasRowsController
 
     /**
      * Собираем закупку за определенное число
-     * @param ArticleRepository $articleRepository
-     * @param ClientRepository $clientRepository
+     * @param ArticlesRepository $articleRepository
+     * @param ClientsRepository $clientRepository
      */
     public function create(
-        ArticleRepository $articleRepository,
-        ClientRepository $clientRepository
+        ArticlesRepository $articleRepository,
+        ClientsRepository $clientRepository
     )
     {
         $entity = $this->repository->create();
-        $entity->setDate($this->get['date'] ?? date('Y-m-d'));
+        $entity->setDate(Request::getGet('date') ?? date('Y-m-d'));
         if ($this->save($entity)) {
             $this->redirect("/{$this->id}");
         }
@@ -78,13 +77,13 @@ class PurchasesController extends HasRowsController
     }
 
     /**
-     * @param ArticleRepository $articleRepository
-     * @param ClientRepository $clientRepository
+     * @param ArticlesRepository $articleRepository
+     * @param ClientsRepository $clientRepository
      * @param int $pk
      */
     public function update(
-        ArticleRepository $articleRepository,
-        ClientRepository $clientRepository,
+        ArticlesRepository $articleRepository,
+        ClientsRepository $clientRepository,
         $pk
     )
     {

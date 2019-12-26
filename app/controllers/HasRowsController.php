@@ -22,12 +22,12 @@ class HasRowsController extends CrudController
      */
     protected function save(Entity $entity)
     {
-        if (empty($this->post)) {
+        if (empty($postParams = Request::getPost())) {
             return false;
         }
         $errors = [];
         // сохраням
-        $entity->setAttributes($this->post);
+        $entity->setAttributes($postParams);
         if (!$entity->save()) {
             $errors[] = $entity->getErrorsSummary();
         }
@@ -39,7 +39,7 @@ class HasRowsController extends CrudController
         }
         // сохраням строки
         $sum = 0;
-        $rowsData = ArrayHelper::transposeArray($this->post);
+        $rowsData = ArrayHelper::transposeArray($postParams);
         foreach ($rowsData as $rowData) {
             $row = $this->rowRepository->create();
             $rowData[$row->getRowFk()] = $entity->getPk();

@@ -5,8 +5,8 @@ use
     tachyon\components\TestCase,
     tachyon\db\dbal\DbFactory,
     tachyon\db\dataMapper\Persistence,
-    app\repositories\ArticleRepository,
-    app\repositories\ArticleSubcatRepository,
+    app\repositories\ArticlesRepository,
+    app\repositories\ArticleSubcatsRepository,
     app\entities\Article,
     app\entities\ArticleSubcat
 ;

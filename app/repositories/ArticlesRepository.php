@@ -3,7 +3,7 @@ namespace app\repositories;
 
 use Iterator,
     tachyon\db\dataMapper\Repository,
-    app\repositories\ArticleSubcatRepository,
+    app\repositories\ArticleSubcatsRepository,
     app\entities\Article,
     app\traits\Select
 ;
@@ -12,7 +12,7 @@ use Iterator,
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class ArticleRepository extends Repository
+class ArticlesRepository extends Repository
 {
     use Select;
 
@@ -27,7 +27,7 @@ class ArticleRepository extends Repository
 
     public function __construct(
         Article $article,
-        ArticleSubcatRepository $articleSubcatRepository,
+        ArticleSubcatsRepository $articleSubcatRepository,
         ...$params
     )
     {
@@ -58,7 +58,7 @@ class ArticleRepository extends Repository
 
     /**
      * @param array $conditions условия поиска
-     * @return ArticleRepository
+     * @return ArticlesRepository
      */
     public function setSearchConditions($conditions = array()): Repository
     {
@@ -66,7 +66,7 @@ class ArticleRepository extends Repository
             $this->terms->gt($conditions, 'price', 'priceFrom'),
             $this->terms->lt($conditions, 'price', 'priceTo')
         );
-        
+
         parent::setSearchConditions($conditions);
 
         return $this;

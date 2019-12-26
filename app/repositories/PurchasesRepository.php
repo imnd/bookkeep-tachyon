@@ -4,7 +4,7 @@ namespace app\repositories;
 use
     tachyon\db\dataMapper\Repository,
     tachyon\traits\DateTime,
-    app\repositories\PurchaseRowRepository,
+    app\repositories\PurchaseRowsRepository,
     app\entities\Purchase
 ;
 
@@ -12,7 +12,7 @@ use
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class PurchaseRepository extends HasRowsRepository
+class PurchasesRepository extends HasRowsRepository
 {
     use DateTime;
 
@@ -23,12 +23,12 @@ class PurchaseRepository extends HasRowsRepository
 
     /**
      * @param Purchase $purchase
-     * @param PurchaseRowRepository $rowRepository
+     * @param PurchaseRowsRepository $rowRepository
      * @param array $params
      */
     public function __construct(
         Purchase $purchase,
-        PurchaseRowRepository $rowRepository,
+        PurchaseRowsRepository $rowRepository,
         ...$params
     )
     {
@@ -40,7 +40,7 @@ class PurchaseRepository extends HasRowsRepository
 
     /**
      * @param array $conditions условия поиска
-     * @return PurchaseRepository
+     * @return PurchasesRepository
      */
     public function setSearchConditions($conditions = array()): Repository
     {

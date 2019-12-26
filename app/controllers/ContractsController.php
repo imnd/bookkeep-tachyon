@@ -2,35 +2,31 @@
 namespace app\controllers;
 
 use app\entities\Contract,
-    app\repositories\ArticleRepository,
-    app\repositories\ClientRepository,
-    app\repositories\ContractRowRepository,
-    app\repositories\ContractRepository
+    app\repositories\ArticlesRepository,
+    app\repositories\ClientsRepository,
+    app\repositories\ContractRowsRepository
 ;
 
 /**
  * class Index
  * Контроллер
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
- */ 
+ */
 class ContractsController extends HasRowsController
 {
     protected $layout = 'contracts';
 
     /**
-     * @param ContractRepository $repository
-     * @param ContractRowRepository $rowRepository
+     * @param ContractRowsRepository $rowRepository
      * @param array $params
      */
     public function __construct(
-        ContractRepository $repository,
-        ContractRowRepository $rowRepository,
+        ContractRowsRepository $rowRepository,
         ...$params
     )
     {
-        $this->repository = $repository;
         $this->rowRepository = $rowRepository;
 
         parent::__construct(...$params);
@@ -40,12 +36,12 @@ class ContractsController extends HasRowsController
      * Главная страница, список договоров.
      *
      * @param Contract $entity
-     * @param ClientRepository $clientRepository
+     * @param ClientsRepository $clientRepository
      * @param string $type
      */
     public function index(
         Contract $entity,
-        ClientRepository $clientRepository,
+        ClientsRepository $clientRepository,
         $type = null
     )
     {
@@ -56,12 +52,12 @@ class ContractsController extends HasRowsController
     }
 
     /**
-     * @param ArticleRepository $articleRepository
-     * @param ClientRepository $clientRepository
+     * @param ArticlesRepository $articleRepository
+     * @param ClientsRepository $clientRepository
      */
     public function create(
-        ArticleRepository $articleRepository,
-        ClientRepository $clientRepository
+        ArticlesRepository $articleRepository,
+        ClientsRepository $clientRepository
     )
     {
         $row = $this->rowRepository->create();
@@ -75,13 +71,13 @@ class ContractsController extends HasRowsController
     }
 
     /**
-     * @param ArticleRepository $articleRepository
-     * @param ClientRepository $clientRepository
+     * @param ArticlesRepository $articleRepository
+     * @param ClientsRepository $clientRepository
      * @param int $pk
      */
     public function update(
-        ArticleRepository $articleRepository,
-        ClientRepository $clientRepository,
+        ArticlesRepository $articleRepository,
+        ClientsRepository $clientRepository,
         $pk
     )
     {
@@ -108,7 +104,7 @@ class ContractsController extends HasRowsController
 
         $quantitySum = $this->model->getQuantitySum($pk);
         $typeName = $this->model->getTypeName($contract->type);
-        
+
         $termStart = $contract->convDateToReadable($contract->term_start);
         $termEnd = $contract->convDateToReadable($contract->term_end);
         $term = "с $termStart по $termEnd";

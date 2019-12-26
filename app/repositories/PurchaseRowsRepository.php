@@ -9,7 +9,7 @@ use
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class PurchaseRowRepository extends Repository
+class PurchaseRowsRepository extends Repository
 {
     /**
      * @var app\entities\PurchaseRow

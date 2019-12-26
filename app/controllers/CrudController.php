@@ -5,7 +5,9 @@ use tachyon\exceptions\HttpException,
     tachyon\Controller,
     tachyon\components\Flash,
     tachyon\db\dataMapper\Entity,
-    tachyon\traits\AuthActions
+    tachyon\Request,
+    tachyon\traits\AuthActions,
+    app\interfaces\RepositoryInterface
 ;
 
 /**
@@ -30,12 +32,14 @@ class CrudController extends Controller
      */
     protected $flash;
     /**
-     * @var tachyon\db\dataMapper\Repository
+     * @var RepositoryInterface
      */
     protected $repository;
 
-    public function __construct(Flash $flash, ...$params)
+    public function __construct(RepositoryInterface $repository, Flash $flash, ...$params)
     {
+        $this->repository = $repository;
+
         $this->flash = $flash;
 
         parent::__construct(...$params);
@@ -61,12 +65,13 @@ class CrudController extends Controller
      */
     protected function _index(Entity $entity, $params = array())
     {
+        $getQuery = Request::getQuery();
         $this->view('index', array_merge([
             'entity' => $entity,
             'items' => $this
                 ->repository
-                ->setSearchConditions($this->get)
-                ->setSort($this->get)
+                ->setSearchConditions($getQuery)
+                ->setSort($getQuery)
                 ->findAll(),
         ], $params));
     }
@@ -108,8 +113,8 @@ class CrudController extends Controller
      */
     protected function _save(Entity $entity)
     {
-        if (!empty($this->post)) {
-            $entity->setAttributes($this->post);
+        if (empty($postParams = Request::getPost())) {
+            $entity->setAttributes($postParams);
             if ($entity->save()) {
                 $this->flash->setFlash('Сохранено успешно', Flash::FLASH_TYPE_SUCCESS);
                 return true;

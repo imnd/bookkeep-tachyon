@@ -8,11 +8,10 @@ use tachyon\db\dataMapper\Repository,
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class ClientRepository extends Repository
+class ClientsRepository extends Repository
 {
     use \app\traits\Select;
 
-    protected $tableName = 'clients';
     /**
      * @var Client
      */
@@ -27,7 +26,7 @@ class ClientRepository extends Repository
 
     /**
      * @param array $conditions условия поиска
-     * @return ClientRepository
+     * @return ClientsRepository
      */
     public function setSearchConditions($conditions = array()): Repository
     {

@@ -8,7 +8,7 @@ use tachyon\db\dataMapper\Repository,
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class RegionRepository extends Repository
+class RegionsRepository extends Repository
 {
     /**
      * @inheritdoc

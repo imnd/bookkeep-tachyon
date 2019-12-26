@@ -1,41 +1,28 @@
 <?php
 namespace app\controllers;
 
-use app\entities\Article,
-    app\repositories\ArticleRepository,
-    app\repositories\ArticleSubcatRepository;
+use
+    tachyon\Request,
+    app\entities\Article,
+    app\repositories\ArticlesRepository,
+    app\repositories\ArticleSubcatsRepository;
 
 /**
  * Контроллер товаров
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2019 IMND
- */ 
+ */
 class ArticlesController extends CrudController
 {
     /**
-     * @var ArticleRepository
-     */
-    protected $repository;
-    /**
-     * @var ArticleSubcatRepository
+     * @var ArticleSubcatsRepository
      */
     protected $subcatRepository;
 
     /**
-     * @param ArticleRepository $repository
-     * @param array $params
-     */
-    public function __construct(ArticleRepository $repository, ...$params)
-    {
-        $this->repository = $repository;
-
-        parent::__construct(...$params);
-    }
-
-    /**
      * Главная страница, список товаров.
-     * 
+     *
      * @param Article $entity
      */
     public function index(Article $entity)
@@ -48,7 +35,7 @@ class ArticlesController extends CrudController
      */
     public function update(
         $pk,
-        ArticleSubcatRepository $articleSubcatRepository,
+        ArticleSubcatsRepository $articleSubcatRepository,
         RegionRepository $regionRepository
     )
     {

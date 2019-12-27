@@ -4,7 +4,6 @@ namespace app\controllers;
 use
     tachyon\Request,
     app\entities\Invoice,
-    app\repositories\InvoiceRowsRepository,
     app\repositories\ArticlesRepository,
     app\repositories\ClientsRepository,
     app\models\Settings;
@@ -17,17 +16,6 @@ use
  */
 class InvoicesController extends HasRowsController
 {
-    /**
-     * @param InvoiceRowsRepository $rowRepository
-     * @param array $params
-     */
-    public function __construct(InvoiceRowsRepository $rowRepository, ...$params)
-    {
-        $this->rowRepository = $rowRepository;
-
-        parent::__construct(...$params);
-    }
-
     /**
      * Главная страница, список сущностей раздела
      * @param Invoice $entity

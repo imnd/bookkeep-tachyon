@@ -5,9 +5,7 @@ use
     tachyon\Request,
     app\entities\Purchase,
     app\repositories\ArticlesRepository,
-    app\repositories\ClientsRepository,
-    app\repositories\PurchaseRowsRepository
-;
+    app\repositories\ClientsRepository;
 
 /**
  * Контроллер закупок
@@ -17,21 +15,6 @@ use
  */
 class PurchasesController extends HasRowsController
 {
-    /**
-     * @param PurchaseRowsRepository $rowRepository
-     * @param array $params
-     */
-    public function __construct(
-        PurchaseRowsRepository $rowRepository,
-        ...$params
-    )
-    {
-        $this->repository = $repository;
-        $this->rowRepository = $rowRepository;
-
-        parent::__construct(...$params);
-    }
-
     /**
      * Главная страница, список договоров.
      *

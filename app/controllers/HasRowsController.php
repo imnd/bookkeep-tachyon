@@ -3,7 +3,8 @@ namespace app\controllers;
 
 use tachyon\db\dataMapper\Entity,
     tachyon\components\Flash,
-    tachyon\helpers\ArrayHelper;
+    tachyon\helpers\ArrayHelper,
+    app\interfaces\RowsRepositoryInterface;
 
 /**
  * class Controller
@@ -15,6 +16,20 @@ use tachyon\db\dataMapper\Entity,
 class HasRowsController extends CrudController
 {
     protected $rowRepository;
+
+    /**
+     * @param RowsRepositoryInterface $rowRepository
+     * @param array $params
+     */
+    public function __construct(
+        RowsRepositoryInterface $rowRepository,
+        ...$params
+    )
+    {
+        $this->rowRepository = $rowRepository;
+
+        parent::__construct(...$params);
+    }
 
     /**
      * @param Entity $entity

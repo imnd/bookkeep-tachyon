@@ -3,9 +3,7 @@ namespace app\controllers;
 
 use app\entities\Contract,
     app\repositories\ArticlesRepository,
-    app\repositories\ClientsRepository,
-    app\repositories\ContractRowsRepository
-;
+    app\repositories\ClientsRepository;
 
 /**
  * class Index
@@ -17,20 +15,6 @@ use app\entities\Contract,
 class ContractsController extends HasRowsController
 {
     protected $layout = 'contracts';
-
-    /**
-     * @param ContractRowsRepository $rowRepository
-     * @param array $params
-     */
-    public function __construct(
-        ContractRowsRepository $rowRepository,
-        ...$params
-    )
-    {
-        $this->rowRepository = $rowRepository;
-
-        parent::__construct(...$params);
-    }
 
     /**
      * Главная страница, список договоров.

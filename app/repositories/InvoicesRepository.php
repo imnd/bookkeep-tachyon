@@ -3,7 +3,7 @@ namespace app\repositories;
 
 use Iterator,
     tachyon\db\dataMapper\Repository,
-    app\repositories\InvoiceRowsRepository,
+    app\repositories\InvoicesRowsRepository,
     app\repositories\ClientsRepository,
     app\entities\Invoice,
     tachyon\traits\DateTime;
@@ -27,7 +27,7 @@ class InvoicesRepository extends HasRowsRepository
 
     public function __construct(
         Invoice $invoice,
-        InvoiceRowsRepository $rowRepository,
+        InvoicesRowsRepository $rowRepository,
         ClientsRepository $clientRepository,
         ...$params
     )

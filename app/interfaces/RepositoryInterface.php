@@ -39,7 +39,7 @@ interface RepositoryInterface
     public function addSortBy($field, $order);
 
     /**
-     * Получить все сущности по условию $where, отсортированных по $sort
+     * Получает все сущности по условию $where, отсортированных по $sort
      * и преобразовать в Iterator
      * 
      * @param array $where
@@ -64,7 +64,7 @@ interface RepositoryInterface
      * @param mixed $pk
      * @return Entity
      */
-    public function findByPk($pk);//: ?Entity
+    public function findByPk($pk): ?Entity;
 
     /**
      * Создает новую сущность.
@@ -72,5 +72,5 @@ interface RepositoryInterface
      * @param bool $mark
      * @return Entity
      */
-    public function create($mark = true);//: ?Entity
+    public function create($mark = true): ?Entity;
 }

@@ -1,8 +1,9 @@
 <?php
 namespace app\repositories;
 
-use tachyon\db\dataMapper\Repository;
-use tachyon\traits\ClassName;
+use tachyon\db\dataMapper\Repository,
+    tachyon\db\dataMapper\Entity,
+    tachyon\traits\ClassName;
 
 /**
  * @author Андрей Сердюк
@@ -33,7 +34,7 @@ class HasRowsRepository extends Repository
     /**
      * @inheritdoc
      */
-    public function findByPk($pk)
+    public function findByPk($pk): ?Entity
     {
         if (!isset($this->collection[$pk])) {
             $entity = $this->getByPk($pk);

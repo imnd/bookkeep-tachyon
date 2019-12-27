@@ -3,13 +3,14 @@ namespace app\repositories;
 
 use
     tachyon\db\dataMapper\Repository,
-    app\entities\PurchaseRow;
+    app\entities\PurchaseRow,
+    app\interfaces\RowsRepositoryInterface;
 
 /**
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class PurchaseRowsRepository extends Repository
+class PurchasesRowsRepository extends Repository implements RowsRepositoryInterface
 {
     /**
      * @var app\entities\PurchaseRow

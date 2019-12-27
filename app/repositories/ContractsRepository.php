@@ -3,7 +3,7 @@ namespace app\repositories;
 
 use Iterator,
     tachyon\db\dataMapper\Repository,
-    app\repositories\ContractRowsRepository,
+    app\repositories\ContractsRowsRepository,
     app\repositories\ClientsRepository,
     app\repositories\InvoicesRepository,
     app\entities\Contract
@@ -32,7 +32,7 @@ class ContractsRepository extends HasRowsRepository
 
     public function __construct(
         Contract $contract,
-        ContractRowsRepository $rowRepository,
+        ContractsRowsRepository $rowRepository,
         ClientsRepository $clientRepository,
         InvoicesRepository $invoiceRepository,
         ...$params

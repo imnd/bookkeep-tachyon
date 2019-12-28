@@ -5,7 +5,7 @@ use tachyon\db\activeRecord\ActiveRecord;
 
 /**
  * Класс модели настроек приложения
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
@@ -42,7 +42,7 @@ class Settings extends ActiveRecord
 
     /**
      * Реквизиты фирмы
-     * 
+     *
      * @param $from string какой фирмы
      * @return object
      */
@@ -50,9 +50,9 @@ class Settings extends ActiveRecord
     {
         $firm = [];
         $keys = ['director', 'name_short', 'name', 'address', 'certificate', 'INN', 'KPP', 'OKUD', 'OKPO', 'bank', 'account'];
-        foreach ($keys as $key)
+        foreach ($keys as $key) {
             $firm[$key] = $this->getValueByKey("{$from}_$key");
-
+        }
         return (object)$firm;
     }
 
@@ -96,7 +96,7 @@ class Settings extends ActiveRecord
 
     /**
      * Пути для сохранения бэкапов
-     * 
+     *
      * @return array
      */
     public function getPaths()

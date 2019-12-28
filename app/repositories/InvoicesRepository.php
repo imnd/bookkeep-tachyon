@@ -5,7 +5,6 @@ use Iterator,
     tachyon\db\dataMapper\Repository,
     tachyon\db\dataMapper\Entity,
     tachyon\traits\DateTime,
-    app\repositories\InvoicesRowsRepository,
     app\repositories\ClientsRepository,
     app\repositories\ContractsRepository,
     app\entities\Client,
@@ -21,10 +20,6 @@ class InvoicesRepository extends HasRowsRepository
     use DateTime;
 
     /**
-     * @var app\entities\Invoice
-     */
-    protected $invoice;
-    /**
      * @var ContractsRepository
      */
     protected $contractsRepository;
@@ -33,16 +28,20 @@ class InvoicesRepository extends HasRowsRepository
      */
     protected $clientsRepository;
 
+    /**
+     * @param Invoice $invoice
+     * @param ClientsRepository $clientsRepository
+     * @param ContractsRepository $contractsRepository
+     * @param array $params
+     */
     public function __construct(
         Invoice $invoice,
-        InvoicesRowsRepository $rowRepository,
         ClientsRepository $clientsRepository,
         ContractsRepository $contractsRepository,
         ...$params
     )
     {
-        $this->invoice = $invoice;
-        $this->rowRepository = $rowRepository;
+        $this->entity = $invoice;
         $this->contractsRepository = $contractsRepository;
         $this->clientsRepository = $clientsRepository;
 

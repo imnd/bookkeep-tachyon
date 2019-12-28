@@ -24,7 +24,7 @@ class InvoicesController extends HasRowsController
     public function index(Invoice $entity, ClientsRepository $clientRepository)
     {
         $this->_index($entity, [
-            'clients' => $clientRepository->getSelectList()
+            'clients' => $clientRepository->getAllSelectList()
         ]);
     }
 
@@ -45,8 +45,8 @@ class InvoicesController extends HasRowsController
         $this->view('create', [
             'entity' => $entity,
             'row' => $this->rowRepository->create(false),
-            'clients' => $clientRepository->getSelectList(),
-            'articlesList' => $articleRepository->getSelectList(),
+            'clients' => $clientRepository->getAllSelectList(),
+            'articlesList' => $articleRepository->getAllSelectList(),
             'articles' => $articleRepository->findAllRaw(),
         ]);
     }
@@ -59,8 +59,8 @@ class InvoicesController extends HasRowsController
     {
         $this->_update($pk, [
             'row' => $this->rowRepository->create(false),
-            'clients' => $clientRepository->getSelectList(),
-            'articlesList' => $articleRepository->getSelectList(),
+            'clients' => $clientRepository->getAllSelectList(),
+            'articlesList' => $articleRepository->getAllSelectList(),
             'articles' => $articleRepository->findAllRaw(),
         ]);
     }

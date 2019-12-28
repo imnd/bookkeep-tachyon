@@ -11,17 +11,12 @@ use tachyon\db\dataMapper\Repository,
 class RegionsRepository extends Repository
 {
     /**
-     * @inheritdoc
+     * @param Region $region
+     * @param array $params
      */
-    protected $tableName = 'regions';
-    /**
-     * @var app\entities\Region
-     */
-    protected $region;
-
     public function __construct(Region $region, ...$params)
     {
-        $this->region = $region;
+        $this->entity = $region;
 
         parent::__construct(...$params);
     }

@@ -1,7 +1,10 @@
-<h1>Приложение №1 к <?=$typeName?>у №<?=$contract->contract_num?> от <?=$contract->getDay($contract->date)?> <?=$contract->getMonth($contract->date)?> <?=$contract->getYear($contract->date)?> г.<br />
+<h1>Приложение №1 к <?=$typeName?>у №<?=$contract->getContractNum()?> от <?=$contract->getDay()?> <?=$contract->getMonth()?> <?=$contract->getYear()?> г.<br />
 Спецификация поставки продуктов питания <?=$term?>
 </h1>
-<?php if (count($rows)>0) {?>
+<?php
+$rows = $contract->getRows();
+$totalSum = 0;
+if (count($rows) > 0) {?>
 <table class="bill">
     <tr class="hat">
         <th class="short">№<br />п/п</th>
@@ -17,8 +20,8 @@
         <th>Срок поставки</th>
     </tr>
     <?php
-    $i = $sum = $quantity = $totalSum = 0;
-    $artCatDescr = $rows[0]['cat_description'];
+    $i = $sum = $quantity = 0;
+    $artCatDescr = $rows[0]['cat_description'] ?? '';
     $this->display('_artCat', compact('artCatDescr'));
     foreach ($rows as $row) {
         if ($artCatDescr!==$row['cat_description']) {

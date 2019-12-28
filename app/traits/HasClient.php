@@ -19,6 +19,30 @@ trait HasClient
      * @var string
      */
     protected $clientAddress;
+    /**
+     * @var string
+     */
+    protected $clientAccount;
+    /**
+     * @var string
+     */
+    protected $clientBank;
+    /**
+     * @var string
+     */
+    protected $clientINN;
+    /**
+     * @var string
+     */
+    protected $clientKPP;
+    /**
+     * @var string
+     */
+    protected $clientContactPost;
+    /**
+     * @var string
+     */
+    protected $clientContactFio;
 
     /**
      * @return int
@@ -89,6 +113,22 @@ trait HasClient
     }
 
     /**
+     * @return string
+     */
+    public function getClientContactPost()
+    {
+        return $this->clientContactPost ?? null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClientContactFio()
+    {
+        return $this->clientContactFio ?? null;
+    }
+
+    /**
      * @param int|null $value
      * @return self
      */
@@ -149,5 +189,23 @@ trait HasClient
     public function setClientKPP(string $value = null)
     {
         return $this->_setAttribute('clientKPP', $value);
+    }
+
+    /**
+     * @param string|null $value
+     * @return self
+     */
+    public function setClientContactPost(string $value = null)
+    {
+        return $this->_setAttribute('clientContactPost', $value);
+    }
+
+    /**
+     * @param string|null $value
+     * @return self
+     */
+    public function setClientContactFio(string $value = null)
+    {
+        return $this->_setAttribute('clientContactFio', $value);
     }
 }

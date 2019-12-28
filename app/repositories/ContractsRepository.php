@@ -3,8 +3,9 @@ namespace app\repositories;
 
 use Iterator,
     tachyon\db\dataMapper\Repository,
+    tachyon\db\dataMapper\Entity,
     tachyon\traits\DateTime,
-    app\repositories\ContractsRowsRepository,
+    app\repositories\ClientsRepository,
     app\entities\Contract
 ;
 
@@ -17,18 +18,23 @@ class ContractsRepository extends HasRowsRepository
     use DateTime;
 
     /**
-     * @var app\entities\Contract
+     * @var ClientsRepository
      */
-    protected $contract;
+    protected $clientsRepository;
 
+    /**
+     * @param Contract $contract
+     * @param ClientsRepository $clientsRepository
+     * @param array $params
+     */
     public function __construct(
         Contract $contract,
-        ContractsRowsRepository $rowRepository,
+        ClientsRepository $clientsRepository,
         ...$params
     )
     {
-        $this->contract = $contract;
-        $this->rowRepository = $rowRepository;
+        $this->entity = $contract;
+        $this->clientsRepository = $clientsRepository;
 
         parent::__construct(...$params);
     }
@@ -44,6 +50,24 @@ class ContractsRepository extends HasRowsRepository
         parent::setSearchConditions($conditions);
 
         return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function findByPk($pk): ?Entity
+    {
+        $contract = parent::findByPk($pk);
+        /** @var Client */
+        if ($client = $this->clientsRepository
+            ->findByPk($contract->getClientId())) {
+            $contract
+                ->setClientName($client->getName())
+                ->setClientContactPost($client->getContactPost())
+                ->setClientContactFio($client->getContactFio())
+            ;
+        }
+        return $contract;
     }
 
     public function findAll(array $where = array(), array $sort = array()): Iterator

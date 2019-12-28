@@ -27,6 +27,18 @@ class InvoiceRow extends Row
      */
     protected $articleId;
     /**
+     * @var string
+     */
+    protected $articleName;
+    /**
+     * @var string
+     */
+    protected $articleUnit;
+    /**
+     * @var string
+     */
+    protected $sum;
+    /**
      * @var int
      */
     protected $invoiceId;
@@ -43,9 +55,24 @@ class InvoiceRow extends Row
         return $this->articleId;
     }
 
+    public function getArticleName()
+    {
+        return $this->articleName;
+    }
+
+    public function getArticleUnit()
+    {
+        return $this->articleUnit;
+    }
+
     public function getInvoiceId()
     {
         return $this->invoiceId;
+    }
+
+    public function getSum()
+    {
+        return $this->sum;
     }
 
     public function getAttributes(): array
@@ -79,9 +106,24 @@ class InvoiceRow extends Row
         return $this->_setAttribute('articleId', $value);
     }
 
+    public function setArticleName(string $value = null): InvoiceRow
+    {
+        return $this->_setAttribute('articleName', $value);
+    }
+
+    public function setArticleUnit(string $value = null): InvoiceRow
+    {
+        return $this->_setAttribute('articleUnit', $value);
+    }
+
     public function setInvoiceId(int $value = null): InvoiceRow
     {
         return $this->_setAttribute('invoiceId', $value);
+    }
+
+    public function setSum(int $value = null): InvoiceRow
+    {
+        return $this->_setAttribute('sum', $value);
     }
 
     public function setAttributes(array $state)

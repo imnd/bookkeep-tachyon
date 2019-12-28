@@ -26,12 +26,31 @@ class BillsController extends CrudController
     {
         $this->view('index', [
             'entity' => $entity,
-            'clients' => $clientRepository->getSelectList(),
+            'clients' => $clientRepository->getAllSelectList(),
             'items' => $this
                 ->repository
                 ->setSearchConditions(Request::getQuery())
                 ->setSort(Request::getQuery())
                 ->findAll(),
+        ]);
+    }
+
+    public function update(
+        ClientsRepository $clientRepository,
+        $pk
+    )
+    {
+        /**
+         * @var Entity $entity
+         */
+        $entity = $this->getEntity($pk);
+        if ($this->_save($entity)) {
+            $this->redirect("/{$this->id}");
+        }
+        $this->view('update', [
+            'entity' => $entity,
+            'clients' => $clientRepository->getAllSelectList(),
+            'contents' => $this->repository->getSelectListFromArr($this->repository->getContentsList(), true, false),
         ]);
     }
 }

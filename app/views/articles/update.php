@@ -1,1 +1,1 @@
-<?php $this->display('_form', compact('model'));
+<?php $this->display('_form', compact('entity', 'articleSubcats', 'units'));

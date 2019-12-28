@@ -3,7 +3,8 @@ namespace app\controllers;
 
 use app\entities\Contract,
     app\repositories\ArticlesRepository,
-    app\repositories\ClientsRepository;
+    app\repositories\ClientsRepository,
+    app\models\Settings;
 
 /**
  * class Index
@@ -31,7 +32,7 @@ class ContractsController extends HasRowsController
     {
         $this->_index($entity, [
             'type' => $type,
-            'clients' => $clientRepository->getSelectList()
+            'clients' => $clientRepository->getAllSelectList()
         ]);
     }
 
@@ -46,8 +47,8 @@ class ContractsController extends HasRowsController
     {
         $row = $this->rowRepository->create();
         $this->_create([
-            'clients' => $clientRepository->getSelectList(),
-            'articlesList' => $articleRepository->getSelectList(),
+            'clients' => $clientRepository->getAllSelectList(),
+            'articlesList' => $articleRepository->getAllSelectList(),
             'articles' => $articleRepository->findAllRaw(),
             'row' => $row,
             'rows' => array($row),
@@ -67,34 +68,34 @@ class ContractsController extends HasRowsController
     {
         $this->_update($pk, [
             'row' => $this->rowRepository->create(false),
-            'clients' => $clientRepository->getSelectList(),
-            'articlesList' => $articleRepository->getSelectList(),
+            'clients' => $clientRepository->getAllSelectList(),
+            'articlesList' => $articleRepository->getAllSelectList(),
             'articles' => $articleRepository->findAllRaw(),
         ]);
     }
 
     /**
      * @param Settings $settings
-     * @param ContractsRows $contractsRows
+     * @param ContractsRowsRepository $contractsRows
      * @param int $pk
      */
-    public function printout(Settings $settings, ContractsRows $contractsRows, $pk)
+    public function printout(Settings $settings, $pk)
     {
         $this->layout = 'printout';
 
-        $contract = $this->model
-            ->with('client')
-            ->findByPk($pk);
+        /** @var Contract */
+        if (!$contract = $this->repository->findByPk($pk)) {
+            $this->error(404, 'Такой фактуры не существует');
+        }
 
-        $quantitySum = $this->model->getQuantitySum($pk);
-        $typeName = $this->model->getTypeName($contract->type);
+        $quantitySum = $contract->getQuantitySum($pk);
+        $typeName = $contract->getTypeName($contract->getType());
 
-        $termStart = $contract->convDateToReadable($contract->term_start);
-        $termEnd = $contract->convDateToReadable($contract->term_end);
+        $termStart = $contract->convDateToReadable($contract->getTermStart());
+        $termEnd = $contract->convDateToReadable($contract->getTermEnd());
         $term = "с $termStart по $termEnd";
-        $rows = $contractsRows->getAllByContract($pk);
         $firm = $settings->getRequisites('firm');
-        $this->view('printout', compact('contract', 'rows', 'quantitySum', 'typeName', 'term', 'firm'));
+        $this->view('printout', compact('contract', 'quantitySum', 'typeName', 'term', 'firm'));
     }
 
     public function getItem($num)

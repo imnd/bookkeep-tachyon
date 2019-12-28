@@ -1,7 +1,8 @@
 <?php
 namespace app\entities;
 
-use tachyon\db\dataMapper\Entity;
+use tachyon\db\dataMapper\Entity,
+    app\interfaces\RowEntityInterface;
 
 /**
  * Класс сущности "Клиент"
@@ -9,7 +10,7 @@ use tachyon\db\dataMapper\Entity;
  * @author Андрей Сердюк
  * @copyright (c) 2019 IMND
  */
-class Row extends Entity
+class Row extends Entity implements RowEntityInterface
 {
     /**
      * @var mixed

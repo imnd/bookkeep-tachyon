@@ -4,8 +4,9 @@ namespace app\controllers;
 use
     tachyon\Request,
     app\entities\Article,
-    app\repositories\ArticlesRepository,
-    app\repositories\ArticleSubcatsRepository;
+    app\repositories\ArticleSubcatsRepository,
+    app\repositories\RegionsRepository
+;
 
 /**
  * Контроллер товаров
@@ -34,14 +35,15 @@ class ArticlesController extends CrudController
      * @param int $pk
      */
     public function update(
-        $pk,
-        ArticleSubcatsRepository $articleSubcatRepository,
-        RegionRepository $regionRepository
+        ArticleSubcatsRepository $articleSubcatsRepository,
+        RegionsRepository $regionsRepository,
+        $pk
     )
     {
         $this->_update($pk, [
-            'regions' => $regionRepository->findAll(),
-            'articleSubcats' => $articleSubcatRepository->getSelectList(),
+            'articleSubcats' => $articleSubcatsRepository->getAllSelectList(),
+            'regions' => $regionsRepository->findAll(),
+            'units' => $this->repository->getSelectListFromArr($this->repository->getUnits()),
         ]);
     }
 

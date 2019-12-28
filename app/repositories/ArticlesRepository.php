@@ -3,9 +3,9 @@ namespace app\repositories;
 
 use Iterator,
     tachyon\db\dataMapper\Repository,
+    tachyon\traits\RepositoryListTrait,
     app\repositories\ArticleSubcatsRepository,
-    app\entities\Article,
-    app\traits\Select
+    app\entities\Article
 ;
 
 /**
@@ -14,24 +14,25 @@ use Iterator,
  */
 class ArticlesRepository extends Repository
 {
-    use Select;
+    use RepositoryListTrait;
 
-    /**
-     * @var app\entities\Article
-     */
-    protected $article;
     /**
      * @var app\repositories\ArticleSubcatRepository
      */
     protected $articleSubcatRepository;
 
+    /**
+     * @param Article $article
+     * @param ArticleSubcatsRepository $articleSubcatRepository
+     * @param array $params
+     */
     public function __construct(
         Article $article,
         ArticleSubcatsRepository $articleSubcatRepository,
         ...$params
     )
     {
-        $this->article = $article;
+        $this->entity = $article;
         $this->articleSubcatRepository = $articleSubcatRepository;
 
         parent::__construct(...$params);
@@ -63,12 +64,20 @@ class ArticlesRepository extends Repository
     public function setSearchConditions($conditions = array()): Repository
     {
         $this->where = array_merge(
-            $this->terms->gt($conditions, 'price', 'priceFrom'),
-            $this->terms->lt($conditions, 'price', 'priceTo')
+            $this->gt($conditions, 'price', 'priceFrom'),
+            $this->lt($conditions, 'price', 'priceTo')
         );
 
         parent::setSearchConditions($conditions);
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getUnits()
+    {
+        return array('кг', 'шт');
     }
 }

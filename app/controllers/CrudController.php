@@ -7,7 +7,7 @@ use tachyon\exceptions\HttpException,
     tachyon\db\dataMapper\Entity,
     tachyon\Request,
     tachyon\traits\AuthActions,
-    app\interfaces\RepositoryInterface
+    tachyon\db\dataMapper\RepositoryInterface
 ;
 
 /**
@@ -113,7 +113,7 @@ class CrudController extends Controller
      */
     protected function _save(Entity $entity)
     {
-        if (empty($postParams = Request::getPost())) {
+        if (!empty($postParams = Request::getPost())) {
             $entity->setAttributes($postParams);
             if ($entity->save()) {
                 $this->flash->setFlash('Сохранено успешно', Flash::FLASH_TYPE_SUCCESS);

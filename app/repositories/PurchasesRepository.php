@@ -4,9 +4,7 @@ namespace app\repositories;
 use
     tachyon\db\dataMapper\Repository,
     tachyon\traits\DateTime,
-    app\repositories\PurchasesRowsRepository,
-    app\entities\Purchase
-;
+    app\entities\Purchase;
 
 /**
  * @author Андрей Сердюк
@@ -15,29 +13,18 @@ use
 class PurchasesRepository extends HasRowsRepository
 {
     use DateTime;
-
-    /**
-     * @var app\entities\Purchase
-     */
-    protected $purchase;
-
+ 
     /**
      * @param Purchase $purchase
-     * @param PurchasesRowsRepository $rowRepository
      * @param array $params
      */
-    public function __construct(
-        Purchase $purchase,
-        PurchasesRowsRepository $rowRepository,
-        ...$params
-    )
+    public function __construct(Purchase $purchase, ...$params)
     {
-        $this->purchase = $purchase;
-        $this->rowRepository = $rowRepository;
+        $this->entity = $purchase;
 
         parent::__construct(...$params);
     }
-
+ 
     /**
      * @param array $conditions условия поиска
      * @return PurchasesRepository

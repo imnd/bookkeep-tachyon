@@ -3,7 +3,9 @@ namespace app\repositories;
 
 use tachyon\db\dataMapper\Repository,
     tachyon\db\dataMapper\Entity,
-    tachyon\traits\ClassName;
+    tachyon\traits\ClassName,
+    app\interfaces\RowsRepositoryInterface
+;
 
 /**
  * @author Андрей Сердюк
@@ -22,11 +24,16 @@ class HasRowsRepository extends Repository
      */
     protected $rowFk;
 
-    public function __construct(...$params)
+    /**
+     * @param RowsRepositoryInterface $rowRepository
+     * @param array $params
+     */
+    public function __construct(RowsRepositoryInterface $rowRepository, ...$params)
     {
         if (is_null($this->rowFk)) {
-            $this->rowFk = strtolower(str_replace('Repository', '', $this->getClassName())) . '_id';
+            $this->rowFk = substr(strtolower(str_replace('Repository', '', $this->getClassName())), 0, -1) . '_id';
         }
+        $this->rowRepository = $rowRepository;
 
         parent::__construct(...$params);
     }

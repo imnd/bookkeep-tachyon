@@ -11,7 +11,7 @@
         <?php $this->display('../blocks/select', [
             'entity' => $entity,
             'name' => 'unit',
-            'options' => $model->getSelectListFromArr($model->getUnits())
+            'options' => $units
         ])?>
     </div>
     <div class="row">

@@ -3,9 +3,11 @@ namespace app\repositories;
 
 use Iterator,
     tachyon\db\dataMapper\Repository,
+    tachyon\traits\RepositoryListTrait,
+    tachyon\traits\DateTime,
     app\repositories\ClientsRepository,
-    app\entities\Bill,
-    tachyon\traits\DateTime;
+    app\entities\Bill
+;
 
 /**
  * @author Андрей Сердюк
@@ -13,20 +15,25 @@ use Iterator,
  */
 class BillsRepository extends Repository
 {
-    use DateTime;
+    use DateTime, RepositoryListTrait;
 
-    /**
-     * @var app\entities\Bill
-     */
-    protected $bill;
     /**
      * @var ClientsRepository
      */
     protected $clientRepository;
 
-    public function __construct(Bill $bill, ClientsRepository $clientRepository, ...$params)
+    /**
+     * @param Bill $bill
+     * @param ClientsRepository $clientRepository
+     * @param array $params
+     */
+    public function __construct(
+        Bill $bill,
+        ClientsRepository $clientRepository,
+        ...$params
+    )
     {
-        $this->bill = $bill;
+        $this->entity = $bill;
         $this->clientRepository = $clientRepository;
 
         parent::__construct(...$params);
@@ -112,5 +119,16 @@ class BillsRepository extends Repository
             return $value;
         }
         return 0;
+    }
+
+    /**
+     * @return array
+     */
+    public function getContentsList()
+    {
+        return array(
+            'payment' => 'платёж',
+            'purchase' => 'закуп',
+        );
     }
 }

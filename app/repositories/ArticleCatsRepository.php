@@ -11,13 +11,12 @@ use tachyon\db\dataMapper\Repository,
 class ArticleCatsRepository extends Repository
 {
     /**
-     * @var app\entities\ArticleCat
+     * @param ArticleCat $articleCat
+     * @param array $params
      */
-    protected $articleCat;
-
-    public function __construct(ArticleCat $entity, ...$params)
+    public function __construct(ArticleCat $articleCat, ...$params)
     {
-        $this->articleCat = $entity;
+        $this->entity = $articleCat;
 
         parent::__construct(...$params);
     }

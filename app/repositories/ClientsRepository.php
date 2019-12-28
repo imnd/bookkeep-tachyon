@@ -2,6 +2,7 @@
 namespace app\repositories;
 
 use tachyon\db\dataMapper\Repository,
+    tachyon\traits\RepositoryListTrait,
     app\entities\Client;
 
 /**
@@ -10,16 +11,15 @@ use tachyon\db\dataMapper\Repository,
  */
 class ClientsRepository extends Repository
 {
-    use \app\traits\Select;
+    use RepositoryListTrait;
 
     /**
-     * @var Client
+     * @param Client $client
+     * @param array $params
      */
-    protected $client;
-
     public function __construct(Client $client, ...$params)
     {
-        $this->client = $client;
+        $this->entity = $client;
 
         parent::__construct(...$params);
     }
@@ -31,7 +31,7 @@ class ClientsRepository extends Repository
     public function setSearchConditions($conditions = array()): Repository
     {
         foreach (['name', 'address'] as $field) {
-            if (!empty($where = $this->terms->like($conditions, $field))) {
+            if (!empty($where = $this->like($conditions, $field))) {
                 $this->where = array_merge(
                     $this->where,
                     $where

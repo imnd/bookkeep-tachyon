@@ -3,9 +3,8 @@ namespace app\repositories;
 
 use Iterator,
     tachyon\db\dataMapper\Repository,
+    tachyon\traits\DateTime,
     app\repositories\ContractsRowsRepository,
-    app\repositories\ClientsRepository,
-    app\repositories\InvoicesRepository,
     app\entities\Contract
 ;
 
@@ -15,32 +14,20 @@ use Iterator,
  */
 class ContractsRepository extends HasRowsRepository
 {
-    use \tachyon\traits\DateTime;
+    use DateTime;
 
     /**
      * @var app\entities\Contract
      */
     protected $contract;
-    /**
-     * @var ClientsRepository
-     */
-    protected $clientRepository;
-    /**
-     * @var InvoicesRepository
-     */
-    protected $invoiceRepository;
 
     public function __construct(
         Contract $contract,
         ContractsRowsRepository $rowRepository,
-        ClientsRepository $clientRepository,
-        InvoicesRepository $invoiceRepository,
         ...$params
     )
     {
         $this->contract = $contract;
-        $this->clientRepository = $clientRepository;
-        $this->invoiceRepository = $invoiceRepository;
         $this->rowRepository = $rowRepository;
 
         parent::__construct(...$params);
@@ -76,8 +63,8 @@ class ContractsRepository extends HasRowsRepository
             ])
             ->from($this->tableName)
             ->asa('c')
-            ->with([$this->clientRepository->getTableName() => 'cl'], ['client_id' => 'id'])
-            ->with([$this->invoiceRepository->getTableName() => 'i'], 'contract_num')
+            ->with(['clients' => 'cl'], ['client_id' => 'id'])
+            ->with(['invoices' => 'i'], 'contract_num')
             ->groupBy('c.id, c.contract_num, i.contract_num, c.client_id, cl.id')
             ->findAll($where, $sort);
 

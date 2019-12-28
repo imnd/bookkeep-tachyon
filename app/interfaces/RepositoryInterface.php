@@ -39,8 +39,24 @@ interface RepositoryInterface
     public function addSortBy($field, $order);
 
     /**
+     * Получает сущность по условию $where
+     * 
+     * @param array $where
+     * @return null|Entity
+     */
+    public function findOne(array $where = array()): ?Entity;
+
+    /**
+     * Получает сущность по условию $where
+     * 
+     * @param array $where
+     * @return null|Entity
+     */
+    public function findOneRaw(array $where = array()): ?Entity;
+
+    /**
      * Получает все сущности по условию $where, отсортированных по $sort
-     * и преобразовать в Iterator
+     * и преобразовывает в Iterator
      * 
      * @param array $where
      * @param array $sort
@@ -49,8 +65,7 @@ interface RepositoryInterface
     public function findAll(array $where = array(), array $sort = array()): Iterator;
 
     /**
-     * Получить все сущности по условию $where, отсортированных по $sort
-     * в виде массива
+     * Получает все сущности по условию $where, отсортированных по $sort в виде массива
      *
      * @param array $where
      * @param array $sort

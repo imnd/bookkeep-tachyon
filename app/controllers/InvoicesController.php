@@ -73,24 +73,13 @@ class InvoicesController extends HasRowsController
     {
         $this->layout = 'printout';
 
-        $type = Request::getGet('type');
         if (!$item = $this->repository->findByPk($pk)) {
             $this->error(404, 'Такой фактуры не существует');
         }
-
-        /*if (!$item = $this->model
-            ->with('rows')
-            ->with('client')
-            ->with('contract')
-            ->findByPk($pk)
-        ) {
-            $this->error(404, 'Такой фактуры не существует');
-        }*/
-        $client = $item->client;
         $contractType = $item->getContractType();
-        $contractNum = $item->contract_num;
-        $quantitySum = $this->model->getQuantitySum($pk);
+        $contractNum = $item->getContractNum();
+        $quantitySum = $item->getQuantitySum();
         $sender = $settings->getRequisites('firm');
-        $this->view("printout/$type", compact('item', 'contractType', 'contractNum', 'quantitySum', 'sender', 'client'));
+        $this->view('printout/' . Request::getGet('type'), compact('item', 'contractType', 'contractNum', 'quantitySum', 'sender'));
     }
 }

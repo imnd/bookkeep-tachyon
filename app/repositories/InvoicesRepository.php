@@ -3,10 +3,14 @@ namespace app\repositories;
 
 use Iterator,
     tachyon\db\dataMapper\Repository,
+    tachyon\db\dataMapper\Entity,
+    tachyon\traits\DateTime,
     app\repositories\InvoicesRowsRepository,
     app\repositories\ClientsRepository,
-    app\entities\Invoice,
-    tachyon\traits\DateTime;
+    app\repositories\ContractsRepository,
+    app\entities\Client,
+    app\entities\Invoice
+;
 
 /**
  * @author Андрей Сердюк
@@ -21,20 +25,26 @@ class InvoicesRepository extends HasRowsRepository
      */
     protected $invoice;
     /**
+     * @var ContractsRepository
+     */
+    protected $contractsRepository;
+    /**
      * @var ClientsRepository
      */
-    protected $clientRepository;
+    protected $clientsRepository;
 
     public function __construct(
         Invoice $invoice,
         InvoicesRowsRepository $rowRepository,
-        ClientsRepository $clientRepository,
+        ClientsRepository $clientsRepository,
+        ContractsRepository $contractsRepository,
         ...$params
     )
     {
         $this->invoice = $invoice;
         $this->rowRepository = $rowRepository;
-        $this->clientRepository = $clientRepository;
+        $this->contractsRepository = $contractsRepository;
+        $this->clientsRepository = $clientsRepository;
 
         parent::__construct(...$params);
     }
@@ -52,6 +62,31 @@ class InvoicesRepository extends HasRowsRepository
         return $this;
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function findByPk($pk): ?Entity
+    {
+        $invoice = parent::findByPk($pk);
+        if ($contract = $this->contractsRepository
+            ->findOne(['contract_num' => $invoice->getContractNum()])) {
+            $invoice->setContractType($contract->getType());
+        }
+        /** @var Client */ 
+        if ($client = $this->clientsRepository
+            ->findByPk($invoice->getClientId())) {
+            $invoice
+                ->setClientName($client->getName())
+                ->setClientAddress($client->getAddress())
+                ->setClientAccount($client->getAccount())
+                ->setClientBank($client->getBank())
+                ->setClientINN($client->getINN())
+                ->setClientKPP($client->getKPP())
+            ;
+        }
+        return $invoice;
+    }
+
     public function findAll(array $where = array(), array $sort = array()): Iterator
     {
         $arrayData = $this->persistence
@@ -66,7 +101,7 @@ class InvoicesRepository extends HasRowsRepository
                 'cl.address' => 'clientAddress',
             ])
             ->from($this->tableName)
-            ->with([$this->clientRepository->getTableName() => 'cl'], ['client_id' => 'id'])
+            ->with(['clients' => 'cl'], ['client_id' => 'id'])
             ->findAll($where, $sort);
 
         return $this->convertArrayData($arrayData);

@@ -3,7 +3,7 @@ namespace app\controllers;
 
 use tachyon\db\dataMapper\Entity,
     tachyon\components\Flash,
-    tachyon\helpers\ArrayHelper,
+    tachyon\traits\ArrayTrait,
     app\interfaces\RowsRepositoryInterface;
 
 /**
@@ -15,6 +15,8 @@ use tachyon\db\dataMapper\Entity,
  */
 class HasRowsController extends CrudController
 {
+    use ArrayTrait;
+    
     protected $rowRepository;
 
     /**
@@ -54,7 +56,7 @@ class HasRowsController extends CrudController
         }
         // сохраням строки
         $sum = 0;
-        $rowsData = ArrayHelper::transposeArray($postParams);
+        $rowsData = $this->transposeArray($postParams);
         foreach ($rowsData as $rowData) {
             $row = $this->rowRepository->create();
             $rowData[$row->getRowFk()] = $entity->getPk();

@@ -37,7 +37,7 @@ class HasRowsController extends CrudController
      * @param Entity $entity
      * @return boolean
      */
-    protected function save(Entity $entity)
+    protected function saveEntity(Entity $entity)
     {
         if (empty($postParams = Request::getPost())) {
             return false;
@@ -45,9 +45,6 @@ class HasRowsController extends CrudController
         $errors = [];
         // сохраням
         $entity->setAttributes($postParams);
-        if (!$entity->save()) {
-            $errors[] = $entity->getErrorsSummary();
-        }
         // удалям строки
         if ($rows = $entity->getRows()) {
             foreach ($rows as $row) {
@@ -69,11 +66,15 @@ class HasRowsController extends CrudController
         }
         // сохраням
         $entity->setSum($sum);
-        if (!$entity->getDbContext()->commit()) {
+        if (!$entity->validate()) {
             $errors[] = $entity->getErrorsSummary();
         }
         if (!empty($errors)) {
             $this->flash->addFlash('Что то пошло не так, ' . implode("\n", $errors), Flash::FLASH_TYPE_ERROR);
+            return false;
+        }
+        if (!$entity->getDbContext()->commit()) {
+            $this->flash->addFlash('Что то пошло не так, ' . implode("\n", $entity->getErrorsSummary()), Flash::FLASH_TYPE_ERROR);
             return false;
         }
         $this->flash->addFlash('Сохранено успешно', Flash::FLASH_TYPE_SUCCESS);

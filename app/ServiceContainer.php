@@ -26,5 +26,6 @@ class ServiceContainer extends Container
 
         $entity = substr($entity, 0, -1);
         $this->implementations['app\interfaces\RowEntityInterface'] = "app\\entities\\{$entity}Row";
+        $this->implementations['tachyon\db\dataMapper\EntityInterface'] = "app\\entities\\{$entity}";
     }
 }

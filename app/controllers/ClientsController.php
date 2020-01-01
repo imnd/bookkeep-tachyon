@@ -3,7 +3,6 @@ namespace app\controllers;
 
 use
     tachyon\Request,
-    app\entities\Client,
     app\repositories\RegionsRepository,
     app\repositories\BillsRepository,
     app\repositories\InvoicesRepository,
@@ -23,7 +22,7 @@ class ClientsController extends CrudController
      */
     public function index(Client $entity)
     {
-        $this->_index($entity);
+        $this->doIndex($entity);
     }
 
     /**
@@ -31,7 +30,7 @@ class ClientsController extends CrudController
      */
     public function create(RegionsRepository $regionRepository)
     {
-        $this->_create(['regions' => $regionRepository->findAll()]);
+        $this->doCreate(['regions' => $regionRepository->findAll()]);
     }
 
     /**
@@ -40,7 +39,7 @@ class ClientsController extends CrudController
      */
     public function update(RegionsRepository $regionRepository, $pk)
     {
-        $this->_update($pk, ['regions' => $regionRepository->findAll()]);
+        $this->doUpdate($pk, ['regions' => $regionRepository->findAll()]);
     }
 
     /**

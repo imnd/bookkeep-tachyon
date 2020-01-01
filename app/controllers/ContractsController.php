@@ -30,7 +30,7 @@ class ContractsController extends HasRowsController
         $type = null
     )
     {
-        $this->_index($entity, [
+        $this->doIndex($entity, [
             'type' => $type,
             'clients' => $clientRepository->getAllSelectList()
         ]);
@@ -46,7 +46,7 @@ class ContractsController extends HasRowsController
     )
     {
         $row = $this->rowRepository->create();
-        $this->_create([
+        $this->doCreate([
             'clients' => $clientRepository->getAllSelectList(),
             'articlesList' => $articleRepository->getAllSelectList(),
             'articles' => $articleRepository->findAllRaw(),
@@ -66,7 +66,7 @@ class ContractsController extends HasRowsController
         $pk
     )
     {
-        $this->_update($pk, [
+        $this->doUpdate($pk, [
             'row' => $this->rowRepository->create(false),
             'clients' => $clientRepository->getAllSelectList(),
             'articlesList' => $articleRepository->getAllSelectList(),

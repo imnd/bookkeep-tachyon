@@ -2,8 +2,10 @@
 namespace app\controllers;
 
 use
+    tachyon\Controller,
     tachyon\components\FilesManager,
     tachyon\Request,
+    tachyon\traits\AuthActions,
     app\models\Settings
 ;
 
@@ -13,8 +15,10 @@ use
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class SettingsController extends CrudController
+class SettingsController extends Controller
 {
+    use AuthActions;
+
     protected $layout = 'settings';
 
     /**

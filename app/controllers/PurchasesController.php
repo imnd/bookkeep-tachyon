@@ -28,7 +28,7 @@ class PurchasesController extends HasRowsController
         $type = null
     )
     {
-        $this->_index($entity, [
+        $this->doIndex($entity, [
             'type' => $type,
             'clients' => $clientRepository->getAllSelectList()
         ]);
@@ -46,7 +46,7 @@ class PurchasesController extends HasRowsController
     {
         $entity = $this->repository->create();
         $entity->setDate(Request::getGet('date') ?? date('Y-m-d'));
-        if ($this->save($entity)) {
+        if ($this->saveEntity($entity)) {
             $this->redirect("/{$this->id}");
         }
         $row = $this->rowRepository->create(false);
@@ -70,7 +70,7 @@ class PurchasesController extends HasRowsController
         $pk
     )
     {
-        $this->_update($pk, [
+        $this->doUpdate($pk, [
             'row' => $this->rowRepository->create(false),
             'clients' => $clientRepository->getAllSelectList(),
             'articlesList' => $articleRepository->getAllSelectList(),

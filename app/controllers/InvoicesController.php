@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use
+    tachyon\exceptions\HttpException,
     tachyon\Request,
     app\entities\Invoice,
     app\repositories\ArticlesRepository,
@@ -23,7 +24,7 @@ class InvoicesController extends HasRowsController
      */
     public function index(Invoice $entity, ClientsRepository $clientRepository)
     {
-        $this->_index($entity, [
+        $this->doIndex($entity, [
             'clients' => $clientRepository->getAllSelectList()
         ]);
     }
@@ -39,7 +40,7 @@ class InvoicesController extends HasRowsController
     {
         $entity = $this->repository->create();
         $entity->setAttribute('number', $this->repository->getNextNumber());
-        if ($this->save($entity)) {
+        if ($this->saveEntity($entity)) {
             $this->redirect("/{$this->id}");
         }
         $this->view('create', [
@@ -57,7 +58,7 @@ class InvoicesController extends HasRowsController
         $pk
     )
     {
-        $this->_update($pk, [
+        $this->doUpdate($pk, [
             'row' => $this->rowRepository->create(false),
             'clients' => $clientRepository->getAllSelectList(),
             'articlesList' => $articleRepository->getAllSelectList(),
@@ -74,7 +75,7 @@ class InvoicesController extends HasRowsController
         $this->layout = 'printout';
 
         if (!$item = $this->repository->findByPk($pk)) {
-            $this->error(404, 'Такой фактуры не существует');
+            throw new HttpException('Такой фактуры не существует', HttpException::NOT_FOUND);
         }
         $contractType = $item->getContractType();
         $contractNum = $item->getContractNum();

@@ -5,6 +5,7 @@ use tachyon\exceptions\HttpException,
     tachyon\Controller,
     tachyon\components\Flash,
     tachyon\db\dataMapper\Entity,
+    tachyon\db\dataMapper\EntityInterface,
     tachyon\Request,
     tachyon\traits\AuthActions,
     tachyon\db\dataMapper\RepositoryInterface
@@ -60,10 +61,10 @@ class CrudController extends Controller
     /**
      * Главная страница, список сущностей раздела
      * 
-     * @param Entity $entity
+     * @param EntityInterface $entity
      * @param array $params
      */
-    protected function _index(Entity $entity, $params = array())
+    protected function doIndex(Entity $entity, $params = array())
     {
         $getQuery = Request::getQuery();
         $this->view('index', array_merge([
@@ -80,13 +81,11 @@ class CrudController extends Controller
      * @param int $pk
      * @param array $params
      */
-    protected function _update($pk, $params)
+    protected function doUpdate($pk, $params)
     {
-        /**
-         * @var Entity $entity
-         */
+        /** @var Entity $entity */
         $entity = $this->getEntity($pk);
-        if ($this->_save($entity)) {
+        if ($this->saveEntity($entity)) {
             $this->redirect("/{$this->id}");
         }
         $this->view('update', array_merge(compact('entity'), $params));
@@ -95,13 +94,13 @@ class CrudController extends Controller
     /**
      * @param $params
      */
-    protected function _create($params)
+    protected function doCreate($params)
     {
         /**
          * @var Entity $entity
          */
         $entity = $this->repository->create();
-        if ($this->_save($entity)) {
+        if ($this->saveEntity($entity)) {
             $this->redirect("/{$this->id}");
         }
         $this->view('create', array_merge(compact('entity'), $params));
@@ -111,7 +110,7 @@ class CrudController extends Controller
      * @param Entity $entity
      * @return boolean
      */
-    protected function _save(Entity $entity)
+    protected function saveEntity(Entity $entity)
     {
         if (!empty($postParams = Request::getPost())) {
             $entity->setAttributes($postParams);

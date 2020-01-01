@@ -24,8 +24,7 @@ class BillsController extends CrudController
      */
     public function index(Bill $entity, ClientsRepository $clientRepository)
     {
-        $this->view('index', [
-            'entity' => $entity,
+        $this->doIndex($entity, [
             'clients' => $clientRepository->getAllSelectList(),
             'items' => $this
                 ->repository
@@ -44,7 +43,7 @@ class BillsController extends CrudController
          * @var Entity $entity
          */
         $entity = $this->getEntity($pk);
-        if ($this->_save($entity)) {
+        if ($this->saveEntity($entity)) {
             $this->redirect("/{$this->id}");
         }
         $this->view('update', [

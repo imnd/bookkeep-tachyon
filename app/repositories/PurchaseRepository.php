@@ -3,8 +3,7 @@ namespace app\repositories;
 
 use
     tachyon\db\dataMapper\Repository,
-    app\interfaces\PurchaseRepositoryInterface,
-    app\interfaces\PurchaseRowRepositoryInterface,
+    tachyon\traits\DateTime,
     app\entities\Purchase
 ;
 
@@ -12,25 +11,25 @@ use
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class PurchaseRepository extends HasRowsRepository implements PurchaseRepositoryInterface
+class PurchaseRepository extends HasRowsRepository
 {
-    use \tachyon\traits\DateTime;
+    use DateTime;
 
     /**
-     * @var app\entities\Purchase
+     * @var Purchase
      */
     protected $purchase;
 
     /**
      *
      * @param Purchase $purchase
-     * @param PurchaseRowRepositoryInterface $rowRepository
+     * @param PurchaseRowRepository $rowRepository
      * @param array $params
      */
 
     public function __construct(
         Purchase $purchase,
-        PurchaseRowRepositoryInterface $rowRepository,
+        PurchaseRowRepository $rowRepository,
         ...$params
     )
     {

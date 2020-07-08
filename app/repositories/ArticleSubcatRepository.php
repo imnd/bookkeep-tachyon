@@ -2,17 +2,16 @@
 namespace app\repositories;
 
 use tachyon\db\dataMapper\Repository,
-    app\interfaces\ArticleSubcatRepositoryInterface,
     app\entities\ArticleSubcat;
 
 /**
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class ArticleSubcatRepository extends Repository implements ArticleSubcatRepositoryInterface
+class ArticleSubcatRepository extends Repository
 {
     /**
-     * @var app\entities\ArticleSubcat
+     * @var ArticleSubcat
      */
     protected $articleSubcat;
 

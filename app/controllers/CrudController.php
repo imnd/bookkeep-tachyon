@@ -1,10 +1,12 @@
 <?php
 namespace app\controllers;
 
-use tachyon\exceptions\HttpException,
+use tachyon\db\dataMapper\Repository,
+    tachyon\exceptions\HttpException,
     tachyon\Controller,
     tachyon\components\Flash,
-    tachyon\db\dataMapper\Entity
+    tachyon\db\dataMapper\Entity,
+    tachyon\traits\Authentication
 ;
 
 /**
@@ -15,7 +17,7 @@ use tachyon\exceptions\HttpException,
  */
 class CrudController extends Controller
 {
-    use \tachyon\traits\Authentication;
+    use Authentication;
 
     /** @inheritdoc */
     protected $layout = 'crud';
@@ -29,7 +31,7 @@ class CrudController extends Controller
      */
     protected $flash;
     /**
-     * @var \app\interfaces\RepositoryInterface
+     * @var Repository
      */
     protected $repository;
 
@@ -74,7 +76,7 @@ class CrudController extends Controller
      * @param int $pk
      * @param array $params
      */
-    protected function _update($pk, $params)
+    protected function _update($pk, array $params)
     {
         /**
          * @var Entity $entity
@@ -89,11 +91,9 @@ class CrudController extends Controller
     /**
      * @param $params
      */
-    protected function _create($params)
+    protected function _create(array $params)
     {
-        /**
-         * @var Entity $entity
-         */
+        /** @var Entity $entity */
         $entity = $this->repository->create();
         if ($this->save($entity)) {
             $this->redirect("/{$this->id}");

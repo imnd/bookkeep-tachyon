@@ -2,18 +2,19 @@
 namespace app\repositories;
 
 use tachyon\db\dataMapper\Repository,
-    app\interfaces\ClientRepositoryInterface,
-    app\entities\Client;
+    app\entities\Client,
+    app\traits\Select;
 
 /**
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class ClientRepository extends Repository implements ClientRepositoryInterface
+class ClientRepository extends Repository
 {
-    use \app\traits\Select;
+    use Select;
 
     protected $tableName = 'clients';
+
     /**
      * @var Client
      */

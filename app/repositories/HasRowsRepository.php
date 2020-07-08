@@ -1,7 +1,9 @@
 <?php
 namespace app\repositories;
 
-use tachyon\db\dataMapper\Repository;
+use tachyon\db\dataMapper\Repository,
+    tachyon\db\dataMapper\Entity,
+    tachyon\traits\ClassName;
 
 /**
  * @author Андрей Сердюк
@@ -9,10 +11,10 @@ use tachyon\db\dataMapper\Repository;
  */
 class HasRowsRepository extends Repository
 {
-    use \tachyon\traits\ClassName;
+    use ClassName;
 
     /**
-     * @var InvoiceRowRepositoryInterface
+     * @var InvoiceRowRepository
      */
     protected $rowRepository;
     /**
@@ -32,7 +34,7 @@ class HasRowsRepository extends Repository
     /**
      * @inheritdoc
      */
-    public function findByPk($pk)
+    public function findByPk($pk): Entity
     {
         if (!isset($this->collection[$pk])) {
             $entity = $this->getByPk($pk);
@@ -50,6 +52,8 @@ class HasRowsRepository extends Repository
      */
     public function getLastNumber(): int
     {
+        $persistence = $this->persistence;
+        $persistence = $this->persistence;
         $item = $this
             ->persistence
             ->select('number')

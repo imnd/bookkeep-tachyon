@@ -1,9 +1,9 @@
 <?php
 namespace app\controllers;
 
-use app\entities\Bill,
-    app\interfaces\BillRepositoryInterface,
-    app\interfaces\ClientRepositoryInterface;
+use app\entities\Bill;
+use app\repositories\BillRepository;
+use app\repositories\ClientRepository;
 
 /**
  * Контроллер платежей
@@ -15,15 +15,15 @@ class BillsController extends CrudController
 {
     protected $layout = 'bills';
     /**
-     * @var BillRepositoryInterface
+     * @var BillRepository
      */
     protected $repository;
 
     /**
-     * @param BillRepositoryInterface $repository
+     * @param BillRepository $repository
      * @param array $params
      */
-    public function __construct(BillRepositoryInterface $repository, ...$params)
+    public function __construct(BillRepository $repository, ...$params)
     {
         $this->repository = $repository;
 
@@ -34,9 +34,9 @@ class BillsController extends CrudController
      * Главная страница, список платежей.
      * 
      * @param Bill $entity
-     * @param ClientRepositoryInterface $clientRepository
+     * @param ClientRepository $clientRepository
      */
-    public function index(Bill $entity, ClientRepositoryInterface $clientRepository)
+    public function index(Bill $entity, ClientRepository $clientRepository)
     {
         $this->view('index', [
             'entity' => $entity,

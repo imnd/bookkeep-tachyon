@@ -1,31 +1,33 @@
 <?php
+
 namespace app\entities;
 
-use tachyon\db\dataMapper\Entity;
+use tachyon\db\dataMapper\Entity,
+    app\traits\HasClient,
+    app\traits\HasRows;
 
 /**
  * Класс сущности "Клиент"
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2019 IMND
  */
 class Invoice extends Entity
 {
-    use \app\traits\HasClient,
-        \app\traits\HasRows;
+    use HasClient, HasRows;
 
     protected $attributeCaptions = [
-        'number' => 'номер',
+        'number'       => 'номер',
         'contract_num' => 'номер договора',
-        'contractNum' => 'номер договора',
-        'client_id' => 'клиент',
-        'clientId' => 'клиент',
-        'clientName' => 'клиент',
-        'date' => 'дата',
-        'sum' => 'сумма',
-        'dateFrom' => 'дата с',
-        'dateTo' => 'дата по',
-        'payed' => 'оплачено',
+        'contractNum'  => 'номер договора',
+        'client_id'    => 'клиент',
+        'clientId'     => 'клиент',
+        'clientName'   => 'клиент',
+        'date'         => 'дата',
+        'sum'          => 'сумма',
+        'dateFrom'     => 'дата с',
+        'dateTo'       => 'дата по',
+        'payed'        => 'оплачено',
     ];
 
     /**
@@ -54,7 +56,6 @@ class Invoice extends Entity
     protected $payed;
 
     # Getters
-
     public function getId()
     {
         return $this->id;
@@ -88,19 +89,18 @@ class Invoice extends Entity
     public function getAttributes(): array
     {
         return [
-            'number' => $this->number,
-            'client_id' => $this->clientId,
+            'number'       => $this->number,
+            'client_id'    => $this->clientId,
             'contract_num' => $this->contractNum,
-            'date' => $this->date,
-            'sum' => $this->sum,
-            'payed' => $this->payed,
+            'date'         => $this->date,
+            'sum'          => $this->sum,
+            'payed'        => $this->payed,
         ];
     }
 
     public function fromState(array $state): Entity
     {
         $entity = clone($this);
-
         $entity->id = $state['id'];
         $entity->number = $state['number'] ?? null;
         $entity->clientName = $state['clientName'] ?? null;
@@ -108,7 +108,6 @@ class Invoice extends Entity
         $entity->date = $state['date'] ?? null;
         $entity->sum = $state['sum'] ?? null;
         $entity->payed = $state['payed'] ?? null;
-
         return $entity;
     }
 
@@ -116,12 +115,11 @@ class Invoice extends Entity
     {
         return [
             'date, contract_num, client_id, number' => 'required',
-            'number, client_id' => 'numerical',
+            'number, client_id'                     => 'numerical',
         ];
     }
 
     # Setters
-
     public function setNumber($value = null): Invoice
     {
         return $this->_setAttribute('number', $value);
@@ -155,7 +153,6 @@ class Invoice extends Entity
             ->setContractNum($state['contract_num'] ?? null)
             ->setDate($state['date'] ?? null)
             ->setSum($state['sum'] ?? null)
-            ->setPayed($state['payed'] ?? null)
-        ;
+            ->setPayed($state['payed'] ?? null);
     }
 }

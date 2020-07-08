@@ -63,6 +63,6 @@ class Region extends Entity
 
     public function getAttributes(): array
     {
-        
+        return [];
     }
 }

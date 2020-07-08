@@ -1,13 +1,15 @@
 <?php
 namespace app\models;
 
+use tachyon\db\activeRecord\ActiveRecord;
+
 /**
  * Модель пользователей
  * 
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */ 
-class Users extends \tachyon\db\activeRecord\ActiveRecord
+class Users extends ActiveRecord
 {
     const STATUS_NOTCONFIRMED = 0;
     const STATUS_CONFIRMED = 1;

@@ -2,17 +2,16 @@
 namespace app\repositories;
 
 use tachyon\db\dataMapper\Repository,
-    app\interfaces\ContractRowRepositoryInterface,
     app\entities\ContractRow;
 
 /**
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class ContractRowRepository extends Repository implements ContractRowRepositoryInterface
+class ContractRowRepository extends Repository
 {
     /**
-     * @var app\entities\ContractRow
+     * @var ContractRow
      */
     protected $contractRow;
 

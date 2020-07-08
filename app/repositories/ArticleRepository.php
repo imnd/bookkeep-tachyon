@@ -1,32 +1,33 @@
 <?php
 namespace app\repositories;
 
-use Iterator,
+use
+    Iterator,
     tachyon\db\dataMapper\Repository,
-    app\interfaces\ArticleRepositoryInterface,
-    app\interfaces\ArticleSubcatRepositoryInterface,
-    app\entities\Article;
+    app\entities\Article,
+    app\traits\Select
+;
 
 /**
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */
-class ArticleRepository extends Repository implements ArticleRepositoryInterface
+class ArticleRepository extends Repository
 {
-    use \app\traits\Select;
+    use Select;
 
     /**
-     * @var app\entities\Article
+     * @var Article
      */
     protected $article;
     /**
-     * @var app\interfaces\ArticleSubcatRepositoryInterface
+     * @var ArticleSubcatRepository
      */
     protected $articleSubcatRepository;
 
     public function __construct(
         Article $article,
-        ArticleSubcatRepositoryInterface $articleSubcatRepository,
+        ArticleSubcatRepository $articleSubcatRepository,
         ...$params
     )
     {

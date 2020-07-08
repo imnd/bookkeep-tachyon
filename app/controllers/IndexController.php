@@ -1,9 +1,13 @@
 <?php
 namespace app\controllers;
 
-use tachyon\Config,
+use
+    tachyon\Controller,
+    tachyon\Config,
     app\models\Users,
-    tachyon\components\Flash;
+    tachyon\components\Flash,
+    tachyon\traits\Authentication
+;
 
 /**
  * Контроллер начальной страницы
@@ -11,9 +15,9 @@ use tachyon\Config,
  * @author Андрей Сердюк
  * @copyright (c) 2018 IMND
  */ 
-class IndexController extends \tachyon\Controller
+class IndexController extends Controller
 {
-    use \tachyon\traits\Authentication;
+    use Authentication;
 
     /**
      * @var Config $config
@@ -34,7 +38,12 @@ class IndexController extends \tachyon\Controller
      * @param Flash $flash
      * @param array $params
      */
-    public function __construct(Config $config, Users $users, Flash $flash, ...$params)
+    public function __construct(
+        Config $config,
+        Users $users,
+        Flash $flash,
+        ...$params
+    )
     {
         $this->config = $config;
         $this->users = $users;

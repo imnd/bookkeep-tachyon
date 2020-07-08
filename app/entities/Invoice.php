@@ -4,18 +4,20 @@ namespace app\entities;
 
 use tachyon\db\dataMapper\Entity,
     app\traits\HasClient,
-    app\traits\HasRows;
+    app\traits\HasContract,
+    app\traits\HasRows,
+    tachyon\traits\DateTime;
 
 /**
- * Класс сущности "Клиент"
+ * Класс сущности "Фактра"
  *
  * @author Андрей Сердюк
- * @copyright (c) 2019 IMND
+ * @copyright (c) 2020 IMND
  */
 class Invoice extends Entity
 {
-    use HasClient, HasRows;
-
+    use HasClient, HasContract, HasRows, DateTime;
+    
     protected $attributeCaptions = [
         'number'       => 'номер',
         'contract_num' => 'номер договора',
@@ -66,11 +68,6 @@ class Invoice extends Entity
         return $this->number;
     }
 
-    public function getContractNum()
-    {
-        return $this->contractNum;
-    }
-
     public function getDate()
     {
         return $this->date;
@@ -103,7 +100,7 @@ class Invoice extends Entity
         $entity = clone($this);
         $entity->id = $state['id'];
         $entity->number = $state['number'] ?? null;
-        $entity->clientName = $state['clientName'] ?? null;
+        $entity->clientId = $state['client_id'] ?? null;
         $entity->contractNum = $state['contract_num'] ?? null;
         $entity->date = $state['date'] ?? null;
         $entity->sum = $state['sum'] ?? null;

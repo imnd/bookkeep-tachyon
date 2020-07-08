@@ -14,6 +14,6 @@ if (false!==$label) {?>
     <?=isset($readonly) ? 'readonly="readonly"' : ''?>
 >
     <?php foreach ($options as $option) {?>
-        <option value="<?=$option['id']?>" <?php if ($option['id']==$value) {?>selected="selected"<?php }?>><?=$option['value']?></option>
+        <option value="<?=$option['value']?>" <?php if ($option['value']==$value) {?>selected="selected"<?php }?>><?=$option['contents']?></option>
     <?php }?>
 </select>

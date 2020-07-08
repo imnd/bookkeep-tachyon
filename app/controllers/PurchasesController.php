@@ -2,97 +2,81 @@
 
 namespace app\controllers;
 
-use app\entities\Purchase;
-use app\models\Settings;
-use app\repositories\{
-    ArticleRepository,
-    ClientRepository,
-    PurchaseRepository,
-    PurchaseRowRepository,
-};
+use
+    tachyon\Request,
+    app\entities\Purchase,
+    app\models\Settings,
+    app\repositories\ArticlesRepository,
+    app\repositories\ClientsRepository;
 
 /**
  * Контроллер закупок
  *
  * @author Андрей Сердюк
- * @copyright (c) 2018 IMND
+ * @copyright (c) 2020 IMND
  */
 class PurchasesController extends HasRowsController
 {
     /**
-     * @param PurchaseRepository    $repository
-     * @param PurchaseRowRepository $rowRepository
-     * @param array                 $params
-     */
-    public function __construct(
-        PurchaseRepository $repository,
-        PurchaseRowRepository $rowRepository,
-        ...$params
-    ) {
-        $this->repository = $repository;
-        $this->rowRepository = $rowRepository;
-
-        parent::__construct(...$params);
-    }
-
-    /**
      * Главная страница, список договоров.
      *
-     * @param Purchase         $entity
-     * @param ClientRepository $clientRepository
-     * @param null             $type
+     * @param Purchase $entity
+     * @param ClientsRepository $clientRepository
+     * @param null $type
      */
     public function index(
         Purchase $entity,
-        ClientRepository $clientRepository,
+        ClientsRepository $clientRepository,
         $type = null
-    ) {
-        $this->_index($entity, [
-            'type'    => $type,
-            'clients' => $clientRepository->getSelectList(),
+    )
+    {
+        $this->doIndex($entity, [
+            'type' => $type,
+            'clients' => $clientRepository->getAllSelectList()
         ]);
     }
 
     /**
      * Собираем закупку за определенное число
-     *
-     * @param ArticleRepository $articleRepository
-     * @param ClientRepository  $clientRepository
+     * @param ArticlesRepository $articleRepository
+     * @param ClientsRepository $clientRepository
      */
     public function create(
-        ArticleRepository $articleRepository,
-        ClientRepository $clientRepository
-    ) {
+        ArticlesRepository $articleRepository,
+        ClientsRepository $clientRepository
+    )
+    {
         $entity = $this->repository->create();
-        $entity->setDate($this->get['date'] ?? date('Y-m-d'));
-        if ($this->save($entity)) {
+        $entity->setDate(Request::getGet('date') ?? date('Y-m-d'));
+        if ($this->saveEntity($entity)) {
             $this->redirect("/{$this->id}");
         }
         $row = $this->rowRepository->create(false);
         $this->view('create', [
-            'entity'       => $entity,
-            'row'          => $row,
-            'clients'      => $clientRepository->getSelectList(),
-            'articlesList' => $articleRepository->getSelectList(),
-            'articles'     => $articleRepository->findAllRaw(),
+            'entity' => $entity,
+            'row' => $row,
+            'clients' => $clientRepository->getAllSelectList(),
+            'articlesList' => $articleRepository->getAllSelectList(),
+            'articles' => $articleRepository->findAllRaw(),
         ]);
     }
 
     /**
-     * @param ArticleRepository $articleRepository
-     * @param ClientRepository  $clientRepository
-     * @param int               $pk
+     * @param ArticlesRepository $articleRepository
+     * @param ClientsRepository $clientRepository
+     * @param int $pk
      */
     public function update(
-        ArticleRepository $articleRepository,
-        ClientRepository $clientRepository,
+        ArticlesRepository $articleRepository,
+        ClientsRepository $clientRepository,
         $pk
-    ) {
-        $this->_update($pk, [
-            'row'          => $this->rowRepository->create(false),
-            'clients'      => $clientRepository->getSelectList(),
-            'articlesList' => $articleRepository->getSelectList(),
-            'articles'     => $articleRepository->findAllRaw(),
+    )
+    {
+        $this->doUpdate($pk, [
+            'row' => $this->rowRepository->create(false),
+            'clients' => $clientRepository->getAllSelectList(),
+            'articlesList' => $articleRepository->getAllSelectList(),
+            'articles' => $articleRepository->findAllRaw(),
         ]);
     }
 

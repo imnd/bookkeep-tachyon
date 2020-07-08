@@ -5,8 +5,9 @@ use PHPUnit\Framework\TestCase,
     GuzzleHttp\Client,
     tachyon\db\dbal\DbFactory,
     tachyon\db\dataMapper\Persistence,
-    app\repositories\ArticleRepository,
-    app\repositories\ArticleSubcatRepository,
+    tachyon\Config,
+    app\repositories\ArticlesRepository,
+    app\repositories\ArticleSubcatsRepository,
     app\entities\Article,
     app\entities\ArticleSubcat
 ;
@@ -18,12 +19,12 @@ use PHPUnit\Framework\TestCase,
  * .\vendor\bin\phpunit tests/ArticlesTest
  * 
  * @author Андрей Сердюк
- * @copyright (c) 2018 IMND
+ * @copyright (c) 2020 IMND
  */
 final class ArticlesTest extends TestCase
 {
     /**
-     * @var GuzzleHttp\Client $client 
+     * @var Client $client
      */
     protected $client;
     /**
@@ -40,8 +41,8 @@ final class ArticlesTest extends TestCase
         $this->config = new Config('main-test');
         $dbFactory = new DbFactory($this->config);
         $persistence = new Persistence($dbFactory);
-        $articleSubcatRepository = new ArticleSubcatRepository(new ArticleSubcat, $persistence);
-        $this->repository = new ArticleRepository(new Article, $articleSubcatRepository, $persistence);
+        $articleSubcatRepository = new ArticleSubcatsRepository(new ArticleSubcat, $persistence);
+        $this->repository = new ArticlesRepository(new Article, $articleSubcatRepository, $persistence);
         
         $this->client = new Client([
             'base_uri' => $this->config->get('base-url'),

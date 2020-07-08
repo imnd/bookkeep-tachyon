@@ -2,7 +2,7 @@
 <html lang="<?=$this->controller->getLanguage()?>">
 <head>
     <title><?=$this->pageTitle ?? 'Бухгалтерия'?></title>
-    <meta http-equiv="content-type" content="text/html; charset=<?=$this->config->get('encoding')?>" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <?=
     $this->assetManager->css('style'),
     $this->assetManager->coreJs('dom')
@@ -22,7 +22,7 @@
                 'clients' => 'клиенты',
                 'bills' => 'платежи',
                 'settings' => 'администрирование',
-                'index/' . ($this->controller->isAuthorised() ? 'logout' : 'login') => $this->controller->isAuthorised() ? 'выйти' : 'войти',
+                ($this->controller->isAuthorised() ? 'logout' : 'login') => $this->controller->isAuthorised() ? 'выйти' : 'войти',
             ],
             'viewsPath' => 'top',
         ]);

@@ -7,7 +7,7 @@ use tachyon\db\dataMapper\Entity;
  * Класс сущности "Регион"
  * 
  * @author Андрей Сердюк
- * @copyright (c) 2019 IMND
+ * @copyright (c) 2020 IMND
  */
 class Region extends Entity
 {

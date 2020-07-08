@@ -3,34 +3,48 @@ namespace app\controllers;
 
 use tachyon\db\dataMapper\Entity,
     tachyon\components\Flash,
-    tachyon\helpers\ArrayHelper;
+    tachyon\traits\ArrayTrait,
+    app\interfaces\RowsRepositoryInterface;
 
 /**
  * class Controller
  * Базовый класс для всех контроллеров
  * 
  * @author Андрей Сердюк
- * @copyright (c) 2018 IMND
+ * @copyright (c) 2020 IMND
  */
 class HasRowsController extends CrudController
 {
+    use ArrayTrait;
+    
     protected $rowRepository;
+
+    /**
+     * @param RowsRepositoryInterface $rowRepository
+     * @param array $params
+     */
+    public function __construct(
+        RowsRepositoryInterface $rowRepository,
+        ...$params
+    )
+    {
+        $this->rowRepository = $rowRepository;
+
+        parent::__construct(...$params);
+    }
 
     /**
      * @param Entity $entity
      * @return boolean
      */
-    protected function save(Entity $entity)
+    protected function saveEntity(Entity $entity)
     {
-        if (empty($this->post)) {
+        if (empty($postParams = Request::getPost())) {
             return false;
         }
         $errors = [];
         // сохраням
-        $entity->setAttributes($this->post);
-        if (!$entity->save()) {
-            $errors[] = $entity->getErrorsSummary();
-        }
+        $entity->setAttributes($postParams);
         // удалям строки
         if ($rows = $entity->getRows()) {
             foreach ($rows as $row) {
@@ -39,7 +53,7 @@ class HasRowsController extends CrudController
         }
         // сохраням строки
         $sum = 0;
-        $rowsData = ArrayHelper::transposeArray($this->post);
+        $rowsData = $this->transposeArray($postParams);
         foreach ($rowsData as $rowData) {
             $row = $this->rowRepository->create();
             $rowData[$row->getRowFk()] = $entity->getPk();
@@ -52,11 +66,15 @@ class HasRowsController extends CrudController
         }
         // сохраням
         $entity->setSum($sum);
-        if (!$entity->getDbContext()->commit()) {
+        if (!$entity->validate()) {
             $errors[] = $entity->getErrorsSummary();
         }
         if (!empty($errors)) {
             $this->flash->addFlash('Что то пошло не так, ' . implode("\n", $errors), Flash::FLASH_TYPE_ERROR);
+            return false;
+        }
+        if (!$entity->getDbContext()->commit()) {
+            $this->flash->addFlash('Что то пошло не так, ' . implode("\n", $entity->getErrorsSummary()), Flash::FLASH_TYPE_ERROR);
             return false;
         }
         $this->flash->addFlash('Сохранено успешно', Flash::FLASH_TYPE_SUCCESS);

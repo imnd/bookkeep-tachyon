@@ -1,56 +1,58 @@
 <?php
 namespace app\models;
 
+use tachyon\db\activeRecord\ActiveRecord;
+
 /**
  * Класс модели настроек приложения
- * 
+ *
  * @author Андрей Сердюк
- * @copyright (c) 2018 IMND
+ * @copyright (c) 2020 IMND
  */
-class Settings extends \tachyon\db\activeRecord\ActiveRecord
+class Settings extends ActiveRecord
 {
     protected static $tableName = 'settings';
     protected $pkName = 'id';
 
-    protected $fields = array('name', 'key', 'value');
-    protected $fieldTypes = array(
+    protected $fields = ['name', 'key', 'value'];
+    protected $fieldTypes = [
         'id' => 'smallint',
         'name' => 'tinytext',
         'key' => 'tinytext',
         'value' => 'tinytext',
-    );
-    protected $attributeTypes = array(
+    ];
+    protected $attributeTypes = [
         'name' => 'input',
         'key' => 'input',
         'value' => 'input',
-    );
-    protected $attributeNames = array(
+    ];
+    protected $attributeNames = [
         'name' => 'название',
         'key' => 'ключ',
         'value' => 'значение',
-    );
+    ];
 
     public function rules(): array
     {
-        return array(
-            'key, value' => array('required'),
-            'name, value, key' => array('alphaExt'),
-        );
+        return [
+            'key, value' => ['required'],
+            'name, value, key' => ['alphaExt'],
+        ];
     }
 
     /**
      * Реквизиты фирмы
-     * 
+     *
      * @param $from string какой фирмы
      * @return object
      */
     public function getRequisites($from)
     {
-        $firm = array();
-        $keys = array('director', 'name_short', 'name', 'address', 'certificate', 'INN', 'KPP', 'OKUD', 'OKPO', 'bank', 'account');
-        foreach ($keys as $key)
+        $firm = [];
+        $keys = ['director', 'name_short', 'name', 'address', 'certificate', 'INN', 'KPP', 'OKUD', 'OKPO', 'bank', 'account'];
+        foreach ($keys as $key) {
             $firm[$key] = $this->getValueByKey("{$from}_$key");
-
+        }
         return (object)$firm;
     }
 
@@ -94,14 +96,14 @@ class Settings extends \tachyon\db\activeRecord\ActiveRecord
 
     /**
      * Пути для сохранения бэкапов
-     * 
+     *
      * @return array
      */
     public function getPaths()
     {
-        return array(
+        return [
             $this->getValueByKey('path0'),
             $this->getValueByKey('path1'),
-        );
+        ];
     }
 }

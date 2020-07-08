@@ -1,19 +1,24 @@
 <?php
 namespace app\controllers;
 
-use tachyon\components\FilesManager,
-    app\models\Settings,
-    app\interfaces\SettingsRepositoryInterface
+use
+    tachyon\Controller,
+    tachyon\components\FilesManager,
+    tachyon\Request,
+    tachyon\traits\AuthActions,
+    app\models\Settings
 ;
 
 /**
  * Контроллер настроек приложения
- * 
+ *
  * @author Андрей Сердюк
- * @copyright (c) 2018 IMND
- */ 
-class SettingsController extends CrudController
+ * @copyright (c) 2020 IMND
+ */
+class SettingsController extends Controller
 {
+    use AuthActions;
+
     protected $layout = 'settings';
 
     /**
@@ -34,13 +39,13 @@ class SettingsController extends CrudController
             'firm' => ['director', 'name_short', 'name', 'inn', 'bank', 'account', 'address', 'certificate', 'okud', 'okpo'],
             'supplier' => ['name_short', 'name', 'bik', 'inn', 'kpp', 'bank', 'account', 'address', 'certificate', 'okud', 'okpo'],
         ];
-        if (!empty($this->post)) {
+        if (!empty($postParams = Request::getPost())) {
             $result = true;
             foreach ($requisiteKeys as $type => $keys) {
                 foreach ($keys as $key) {
                     $confKey = $type . "_$key";
                     $model = $settings->findByKey($confKey);
-                    $value = $this->post[$confKey];
+                    $value = $postParams[$confKey];
                     if ($value != $model->value) {
                         $model->value = $value;
                         $result = $result && $model->save();
@@ -48,7 +53,7 @@ class SettingsController extends CrudController
                 }
             }
             if ($result) {
-                $this->redirect($this->getRoute());
+                $this->redirect(Request::getRoute());
             }
         }
         $requisitesAll = [
@@ -69,7 +74,7 @@ class SettingsController extends CrudController
 
     /**
      * Создание резервной копии и установка путей для её сохранения
-     * @param app\models\Settings $settings
+     * @param Settings $settings
      */
     public function backup(Settings $settings)
     {

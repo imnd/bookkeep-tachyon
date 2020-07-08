@@ -1,27 +1,51 @@
 <?php
 
 use tachyon\dic\Container,
+    tachyon\Request,
     app\models\Clients;
+?>
 
-(new Container)->get('\tachyon\components\html\FormBuilder')
-    ->build([
-        'options'     => [
-            'action'        => $this->controller->getRoute(),
-            'method'        => 'POST',
-            'submitCaption' => $this->i18n('save'),
-        ],
-        'model'       => $model,
-        'fields'      => [
-            'contract_num',
-            'client_id' => [
-                'listData' => Clients::getAllSelectList(),
-            ],
-            'date'      => ['type' => 'date'],
-            'sum',
-            'remainder',
-            'contents'  => [
-                'listData' => $model->getSelectListFromArr($model->getContentsReadable(), true, false),
-            ],
-        ],
-        'fieldValues' => $this->controller->getGet(),
-    ]);
+<form method="POST" action="<?=Request::getRoute()?>">
+    <div class="row">
+        <?php $this->display('../blocks/input', [
+            'entity' => $entity,
+            'name' => 'contract_num',
+        ])?>
+    </div>
+    <div class="row">
+        <?php $this->display('../blocks/select', [
+            'entity' => $entity,
+            'name' => 'client_id',
+            'options' => $clients
+        ])?>
+    </div>
+    <div class="row">
+        <?php $this->display('../blocks/input', [
+            'entity' => $entity,
+            'name' => 'date',
+            'type' => 'date',
+        ])?>
+    </div>
+    <div class="row">
+        <?php $this->display('../blocks/input', [
+            'entity' => $entity,
+            'name' => 'sum',
+        ])?>
+    </div>
+    <div class="row">
+        <?php $this->display('../blocks/input', [
+            'entity' => $entity,
+            'name' => 'remainder',
+        ])?>
+    </div>
+    <div class="row">
+        <?php $this->display('../blocks/select', [
+            'entity' => $entity,
+            'name' => 'contents',
+            'options' => $contents,
+        ])?>
+    </div>
+
+    <input type="submit" class="button" value="<?=$this->i18n('save')?>">
+    <div class="clear"></div>
+</form>

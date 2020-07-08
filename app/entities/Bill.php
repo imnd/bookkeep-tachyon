@@ -1,17 +1,18 @@
 <?php
 namespace app\entities;
 
-use tachyon\db\dataMapper\Entity;
+use tachyon\db\dataMapper\Entity,
+    \app\traits\HasClient;
 
 /**
  * Класс сущности "Клиент"
- * 
+ *
  * @author Андрей Сердюк
- * @copyright (c) 2019 IMND
+ * @copyright (c) 2020 IMND
  */
 class Bill extends Entity
 {
-    use \app\traits\HasClient;
+    use HasClient;
 
     protected $attributeCaptions = [
         'contents' => 'содержание',

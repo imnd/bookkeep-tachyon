@@ -6,7 +6,7 @@ use tachyon\db\dataMapper\Repository,
 
 /**
  * @author Андрей Сердюк
- * @copyright (c) 2018 IMND
+ * @copyright (c) 2020 IMND
  */
 class ArticleCatRepository extends Repository
 {

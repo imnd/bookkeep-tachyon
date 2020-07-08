@@ -1,23 +1,26 @@
 <?php
 namespace app\controllers;
 
-use tachyon\db\dataMapper\Repository,
+use
     tachyon\exceptions\HttpException,
     tachyon\Controller,
     tachyon\components\Flash,
     tachyon\db\dataMapper\Entity,
-    tachyon\traits\Authentication
+    tachyon\traits\AuthActions,
+    tachyon\db\dataMapper\EntityInterface,
+    tachyon\Request,
+    tachyon\db\dataMapper\RepositoryInterface
 ;
 
 /**
  * Базовый класс для всех контроллеров
  * 
  * @author Андрей Сердюк
- * @copyright (c) 2018 IMND
+ * @copyright (c) 2020 IMND
  */
 class CrudController extends Controller
 {
-    use Authentication;
+    use AuthActions;
 
     /** @inheritdoc */
     protected $layout = 'crud';
@@ -31,12 +34,14 @@ class CrudController extends Controller
      */
     protected $flash;
     /**
-     * @var Repository
+     * @var RepositoryInterface
      */
     protected $repository;
 
-    public function __construct(Flash $flash, ...$params)
+    public function __construct(RepositoryInterface $repository, Flash $flash, ...$params)
     {
+        $this->repository = $repository;
+
         $this->flash = $flash;
 
         parent::__construct(...$params);
@@ -57,17 +62,18 @@ class CrudController extends Controller
     /**
      * Главная страница, список сущностей раздела
      * 
-     * @param Entity $entity
+     * @param EntityInterface $entity
      * @param array $params
      */
-    protected function _index(Entity $entity, $params = array())
+    protected function doIndex(Entity $entity, $params = array())
     {
+        $getQuery = Request::getQuery();
         $this->view('index', array_merge([
             'entity' => $entity,
             'items' => $this
                 ->repository
-                ->setSearchConditions($this->get)
-                ->setSort($this->get)
+                ->setSearchConditions($getQuery)
+                ->setSort($getQuery)
                 ->findAll(),
         ], $params));
     }
@@ -76,13 +82,11 @@ class CrudController extends Controller
      * @param int $pk
      * @param array $params
      */
-    protected function _update($pk, array $params)
+    protected function doUpdate($pk, $params)
     {
-        /**
-         * @var Entity $entity
-         */
+        /** @var Entity $entity */
         $entity = $this->getEntity($pk);
-        if ($this->save($entity)) {
+        if ($this->saveEntity($entity)) {
             $this->redirect("/{$this->id}");
         }
         $this->view('update', array_merge(compact('entity'), $params));
@@ -91,11 +95,11 @@ class CrudController extends Controller
     /**
      * @param $params
      */
-    protected function _create(array $params)
+    protected function doCreate($params)
     {
         /** @var Entity $entity */
         $entity = $this->repository->create();
-        if ($this->save($entity)) {
+        if ($this->saveEntity($entity)) {
             $this->redirect("/{$this->id}");
         }
         $this->view('create', array_merge(compact('entity'), $params));
@@ -105,10 +109,10 @@ class CrudController extends Controller
      * @param Entity $entity
      * @return boolean
      */
-    protected function save(Entity $entity)
+    protected function saveEntity(Entity $entity)
     {
-        if (!empty($this->post)) {
-            $entity->setAttributes($this->post);
+        if (!empty($postParams = Request::getPost())) {
+            $entity->setAttributes($postParams);
             if ($entity->save()) {
                 $this->flash->setFlash('Сохранено успешно', Flash::FLASH_TYPE_SUCCESS);
                 return true;

@@ -2,40 +2,25 @@
 
 namespace app\controllers;
 
-use app\entities\Article;
-use app\repositories\ArticleRepository;
-use app\repositories\ArticleSubcatRepository;
-use app\repositories\RegionRepository;
-use tachyon\traits\Authentication;
+use
+    tachyon\Request,
+    app\entities\Article,
+    app\repositories\ArticleSubcatsRepository,
+    app\repositories\RegionsRepository
+;
 
 /**
  * Контроллер товаров
  *
  * @author Андрей Сердюк
- * @copyright (c) 2019 IMND
+ * @copyright (c) 2020 IMND
  */
 class ArticlesController extends CrudController
 {
-    use Authentication;
-
     /**
-     * @var ArticleRepository
-     */
-    protected $repository;
-    /**
-     * @var ArticleSubcatRepository
+     * @var ArticleSubcatsRepository
      */
     protected $subcatRepository;
-
-    /**
-     * @param ArticleRepository $repository
-     * @param array             $params
-     */
-    public function __construct(ArticleRepository $repository, ...$params)
-    {
-        $this->repository = $repository;
-        parent::__construct(...$params);
-    }
 
     /**
      * Главная страница, список товаров.
@@ -51,13 +36,15 @@ class ArticlesController extends CrudController
      * @param int $pk
      */
     public function update(
-        $pk,
-        ArticleSubcatRepository $articleSubcatRepository,
-        RegionRepository $regionRepository
-    ) {
+        ArticleSubcatsRepository $articleSubcatsRepository,
+        RegionsRepository $regionsRepository,
+        $pk
+    )
+    {
         $this->_update($pk, [
-            'regions'        => $regionRepository->findAll(),
-            'articleSubcats' => $articleSubcatRepository->getSelectList(),
+            'articleSubcats' => $articleSubcatsRepository->getAllSelectList(),
+            'regions' => $regionsRepository->findAll(),
+            'units' => $this->repository->getSelectListFromArr($this->repository->getUnits()),
         ]);
     }
 
@@ -66,6 +53,8 @@ class ArticlesController extends CrudController
      */
     protected function create()
     {
-        $this->_create();
+        $this->_create($pk, [
+            'regions' => $regionRepository->findAll(),
+        ]);
     }
 }

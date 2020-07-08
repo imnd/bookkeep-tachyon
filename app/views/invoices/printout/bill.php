@@ -1,5 +1,5 @@
 <p class="hat">В редакции  постановления Правительства  РФ от 11.05.2006 г. № 283</p>
-<p class="heading">СЧЕТ ФАКТУРА № <?=$item->number?> от: <?=$item->convDateToReadable($item->date, '-')?></p>
+<p class="heading">СЧЕТ ФАКТУРА № <?=$item->getNumber()?> от: <?=$item->convDateToReadable($item->getDate(), '-')?></p>
 <p class="head">Продавец: <?=$sender->name?></p>
 <p class="head">Адрес: <?=$sender->address?> ИНН продавца: <?=$sender->INN?></p>
 <p class="head">Грузоотправитель и его адрес: <?=$sender->name?> <?=$sender->address?></p>
@@ -19,19 +19,19 @@
     <tr class="hat">
         <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td>
     </tr>
-    <?php foreach ($item->rows as $row) { ?>
+    <?php foreach ($item->getRows() as $row) { ?>
     <tr class="row">
         <td class="article"><?=$row->getArticleName()?></td>
         <td><?=$row->getArticleUnit()?></td>
-        <td class="quantity"><?=$row->quantity?></td>
-        <td class="price"><?=$row->price?></td>
-        <td class="sum"><?=$row->sum?></td>
-        <td class="sum"><?=$row->sum?></td>
+        <td class="quantity"><?=$row->getQuantity()?></td>
+        <td class="price"><?=$row->getPrice()?></td>
+        <td class="sum"><?=$row->getSum()?></td>
+        <td class="sum"><?=$row->getSum()?></td>
     </tr>
     <?php } ?>
     <tr class="total">
         <td colspan="5"><b>Всего к оплате: </b></td>
-        <td><?=$item->sum?></td>
+        <td><?=$item->getSum()?></td>
     </tr>
 </table>
 <div class="bill footer">

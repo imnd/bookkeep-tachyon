@@ -6,18 +6,19 @@ use
     tachyon\Config,
     app\models\Users,
     tachyon\components\Flash,
-    tachyon\traits\Authentication
+    tachyon\traits\AuthActions,
+    tachyon\Request
 ;
 
 /**
  * Контроллер начальной страницы
  * 
  * @author Андрей Сердюк
- * @copyright (c) 2018 IMND
+ * @copyright (c) 2020 IMND
  */ 
 class IndexController extends Controller
 {
-    use Authentication;
+    use AuthActions;
 
     /**
      * @var Config $config
@@ -65,21 +66,22 @@ class IndexController extends Controller
      */
     public function login()
     {
-        if ($this->isRequestPost()) {
-            if ($user = $this->users->findByPassword(array(
-                'username' => $this->post['username'],
-                'password' => $this->post['password'],
-            ))) {
-                if ($user->confirmed == Users::STATUS_CONFIRMED) {
-                    $this->_login($this->post['remember']);
-                    $this->redirect($this->getReferer());
-                }
-                $error = 'Вы не подтвердили свою регистрацию.';
-            } else {
-                $error = 'Пользователя с таким логином и паролем нет.';
-            }
+        if (!Request::isPost()) {
+            $this->view('login');
+            return;            
         }
-        $this->view('login', compact('error'));
+        if (!$user = $this->users->findByPassword([
+            'username' => Request::getPost('username'),
+            'password' => Request::getPost('password'),
+        ])) {
+            $this->unauthorised('Пользователя с таким логином и паролем нет.');
+        }
+        if ($user->confirmed != Users::STATUS_CONFIRMED) {
+            $this->unauthorised('Вы не подтвердили свою регистрацию.');
+        }
+        $this->_login(Request::getPost('remember'));
+
+        $this->redirect(Request::getReferer());
     }
 
     /**
@@ -96,12 +98,12 @@ class IndexController extends Controller
      */
     public function register()
     {
-        if ($this->isRequestPost()) {
+        if (Request::isPost()) {
             if ($user = $this->users->add(array(
-                'username' => $this->post['username'],
-                'email' => $this->post['email'],
-                'password' => $this->post['password'],
-                'password_confirm' => $this->post['password_confirm'],
+                'username' => Request::getPost('username'),
+                'email' => Request::getPost('email'),
+                'password' => Request::getPost('password'),
+                'password_confirm' => Request::getPost('password_confirm'),
             ))) {
                 if (!$user->hasErrors()) {
                     $msg = 'Пожалуйста подтвердите свою регистрацию';
@@ -126,9 +128,9 @@ class IndexController extends Controller
     {
         if (
                 $user = $this->users->findOne(array(
-                    'email' => $this->get['email'],
+                    'email' => Request::getGet()['email'],
                 ))
-            and $user->confirm_code===$this->get['confirm_code']
+            and $user->confirm_code===Request::getGet('confirm_code')
         ) {
             $user->setAttribute('confirmed', Users::STATUS_CONFIRMED);
             $user->update();

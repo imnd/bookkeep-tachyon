@@ -3,18 +3,20 @@ namespace app\repositories;
 
 use tachyon\db\dataMapper\Repository,
     tachyon\db\dataMapper\Entity,
-    tachyon\traits\ClassName;
+    tachyon\traits\ClassName,
+    app\interfaces\RowsRepositoryInterface
+;
 
 /**
  * @author Андрей Сердюк
- * @copyright (c) 2018 IMND
+ * @copyright (c) 2020 IMND
  */
 class HasRowsRepository extends Repository
 {
     use ClassName;
 
     /**
-     * @var InvoiceRowRepository
+     * @var Repository
      */
     protected $rowRepository;
     /**
@@ -22,11 +24,16 @@ class HasRowsRepository extends Repository
      */
     protected $rowFk;
 
-    public function __construct(...$params)
+    /**
+     * @param RowsRepositoryInterface $rowRepository
+     * @param array $params
+     */
+    public function __construct(RowsRepositoryInterface $rowRepository, ...$params)
     {
         if (is_null($this->rowFk)) {
-            $this->rowFk = strtolower(str_replace('Repository', '', $this->getClassName())) . '_id';
+            $this->rowFk = substr(strtolower(str_replace('Repository', '', $this->getClassName())), 0, -1) . '_id';
         }
+        $this->rowRepository = $rowRepository;
 
         parent::__construct(...$params);
     }
@@ -34,7 +41,7 @@ class HasRowsRepository extends Repository
     /**
      * @inheritdoc
      */
-    public function findByPk($pk): Entity
+    public function findByPk($pk): ?Entity
     {
         if (!isset($this->collection[$pk])) {
             $entity = $this->getByPk($pk);
@@ -52,8 +59,6 @@ class HasRowsRepository extends Repository
      */
     public function getLastNumber(): int
     {
-        $persistence = $this->persistence;
-        $persistence = $this->persistence;
         $item = $this
             ->persistence
             ->select('number')

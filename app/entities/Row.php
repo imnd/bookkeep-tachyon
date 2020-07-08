@@ -1,15 +1,17 @@
 <?php
+
 namespace app\entities;
 
-use tachyon\db\dataMapper\Entity;
+use tachyon\db\dataMapper\Entity,
+    app\interfaces\RowEntityInterface;
 
 /**
  * Класс сущности "Клиент"
- * 
+ *
  * @author Андрей Сердюк
- * @copyright (c) 2019 IMND
+ * @copyright (c) 2020 IMND
  */
-class Row extends Entity
+class Row extends Entity implements RowEntityInterface
 {
     /**
      * @var mixed
@@ -20,15 +22,14 @@ class Row extends Entity
     {
         $this->attributeCaptions = [
             'quantity' => 'количество',
-            'price' => 'цена',
-            'sum' => 'сумма',
+            'price'    => 'цена',
+            'sum'      => 'сумма',
         ];
         if (is_null($this->rowFk)) {
             $tableNameArr = preg_split('/(?=[A-Z])/', str_replace('Row', '', get_called_class()));
             array_shift($tableNameArr);
             $this->rowFk = strtolower(implode('_', $tableNameArr)) . '_id';
         }
-
         parent::__construct(...$params);
     }
 
@@ -42,7 +43,6 @@ class Row extends Entity
     protected $price;
 
     # Getters
-
     public function getQuantity()
     {
         return $this->quantity;
@@ -57,7 +57,7 @@ class Row extends Entity
     {
         return [
             'quantity' => 'numerical',
-            'price' => 'numerical',
+            'price'    => 'numerical',
         ];
     }
 
@@ -65,17 +65,15 @@ class Row extends Entity
     {
         return [
             'quantity' => $this->quantity,
-            'price' => $this->price,
+            'price'    => $this->price,
         ];
     }
 
     public function fromState(array $state): Entity
     {
         $entity = clone($this);
-
         $entity->quantity = $state['quantity'];
         $entity->price = $state['price'];
-
         return $entity;
     }
 
@@ -88,7 +86,6 @@ class Row extends Entity
     }
 
     # Setters
-
     public function setQuantity(int $value = null): RowEntity
     {
         return $this->_setAttribute('quantity', $value);
@@ -103,7 +100,6 @@ class Row extends Entity
     {
         $this
             ->setQuantity($state['quantity'] ?: null)
-            ->setPrice($state['price'] ?: null)
-        ;
+            ->setPrice($state['price'] ?: null);
     }
 }

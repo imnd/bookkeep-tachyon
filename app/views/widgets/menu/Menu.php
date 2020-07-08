@@ -6,7 +6,7 @@ namespace app\views\widgets\menu;
  * Отображает меню
  * 
  * @author Андрей Сердюк
- * @copyright (c) 2018 IMND
+ * @copyright (c) 2020 IMND
  */
 class Menu extends \tachyon\components\widgets\Widget
 {

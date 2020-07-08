@@ -1,4 +1,5 @@
 <?php
-include('..\vendor\autoload.php');
+// режим исполнения приложения
+define('APP_ENV', 'work');
 
-(new \tachyon\dic\Container)->get('\tachyon\Router')->dispatch();
+include('bootstrap.php');

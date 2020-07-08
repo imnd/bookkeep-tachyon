@@ -3,13 +3,13 @@ namespace app\traits;
 
 /**
  * @author Андрей Сердюк
- * @copyright (c) 2018 IMND
- */ 
+ * @copyright (c) 2020 IMND
+ */
 trait Select
 {
     /**
      * Список для дроп-дауна по условию $where, отсортированных по $sort
-     * 
+     *
      * @param string $valueField
      * @param array $where
      * @param array $sort

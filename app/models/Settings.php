@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use tachyon\db\activeRecord\ActiveRecord;
@@ -16,26 +17,26 @@ class Settings extends ActiveRecord
 
     protected $fields = ['name', 'key', 'value'];
     protected $fieldTypes = [
-        'id' => 'smallint',
-        'name' => 'tinytext',
-        'key' => 'tinytext',
+        'id'    => 'smallint',
+        'name'  => 'tinytext',
+        'key'   => 'tinytext',
         'value' => 'tinytext',
     ];
     protected $attributeTypes = [
-        'name' => 'input',
-        'key' => 'input',
+        'name'  => 'input',
+        'key'   => 'input',
         'value' => 'input',
     ];
     protected $attributeNames = [
-        'name' => 'название',
-        'key' => 'ключ',
+        'name'  => 'название',
+        'key'   => 'ключ',
         'value' => 'значение',
     ];
 
     public function rules(): array
     {
         return [
-            'key, value' => ['required'],
+            'key, value'       => ['required'],
             'name, value, key' => ['alphaExt'],
         ];
     }
@@ -44,12 +45,25 @@ class Settings extends ActiveRecord
      * Реквизиты фирмы
      *
      * @param $from string какой фирмы
+     *
      * @return object
      */
     public function getRequisites($from)
     {
         $firm = [];
-        $keys = ['director', 'name_short', 'name', 'address', 'certificate', 'INN', 'KPP', 'OKUD', 'OKPO', 'bank', 'account'];
+        $keys = [
+            'director',
+            'name_short',
+            'name',
+            'address',
+            'certificate',
+            'INN',
+            'KPP',
+            'OKUD',
+            'OKPO',
+            'bank',
+            'account',
+        ];
         foreach ($keys as $key) {
             $firm[$key] = $this->getValueByKey("{$from}_$key");
         }
@@ -58,6 +72,7 @@ class Settings extends ActiveRecord
 
     /**
      * @param $key string
+     *
      * @return \tachyon\db\activeRecord\ActiveRecord
      */
     public function findByKey($key)
@@ -67,6 +82,7 @@ class Settings extends ActiveRecord
 
     /**
      * @param $key string
+     *
      * @return array
      */
     public function getByKey($key)
@@ -76,6 +92,7 @@ class Settings extends ActiveRecord
 
     /**
      * @param $key string
+     *
      * @return string
      */
     public function getValueByKey($key)
@@ -86,6 +103,7 @@ class Settings extends ActiveRecord
 
     /**
      * @param $key string
+     *
      * @return string
      */
     public function getNameByKey($key)

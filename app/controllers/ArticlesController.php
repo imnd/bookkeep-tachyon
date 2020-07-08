@@ -29,7 +29,7 @@ class ArticlesController extends CrudController
      */
     public function index(Article $entity)
     {
-        $this->_index($entity);
+        $this->doIndex($entity);
     }
 
     /**
@@ -41,7 +41,7 @@ class ArticlesController extends CrudController
         $pk
     )
     {
-        $this->_update($pk, [
+        $this->doUpdate($pk, [
             'articleSubcats' => $articleSubcatsRepository->getAllSelectList(),
             'regions' => $regionsRepository->findAll(),
             'units' => $this->repository->getSelectListFromArr($this->repository->getUnits()),
@@ -49,12 +49,12 @@ class ArticlesController extends CrudController
     }
 
     /**
-     * @param $params
+     * @param RegionsRepository $regionsRepository
      */
-    protected function create()
+    protected function create(RegionsRepository $regionsRepository)
     {
-        $this->_create($pk, [
-            'regions' => $regionRepository->findAll(),
+        $this->doCreate([
+            'regions' => $regionsRepository->findAll(),
         ]);
     }
 }

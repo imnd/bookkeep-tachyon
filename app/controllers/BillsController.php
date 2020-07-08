@@ -1,11 +1,11 @@
 <?php
 namespace app\controllers;
 
-use app\entities\Bill;
-use app\repositories\BillsRepository;
-use app\repositories\ClientsRepository;
-use tachyon\db\dataMapper\Entity;
-use tachyon\Request;
+use app\entities\Bill,
+    app\repositories\BillsRepository,
+    app\repositories\ClientsRepository,
+    tachyon\db\dataMapper\Entity,
+    tachyon\Request;
 
 /**
  * Контроллер платежей
@@ -17,15 +17,15 @@ class BillsController extends CrudController
 {
     protected $layout = 'bills';
     /**
-     * @var BillRepository
+     * @var BillsRepository
      */
     protected $repository;
 
     /**
-     * @param BillRepository $repository
+     * @param BillsRepository $repository
      * @param array $params
      */
-    public function __construct(BillRepository $repository, ...$params)
+    public function __construct(BillsRepository $repository, ...$params)
     {
         $this->repository = $repository;
 

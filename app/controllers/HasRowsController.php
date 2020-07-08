@@ -5,6 +5,7 @@ use tachyon\db\dataMapper\Entity,
     tachyon\components\Flash,
     tachyon\traits\ArrayTrait,
     app\interfaces\RowsRepositoryInterface;
+use tachyon\Request;
 
 /**
  * class Controller

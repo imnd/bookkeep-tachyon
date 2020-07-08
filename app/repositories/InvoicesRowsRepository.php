@@ -2,7 +2,6 @@
 namespace app\repositories;
 
 use
-    tachyon\db\dataMapper\Repository,
     app\interfaces\RowsRepositoryInterface,
     app\entities\InvoiceRow;
 

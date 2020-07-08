@@ -5,6 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <?=
     $this->assetManager->css('style'),
+    $this->assetManager->css('grid/style'),
     $this->assetManager->coreJs('dom')
     ?>
 </head>

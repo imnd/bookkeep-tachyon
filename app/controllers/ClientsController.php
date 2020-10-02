@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use app\entities\Client,
@@ -7,8 +8,7 @@ use app\entities\Client,
     app\repositories\BillsRepository,
     app\repositories\InvoicesRepository,
     app\repositories\RegionsRepository,
-    tachyon\Request
-;
+    tachyon\Request;
 
 /**
  * Контроллер клиентов фирмы
@@ -19,18 +19,12 @@ use app\entities\Client,
 class ClientsController extends CrudController
 {
     /**
-     * @var ClientsRepository
-     */
-    protected $repository;
-
-    /**
      * @param ClientsRepository $repository
-     * @param array $params
+     * @param array             $params
      */
     public function __construct(ClientsRepository $repository, ...$params)
     {
         $this->repository = $repository;
-
         parent::__construct(...$params);
     }
 
@@ -52,7 +46,7 @@ class ClientsController extends CrudController
 
     /**
      * @param RegionsRepository $regionRepository
-     * @param int $pk
+     * @param int               $pk
      */
     public function update(RegionsRepository $regionRepository, $pk)
     {
@@ -60,38 +54,37 @@ class ClientsController extends CrudController
     }
 
     /**
-     * @param BillsRepository $billRepository
+     * @param BillsRepository    $billRepository
      * @param InvoicesRepository $invoiceRepository
-     * @param Settings $settings
-     * @param int $pk
+     * @param Settings           $settings
+     * @param int                $pk
      */
     public function printout(
         BillsRepository $billRepository,
         InvoicesRepository $invoiceRepository,
         Settings $settings,
         $pk
-    )
-    {
+    ) {
         $this->layout = 'printout';
         $client = $this->repository->findByPk($pk);
         if (empty($getParams = Request::getGet())) {
             $this->view('printout', compact('client'));
             return;
         }
-        $where = array_merge(array('client_id' => $pk), $getParams);
+        $where = array_merge(['client_id' => $pk], $getParams);
         $debetSum = $invoiceRepository->getTotalByContract($where);
         $creditSum = $billRepository->getTotalByContract($where);
         $this->view('reconciliation', [
-            'client' => $client,
-            'sender' => $settings->getRequisites('firm'),
-            'dateFrom' => $this->convDateToReadable($getParams['dateFrom']),
-            'dateTo' => $this->convDateToReadable($getParams['dateTo']),
-            'bills' => $billRepository->getAllByContract($where),
-            'invoices' => $invoiceRepository->getAllByContract($where),
-            'debetSum' => number_format($debetSum, 2, '.', ''),
-            'creditSum' => number_format($creditSum, 2, '.', ''),
-            'saldo' => number_format($debetSum - $creditSum, 2, '.', ''),
-            'saldoStart' => 0
+            'client'     => $client,
+            'sender'     => $settings->getRequisites('firm'),
+            'dateFrom'   => $this->convDateToReadable($getParams['dateFrom']),
+            'dateTo'     => $this->convDateToReadable($getParams['dateTo']),
+            'bills'      => $billRepository->getAllByContract($where),
+            'invoices'   => $invoiceRepository->getAllByContract($where),
+            'debetSum'   => number_format($debetSum, 2, '.', ''),
+            'creditSum'  => number_format($creditSum, 2, '.', ''),
+            'saldo'      => number_format($debetSum - $creditSum, 2, '.', ''),
+            'saldoStart' => 0,
         ]);
     }
 }

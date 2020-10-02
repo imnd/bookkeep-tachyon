@@ -1,1 +1,1 @@
-<?php $this->display('_form', compact('entity', 'row', 'rows', 'articlesList', 'articles', 'clients'));
+<?php $this->display('_form', compact('entity', 'row', 'articlesList', 'articles', 'clients'));

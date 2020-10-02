@@ -5,8 +5,7 @@ use Iterator,
     tachyon\traits\DateTime,
     tachyon\db\dataMapper\Repository,
     app\entities\Bill,
-    tachyon\traits\RepositoryListTrait,
-    app\repositories\ClientsRepository
+    tachyon\traits\RepositoryListTrait
 ;
 
 /**

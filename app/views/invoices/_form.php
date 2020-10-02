@@ -53,13 +53,14 @@ $this->assetManager->js('prices')
             <th><?=$row->getCaption('price')?></th>
             <th><?=$row->getCaption('sum')?></th>
         </tr>
-        <?php if ($rows = $entity->getRows()) {
-            foreach ($entity->getRows() as $row) {
-                $this->display('_row', compact('row', 'articlesList'));
-            }
-        } else {
+        <?php
+        if (!$rows = $entity->getRows()) {
+            $rows = [$row];
+        }
+        foreach ($rows as $row) {
             $this->display('_row', compact('row', 'articlesList'));
-        }?>
+        }
+        ?>
         <tr class="total">
             <td colspan="4"><b>Итого:</b></td>
             <td class="total"><?=$entity->getSum()?></td>

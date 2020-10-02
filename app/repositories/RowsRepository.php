@@ -2,7 +2,6 @@
 namespace app\repositories;
 
 use tachyon\db\dataMapper\Repository,
-    tachyon\traits\ClassName,
     app\interfaces\RowEntityInterface;
 
 /**
@@ -11,8 +10,6 @@ use tachyon\db\dataMapper\Repository,
  */
 class RowsRepository extends Repository
 {
-    use ClassName;
-
     /**
      * @param RowEntityInterface $rowEntity
      * @param array $params

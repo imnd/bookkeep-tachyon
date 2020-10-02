@@ -5,8 +5,6 @@ use Iterator,
     tachyon\db\dataMapper\Repository,
     tachyon\traits\DateTime,
     tachyon\db\dataMapper\Entity,
-    app\repositories\ClientsRepository,
-    app\repositories\ContractsRepository,
     app\entities\Client,
     app\entities\Invoice
 ;

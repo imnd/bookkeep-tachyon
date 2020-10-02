@@ -6,7 +6,7 @@ use
     tachyon\Config,
     app\models\Users,
     tachyon\components\Flash,
-    tachyon\traits\AuthActions,
+    tachyon\traits\Auth,
     tachyon\Request
 ;
 
@@ -18,7 +18,7 @@ use
  */ 
 class IndexController extends Controller
 {
-    use AuthActions;
+    use Auth;
 
     /**
      * @var Config $config
@@ -98,13 +98,14 @@ class IndexController extends Controller
      */
     public function register()
     {
+        $msg = $error = '';
         if (Request::isPost()) {
-            if ($user = $this->users->add(array(
+            if ($user = $this->users->add([
                 'username' => Request::getPost('username'),
                 'email' => Request::getPost('email'),
                 'password' => Request::getPost('password'),
                 'password_confirm' => Request::getPost('password_confirm'),
-            ))) {
+            ])) {
                 if (!$user->hasErrors()) {
                     $msg = 'Пожалуйста подтвердите свою регистрацию';
                     $email = $user->email;

@@ -1,11 +1,13 @@
 <?php
 namespace app\controllers;
 
-use tachyon\db\dataMapper\Entity,
+use
+    app\interfaces\RowsRepositoryInterface,
+    tachyon\db\dataMapper\Entity,
     tachyon\components\Flash,
     tachyon\traits\ArrayTrait,
-    app\interfaces\RowsRepositoryInterface;
-use tachyon\Request;
+    tachyon\Request
+;
 
 /**
  * class Controller
@@ -38,7 +40,7 @@ class HasRowsController extends CrudController
      * @param Entity $entity
      * @return boolean
      */
-    protected function saveEntity(Entity $entity)
+    protected function saveEntity(Entity $entity): bool
     {
         if (empty($postParams = Request::getPost())) {
             return false;
@@ -80,5 +82,24 @@ class HasRowsController extends CrudController
         }
         $this->flash->addFlash('Сохранено успешно', Flash::FLASH_TYPE_SUCCESS);
         return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function doUpdate($pk, $params): void
+    {
+        /** @var Entity $entity */
+        $entity = $this->getEntity($pk);
+        if ($this->saveEntity($entity)) {
+            $this->redirect("/{$this->id}");
+        }
+        if (!$rows = $entity->getRows() ?: []) {
+            $row = $this->rowRepository->create(false);
+        } else {
+            $row = $rows[0];
+        }
+
+        $this->view('update', array_merge(compact('entity', 'rows', 'row'), $params));
     }
 }

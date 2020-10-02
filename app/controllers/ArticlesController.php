@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use
-    tachyon\Request,
     app\entities\Article,
     app\repositories\ArticleSubcatsRepository,
     app\repositories\RegionsRepository
@@ -33,6 +32,8 @@ class ArticlesController extends CrudController
     }
 
     /**
+     * @param ArticleSubcatsRepository $articleSubcatsRepository
+     * @param RegionsRepository $regionsRepository
      * @param int $pk
      */
     public function update(

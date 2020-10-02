@@ -5,7 +5,6 @@ use
     Iterator,
     tachyon\db\dataMapper\Repository,
     tachyon\traits\RepositoryListTrait,
-    app\repositories\ArticleSubcatsRepository,
     app\entities\Article
 ;
 
@@ -57,7 +56,11 @@ class ArticlesRepository extends Repository
             ])
             ->from($this->tableName)
             ->asa('a')
-            ->with([$this->articleSubcatRepository->getTableName() => 's'], ['subcat_id' => 'id'])
+            ->with([
+                $this->articleSubcatRepository->getTableName() => 's'
+            ], [
+                'subcat_id' => 'id'
+            ])
             ->findAll($where, $sort);
 
         return $this->convertArrayData($arrayData);
@@ -84,6 +87,6 @@ class ArticlesRepository extends Repository
      */
     public function getUnits()
     {
-        return array('кг', 'шт');
+        return ['кг', 'шт'];
     }
 }

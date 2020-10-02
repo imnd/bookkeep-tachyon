@@ -7,8 +7,7 @@ use Iterator,
     app\entities\Contract,
     tachyon\traits\DateTime,
     tachyon\db\dataMapper\Entity,
-    app\entities\Client,
-    app\repositories\ClientsRepository
+    app\entities\Client
 ;
 
 /**
@@ -38,7 +37,7 @@ class ContractsRepository extends HasRowsRepository
         ClientsRepository $clientsRepository,
         ...$params
     ) {
-        $this->contract = $contract;
+        $this->entity = $contract;
         $this->clientsRepository = $clientsRepository;
 
         parent::__construct(...$params);
@@ -54,6 +53,7 @@ class ContractsRepository extends HasRowsRepository
         parent::setSearchConditions($conditions);
         return $this;
     }
+
     /**
      * @inheritdoc
      */
@@ -93,6 +93,7 @@ class ContractsRepository extends HasRowsRepository
             ->with(['invoices' => 'i'], 'contract_num')
             ->groupBy('c.id, c.contract_num, i.contract_num, c.client_id, cl.id')
             ->findAll($where, $sort);
+
         return $this->convertArrayData($arrayData);
     }
 }

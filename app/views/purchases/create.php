@@ -1,17 +1,20 @@
-<?=
-$this->assetManager->coreJs('ajax'),
+<script>datepicker.build();</script>
+<?php
+/** @var string $date */
+
+// хранить зависимости в assetManager
+$this->assetManager->coreJs('ajax');
+$this->assetManager->coreJs('obj');
+$this->assetManager->coreJs('dom');
+$this->assetManager->coreJs('datepicker');
+
+echo
 $this->assetManager->js('prices'),
-
 $this->html->formOpen(),
-
     'за: ', $this->html->input([
         'name' => 'date',
-        'value' => $date
-    ]),
-    $this->widget([
-        'class' => 'tachyon\components\widgets\Datepicker',
-        'fieldNames' => array('date'),
-        'return' => true,
+        'value' => $date,
+        'class' => 'datepicker',
     ]),
     '&nbsp;',
     $this->html->submit('Собрать'),

@@ -1,7 +1,12 @@
+<script>datepicker.build();</script>
 <?php
 use tachyon\Request;
 
 $dateFieldNames = array();
+// хранить зависимости в assetManager
+$this->assetManager->coreJs('obj');
+$this->assetManager->coreJs('dom');
+$this->assetManager->coreJs('datepicker')
 ?>
 <form class="search-form" action="<?=Request::getRoute()?>">
     <?php foreach ($fields as $key => $field) {?>

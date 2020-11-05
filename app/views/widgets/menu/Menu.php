@@ -1,6 +1,8 @@
 <?php
 namespace app\views\widgets\menu;
 
+use tachyon\components\widgets\Widget;
+
 /**
  * class Menu
  * Отображает меню
@@ -8,7 +10,7 @@ namespace app\views\widgets\menu;
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
-class Menu extends \tachyon\components\widgets\Widget
+class Menu extends Widget
 {
     /**
      * Пункты меню

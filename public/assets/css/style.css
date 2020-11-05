@@ -598,3 +598,7 @@ input#contract_num {
 .button-printout {
     background: transparent url(../img/printout.png) no-repeat;
 }
+
+.datepicker__days li span.is-active{
+    background-color:#900 !important;border-color:#999 !important;
+}

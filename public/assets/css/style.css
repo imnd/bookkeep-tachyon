@@ -460,8 +460,14 @@ form.search-form {
     border-bottom: 1px solid #D0D0D0;
 }
 form.search-form input {
-    margin-left: 9px;
+    margin-left: 2px;
     width: 100px;
+}
+form.search-form .control {
+    margin-right: 8px;
+}
+form.search-form .form__field {
+    display: inline-block;
 }
 form.search-form label {
     width: auto;

@@ -95,13 +95,6 @@ echo
         </tr>
     </table>
 
-    <?php
-    $entityName = $entity->getClassName();
-    $this->widget([
-        'class' => 'tachyon\components\widgets\Datepicker',
-        'fieldNames' => ["{$entityName}[date]", "{$entityName}[term_start]", "{$entityName}[term_end]"],
-    ])?>
-
     <input type="submit" class="button" value="<?=$this->i18n('save')?>">
     <div class="clear"></div>
 </form>
@@ -110,7 +103,7 @@ echo
 
 <script>
     dom.ready(function() {
-        prices.setEntityName('<?=$entityName?>');
+        prices.setEntityName('<?=$entity->getClassName()?>');
         prices.calcSums();
         dom.findByName("contractNum").addEventListener("change", prices.updatePrices);
     });

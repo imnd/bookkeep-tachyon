@@ -12,7 +12,7 @@ $this->assetManager->coreJs('ajax');
 // хранить зависимости в assetManager
 $this->assetManager->coreJs('obj');
 $this->assetManager->coreJs('dom');
-$this->assetManager->coreJs('datepicker')
+$this->assetManager->coreJs('datepicker');
 ?>
 <script>datepicker.build();</script>
 

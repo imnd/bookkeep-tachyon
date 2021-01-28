@@ -2,11 +2,14 @@
 
 namespace app\entities;
 
-use tachyon\db\dataMapper\Entity,
+use
+    tachyon\db\dataMapper\Entity,
+    tachyon\traits\DateTime,
+    app\interfaces\HasRowsInterface,
     app\traits\HasClient,
     app\traits\HasContract,
-    app\traits\HasRows,
-    tachyon\traits\DateTime;
+    app\traits\HasRows
+;
 
 /**
  * Класс сущности "Фактра"
@@ -14,10 +17,10 @@ use tachyon\db\dataMapper\Entity,
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
-class Invoice extends Entity
+class Invoice extends Entity implements HasRowsInterface
 {
     use HasClient, HasContract, HasRows, DateTime;
-    
+
     protected $attributeCaptions = [
         'number'       => 'номер',
         'contract_num' => 'номер договора',

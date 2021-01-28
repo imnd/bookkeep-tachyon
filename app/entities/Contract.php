@@ -3,16 +3,17 @@ namespace app\entities;
 
 use tachyon\db\dataMapper\Entity,
     tachyon\traits\DateTime,
+    app\interfaces\HasRowsInterface,
     app\traits\HasRows,
     app\traits\HasClient;
 
 /**
  * Класс сущности "Клиент"
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
-class Contract extends Entity
+class Contract extends Entity implements HasRowsInterface
 {
     use HasClient,
         HasRows,
@@ -219,7 +220,7 @@ class Contract extends Entity
 
     /**
      * Список типов для селекта на форме
-     * 
+     *
      * @return array
      */
     public function getTypes(): array

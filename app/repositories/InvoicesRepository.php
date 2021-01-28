@@ -1,12 +1,11 @@
 <?php
 namespace app\repositories;
 
+use app\interfaces\HasRowsInterface;
 use Iterator,
     tachyon\db\dataMapper\Repository,
     tachyon\traits\DateTime,
     tachyon\db\dataMapper\Entity,
-    app\repositories\ClientsRepository,
-    app\repositories\ContractsRepository,
     app\entities\Client,
     app\entities\Invoice
 ;
@@ -71,7 +70,7 @@ class InvoicesRepository extends HasRowsRepository
             ->findOne(['contract_num' => $invoice->getContractNum()])) {
             $invoice->setContractType($contract->getType());
         }
-        /** @var Client */ 
+        /** @var Client */
         if ($client = $this->clientsRepository
             ->findByPk($invoice->getClientId())) {
             $invoice

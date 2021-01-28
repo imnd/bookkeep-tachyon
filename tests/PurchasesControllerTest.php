@@ -1,9 +1,9 @@
 <?php
-namespace app\controllers;
+namespace tests;
 
 use PHPUnit\Framework\TestCase;
 
-class PurchasesControllerTest extends TestCase
+final class PurchasesControllerTest extends TestCase
 {
     public function testCreate()
     {

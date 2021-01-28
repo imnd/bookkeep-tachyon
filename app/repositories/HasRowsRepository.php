@@ -1,11 +1,12 @@
 <?php
 namespace app\repositories;
 
-use tachyon\db\dataMapper\Repository,
-    tachyon\db\dataMapper\Entity,
-    tachyon\traits\ClassName,
-    app\interfaces\RowsRepositoryInterface
-;
+use app\interfaces\HasRowsInterface;
+use tachyon\db\dataMapper\{
+    Repository, Entity
+};
+use tachyon\traits\ClassName;
+use app\interfaces\RowsRepositoryInterface;
 
 /**
  * @author Андрей Сердюк
@@ -44,8 +45,9 @@ class HasRowsRepository extends Repository
     public function findByPk($pk): ?Entity
     {
         if (!isset($this->collection[$pk])) {
-            $entity = $this->getByPk($pk);
             $rows = $this->rowRepository->findAll([$this->rowFk => $pk]);
+            /** @var HasRowsInterface $entity */
+            $entity = $this->getByPk($pk);
             $entity->setRows($rows);
             $this->collection[$pk] = $entity;
         }

@@ -2,7 +2,7 @@
 namespace tests;
 
 use PHPUnit\Framework\TestCase,
-    GuzzleHttp\Client,
+    GuzzleHttp\Client as HttpClient,
     tachyon\db\dbal\DbFactory,
     tachyon\db\dataMapper\Persistence,
     tachyon\Config,
@@ -14,21 +14,21 @@ use PHPUnit\Framework\TestCase,
 
 /**
  * Тестовый класс для модели Articles
- * 
+ *
  * cd D:\wamp\www\bookkeep
  * .\vendor\bin\phpunit tests/ArticlesTest
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
 final class ArticlesTest extends TestCase
 {
     /**
-     * @var Client $client
+     * @var HttpClient
      */
     protected $client;
     /**
-     * @var Config $config
+     * @var Config
      */
     protected $config;
     protected $repository;
@@ -39,14 +39,13 @@ final class ArticlesTest extends TestCase
     protected function setUp(): void
     {
         $this->config = new Config('main-test');
-        $dbFactory = new DbFactory($this->config);
-        $persistence = new Persistence($dbFactory);
+        $persistence  = new Persistence(new DbFactory($this->config));
         $articleSubcatRepository = new ArticleSubcatsRepository(new ArticleSubcat, $persistence);
         $this->repository = new ArticlesRepository(new Article, $articleSubcatRepository, $persistence);
-        
-        $this->client = new Client([
+
+        $this->client = new HttpClient([
             'base_uri' => $this->config->get('base-url'),
-            'timeout' => 2.0,
+            'timeout'  => 2.0,
         ]);
     }
 
@@ -65,7 +64,7 @@ final class ArticlesTest extends TestCase
      */
     public function authenticated_users_can_create_article()
     {
-        
+
     }
 
     /**
@@ -74,6 +73,6 @@ final class ArticlesTest extends TestCase
      */
     public function unauthenticated_users_cant_create_article()
     {
-        
+
     }
 }

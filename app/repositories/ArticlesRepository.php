@@ -36,8 +36,7 @@ class ArticlesRepository extends Repository
         Article $article,
         ArticleSubcatsRepository $articleSubcatRepository,
         ...$params
-    )
-    {
+    ) {
         $this->entity = $article;
         $this->articleSubcatRepository = $articleSubcatRepository;
 
@@ -46,7 +45,8 @@ class ArticlesRepository extends Repository
 
     public function findAll(array $where = array(), array $sort = array()): Iterator
     {
-        $arrayData = $this->persistence
+        $arrayData = $this
+            ->persistence
             ->select([
                 'a.id',
                 'a.name',

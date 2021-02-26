@@ -9,7 +9,6 @@
     <div class="row">
         <input name="remember" type="checkbox" checked="checked" value="1" />&nbsp;<label>запомнить</label>
     </div>
-    <?php $this->display('_error', compact('error'))?>
     <input type="submit" value="войти"/>&nbsp;&nbsp;
     <a href="/index/register">регистрация</a>
 </form>

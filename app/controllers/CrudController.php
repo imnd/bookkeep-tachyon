@@ -6,7 +6,7 @@ use
     tachyon\Controller,
     tachyon\components\Flash,
     tachyon\db\dataMapper\Entity,
-    tachyon\traits\AuthActions,
+    tachyon\traits\Auth,
     tachyon\db\dataMapper\EntityInterface,
     tachyon\Request,
     tachyon\db\dataMapper\RepositoryInterface
@@ -20,7 +20,7 @@ use
  */
 class CrudController extends Controller
 {
-    use AuthActions;
+    use Auth;
 
     /** @inheritdoc */
     protected $layout = 'crud';
@@ -51,10 +51,10 @@ class CrudController extends Controller
      * Хук, срабатывающий перед запуском экшна
      * @return boolean
      */
-    public function beforeAction()
+    public function beforeAction(): bool
     {
         if ($this->protectedActions==='*' || in_array($this->action, $this->protectedActions)) {
-            $this->checkAccess();
+            return $this->checkAccess();
         }
         return true;
     }
@@ -64,8 +64,9 @@ class CrudController extends Controller
      * 
      * @param EntityInterface $entity
      * @param array $params
+     * @return void
      */
-    protected function doIndex(Entity $entity, $params = array())
+    protected function doIndex(Entity $entity, $params = array()): void
     {
         $getQuery = Request::getQuery();
         $this->view('index', array_merge([
@@ -81,8 +82,9 @@ class CrudController extends Controller
     /**
      * @param int $pk
      * @param array $params
+     * @return void
      */
-    protected function doUpdate($pk, $params)
+    protected function doUpdate($pk, $params): void
     {
         /** @var Entity $entity */
         $entity = $this->getEntity($pk);
@@ -94,8 +96,9 @@ class CrudController extends Controller
 
     /**
      * @param $params
+     * @return void
      */
-    protected function doCreate($params)
+    protected function doCreate($params): void
     {
         /** @var Entity $entity */
         $entity = $this->repository->create();
@@ -109,7 +112,7 @@ class CrudController extends Controller
      * @param Entity $entity
      * @return boolean
      */
-    protected function saveEntity(Entity $entity)
+    protected function saveEntity(Entity $entity): bool
     {
         if (!empty($postParams = Request::getPost())) {
             $entity->setAttributes($postParams);
@@ -125,7 +128,7 @@ class CrudController extends Controller
     /**
      * @param int $pk
      */
-    public function delete($pk)
+    public function delete($pk): void
     {
         echo json_encode([
             'success' => $this->getEntity($pk)->delete()
@@ -133,10 +136,14 @@ class CrudController extends Controller
     }
 
     /**
-     * @param int $pk
+     * Извлекает запись по первичному ключу $pk
+     *
+     * @param mixed $pk
+     *
      * @return Entity
+     * @throws HttpException
      */
-    protected function getEntity($pk)
+    protected function getEntity($pk): Entity
     {
         if (!$entity = $this->repository->findByPk($pk)) {
             throw new HttpException($this->msg->i18n('Wrong address.'), HttpException::NOT_FOUND);

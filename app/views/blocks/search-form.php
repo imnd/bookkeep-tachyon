@@ -1,7 +1,7 @@
 <?php
 use tachyon\Request;
 
-$dateFieldNames = array();
+$datepicker = false;
 ?>
 <form class="search-form" action="<?=Request::getRoute()?>">
     <?php foreach ($fields as $key => $field) {?>
@@ -14,17 +14,20 @@ $dateFieldNames = array();
             }
             $type = $field['type'] ?? 'input';
             if ($type==='date') {
+                $datepicker = true;
                 $tag = 'input';
-                $dateFieldNames[] = $name;
+                $field['class'] = $field['class'] ?? '';
+                $field['class'] .= ' datepicker';
             } else
                 $tag = $type;
 
             $this->display("../blocks/$tag", [
-                'entity' => $entity,
-                'name' => $name,
+                'entity'  => $entity,
+                'name'    => $name,
                 'options' => $field['options'] ?? null,
-                'style' => $field['style'] ?? '',
-                'value' => Request::getGet($name) ?? '',
+                'style'   => $field['style'] ?? null,
+                'class'   => $field['class'] ?? null,
+                'value'   => Request::getGet($name) ?? '',
             ]);
             ?>
         </div>
@@ -32,11 +35,11 @@ $dateFieldNames = array();
     <input type="submit" class="button" value="поиск">
     <div class="clear"></div>
 </form>
-<?php
-if (!empty($dateFieldNames)) {
-    $this->widget([
-        'class' => 'tachyon\components\widgets\Datepicker',
-        'controller' => $this->getController(),
-        'fieldNames' => $dateFieldNames,
-    ]);
-}
+<?php if ($datepicker) {
+    // хранить зависимости в assetManager
+    $this->assetManager->coreJs('obj');
+    $this->assetManager->coreJs('dom');
+    $this->assetManager->coreJs('datepicker');
+    ?>
+    <script>datepicker.build();</script>
+<?php }?>

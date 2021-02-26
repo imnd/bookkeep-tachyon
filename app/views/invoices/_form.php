@@ -1,9 +1,21 @@
-<?php use tachyon\Request?>
-<?=
-$this->assetManager->coreJs('ajax'),
-$this->assetManager->js('table'),
-$this->assetManager->js('prices')
+<?php
+/** @var app\entities\Contract $entity */
+/** @var array $clients */
+
+use tachyon\Request;
+
+echo
+    $this->assetManager->js('table'),
+    $this->assetManager->js('prices');
+
+$this->assetManager->coreJs('ajax');
+// хранить зависимости в assetManager
+$this->assetManager->coreJs('obj');
+$this->assetManager->coreJs('dom');
+$this->assetManager->coreJs('datepicker');
 ?>
+<script>datepicker.build();</script>
+
 <form method="POST" action="<?=Request::getRoute()?>">
     <div class="row">
         <?php $this->display('../blocks/input', [
@@ -15,15 +27,9 @@ $this->assetManager->js('prices')
         <?php $this->display('../blocks/input', [
             'entity' => $entity,
             'name' => 'date',
+            'class' => 'datepicker',
         ])?>
     </div>
-
-    <?php
-    $entityName = $entity->getClassName();
-    $this->widget([
-        'class' => 'tachyon\components\widgets\Datepicker',
-        'fieldNames' => ["{$entityName}[date]", "{$entityName}[term_start]", "{$entityName}[term_end]"],
-    ])?>
 
     <div class="row">
         <?php $this->display('../blocks/input', [
@@ -39,11 +45,6 @@ $this->assetManager->js('prices')
             'options' => $clients
         ])?>
     </div>
-    <?php $this->widget([
-        'class' => 'tachyon\components\widgets\Datepicker',
-        'controller' => $this->getController(),
-        'fieldNames' => array('date'),
-    ])?>
 
     <table class="invoice">
         <tr>
@@ -53,13 +54,14 @@ $this->assetManager->js('prices')
             <th><?=$row->getCaption('price')?></th>
             <th><?=$row->getCaption('sum')?></th>
         </tr>
-        <?php if ($rows = $entity->getRows()) {
-            foreach ($entity->getRows() as $row) {
-                $this->display('_row', compact('row', 'articlesList'));
-            }
-        } else {
+        <?php
+        if (!$rows = $entity->getRows()) {
+            $rows = [$row];
+        }
+        foreach ($rows as $row) {
             $this->display('_row', compact('row', 'articlesList'));
-        }?>
+        }
+        ?>
         <tr class="total">
             <td colspan="4"><b>Итого:</b></td>
             <td class="total"><?=$entity->getSum()?></td>
@@ -78,7 +80,7 @@ $this->assetManager->js('prices')
 
 <script>
     dom.ready(function() {
-        prices.setEntityName('<?=$entityName?>');
+        prices.setEntityName('<?=$entity->getClassName()?>');
         prices.calcSums();
         /**
          * при смене номера договора

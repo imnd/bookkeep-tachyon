@@ -7,7 +7,8 @@ use
     app\entities\Purchase,
     app\models\Settings,
     app\repositories\ArticlesRepository,
-    app\repositories\ClientsRepository;
+    app\repositories\ClientsRepository
+;
 
 /**
  * Контроллер закупок

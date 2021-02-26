@@ -10,8 +10,8 @@
         }
     ],
     "require": {
-        "php": ">=7.4.*",
-        "tachyon/tachyon": "dev-master",
+        "php": ">=7.3.5",
+        "imnd/tachyon": "dev-master",
         "ext-json": "*",
         "ext-pdo": "*"
     },

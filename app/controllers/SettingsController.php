@@ -5,7 +5,7 @@ use
     tachyon\Controller,
     tachyon\components\FilesManager,
     tachyon\Request,
-    tachyon\traits\AuthActions,
+    tachyon\traits\Auth,
     app\models\Settings
 ;
 
@@ -17,7 +17,7 @@ use
  */
 class SettingsController extends Controller
 {
-    use AuthActions;
+    use Auth;
 
     protected $layout = 'settings';
 

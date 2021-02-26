@@ -2,12 +2,14 @@
 
 namespace app\controllers;
 
-use app\entities\Invoice,
-    tachyon\exceptions\HttpException,
-    tachyon\Request,
+use
+    app\entities\Invoice,
     app\repositories\ArticlesRepository,
     app\repositories\ClientsRepository,
-    app\models\Settings;
+    app\models\Settings,
+    tachyon\exceptions\HttpException,
+    tachyon\Request
+;
 
 /**
  * Контроллер фактур
@@ -45,9 +47,9 @@ class InvoicesController extends HasRowsController
         }
         $this->view('create', [
             'entity'       => $entity,
-            'row'          => $this->rowRepository->create(false),
-            'clients'      => $clientRepository->getAllSelectList(),
-            'articlesList' => $articleRepository->getAllSelectList(),
+            'row'          => $this->rowRepository->create(),
+            'clients'      => $clientRepository->getAllSelectList('name'),
+            'articlesList' => $articleRepository->getAllSelectList('name'),
             'articles'     => $articleRepository->findAllRaw(),
         ]);
     }
@@ -58,9 +60,8 @@ class InvoicesController extends HasRowsController
         $pk
     ) {
         $this->doUpdate($pk, [
-            'row'          => $this->rowRepository->create(false),
-            'clients'      => $clientRepository->getAllSelectList(),
-            'articlesList' => $articleRepository->getAllSelectList(),
+            'clients'      => $clientRepository->getAllSelectList('name'),
+            'articlesList' => $articleRepository->getAllSelectList('name'),
             'articles'     => $articleRepository->findAllRaw(),
         ]);
     }

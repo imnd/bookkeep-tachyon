@@ -5,9 +5,9 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <?=
     $this->assetManager->css('style'),
-    $this->assetManager->css('grid/style'),
-    $this->assetManager->coreJs('dom')
+    $this->assetManager->css('grid/style')
     ?>
+    <?php $this->assetManager->coreJs('dom') ?>
 </head>
 
 <body class="<?="{$this->controller->getId()} {$this->controller->getAction()}"?>">

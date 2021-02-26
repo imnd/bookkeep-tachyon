@@ -82,8 +82,8 @@ class ArticlesRepository extends Repository
     /**
      * @return array
      */
-    public function getUnits()
+    public function getUnits(): array
     {
-        return array('кг', 'шт');
+        return ['кг', 'шт'];
     }
 }

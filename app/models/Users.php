@@ -31,7 +31,7 @@ class Users extends ActiveRecord
      *
      * @param array $attributes
      *
-     * @return Users
+     * @return Users | null
      */
     public function findByPassword($attributes)
     {

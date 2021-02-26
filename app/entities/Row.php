@@ -86,12 +86,12 @@ class Row extends Entity implements RowEntityInterface
     }
 
     # Setters
-    public function setQuantity(int $value = null): RowEntity
+    public function setQuantity(int $value = null): Entity
     {
         return $this->_setAttribute('quantity', $value);
     }
 
-    public function setPrice(int $value = null): RowEntity
+    public function setPrice(int $value = null): Entity
     {
         return $this->_setAttribute('price', $value);
     }

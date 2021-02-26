@@ -59,10 +59,11 @@ class ContractsRepository extends HasRowsRepository
      */
     public function findByPk($pk): ?Entity
     {
-        $contract = parent::findByPk($pk);
+        if (!$contract = parent::findByPk($pk)) {
+            return null;
+        }
         /** @var Client */
-        if ($client = $this->clientsRepository
-            ->findByPk($contract->getClientId())) {
+        if ($client = $this->clientsRepository->findByPk($contract->getClientId())) {
             $contract
                 ->setClientName($client->getName())
                 ->setClientContactPost($client->getContactPost())

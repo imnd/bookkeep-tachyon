@@ -66,8 +66,9 @@ class InvoicesRepository extends HasRowsRepository
     public function findByPk($pk): ?Entity
     {
         $invoice = parent::findByPk($pk);
-        if ($contract = $this->contractsRepository
-            ->findOne(['contract_num' => $invoice->getContractNum()])) {
+        if ($contract = $this->contractsRepository->findOne([
+            'contract_num' => $invoice->getContractNum()
+        ])) {
             $invoice->setContractType($contract->getType());
         }
         /** @var Client */
@@ -118,10 +119,12 @@ class InvoicesRepository extends HasRowsRepository
             ->lt($where, 'cn.date', 'dateTo')
         ;
 
-        if (!empty($where['client_id']))
+        if (!empty($where['client_id'])) {
             $this->addWhere(array('cl.id' => $where['client_id']));
-        if (!empty($where['contract_num']))
+        }
+        if (!empty($where['contract_num'])) {
             $this->addWhere(array('cn.contract_num' => $where['contract_num']));
+        }
 
         return $this->findAllRaw();
     }

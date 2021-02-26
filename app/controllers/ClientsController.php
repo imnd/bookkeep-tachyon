@@ -79,7 +79,7 @@ class ClientsController extends CrudController
             return;
         }
         $where = array_merge(array('client_id' => $pk), $getParams);
-        $debetSum = $invoiceRepository->getTotalByContract($where);
+        $debitSum = $invoiceRepository->getTotalByContract($where);
         $creditSum = $billRepository->getTotalByContract($where);
         $this->view('reconciliation', [
             'client' => $client,
@@ -88,10 +88,10 @@ class ClientsController extends CrudController
             'dateTo' => $this->convDateToReadable($getParams['dateTo']),
             'bills' => $billRepository->getAllByContract($where),
             'invoices' => $invoiceRepository->getAllByContract($where),
-            'debetSum' => number_format($debetSum, 2, '.', ''),
+            'debitSum' => number_format($debitSum, 2, '.', ''),
             'creditSum' => number_format($creditSum, 2, '.', ''),
-            'saldo' => number_format($debetSum - $creditSum, 2, '.', ''),
-            'saldoStart' => 0
+            'balance' => number_format($debitSum - $creditSum, 2, '.', ''),
+            'balanceStart' => 0
         ]);
     }
 }

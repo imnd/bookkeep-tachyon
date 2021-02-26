@@ -1,8 +1,12 @@
 <?php
 /**
- * @var \tachyon\View $this
- * @var \app\entities\Invoice $entity
+ * @var View $this
+ * @var Invoice $entity
  */
+
+use app\entities\Invoice;
+use tachyon\View;
+
 $this->layout = 'list';
 $this->pageTitle = 'Список фактур';
 

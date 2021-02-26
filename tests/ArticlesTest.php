@@ -5,6 +5,7 @@ use PHPUnit\Framework\TestCase,
     GuzzleHttp\Client as HttpClient,
     tachyon\db\dbal\DbFactory,
     tachyon\db\dataMapper\Persistence,
+    tachyon\db\dataMapper\Repository,
     tachyon\Config,
     app\repositories\ArticlesRepository,
     app\repositories\ArticleSubcatsRepository,
@@ -31,6 +32,9 @@ final class ArticlesTest extends TestCase
      * @var Config
      */
     protected $config;
+    /**
+     * @var Repository
+     */
     protected $repository;
 
     /**

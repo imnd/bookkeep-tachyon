@@ -23,19 +23,19 @@
     <tr class="cell center bold font-size-9">
         <td class="date">Дата</td>
         <td class="document">Документ</td>
-        <td class="debet">Дебет</td>
+        <td class="debit">Дебет</td>
         <td>Кредит</td>
         <td class="date">Дата</td>
         <td class="document">Документ</td>
-        <td class="debet">Дебет</td>
+        <td class="debit">Дебет</td>
         <td>Кредит</td>
     </tr>
     <tr class="cell font-size-8 bold">
         <td colspan="2" class="left">Сальдо начальное</td>
         <td></td>
-        <td class="right"><?=$saldoStart?></td>
+        <td class="right"><?=$balanceStart?></td>
         <td colspan="2" class="left">Сальдо начальное</td>
-        <td class="right"><?=$saldoStart?></td>
+        <td class="right"><?=$balanceStart?></td>
         <td></td>
     </tr>
 
@@ -70,18 +70,18 @@
     <tr class="font-size-8 bold cell">
         <td colspan=2>Обороты за период</td>
         <td><?=$creditSum?></td>
-        <td><?=$debetSum?></td>
+        <td><?=$debitSum?></td>
         <td colspan=2>Обороты за период</td>
-        <td><?=$debetSum?></td>
+        <td><?=$debitSum?></td>
         <td><?=$creditSum?></td>
     </tr>
     <tr class="font-size-8 bold cell">
         <td colspan=2>Сальдо конечное</td>
-        <td><?php if ($saldo<0) echo abs($saldo)?></td>
-        <td><?php if ($saldo>0) echo $saldo?></td>
+        <td><?php if ($balance<0) { echo abs($balance); }?></td>
+        <td><?php if ($balance>0) { echo $balance; }?></td>
         <td colspan=2>Сальдо конечное</td>
-        <td><?php if ($saldo>0) echo $saldo?></td>
-        <td><?php if ($saldo<0) echo abs($saldo)?></td>
+        <td><?php if ($balance>0) { echo $balance; }?></td>
+        <td><?php if ($balance<0) { echo abs($balance); }?></td>
     </tr>
     <tr>
         <td colspan=8></td>
@@ -92,23 +92,23 @@
     </tr>
     <tr>
         <td colspan=4 class="font-size-8 bold" style="padding-right: 24pt;">на <?=$dateTo?>&nbsp;задолженность&nbsp;<?php
-        if ($saldo!==0) {
-            ?>в пользу <?php if ($saldo>0) {
+        if ($balance!==0) {
+            ?>в пользу <?php if ($balance>0) {
                 echo $sender->name;
-            } elseif ($saldo<0) {
+            } elseif ($balance<0) {
                 echo $client->name;
-            }?> составляет <?=abs($saldo)?>&nbsp;руб<?php
+            }?> составляет <?=abs($balance)?>&nbsp;руб<?php
         } else {
             ?>отсутствует<?php
         }
         ?>.</td>
         <td colspan=4 class="font-size-8 bold">на <?=$dateTo?>&nbsp;задолженность&nbsp;<?php
-        if ($saldo!==0) {
-            ?>в пользу <?php if ($saldo>0) {
+        if ($balance!==0) {
+            ?>в пользу <?php if ($balance>0) {
                 echo $sender->name;
-            } elseif ($saldo<0) {
+            } elseif ($balance<0) {
                 echo $client->name;
-            }?> составляет <?=abs($saldo)?>&nbsp;руб<?php
+            }?> составляет <?=abs($balance)?>&nbsp;руб<?php
         } else {
             ?>отсутствует<?php
         }

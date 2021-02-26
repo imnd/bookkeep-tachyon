@@ -73,7 +73,7 @@ class Settings extends ActiveRecord
     /**
      * @param $key string
      *
-     * @return \tachyon\db\activeRecord\ActiveRecord
+     * @return ActiveRecord
      */
     public function findByKey($key)
     {

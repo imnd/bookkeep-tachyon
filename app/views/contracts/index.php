@@ -1,7 +1,10 @@
 <?php
 /**
- * @var \tachyon\View $this
+ * @var View $this
  */
+
+use tachyon\View;
+
 $this->layout = 'list';
 
 if (!is_null($type)) {

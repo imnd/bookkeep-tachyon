@@ -15,18 +15,18 @@
 <hr />
 <p><b>Пути для сохранения резервной копии:</b></p>
 <form method="post" id="setPaths" action="/admin/SetBackupPaths">
-    <?php if (empty($paths)):?>
+    <?php if (empty($paths)) {?>
     <input value="" name="path0" class="path" id="0" />
-    <?php else :?>
-        <?php foreach ($paths as $path):
+    <?php } else {?>
+        <?php foreach ($paths as $path) {
             $fieldName = $path->key;?>
             <input value="<?=$path->value?>" name="<?=$fieldName?>" class="path"  id="<?=substr($fieldName, -1)?>" />
-        <?php endforeach?>
-    <?php endif?>
-    <input class="button" type="button" name="add" value="добавить" />    
+        <?php }?>
+    <?php }?>
+    <input class="button" type="button" name="add" value="добавить" />
     <br />
     <br />
-    <input class="submit orange_back" type="submit" value="установить" />    
+    <input class="submit orange_back" type="submit" value="установить" />
 </form>
 <script language="JavaScript">
 <!--

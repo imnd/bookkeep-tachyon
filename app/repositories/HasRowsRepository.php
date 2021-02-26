@@ -2,6 +2,7 @@
 namespace app\repositories;
 
 use app\interfaces\HasRowsInterface;
+use ErrorException;
 use tachyon\db\dataMapper\{
     Repository, Entity
 };
@@ -57,7 +58,7 @@ class HasRowsRepository extends Repository
     /**
      * Возвращает последний (максимальный) номер
      * @return integer
-     * @throws \ErrorException
+     * @throws ErrorException
      */
     public function getLastNumber(): int
     {

@@ -14,6 +14,9 @@ class Bill extends Entity
 {
     use HasClient;
 
+    /**
+     * @inheritDock
+     */
     protected $attributeCaptions = [
         'contents' => 'содержание',
         'clientName' => 'клиент',

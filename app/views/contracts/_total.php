@@ -1,6 +1,7 @@
-<?php 
-if (floor($sum)==$sum)
+<?php
+if (floor($sum)==$sum) {
     $sum .= '.00';
+}
 
 if ($quantity == floor($quantity)) {
     $quantity = (int)($quantity) . '.000';
@@ -9,7 +10,7 @@ if ($quantity == floor($quantity)) {
 } elseif ($quantity*100 == floor($quantity * 100)) {
     $quantity = (int)($quantity * 100)/100 . '0';
 }
-    
+
 ?>
 <tr class="total">
     <td colspan="3"><b>Итого: </b></td>

@@ -1,4 +1,7 @@
-<?php /** @var \tachyon\View $this */ ?>
+<?php
+use tachyon\View;
+/** @var View $this */
+?>
 <tr class="row">
     <?=$this->html->hidden([
         'name' => "article[$i]",

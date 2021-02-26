@@ -1,6 +1,8 @@
 <?php
+use tachyon\View;
+
 /**
- * @var \tachyon\View $this
+ * @var View $this
  */
 $this->layout = 'list';
 $this->pageTitle = 'Список поставок';

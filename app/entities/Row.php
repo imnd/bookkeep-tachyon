@@ -6,7 +6,7 @@ use tachyon\db\dataMapper\Entity,
     app\interfaces\RowEntityInterface;
 
 /**
- * Класс сущности "Клиент"
+ * Класс сущности "Позиция"
  *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
@@ -36,19 +36,19 @@ class Row extends Entity implements RowEntityInterface
     /**
      * @var int
      */
-    protected $quantity;
+    protected ?int $quantity = null;
     /**
      * @var int
      */
-    protected $price;
+    protected ?int $price = null;
 
     # Getters
-    public function getQuantity()
+    public function getQuantity(): ?int
     {
         return $this->quantity;
     }
 
-    public function getPrice()
+    public function getPrice(): ?int
     {
         return $this->price;
     }
@@ -85,7 +85,7 @@ class Row extends Entity implements RowEntityInterface
         return $this->rowFk;
     }
 
-    # Setters
+    # SETTERS
     public function setQuantity(int $value = null): Entity
     {
         return $this->_setAttribute('quantity', $value);

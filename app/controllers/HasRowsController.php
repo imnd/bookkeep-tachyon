@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use
@@ -6,38 +7,36 @@ use
     tachyon\db\dataMapper\Entity,
     tachyon\components\Flash,
     tachyon\traits\ArrayTrait,
-    tachyon\Request
-;
+    tachyon\Request;
 
 /**
  * class Controller
- * Базовый класс для всех контроллеров
- * 
+ * Базовый класс для всех контроллеров таблиц
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
 class HasRowsController extends CrudController
 {
     use ArrayTrait;
-    
-    protected $rowRepository;
+
+    protected RowsRepositoryInterface $rowRepository;
 
     /**
      * @param RowsRepositoryInterface $rowRepository
-     * @param array $params
+     * @param array                   $params
      */
     public function __construct(
         RowsRepositoryInterface $rowRepository,
         ...$params
-    )
-    {
+    ) {
         $this->rowRepository = $rowRepository;
-
         parent::__construct(...$params);
     }
 
     /**
      * @param Entity $entity
+     *
      * @return boolean
      */
     protected function saveEntity(Entity $entity): bool
@@ -77,7 +76,10 @@ class HasRowsController extends CrudController
             return false;
         }
         if (!$entity->getDbContext()->commit()) {
-            $this->flash->addFlash('Что то пошло не так, ' . implode("\n", $entity->getErrorsSummary()), Flash::FLASH_TYPE_ERROR);
+            $this->flash->addFlash(
+                'Что то пошло не так, ' . implode("\n", $entity->getErrorsSummary()),
+                Flash::FLASH_TYPE_ERROR
+            );
             return false;
         }
         $this->flash->addFlash('Сохранено успешно', Flash::FLASH_TYPE_SUCCESS);
@@ -99,7 +101,6 @@ class HasRowsController extends CrudController
         } else {
             $row = $rows[0];
         }
-
         $this->view('update', array_merge(compact('entity', 'rows', 'row'), $params));
     }
 }

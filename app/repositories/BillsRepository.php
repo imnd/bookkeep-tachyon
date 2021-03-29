@@ -19,7 +19,7 @@ class BillsRepository extends Repository
     /**
      * @var ClientsRepository
      */
-    protected $clientRepository;
+    protected ClientsRepository $clientRepository;
 
     /**
      * @param Bill $bill
@@ -114,7 +114,7 @@ class BillsRepository extends Repository
         }
         $item = $this->findOneRaw();
 
-        if ($value = $item['total']) {
+        if ($value = $item['total'] ?? null) {
             return $value;
         }
         return 0;

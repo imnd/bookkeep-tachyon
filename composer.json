@@ -1,5 +1,6 @@
 {
     "name": "imnd/bookkeep",
+    "description": "Бухгалтерия торговой фирмы",
     "license": "MIT",
     "type": "project",
     "version": "2.0.0",
@@ -10,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=7.3.5",
+        "php": ">=7.4",
         "imnd/tachyon": "dev-master",
         "ext-json": "*",
         "ext-pdo": "*"

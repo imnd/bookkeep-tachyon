@@ -60,7 +60,7 @@ class HasRowsRepository extends Repository
      * @return integer
      * @throws ErrorException
      */
-    public function getLastNumber(): int
+    public function getLastNumber(): ?int
     {
         $item = $this
             ->persistence

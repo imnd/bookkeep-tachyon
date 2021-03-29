@@ -6,8 +6,7 @@ use
     app\repositories\BillsRepository,
     app\repositories\ClientsRepository,
     tachyon\db\dataMapper\Entity,
-    tachyon\Request
-;
+    tachyon\Request;
 
 /**
  * Контроллер платежей
@@ -17,7 +16,7 @@ use
  */
 class BillsController extends CrudController
 {
-    protected $layout = 'bills';
+    protected string $layout = 'bills';
 
     /**
      * @param BillsRepository $repository

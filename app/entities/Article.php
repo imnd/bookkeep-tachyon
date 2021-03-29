@@ -14,7 +14,7 @@ class Article extends Entity
     /**
      * @inheritDock
      */
-    protected $attributeCaptions = [
+    protected array $attributeCaptions = [
         'subcat_id' => 'подкатегория',
         'name' => 'название',
         'unit' => 'ед.изм.',
@@ -27,69 +27,93 @@ class Article extends Entity
     /**
      * @var int
      */
-    protected $id;
+    protected int $id;
     /**
      * @var int
      */
-    protected $subcatId;
-    /**
-     * @var int
-     */
-    protected $subcatName;
+    protected int $subcatId;
     /**
      * @var string
      */
-    protected $name;
+    protected string $subcatName;
     /**
      * @var string
      */
-    protected $unit;
+    protected ?string $name = null;
+    /**
+     * @var string
+     */
+    protected ?string $unit = null;
     /**
      * @var int
      */
-    protected $price;
+    protected ?int $price = null;
     /**
      * @var int
      */
-    protected $active;
+    protected int $active;
 
     # GETTERS
 
-    public function getId()
+    /**
+     * @return int
+     */
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName()
+    /**
+     * @return string
+     */
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function getUnit()
+    /**
+     * @return string
+     */
+    public function getUnit(): ?string
     {
         return $this->unit;
     }
 
-    public function getPrice()
+    /**
+     * @return int
+     */
+    public function getPrice(): ?int
     {
         return $this->price;
     }
 
-    public function getActive()
+    /**
+     * @return int
+     */
+    public function getActive(): int
     {
         return $this->active;
     }
 
-    public function getSubcatId()
+    /**
+     * @return int
+     */
+    public function getSubcatId(): int
     {
         return $this->subcatId;
     }
 
-    public function getSubcatName()
+    /**
+     * @return string
+     */
+    public function getSubcatName(): string
     {
         return $this->subcatName;
     }
 
+    /**
+     * @return array
+     */
     public function getAttributes(): array
     {
         return [
@@ -101,6 +125,11 @@ class Article extends Entity
         ];
     }
 
+    /**
+     * @param array $state
+     *
+     * @return Entity
+     */
     public function fromState(array $state): Entity
     {
         $entity = clone($this);
@@ -116,6 +145,9 @@ class Article extends Entity
         return $entity;
     }
 
+    /**
+     * @return array
+     */
     public function rules(): array
     {
         return [
@@ -125,36 +157,64 @@ class Article extends Entity
         ];
     }
 
-    # Setters
+    # SETTERS
 
+    /**
+     * @param string|null $value
+     *
+     * @return Article
+     */
     public function setName(string $value = null): Article
     {
         return $this->_setAttribute('name', $value);
     }
 
+    /**
+     * @param string|null $value
+     *
+     * @return Article
+     */
     public function setUnit(string $value = null): Article
     {
         return $this->_setAttribute('unit', $value);
     }
 
+    /**
+     * @param string|null $value
+     *
+     * @return Article
+     */
     public function setPrice(string $value = null): Article
     {
         return $this->_setAttribute('price', $value);
     }
 
+    /**
+     * @param int|null $value
+     *
+     * @return Article
+     */
     public function setActive(int $value = null): Article
     {
         return $this->_setAttribute('active', $value);
     }
 
+    /**
+     * @param int|null $value
+     *
+     * @return Article
+     */
     public function setSubcatId(int $value = null): Article
     {
         return $this->_setAttribute('subcatId', $value);
     }
 
+    /**
+     * @param array $state
+     */
     public function setAttributes(array $state)
     {
-        $this
+        return $this
             ->setName($state['name'] ?? null)
             ->setUnit($state['unit'] ?? null)
             ->setPrice($state['price'] ?? null)

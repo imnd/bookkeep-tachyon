@@ -19,7 +19,7 @@ class Contract extends Entity implements HasRowsInterface
         HasRows,
         DateTime;
 
-    protected $attributeCaptions = [
+    protected array $attributeCaptions = [
         'contract_num' => 'номер',
         'client_id' => 'клиент',
         'clientName' => 'клиент',
@@ -41,7 +41,7 @@ class Contract extends Entity implements HasRowsInterface
      * Названия типов
      * @var $_types array
      */
-    protected $_types = [
+    protected array $_types = [
         'contract' => 'контракт',
         'agreement' => 'договор',
     ];
@@ -49,101 +49,101 @@ class Contract extends Entity implements HasRowsInterface
     /**
      * @var int
      */
-    protected $id;
+    protected int $id;
     /**
      * @var string
      */
-    protected $type;
+    protected ?string $type = null;
     /**
      * @var string
      */
-    protected $contractNum;
+    protected ?string $contractNum = null;
     /**
      * @var string
      */
-    protected $date;
+    protected ?string $date = null;
     /**
      * @var string
      */
-    protected $termStart;
+    protected ?string $termStart = null;
     /**
      * @var string
      */
-    protected $termEnd;
+    protected ?string $termEnd = null;
     /**
      * @var float
      */
-    protected $sum;
+    protected ?float $sum = null;
     /**
      * @var float
      */
-    protected $executed;
+    protected float $executed;
     /**
      * @var float
      */
-    protected $execRemind;
+    protected float $execRemind;
     /**
      * @var float
      */
-    protected $payed;
+    protected float $payed;
     /**
      * @var float
      */
-    protected $payedRemind;
+    protected float $payedRemind;
 
     # Getters
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    public function getContractNum()
+    public function getContractNum(): ?string
     {
         return $this->contractNum;
     }
 
-    public function getDate()
+    public function getDate(): ?string
     {
         return $this->date;
     }
 
-    public function getSum()
+    public function getSum(): ?float
     {
         return $this->sum;
     }
 
-    public function getExecuted()
+    public function getExecuted(): float
     {
         return $this->executed;
     }
 
-    public function getExecRemind()
+    public function getExecRemind(): float
     {
         return $this->execRemind;
     }
 
-    public function getPayed()
+    public function getPayed(): float
     {
         return $this->payed;
     }
 
-    public function getPayedRemind()
+    public function getPayedRemind(): float
     {
         return $this->payedRemind;
     }
 
-    public function getTermStart()
+    public function getTermStart(): ?string
     {
         return $this->termStart;
     }
 
-    public function getTermEnd()
+    public function getTermEnd(): ?string
     {
         return $this->termEnd;
     }
@@ -228,7 +228,7 @@ class Contract extends Entity implements HasRowsInterface
         return $this->getSelectListFromArr($this->_types, true);
     }
 
-    # Setters
+    # SETTERS
 
     public function setType($value = null): Contract
     {

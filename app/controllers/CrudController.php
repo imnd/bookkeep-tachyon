@@ -9,12 +9,11 @@ use
     tachyon\traits\Auth,
     tachyon\db\dataMapper\EntityInterface,
     tachyon\Request,
-    tachyon\db\dataMapper\RepositoryInterface
-;
+    tachyon\db\dataMapper\RepositoryInterface;
 
 /**
  * Базовый класс для всех контроллеров
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
@@ -23,7 +22,7 @@ class CrudController extends Controller
     use Auth;
 
     /** @inheritdoc */
-    protected $layout = 'crud';
+    protected string $layout = 'crud';
     /** @inheritdoc */
     protected $postActions = array('delete');
     /** @inheritdoc */
@@ -32,11 +31,12 @@ class CrudController extends Controller
     /**
      * @var Flash
      */
-    protected $flash;
+    protected Flash $flash;
+
     /**
      * @var RepositoryInterface
      */
-    protected $repository;
+    protected RepositoryInterface $repository;
 
     public function __construct(RepositoryInterface $repository, Flash $flash, ...$params)
     {
@@ -61,7 +61,7 @@ class CrudController extends Controller
 
     /**
      * Главная страница, список сущностей раздела
-     * 
+     *
      * @param EntityInterface $entity
      * @param array $params
      * @return void

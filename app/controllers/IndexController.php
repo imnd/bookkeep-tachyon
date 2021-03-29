@@ -12,10 +12,10 @@ use
 
 /**
  * Контроллер начальной страницы
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
- */ 
+ */
 class IndexController extends Controller
 {
     use Auth;
@@ -23,15 +23,15 @@ class IndexController extends Controller
     /**
      * @var Config $config
      */
-    protected $config;
+    protected Config $config;
     /**
      * @var Users
      */
-    protected $users;
+    protected Users $users;
     /**
      * @var Flash
      */
-    protected $flash;
+    protected Flash $flash;
 
     /**
      * @param Config $config
@@ -68,7 +68,7 @@ class IndexController extends Controller
     {
         if (!Request::isPost()) {
             $this->view('login');
-            return;            
+            return;
         }
         if (!$user = $this->users->findByPassword([
             'username' => Request::getPost('username'),
@@ -76,7 +76,7 @@ class IndexController extends Controller
         ])) {
             $this->unauthorised('Пользователя с таким логином и паролем нет.');
         }
-        if ($user->confirmed != Users::STATUS_CONFIRMED) {
+        if ((int)$user->confirmed !== Users::STATUS_CONFIRMED) {
             $this->unauthorised('Вы не подтвердили свою регистрацию.');
         }
         $this->_login(Request::getPost('remember'));

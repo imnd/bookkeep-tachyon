@@ -12,22 +12,22 @@ use tachyon\db\activeRecord\ActiveRecord;
  */
 class Settings extends ActiveRecord
 {
-    protected static $tableName = 'settings';
-    protected $pkName = 'id';
+    protected static string $tableName = 'settings';
+    protected string $pkName = 'id';
 
-    protected $fields = ['name', 'key', 'value'];
-    protected $fieldTypes = [
+    protected array $fields = ['name', 'key', 'value'];
+    protected array $fieldTypes = [
         'id'    => 'smallint',
         'name'  => 'tinytext',
         'key'   => 'tinytext',
         'value' => 'tinytext',
     ];
-    protected $attributeTypes = [
+    protected array $attributeTypes = [
         'name'  => 'input',
         'key'   => 'input',
         'value' => 'input',
     ];
-    protected $attributeNames = [
+    protected array $attributeNames = [
         'name'  => 'название',
         'key'   => 'ключ',
         'value' => 'значение',
@@ -98,7 +98,7 @@ class Settings extends ActiveRecord
     public function getValueByKey($key)
     {
         $row = $this->getByKey($key);
-        return $row['value'];
+        return $row['value'] ?? '';
     }
 
     /**
@@ -109,7 +109,7 @@ class Settings extends ActiveRecord
     public function getNameByKey($key)
     {
         $row = $this->getByKey($key);
-        return $row['name'];
+        return $row['name'] ?? '';
     }
 
     /**

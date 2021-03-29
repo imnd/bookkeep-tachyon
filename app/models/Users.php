@@ -15,10 +15,19 @@ class Users extends ActiveRecord
     const STATUS_NOTCONFIRMED = 0;
     const STATUS_CONFIRMED = 1;
 
-    protected static $tableName = 'users';
-    protected $pkName = 'id';
-    protected $fields = ['username', 'email', 'password', 'confirmed', 'confirm_code'];
-    protected $attributeNames = [
+    protected static string $tableName = 'users';
+    /**
+     * @var string
+     */
+    protected string $pkName = 'id';
+    /**
+     * @var string[]
+     */
+    protected array $fields = ['username', 'email', 'password', 'confirmed', 'confirm_code'];
+    /**
+     * @var array|string[]
+     */
+    protected array $attributeNames = [
         'username'     => 'Логин',
         'email'        => 'Email',
         'password'     => 'Пароль',
@@ -36,7 +45,7 @@ class Users extends ActiveRecord
     public function findByPassword($attributes)
     {
         if (
-            $user = $this->findOne(['username' => $attributes['username']])
+                $user = $this->findOne(['username' => $attributes['username']])
             and password_verify($attributes['password'], $user->password)
         ) {
             return $user;

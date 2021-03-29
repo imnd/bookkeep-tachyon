@@ -6,8 +6,7 @@ use Iterator,
     tachyon\traits\DateTime,
     tachyon\db\dataMapper\Entity,
     app\entities\Client,
-    app\entities\Invoice
-;
+    app\entities\Invoice;
 
 /**
  * @author Андрей Сердюк
@@ -20,11 +19,11 @@ class InvoicesRepository extends HasRowsRepository
     /**
      * @var ContractsRepository
      */
-    protected $contractsRepository;
+    protected ContractsRepository $contractsRepository;
     /**
      * @var ClientsRepository
      */
-    protected $clientsRepository;
+    protected ClientsRepository $clientsRepository;
 
     /**
      * @param Invoice $invoice
@@ -64,12 +63,14 @@ class InvoicesRepository extends HasRowsRepository
      */
     public function findByPk($pk): ?Entity
     {
-        $invoice = parent::findByPk($pk);
+        if (!$invoice = parent::findByPk($pk)) {
+            return null;
+        }
         if ($contract = $this->contractsRepository
             ->findOne(['contract_num' => $invoice->getContractNum()])) {
             $invoice->setContractType($contract->getType());
         }
-        /** @var Client */ 
+        /** @var Client */
         if ($client = $this->clientsRepository
             ->findByPk($invoice->getClientId())) {
             $invoice
@@ -145,7 +146,9 @@ class InvoicesRepository extends HasRowsRepository
         if (!empty($where['contract_num'])) {
             $this->addWhere(array('cn.contract_num' => $where['contract_num']));
         }
-        $item = $this->findOneRaw();
+        if (!$item = $this->findOneRaw()) {
+            return 0;
+        }
         if ($value = $item['total']) {
             return $value;
         }
@@ -156,12 +159,12 @@ class InvoicesRepository extends HasRowsRepository
      * Возвращает последний (максимальный) номер
      * @return integer
      */
-    public function getLastNumber(): int
+    public function getLastNumber(): ?int
     {
         $item = $this
             ->select('number')
             ->findOneRaw();
 
-        return $item['number'];
+        return $item['number'] ?? null;
     }
 }

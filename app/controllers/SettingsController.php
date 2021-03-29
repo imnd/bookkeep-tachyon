@@ -19,7 +19,7 @@ class SettingsController extends Controller
 {
     use Auth;
 
-    protected $layout = 'settings';
+    protected string $layout = 'settings';
 
     /**
      * Главная страница

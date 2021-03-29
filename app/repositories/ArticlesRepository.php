@@ -17,14 +17,14 @@ class ArticlesRepository extends Repository
     /**
      * @var Article
      */
-    protected $article;
+    protected Article $article;
 
     use RepositoryListTrait;
 
     /**
      * @var ArticleSubcatsRepository
      */
-    protected $articleSubcatRepository;
+    protected ArticleSubcatsRepository $articleSubcatRepository;
 
     /**
      * @param Article $article

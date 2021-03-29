@@ -17,7 +17,7 @@ class Bill extends Entity
     /**
      * @inheritDock
      */
-    protected $attributeCaptions = [
+    protected array $attributeCaptions = [
         'contents' => 'содержание',
         'clientName' => 'клиент',
         'client_id' => 'клиент',
@@ -33,61 +33,61 @@ class Bill extends Entity
     /**
      * @var int
      */
-    protected $id;
+    protected int $id;
     /**
      * @var string
      */
-    protected $contractNum;
+    protected string $contractNum;
     /**
      * @var float
      */
-    protected $sum;
+    protected float $sum;
     /**
      * @var float
      */
-    protected $remainder;
+    protected float $remainder;
     /**
      * @var string
      */
-    protected $date;
+    protected string $date;
     /**
      * @var string
      */
-    protected $contents;
+    protected string $contents;
 
     # Getters
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getContractNum()
+    public function getContractNum(): string
     {
         return $this->contractNum;
     }
 
-    public function getSum()
+    public function getSum(): float
     {
         return $this->sum;
     }
 
-    public function getRemainder()
+    public function getRemainder(): float
     {
         return $this->remainder;
     }
 
-    public function getDate()
+    public function getDate(): string
     {
         return $this->date;
     }
 
-    public function getContents()
+    public function getContents(): string
     {
         return $this->contents;
     }
 
-    public function getContentsReadable()
+    public function getContentsReadable(): string
     {
         return [
             'payment' => 'платёж',
@@ -132,7 +132,7 @@ class Bill extends Entity
         ];
     }
 
-    # Setters
+    # SETTERS
 
     public function setSum(int $value = null): Bill
     {

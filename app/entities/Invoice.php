@@ -8,8 +8,7 @@ use
     app\interfaces\HasRowsInterface,
     app\traits\HasClient,
     app\traits\HasContract,
-    app\traits\HasRows
-;
+    app\traits\HasRows;
 
 /**
  * Класс сущности "Фактра"
@@ -21,7 +20,7 @@ class Invoice extends Entity implements HasRowsInterface
 {
     use HasClient, HasContract, HasRows, DateTime;
 
-    protected $attributeCaptions = [
+    protected array $attributeCaptions = [
         'number'       => 'номер',
         'contract_num' => 'номер договора',
         'contractNum'  => 'номер договора',
@@ -38,54 +37,65 @@ class Invoice extends Entity implements HasRowsInterface
     /**
      * @var int
      */
-    protected $id;
+    protected int $id;
     /**
      * @var string
      */
-    protected $number;
+    protected string $number;
     /**
      * @var string
      */
-    protected $contractNum;
-    /**
-     * @var string
-     */
-    protected $date;
+    protected string $date = '';
     /**
      * @var float
      */
-    protected $sum;
+    protected ?float $sum = null;
     /**
      * @var float
      */
-    protected $payed;
+    protected float $payed;
 
     # Getters
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getNumber()
+    /**
+     * @return string
+     */
+    public function getNumber(): string
     {
         return $this->number;
     }
 
-    public function getDate()
+    /**
+     * @return string
+     */
+    public function getDate(): string
     {
         return $this->date;
     }
 
-    public function getSum()
+    /**
+     * @return float
+     */
+    public function getSum(): ?float
     {
         return $this->sum;
     }
 
-    public function getPayed()
+    /**
+     * @return float
+     */
+    public function getPayed(): float
     {
         return $this->payed;
     }
 
+    /**
+     * @return array
+     */
     public function getAttributes(): array
     {
         return [
@@ -98,6 +108,11 @@ class Invoice extends Entity implements HasRowsInterface
         ];
     }
 
+    /**
+     * @param array $state
+     *
+     * @return Entity
+     */
     public function fromState(array $state): Entity
     {
         $entity = clone($this);
@@ -111,6 +126,9 @@ class Invoice extends Entity implements HasRowsInterface
         return $entity;
     }
 
+    /**
+     * @return array|string[]
+     */
     public function rules(): array
     {
         return [
@@ -119,7 +137,8 @@ class Invoice extends Entity implements HasRowsInterface
         ];
     }
 
-    # Setters
+    # SETTERS
+
     public function setNumber($value = null): Invoice
     {
         return $this->_setAttribute('number', $value);

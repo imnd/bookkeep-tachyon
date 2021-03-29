@@ -16,7 +16,7 @@ class Menu extends Widget
      * Пункты меню
      * @var $items array
      */
-    protected $items = array();
+    protected array $items = [];
 
     public function run()
     {

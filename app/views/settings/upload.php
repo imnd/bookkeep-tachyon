@@ -1,4 +1,4 @@
-<?= 
+<?=
 $this->assetManager->coreJs("dom"),
 $this->assetManager->coreJs("ajax"),
 $this->assetManager->coreJs("upload")
@@ -8,7 +8,7 @@ $this->assetManager->coreJs("upload")
     <input type="button" id="file-upload" value="Отправить" />&nbsp;
     <span id="complete" style="color: green;"></span>
 </form>
-<script><!--
+<script>
     upload.defaults({
         "chunk-size" : 600000,
         "file-id" : "file",
@@ -18,4 +18,4 @@ $this->assetManager->coreJs("upload")
         },
     });
     dom.findById('file-upload').addEventListener('click', upload.run, false);
-//--></script>
+</script>

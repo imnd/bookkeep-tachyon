@@ -26,7 +26,7 @@ foreach ($items as $key => $value) {
     <a class="button <?=$buttonClass;?> <?=(strpos($action, '/')!==false) ? substr($action, 0, strpos($action, '/')) : $action;?>" title="<?=$title;?>" href="<?=$widget->getBtnHref($action);?>" id="<?=$widget->getBtnId($action);?>"><?=$title;?></a>
     <?php if (!is_null($type) && $type==='ajax') {?>
     <?=$this->assetManager->coreJs("ajax")?>
-    <script><!--
+    <script>
     dom.findById('<?=$widget->getBtnId($action)?>').addEventListener("click", e => {
         e.preventDefault();
         if (confirm("<?=$confirmMsg;?>")!==true) {
@@ -43,7 +43,7 @@ foreach ($items as $key => $value) {
         );
         return false;
     });
-    //--></script>
+    </script>
     <?php
     }
 }

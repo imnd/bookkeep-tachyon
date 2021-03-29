@@ -29,7 +29,6 @@
     <input class="submit orange_back" type="submit" value="установить" />
 </form>
 <script language="JavaScript">
-<!--
 dom.ready(function() {
     // добавление поля
     dom.findByName("add").addEventListener("click", () => {
@@ -42,5 +41,4 @@ dom.ready(function() {
         pathElt.last().after(inpClone);
     });
 })();
-//-->
 </script>

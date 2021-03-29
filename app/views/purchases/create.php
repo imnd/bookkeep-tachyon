@@ -24,13 +24,13 @@ $this->html->formClose();
 $this->pageTitle = 'Собираем закупку';
 if (!empty($items)) {?>
     <hr />
-    <script><!--
+    <script>
         dom.ready(function() {
             bindInpsChange('quantity');
             bindInpsChange('price');
             bindInpsChange('sum');
         });
-    //--></script>
+    </script>
     <?=$this->html->formOpen(array('method' => 'POST'))?>
     <p>Номер фактуры закупки: <?=$this->html->inputEx($model, 'number')?>&nbsp;<?=$this->html->error($model, 'number')?></p>
     <table class="purchase">

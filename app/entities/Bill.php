@@ -37,23 +37,23 @@ class Bill extends Entity
     /**
      * @var string
      */
-    protected string $contractNum;
+    protected string $contractNum = '';
     /**
      * @var float
      */
-    protected float $sum;
+    protected float $sum = 0;
     /**
      * @var float
      */
-    protected float $remainder;
+    protected float $remainder = 0;
     /**
      * @var string
      */
-    protected string $date;
+    protected string $date = '';
     /**
      * @var string
      */
-    protected string $contents;
+    protected string $contents = '';
 
     # Getters
 

@@ -7,8 +7,7 @@ use
     app\entities\Purchase,
     app\models\Settings,
     app\repositories\ArticlesRepository,
-    app\repositories\ClientsRepository
-;
+    app\repositories\ClientsRepository;
 
 /**
  * Контроллер закупок
@@ -47,15 +46,18 @@ class PurchasesController extends HasRowsController
         ClientsRepository $clientRepository
     )
     {
+        $date = Request::getGet('date') ?? date('Y-m-d');
         $entity = $this->repository->create();
-        $entity->setDate(Request::getGet('date') ?? date('Y-m-d'));
+        $entity->setDate($date);
         if ($this->saveEntity($entity)) {
             $this->redirect("/{$this->id}");
         }
         $row = $this->rowRepository->create(false);
+
         $this->view('create', [
             'entity' => $entity,
             'row' => $row,
+            'date' => $date,
             'clients' => $clientRepository->getAllSelectList(),
             'articlesList' => $articleRepository->getAllSelectList(),
             'articles' => $articleRepository->findAllRaw(),

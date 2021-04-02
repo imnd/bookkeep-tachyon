@@ -30,8 +30,7 @@ class BillsRepository extends Repository
         Bill $bill,
         ClientsRepository $clientsRepository,
         ...$params
-    )
-    {
+    ) {
         $this->entity = $bill;
         $this->clientRepository = $clientsRepository;
 

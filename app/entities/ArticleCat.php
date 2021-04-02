@@ -5,7 +5,7 @@ use tachyon\db\dataMapper\Entity;
 
 /**
  * Класс сущности "Клиент"
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
@@ -14,28 +14,37 @@ class ArticleCat extends Entity
     /**
      * @var int
      */
-    protected $id;
+    protected int $id;
     /**
      * @var string
      */
-    protected $name;
+    protected string $name;
     /**
      * @var string
      */
-    protected $description;
+    protected string $description;
 
     # Getters
 
-    public function getId()
+    /**
+     * @return int
+     */
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName()
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * @return array
+     */
     public function getAttributes(): array
     {
         return [
@@ -44,6 +53,11 @@ class ArticleCat extends Entity
         ];
     }
 
+    /**
+     * @param array $state
+     *
+     * @return Entity
+     */
     public function fromState(array $state): Entity
     {
         $entity = clone($this);
@@ -55,6 +69,9 @@ class ArticleCat extends Entity
         return $entity;
     }
 
+    /**
+     * @return array|\string[][]
+     */
     public function rules(): array
     {
         return [
@@ -63,18 +80,31 @@ class ArticleCat extends Entity
         ];
     }
 
-    # Setters
+    # SETTERS
 
+    /**
+     * @param string|null $value
+     *
+     * @return ArticleCat
+     */
     public function setName(string $value = null): ArticleCat
     {
         return $this->_setAttribute('name', $value);
     }
 
+    /**
+     * @param string|null $value
+     *
+     * @return ArticleCat
+     */
     public function setDescription(string $value = null): ArticleCat
     {
         return $this->_setAttribute('description', $value);
     }
 
+    /**
+     * @param array $state
+     */
     public function setAttributes(array $state)
     {
         $this

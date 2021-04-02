@@ -47,11 +47,25 @@ class BillsController extends CrudController
         ]);
     }
 
+    /**
+     * @param ClientsRepository  $clientRepository
+     */
+    public function create(ClientsRepository $clientRepository) {
+        $entity = $this->repository->create();
+        if ($this->saveEntity($entity)) {
+            $this->redirect("/{$this->id}");
+        }
+        $this->view('create', [
+            'entity'  => $entity,
+            'clients' => $clientRepository->getAllSelectList('name'),
+            'contents' => $this->repository->getSelectListFromArr($this->repository->getContentsList(), true, false),
+        ]);
+    }
+
     public function update(
         ClientsRepository $clientRepository,
         $pk
-    )
-    {
+    ) {
         /**
          * @var Entity $entity
          */

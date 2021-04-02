@@ -5,20 +5,20 @@ use tachyon\db\dataMapper\Entity;
 
 /**
  * Класс сущности "Клиент"
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
 class Client extends Entity
 {
-    protected $attributeCaptions = [
+    protected array $attributeCaptions = [
         'region_id' => 'район',
         'name' => 'название',
         'address' => 'адрес',
         'telephone' => 'телефон',
         'fax' => 'факс',
-        'contactFullName' => 'контакт. лицо',
-        'contactPost' => 'должность конт. лица',
+        'contact_fio' => 'контакт. лицо',
+        'contact_post' => 'должность конт. лица',
         'account' => 'расчетный счет',
         'bank' => 'в банке',
         'INN' => 'ИНН',
@@ -31,137 +31,137 @@ class Client extends Entity
     /**
      * @var int
      */
-    protected $id;
+    protected int $id;
     /**
      * @var string
      */
-    protected $name;
+    protected string $name = '';
     /**
      * @var string
      */
-    protected $address;
+    protected string $address = '';
     /**
      * @var string
      */
-    protected $phone;
+    protected string $phone = '';
     /**
      * @var string
      */
-    protected $fax;
+    protected string $fax = '';
     /**
      * @var string
      */
-    protected $contactFullName;
+    protected string $contactFullName = '';
     /**
      * @var string
      */
-    protected $contactPost;
+    protected string $contactPost = '';
     /**
      * @var string
      */
-    protected $account;
+    protected string $account = '';
     /**
      * @var string
      */
-    protected $bank;
+    protected string $bank = '';
     /**
      * @var int
      */
-    protected $INN;
+    protected ?int $INN = null;
     /**
      * @var int
      */
-    protected $KPP;
+    protected ?int $KPP = null;
     /**
      * @var int
      */
-    protected $BIK;
+    protected ?int $BIK = null;
     /**
      * @var int
      */
-    protected $sort;
+    protected ?int $sort = null;
     /**
      * @var int
      */
-    protected $active;
+    protected ?int $active = null;
     /**
      * @var int
      */
-    protected $regionId;
+    protected ?int $regionId = null;
 
     # GETTERS
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getAddress()
+    public function getAddress(): string
     {
         return $this->address;
     }
 
-    public function getPhone()
+    public function getPhone(): string
     {
         return $this->phone;
     }
 
-    public function getFax()
+    public function getFax(): string
     {
         return $this->fax;
     }
 
-    public function getContactFullName()
+    public function getContactFullName(): string
     {
         return $this->contactFullName;
     }
 
-    public function getContactPost()
+    public function getContactPost(): string
     {
         return $this->contactPost;
     }
 
-    public function getBank()
+    public function getBank(): string
     {
         return $this->bank;
     }
 
-    public function getAccount()
+    public function getAccount(): string
     {
         return $this->account;
     }
 
-    public function getINN()
+    public function getINN(): ?int
     {
         return $this->INN;
     }
 
-    public function getKPP()
+    public function getKPP(): ?int
     {
         return $this->KPP;
     }
 
-    public function getBIK()
+    public function getBIK(): ?int
     {
         return $this->BIK;
     }
 
-    public function getSort()
+    public function getSort(): ?int
     {
         return $this->sort;
     }
 
-    public function getActive()
+    public function getActive(): ?int
     {
         return $this->active;
     }
 
-    public function getRegionId()
+    public function getRegionId(): ?int
     {
         return $this->regionId;
     }
@@ -219,7 +219,7 @@ class Client extends Entity
         ];
     }
 
-    # Setters
+    # SETTERS
 
     public function setName(string $value = null): Client
     {

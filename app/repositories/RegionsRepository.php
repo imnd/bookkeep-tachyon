@@ -14,7 +14,7 @@ class RegionsRepository extends Repository
      * @param Region $region
      * @param array $params
      */
-    protected $tableName = 'regions';
+    protected string $tableName = 'regions';
 
     public function __construct(Region $region, ...$params)
     {

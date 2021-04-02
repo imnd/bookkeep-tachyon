@@ -4,8 +4,8 @@ namespace app\entities;
 use tachyon\db\dataMapper\Entity;
 
 /**
- * Класс сущности "Клиент"
- * 
+ * Класс сущности "Позиция фактуры"
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
@@ -21,56 +21,56 @@ class InvoiceRow extends Row
     /**
      * @var int
      */
-    protected $id;
+    protected int $id;
     /**
      * @var int
      */
-    protected $articleId;
+    protected ?int $articleId = null;
     /**
      * @var string
      */
-    protected $articleName;
+    protected string $articleName;
     /**
      * @var string
      */
-    protected $articleUnit;
+    protected string $articleUnit;
     /**
      * @var string
      */
-    protected $sum;
+    protected string $sum;
     /**
      * @var int
      */
-    protected $invoiceId;
+    protected int $invoiceId;
 
     # Getters
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getArticleId()
+    public function getArticleId(): ?int
     {
         return $this->articleId;
     }
 
-    public function getArticleName()
+    public function getArticleName(): string
     {
         return $this->articleName;
     }
 
-    public function getArticleUnit()
+    public function getArticleUnit(): string
     {
         return $this->articleUnit;
     }
 
-    public function getInvoiceId()
+    public function getInvoiceId(): int
     {
         return $this->invoiceId;
     }
 
-    public function getSum()
+    public function getSum(): string
     {
         return $this->sum;
     }
@@ -99,7 +99,7 @@ class InvoiceRow extends Row
         return array_merge(parent::rules(), ['articleId' => 'numerical']);
     }
 
-    # Setters
+    # SETTERS
 
     public function setArticleId(int $value = null): InvoiceRow
     {

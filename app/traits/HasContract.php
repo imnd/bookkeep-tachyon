@@ -4,17 +4,17 @@ namespace app\traits;
 /**
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
- */ 
+ */
 trait HasContract
 {
     /**
      * @var int
      */
-    protected $contractNum;
+    protected string $contractNum = '';
     /**
      * @var string
      */
-    protected $contractType;
+    protected string $contractType;
 
     /**
      * @return int

@@ -15,7 +15,7 @@ class ServiceContainer extends Container
 {
     use ClassName;
 
-    public function boot()
+    public function boot(): Container
     {
         $controllerName = $this->getClassName(Request::get('controller'));
         $entity = str_replace('Controller', '', $controllerName);
@@ -27,5 +27,7 @@ class ServiceContainer extends Container
         $entity = substr($entity, 0, -1);
         $this->implementations['app\interfaces\RowEntityInterface'] = "app\\entities\\{$entity}Row";
         $this->implementations['tachyon\db\dataMapper\EntityInterface'] = "app\\entities\\{$entity}";
+
+        return $this;
     }
 }

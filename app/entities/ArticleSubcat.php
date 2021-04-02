@@ -5,13 +5,13 @@ use tachyon\db\dataMapper\Entity;
 
 /**
  * Класс сущности "Клиент"
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
 class ArticleSubcat extends Entity
 {
-    protected $attributeCaptions = [
+    protected array $attributeCaptions = [
         'cat_id' => 'категория',
         'name' => 'название',
     ];
@@ -19,34 +19,34 @@ class ArticleSubcat extends Entity
     /**
      * @var int
      */
-    protected $id;
+    protected int $id;
     /**
      * @var int
      */
-    protected $catId;
+    protected int $catId;
     /**
      * @var string
      */
-    protected $name;
+    protected string $name;
 
     # GETTERS
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getCatId()
+    public function getCatId(): int
     {
         return $this->catId;
     }
 
-    public function getCatName()
+    public function getCatName(): int
     {
         return $this->catId;
     }
@@ -78,18 +78,31 @@ class ArticleSubcat extends Entity
         ];
     }
 
-    # Setters
+    # SETTERS
 
+    /**
+     * @param string|null $value
+     *
+     * @return ArticleSubcat
+     */
     public function setName(string $value = null): ArticleSubcat
     {
         return $this->_setAttribute('name', $value);
     }
 
+    /**
+     * @param int|null $value
+     *
+     * @return ArticleSubcat
+     */
     public function setCatId(int $value = null): ArticleSubcat
     {
         return $this->_setAttribute('catId', $value);
     }
 
+    /**
+     * @param array $state
+     */
     public function setAttributes(array $state)
     {
         $this

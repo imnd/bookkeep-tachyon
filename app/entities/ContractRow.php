@@ -5,7 +5,7 @@ use tachyon\db\dataMapper\Entity;
 
 /**
  * Класс сущности "Клиент"
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
@@ -21,29 +21,29 @@ class ContractRow extends Row
     /**
      * @var int
      */
-    protected $id;
+    protected int $id;
     /**
      * @var int
      */
-    protected $articleId;
+    protected ?int $articleId = null;
     /**
      * @var int
      */
-    protected $contractId;
+    protected int $contractId;
 
     # Getters
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getArticleId()
+    public function getArticleId(): ?int
     {
         return $this->articleId;
     }
 
-    public function getContractId()
+    public function getContractId(): int
     {
         return $this->contractId;
     }
@@ -72,7 +72,7 @@ class ContractRow extends Row
         return array_merge(parent::rules(), ['articleId' => 'numerical']);
     }
 
-    # Setters
+    # SETTERS
 
     public function setArticleId(int $value = null): ContractRow
     {

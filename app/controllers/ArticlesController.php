@@ -5,8 +5,7 @@ namespace app\controllers;
 use
     app\entities\Article,
     app\repositories\ArticleSubcatsRepository,
-    app\repositories\RegionsRepository
-;
+    app\repositories\RegionsRepository;
 
 /**
  * Контроллер товаров
@@ -16,11 +15,6 @@ use
  */
 class ArticlesController extends CrudController
 {
-    /**
-     * @var ArticleSubcatsRepository
-     */
-    protected $subcatRepository;
-
     /**
      * Главная страница, список товаров.
      *
@@ -40,22 +34,35 @@ class ArticlesController extends CrudController
         ArticleSubcatsRepository $articleSubcatsRepository,
         RegionsRepository $regionsRepository,
         $pk
-    )
-    {
-        $this->doUpdate($pk, [
-            'articleSubcats' => $articleSubcatsRepository->getAllSelectList(),
-            'regions' => $regionsRepository->findAll(),
-            'units' => $this->repository->getSelectListFromArr($this->repository->getUnits()),
-        ]);
+    ) {
+        $this->doUpdate($pk, $this->_vars($articleSubcatsRepository, $regionsRepository));
     }
 
     /**
+     * @param ArticleSubcatsRepository $articleSubcatsRepository
      * @param RegionsRepository $regionsRepository
      */
-    protected function create(RegionsRepository $regionsRepository)
-    {
-        $this->doCreate([
-            'regions' => $regionsRepository->findAll(),
-        ]);
+    public function create(
+        ArticleSubcatsRepository $articleSubcatsRepository,
+        RegionsRepository $regionsRepository
+    ) {
+        $this->doCreate($this->_vars($articleSubcatsRepository, $regionsRepository));
     }
+
+    /**
+     * @param ArticleSubcatsRepository $articleSubcatsRepository
+     * @param RegionsRepository $regionsRepository
+     * @return array
+     */
+    private function _vars(
+        ArticleSubcatsRepository $articleSubcatsRepository,
+        RegionsRepository $regionsRepository
+    ): array {
+        return [
+            'articleSubcats' => $articleSubcatsRepository->getAllSelectList(),
+            'units' => $this->repository->getSelectListFromArr($this->repository->getUnits()),
+            'regions' => $regionsRepository->findAll(),
+        ];
+    }
+
 }

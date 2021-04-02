@@ -13,7 +13,7 @@ class ClientsRepository extends Repository
 {
     use RepositoryListTrait;
 
-    protected $tableName = 'clients';
+    protected string $tableName = 'clients';
 
     /**
      * @param Client $client

@@ -1,15 +1,17 @@
 <?php
 namespace app\controllers;
 
+use ErrorException;
+use JsonException;
 use
     tachyon\exceptions\HttpException,
     tachyon\Controller,
     tachyon\components\Flash,
     tachyon\db\dataMapper\Entity,
-    tachyon\traits\Auth,
     tachyon\db\dataMapper\EntityInterface,
-    tachyon\Request,
-    tachyon\db\dataMapper\RepositoryInterface;
+    tachyon\db\dataMapper\RepositoryInterface,
+    tachyon\traits\Auth,
+    tachyon\Request;
 
 /**
  * Базовый класс для всех контроллеров
@@ -63,10 +65,12 @@ class CrudController extends Controller
      * Главная страница, список сущностей раздела
      *
      * @param EntityInterface $entity
-     * @param array $params
+     * @param array           $params
+     *
      * @return void
+     * @throws ErrorException
      */
-    protected function doIndex(Entity $entity, $params = array()): void
+    protected function doIndex(EntityInterface $entity, $params = array()): void
     {
         $getQuery = Request::getQuery();
         $this->view('index', array_merge([
@@ -80,13 +84,14 @@ class CrudController extends Controller
     }
 
     /**
-     * @param int $pk
+     * @param int   $pk
      * @param array $params
+     *
      * @return void
+     * @throws HttpException
      */
-    protected function doUpdate($pk, $params): void
+    protected function doUpdate(int $pk, array $params): void
     {
-        /** @var Entity $entity */
         $entity = $this->getEntity($pk);
         if ($this->saveEntity($entity)) {
             $this->redirect("/{$this->id}");
@@ -127,12 +132,17 @@ class CrudController extends Controller
 
     /**
      * @param int $pk
+     *
+     * @throws HttpException | JsonException
      */
-    public function delete($pk): void
+    public function delete(int $pk): void
     {
-        echo json_encode([
-            'success' => $this->getEntity($pk)->delete()
-        ]);
+        echo json_encode(
+            [
+                'success' => $this->getEntity($pk)->delete()
+            ],
+            JSON_THROW_ON_ERROR
+        );
     }
 
     /**

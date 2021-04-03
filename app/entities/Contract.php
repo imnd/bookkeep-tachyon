@@ -51,45 +51,45 @@ class Contract extends Entity implements HasRowsInterface
      */
     protected int $id;
     /**
-     * @var string
+     * @var string | null
      */
     protected ?string $type = null;
     /**
-     * @var string
+     * @var string | null
      */
     protected ?string $contractNum = null;
     /**
-     * @var string
+     * @var string | null
      */
     protected ?string $date = null;
     /**
-     * @var string
+     * @var string | null
      */
     protected ?string $termStart = null;
     /**
-     * @var string
+     * @var string | null
      */
     protected ?string $termEnd = null;
     /**
-     * @var float
+     * @var float | null
      */
     protected ?float $sum = null;
     /**
-     * @var float
+     * @var float | null
      */
-    protected float $executed;
+    protected ?float $executed = null;
     /**
-     * @var float
+     * @var float | null
      */
-    protected float $execRemind;
+    protected ?float $execRemind = null;
     /**
-     * @var float
+     * @var float | null
      */
-    protected float $payed;
+    protected ?float $payed = null;
     /**
-     * @var float
+     * @var float | null
      */
-    protected float $payedRemind;
+    protected ?float $payedRemind = null;
 
     # Getters
 
@@ -118,22 +118,22 @@ class Contract extends Entity implements HasRowsInterface
         return $this->sum;
     }
 
-    public function getExecuted(): float
+    public function getExecuted(): ?float
     {
         return $this->executed;
     }
 
-    public function getExecRemind(): float
+    public function getExecRemind(): ?float
     {
         return $this->execRemind;
     }
 
-    public function getPayed(): float
+    public function getPayed(): ?float
     {
         return $this->payed;
     }
 
-    public function getPayedRemind(): float
+    public function getPayedRemind(): ?float
     {
         return $this->payedRemind;
     }

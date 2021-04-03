@@ -69,6 +69,8 @@ class InvoicesController extends HasRowsController
     /**
      * @param Settings $settings
      * @param int      $pk
+     *
+     * @throws HttpException
      */
     public function printout(Settings $settings, $pk)
     {

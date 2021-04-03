@@ -1,12 +1,14 @@
 <?php
 namespace app\repositories;
 
-use app\interfaces\HasRowsInterface;
 use ErrorException;
+use ReflectionException;
 use tachyon\db\dataMapper\{
     Repository, Entity
 };
+use tachyon\exceptions\DBALException;
 use tachyon\traits\ClassName;
+use app\interfaces\HasRowsInterface;
 use app\interfaces\RowsRepositoryInterface;
 
 /**
@@ -28,7 +30,9 @@ class HasRowsRepository extends Repository
 
     /**
      * @param RowsRepositoryInterface $rowRepository
-     * @param array $params
+     * @param array                   $params
+     *
+     * @throws ReflectionException
      */
     public function __construct(RowsRepositoryInterface $rowRepository, ...$params)
     {
@@ -48,7 +52,9 @@ class HasRowsRepository extends Repository
         if (!isset($this->collection[$pk])) {
             $rows = $this->rowRepository->findAll([$this->rowFk => $pk]);
             /** @var HasRowsInterface $entity */
-            $entity = $this->getByPk($pk);
+            if (!$entity = $this->getByPk($pk)) {
+                return null;
+            }
             $entity->setRows($rows);
             $this->collection[$pk] = $entity;
         }
@@ -57,8 +63,9 @@ class HasRowsRepository extends Repository
 
     /**
      * Возвращает последний (максимальный) номер
+     *
      * @return integer
-     * @throws ErrorException
+     * @throws ErrorException|DBALException
      */
     public function getLastNumber(): ?int
     {
@@ -74,7 +81,9 @@ class HasRowsRepository extends Repository
 
     /**
      * Возвращает следующий за последним (максимальным) номером
+     *
      * @return integer
+     * @throws ErrorException|DBALException
      */
     public function getNextNumber(): int
     {

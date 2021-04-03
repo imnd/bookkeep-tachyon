@@ -35,8 +35,7 @@ class ArticlesRepository extends Repository
         Article $article,
         ArticleSubcatsRepository $articleSubcatRepository,
         ...$params
-    )
-    {
+    ) {
         $this->entity = $article;
         $this->articleSubcatRepository = $articleSubcatRepository;
 

@@ -2,12 +2,15 @@
 
 namespace app\controllers;
 
+use app\interfaces\HasRowsInterface;
 use
     app\interfaces\RowsRepositoryInterface,
     tachyon\db\dataMapper\Entity,
     tachyon\components\Flash,
     tachyon\traits\ArrayTrait,
     tachyon\Request;
+use tachyon\exceptions\DBALException;
+use tachyon\exceptions\HttpException;
 
 /**
  * class Controller
@@ -38,6 +41,7 @@ class HasRowsController extends CrudController
      * @param Entity $entity
      *
      * @return boolean
+     * @throws DBALException
      */
     protected function saveEntity(Entity $entity): bool
     {
@@ -87,11 +91,16 @@ class HasRowsController extends CrudController
     }
 
     /**
-     * @inheritDoc
+     * @param int   $pk
+     * @param array $params
+     *
+     * @return void
+     * @throws HttpException
+     * @throws DBALException
      */
-    protected function doUpdate($pk, $params): void
+    protected function doUpdate(int $pk, array $params): void
     {
-        /** @var Entity $entity */
+        /** @var HasRowsInterface $entity */
         $entity = $this->getEntity($pk);
         if ($this->saveEntity($entity)) {
             $this->redirect("/{$this->id}");

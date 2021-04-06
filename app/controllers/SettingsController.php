@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use
@@ -6,8 +7,8 @@ use
     tachyon\components\FilesManager,
     tachyon\Request,
     tachyon\traits\Auth,
-    app\models\Settings
-;
+    app\models\Settings;
+use tachyon\exceptions\DBALException;
 
 /**
  * Контроллер настроек приложения
@@ -24,26 +25,50 @@ class SettingsController extends Controller
     /**
      * Главная страница
      */
-    public function index()
+    public function index(): void
     {
         $this->view();
     }
 
     /**
      * Установка реквизитов
+     *
      * @param Settings $settings
      */
-    public function requisites(Settings $settings)
+    public function requisites(Settings $settings): void
     {
         $requisiteKeys = [
-            'firm' => ['director', 'name_short', 'name', 'inn', 'bank', 'account', 'address', 'certificate', 'okud', 'okpo'],
-            'supplier' => ['name_short', 'name', 'bik', 'inn', 'kpp', 'bank', 'account', 'address', 'certificate', 'okud', 'okpo'],
+            'firm' => [
+                'director',
+                'name_short',
+                'name',
+                'inn',
+                'bank',
+                'account',
+                'address',
+                'certificate',
+                'okud',
+                'okpo',
+            ],
+            'supplier' => [
+                'name_short',
+                'name',
+                'bik',
+                'inn',
+                'kpp',
+                'bank',
+                'account',
+                'address',
+                'certificate',
+                'okud',
+                'okpo',
+            ],
         ];
         if (!empty($postParams = Request::getPost())) {
             $result = true;
             foreach ($requisiteKeys as $type => $keys) {
                 foreach ($keys as $key) {
-                    $confKey = $type . "_$key";
+                    $confKey = "{$type}_$key";
                     $model = $settings->findByKey($confKey);
                     $value = $postParams[$confKey];
                     if ($value != $model->value) {
@@ -57,12 +82,12 @@ class SettingsController extends Controller
             }
         }
         $requisitesAll = [
-            'firm' => array(),
-            'supplier' => array(),
+            'firm' => [],
+            'supplier' => [],
         ];
         foreach ($requisiteKeys as $type => $keys) {
             foreach ($keys as $key) {
-                $confKey = $type . "_$key";
+                $confKey = "{$type}_$key";
                 $requisitesAll[$type][$key] = [
                     'name' => $settings->getNameByKey($confKey),
                     'value' => $settings->getValueByKey($confKey),
@@ -74,39 +99,43 @@ class SettingsController extends Controller
 
     /**
      * Создание резервной копии и установка путей для её сохранения
+     *
      * @param Settings $settings
+     *
+     * @throws DBALException
      */
-    public function backup(Settings $settings)
+    public function backup(Settings $settings): void
     {
-        $this->view('backup', [
-            'paths' => $settings->getPaths(),
-        ]);
+        $this->view(
+            'backup',
+            [
+                'paths' => $settings->getPaths(),
+            ]
+        );
     }
 
     /**
      * Загрузка файла на сервер по частям
      */
-    public function upload()
+    public function upload(): void
     {
         $this->view('upload');
     }
 
     /**
      * AJAX-handler загрузки частей файла на сервер и сборки файла
+     *
      * @param FilesManager $filesManager
      */
-    public function acceptFile(FilesManager $filesManager)
+    public function acceptFile(FilesManager $filesManager): void
     {
         $complete = false;
-
         $data = $this->files['data'];
-
         $filesManager->saveChunk($data['tmp_name']);
         $chunks = $filesManager->getChunkNames();
-        if (count($chunks)==$_GET['chunksCount']) {
+        if (count($chunks) === (int)$_GET['chunksCount']) {
             $complete = $filesManager->spliceChunks($chunks, $data['name']);
         }
-
         echo json_encode(compact('complete'));
     }
 }

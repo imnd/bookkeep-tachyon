@@ -10,6 +10,10 @@ use app\repositories\{
 };
 use app\entities\Contract,
     app\models\Settings;
+use ReflectionException;
+use tachyon\exceptions\ContainerException;
+use tachyon\exceptions\DBALException;
+use tachyon\exceptions\HttpException;
 
 /**
  * class ContractsController
@@ -20,7 +24,7 @@ use app\entities\Contract,
  */
 class ContractsController extends HasRowsController
 {
-    protected $layout = 'contracts';
+    protected string $layout = 'contracts';
 
     /**
      * @param ContractsRepository     $repository
@@ -48,7 +52,7 @@ class ContractsController extends HasRowsController
         Contract $entity,
         ClientsRepository $clientRepository,
         $type = null
-    ) {
+    ): void {
         $this->doIndex($entity, [
             'type'    => $type,
             'clients' => $clientRepository->getAllSelectList(),
@@ -58,11 +62,12 @@ class ContractsController extends HasRowsController
     /**
      * @param ArticlesRepository $articleRepository
      * @param ClientsRepository  $clientRepository
+     * @throws ReflectionException | ContainerException | DBALException | HttpException
      */
     public function create(
         ArticlesRepository $articleRepository,
         ClientsRepository $clientRepository
-    ) {
+    ): void {
         $row = $this->rowRepository->create();
         $this->doCreate([
             'clients'      => $clientRepository->getAllSelectList(),
@@ -77,26 +82,32 @@ class ContractsController extends HasRowsController
      * @param ArticlesRepository $articleRepository
      * @param ClientsRepository  $clientRepository
      * @param int                $pk
+     *
+     * @throws ReflectionException | ContainerException | DBALException | HttpException
      */
     public function update(
         ArticlesRepository $articleRepository,
         ClientsRepository $clientRepository,
-        $pk
-    ) {
-        $this->doUpdate($pk, [
-            'row'          => $this->rowRepository->create(false),
-            'clients'      => $clientRepository->getAllSelectList(),
-            'articlesList' => $articleRepository->getAllSelectList(),
-            'articles'     => $articleRepository->findAllRaw(),
-        ]);
+        int $pk
+    ): void {
+        $this->doUpdate(
+            $pk,
+            [
+                'row' => $this->rowRepository->create(false),
+                'clients' => $clientRepository->getAllSelectList(),
+                'articlesList' => $articleRepository->getAllSelectList(),
+                'articles' => $articleRepository->findAllRaw(),
+            ]
+        );
     }
 
     /**
-     * @param Settings                $settings
-     * @param ContractsRowsRepository $contractsRows
-     * @param int                     $pk
+     * @param Settings $settings
+     * @param int      $pk
+     *
+     * @throws DBALException
      */
-    public function printout(Settings $settings, $pk)
+    public function printout(Settings $settings, int $pk): void
     {
         $this->layout = 'printout';
         /** @var Contract */
@@ -110,10 +121,5 @@ class ContractsController extends HasRowsController
         $term = "с $termStart по $termEnd";
         $firm = $settings->getRequisites('firm');
         $this->view('printout', compact('contract', 'quantitySum', 'typeName', 'term', 'firm'));
-    }
-
-    public function getItem($num)
-    {
-        echo json_encode($this->model->getItem(compact('num')));
     }
 }

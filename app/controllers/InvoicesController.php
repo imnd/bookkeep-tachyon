@@ -25,7 +25,7 @@ class InvoicesController extends HasRowsController
      * @param Invoice           $entity
      * @param ClientsRepository $clientRepository
      */
-    public function index(Invoice $entity, ClientsRepository $clientRepository)
+    public function index(Invoice $entity, ClientsRepository $clientRepository): void
     {
         $this->doIndex($entity, [
             'clients' => $clientRepository->getAllSelectList(),
@@ -39,7 +39,7 @@ class InvoicesController extends HasRowsController
     public function create(
         ArticlesRepository $articleRepository,
         ClientsRepository $clientRepository
-    ) {
+    ): void {
         $entity = $this->repository->create();
         $entity->setAttribute('number', $this->repository->getNextNumber());
         if ($this->saveEntity($entity)) {
@@ -58,7 +58,7 @@ class InvoicesController extends HasRowsController
         ArticlesRepository $articleRepository,
         ClientsRepository $clientRepository,
         $pk
-    ) {
+    ): void {
         $this->doUpdate($pk, [
             'clients'      => $clientRepository->getAllSelectList('name'),
             'articlesList' => $articleRepository->getAllSelectList('name'),
@@ -72,7 +72,7 @@ class InvoicesController extends HasRowsController
      *
      * @throws HttpException
      */
-    public function printout(Settings $settings, $pk)
+    public function printout(Settings $settings, int $pk): void
     {
         $this->layout = 'printout';
         if (!$item = $this->repository->findByPk($pk)) {

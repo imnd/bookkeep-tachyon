@@ -18,8 +18,9 @@ $datepicker = false;
                 $tag = 'input';
                 $field['class'] = $field['class'] ?? '';
                 $field['class'] .= ' datepicker';
-            } else
+            } else {
                 $tag = $type;
+            }
 
             $this->display("../blocks/$tag", [
                 'entity'  => $entity,

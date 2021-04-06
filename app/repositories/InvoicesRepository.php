@@ -118,11 +118,12 @@ class InvoicesRepository extends HasRowsRepository
             ->lt($where, 'cn.date', 'dateTo')
         ;
 
-        if (!empty($where['client_id']))
-            $this->addWhere(array('cl.id' => $where['client_id']));
-        if (!empty($where['contract_num']))
-            $this->addWhere(array('cn.contract_num' => $where['contract_num']));
-
+        if (!empty($where['client_id'])) {
+            $this->addWhere(['cl.id' => $where['client_id']]);
+        }
+        if (!empty($where['contract_num'])) {
+            $this->addWhere(['cn.contract_num' => $where['contract_num']]);
+        }
         return $this->findAllRaw();
     }
 

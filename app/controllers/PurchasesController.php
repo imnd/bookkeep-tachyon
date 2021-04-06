@@ -28,7 +28,7 @@ class PurchasesController extends HasRowsController
         Purchase $entity,
         ClientsRepository $clientRepository,
         $type = null
-    )
+    ): void
     {
         $this->doIndex($entity, [
             'type' => $type,
@@ -44,7 +44,7 @@ class PurchasesController extends HasRowsController
     public function create(
         ArticlesRepository $articleRepository,
         ClientsRepository $clientRepository
-    )
+    ): void
     {
         $date = Request::getGet('date') ?? date('Y-m-d');
         $entity = $this->repository->create();
@@ -66,14 +66,14 @@ class PurchasesController extends HasRowsController
 
     /**
      * @param ArticlesRepository $articleRepository
-     * @param ClientsRepository $clientRepository
-     * @param int $pk
+     * @param ClientsRepository  $clientRepository
+     * @param int                $pk
      */
     public function update(
         ArticlesRepository $articleRepository,
         ClientsRepository $clientRepository,
-        $pk
-    )
+        int $pk
+    ): void
     {
         $this->doUpdate($pk, [
             'row' => $this->rowRepository->create(false),
@@ -87,7 +87,7 @@ class PurchasesController extends HasRowsController
      * @param Settings $settings
      * @param int      $pk
      */
-    public function printout(Settings $settings, $pk)
+    public function printout(Settings $settings, int $pk): void
     {
         $this->layout = 'printout';
         $item = $this->model

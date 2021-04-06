@@ -6,6 +6,10 @@ use
     app\entities\Article,
     app\repositories\ArticleSubcatsRepository,
     app\repositories\RegionsRepository;
+use ErrorException;
+use ReflectionException;
+use tachyon\exceptions\ContainerException;
+use tachyon\exceptions\HttpException;
 
 /**
  * Контроллер товаров
@@ -19,22 +23,26 @@ class ArticlesController extends CrudController
      * Главная страница, список товаров.
      *
      * @param Article $entity
+     *
+     * @throws ErrorException
      */
-    public function index(Article $entity)
+    public function index(Article $entity): void
     {
         $this->doIndex($entity);
     }
 
     /**
      * @param ArticleSubcatsRepository $articleSubcatsRepository
-     * @param RegionsRepository $regionsRepository
-     * @param int $pk
+     * @param RegionsRepository        $regionsRepository
+     * @param int                      $pk
+     *
+     * @throws HttpException
      */
     public function update(
         ArticleSubcatsRepository $articleSubcatsRepository,
         RegionsRepository $regionsRepository,
-        $pk
-    ) {
+        int $pk
+    ): void {
         $this->doUpdate($pk, $this->_vars($articleSubcatsRepository, $regionsRepository));
     }
 
@@ -45,13 +53,14 @@ class ArticlesController extends CrudController
     public function create(
         ArticleSubcatsRepository $articleSubcatsRepository,
         RegionsRepository $regionsRepository
-    ) {
+    ): void {
         $this->doCreate($this->_vars($articleSubcatsRepository, $regionsRepository));
     }
 
     /**
      * @param ArticleSubcatsRepository $articleSubcatsRepository
      * @param RegionsRepository $regionsRepository
+     *
      * @return array
      */
     private function _vars(

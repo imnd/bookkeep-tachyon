@@ -23,21 +23,21 @@ foreach ($items as $key => $value) {
     }
     $buttonClass = (empty($title)) ? 'center' : 'left';
     ?>
-    <a class="button <?=$buttonClass;?> <?=(strpos($action, '/')!==false) ? substr($action, 0, strpos($action, '/')) : $action;?>" title="<?=$title;?>" href="<?=$widget->getBtnHref($action);?>" id="<?=$widget->getBtnId($action);?>"><?=$title;?></a>
-    <?php if (!is_null($type) && $type==='ajax') {?>
+    <a class="button <?=$buttonClass?> <?=(strpos($action, '/')!==false) ? substr($action, 0, strpos($action, '/')) : $action?>" title="<?=$title?>" href="<?=$widget->getBtnHref($action)?>" id="<?=$widget->getBtnId($action)?>"><?=$title?></a>
+    <?php if ($type==='ajax') {?>
     <?=$this->assetManager->coreJs("ajax")?>
     <script>
     dom.findById('<?=$widget->getBtnId($action)?>').addEventListener("click", e => {
         e.preventDefault();
-        if (confirm("<?=$confirmMsg;?>")!==true) {
+        if (confirm("<?=$confirmMsg?>")!==true) {
             return false;
         }
         ajax.post(
-            '<?=$widget->getBtnHref($action);?>',
+            '<?=$widget->getBtnHref($action)?>',
             {<?="'{$controller->tokenId}':'{$controller->tokenVal}',"?>},
             data => {
                 if (data.success===true) {
-                    <?=$callback;?>
+                    <?=$callback?>
                 }
             }
         );

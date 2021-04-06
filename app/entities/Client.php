@@ -347,7 +347,7 @@ class Client extends Entity
         return $this;
     }
 
-    public function setAttributes(array $state)
+    public function setAttributes(array $state): void
     {
         $this
             ->setName($state['name'] ?? null)

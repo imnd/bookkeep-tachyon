@@ -1,4 +1,5 @@
 <?php
+
 namespace app\entities;
 
 use tachyon\db\dataMapper\Entity,
@@ -22,7 +23,6 @@ class Bill extends Entity
         'clientName' => 'клиент',
         'client_id' => 'клиент',
         'contractNum' => 'номер договора',
-        'contract_num' => 'номер договора',
         'sum' => 'сумма',
         'remainder' => 'остаток',
         'date' => 'дата',
@@ -37,26 +37,25 @@ class Bill extends Entity
     /**
      * @var string
      */
-    protected string $contractNum = '';
+    protected ?string $contractNum = '';
     /**
      * @var float
      */
-    protected float $sum = 0;
+    protected ?float $sum = 0;
     /**
      * @var float
      */
-    protected float $remainder = 0;
+    protected ?float $remainder = 0;
     /**
      * @var string
      */
-    protected string $date = '';
+    protected ?string $date = '';
     /**
      * @var string
      */
-    protected string $contents = '';
+    protected ?string $contents = '';
 
     # Getters
-
     public function getId(): int
     {
         return $this->id;
@@ -110,7 +109,6 @@ class Bill extends Entity
     public function fromState(array $state): Entity
     {
         $entity = clone($this);
-
         $entity->id = $state['id'];
         $entity->clientId = $state['client_id'] ?? null;
         $entity->clientName = $state['clientName'] ?? null;
@@ -119,7 +117,6 @@ class Bill extends Entity
         $entity->remainder = $state['remainder'] ?? null;
         $entity->date = $state['date'] ?? null;
         $entity->contents = $state['contents'] ?? null;
-
         return $entity;
     }
 
@@ -149,19 +146,23 @@ class Bill extends Entity
         return $this->_setAttribute('date', $value);
     }
 
-    public function setContents(int $value = null): Bill
+    public function setContents(string $value = null): Bill
     {
         return $this->_setAttribute('contents', $value);
     }
 
-    public function setAttributes(array $state)
+    public function setContractNum(int $value = null): Bill
+    {
+        return $this->_setAttribute('contract_num', $value);
+    }
+
+    public function setAttributes(array $state): void
     {
         $this
-            ->setClientId($state['client_id'] ?: null)
-            ->setContractNum($state['contract_num'] ?: null)
-            ->setSum($state['sum'] ?: null)
-            ->setDate($state['date'] ?: null)
-            ->setContents($state['contents'] ?: null)
-        ;
+            ->setClientId($state['client_id'] ?? null)
+            ->setContractNum($state['contract_num'] ?? null)
+            ->setSum($state['sum'] ?? null)
+            ->setDate($state['date'] ?? null)
+            ->setContents($state['contents'] ?? null);
     }
 }

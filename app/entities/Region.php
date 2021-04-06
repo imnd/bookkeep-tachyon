@@ -5,7 +5,7 @@ use tachyon\db\dataMapper\Entity;
 
 /**
  * Класс сущности "Регион"
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
@@ -44,9 +44,9 @@ class Region extends Entity
         return $entity;
     }
 
-    public function setAttributes(array $state)
+    public function setAttributes(array $state): void
     {
-        
+
     }
 
     # Getters

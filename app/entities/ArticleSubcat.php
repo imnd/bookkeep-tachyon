@@ -103,7 +103,7 @@ class ArticleSubcat extends Entity
     /**
      * @param array $state
      */
-    public function setAttributes(array $state)
+    public function setAttributes(array $state): void
     {
         $this
             ->setName($state['name'] ?? null)

@@ -1,4 +1,4 @@
-<?php use tachyon\Request?>
+<?php use tachyon\Request;?>
 <form method="POST" action="<?=Request::getRoute()?>">
     <div class="row">
         <?php $this->display('../blocks/select', [

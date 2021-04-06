@@ -164,7 +164,7 @@ class Invoice extends Entity implements HasRowsInterface
         return $this->_setAttribute('payed', $value);
     }
 
-    public function setAttributes(array $state)
+    public function setAttributes(array $state): void
     {
         $this
             ->setNumber($state['number'] ?? null)

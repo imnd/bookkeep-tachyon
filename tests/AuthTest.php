@@ -1,14 +1,15 @@
 <?php
 namespace tests;
 
+use GuzzleHttp\Exception\GuzzleException;
 use tachyon\components\TestCase;
 
 /**
  * Тестовый класс для модели Articles
- * 
+ *
  * cd D:\wamp\www\bookkeep
  * .\vendor\bin\phpunit tests/ArticlesTest
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
@@ -16,10 +17,12 @@ final class AuthTest extends TestCase
 {
     /**
      * Авторизация
+     *
      * @test
      * @return void
+     * @throws GuzzleException
      */
-    public function auth()
+    public function auth(): void
     {
         // форма логина
         $res = $this->httpClient->request('GET', 'login');

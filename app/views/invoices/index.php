@@ -41,9 +41,9 @@ $this->display('../blocks/search-form', [
             <td>{{ $item->getClientNameAndAddress() }}</td>
             <td>{{ $item->getContractNum() }}</td>
             <td>{{ $item->getSum() }}</td>
-            <td><a class="button-update" title="редактировать" href="update/{{$item->getPk()}}"></a></td>
-            <td><a class="button-printout" title="распечатать фактуру" href="printout/{{$item->getPk()}}/type/bill"></a></td>
-            <td><a class="button-printout" title="распечатать накладную" href="printout/{{$item->getPk()}}/type/invoice"></a></td>
+            <td><a class="button-update" title="редактировать" href="/invoices/update/{{ $item->getPk()}}"></a></td>
+            <td><a class="button-printout" title="распечатать фактуру" href="/invoices/printout/{{$item->getPk()}}/type/bill"></a></td>
+            <td><a class="button-printout" title="распечатать накладную" href="/invoices/printout/{{$item->getPk()}}/type/invoice"></a></td>
         </tr>
     <?php }?>
 </table>

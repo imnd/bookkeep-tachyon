@@ -5,22 +5,22 @@ use PHPUnit\Framework\TestCase;
 
 final class PurchasesControllerTest extends TestCase
 {
-    public function testCreate()
+    public function testCreate(): void
     {
 
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
 
     }
 
-    public function testIndex()
+    public function testIndex(): void
     {
 
     }
 
-    public function testPrintout()
+    public function testPrintout(): void
     {
 
     }

@@ -26,7 +26,7 @@ class Row extends Entity implements RowEntityInterface
             'sum'      => 'сумма',
         ];
         if (is_null($this->rowFk)) {
-            $tableNameArr = preg_split('/(?=[A-Z])/', str_replace('Row', '', get_called_class()));
+            $tableNameArr = preg_split('/(?=[A-Z])/', str_replace('Row', '', static::class));
             array_shift($tableNameArr);
             $this->rowFk = strtolower(implode('_', $tableNameArr)) . '_id';
         }
@@ -96,7 +96,7 @@ class Row extends Entity implements RowEntityInterface
         return $this->_setAttribute('price', $value);
     }
 
-    public function setAttributes(array $state)
+    public function setAttributes(array $state): void
     {
         $this
             ->setQuantity($state['quantity'] ?: null)

@@ -4,50 +4,50 @@ namespace app\traits;
 /**
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
- */ 
+ */
 trait HasClient
 {
     /**
      * @var int
      */
-    protected $clientId;
+    protected ?int $clientId = null;
     /**
      * @var string
      */
-    protected $clientName;
+    protected ?string $clientName = null;
     /**
      * @var string
      */
-    protected $clientAddress;
+    protected string $clientAddress;
     /**
      * @var string
      */
-    protected $clientAccount;
+    protected string $clientAccount;
     /**
      * @var string
      */
-    protected $clientBank;
+    protected string $clientBank;
     /**
      * @var string
      */
-    protected $clientINN;
+    protected string $clientINN;
     /**
      * @var string
      */
-    protected $clientKPP;
+    protected string $clientKPP;
     /**
      * @var string
      */
-    protected $clientContactPost;
+    protected string $clientContactPost;
     /**
      * @var string
      */
-    protected $clientContactFio;
+    protected string $clientContactFio;
 
     /**
      * @return int
      */
-    public function getClientId()
+    public function getClientId(): ?int
     {
         return $this->clientId;
     }
@@ -55,7 +55,7 @@ trait HasClient
     /**
      * @return string
      */
-    public function getClientName()
+    public function getClientName(): ?string
     {
         return $this->clientName;
     }
@@ -63,7 +63,7 @@ trait HasClient
     /**
      * @return string
      */
-    public function getClientAddress()
+    public function getClientAddress(): string
     {
         return $this->clientAddress;
     }
@@ -71,7 +71,7 @@ trait HasClient
     /**
      * @return string
      */
-    public function getClientNameAndAddress()
+    public function getClientNameAndAddress(): ?string
     {
         $str = $this->clientName;
         if (!empty($this->clientAddress)) {
@@ -83,7 +83,7 @@ trait HasClient
     /**
      * @return string
      */
-    public function getClientAccount()
+    public function getClientAccount(): string
     {
         return $this->clientAccount;
     }
@@ -91,7 +91,7 @@ trait HasClient
     /**
      * @return string
      */
-    public function getClientBank()
+    public function getClientBank(): string
     {
         return $this->clientBank;
     }
@@ -99,7 +99,7 @@ trait HasClient
     /**
      * @return string
      */
-    public function getClientINN()
+    public function getClientINN(): ?string
     {
         return $this->clientINN ?? null;
     }
@@ -107,7 +107,7 @@ trait HasClient
     /**
      * @return string
      */
-    public function getClientKPP()
+    public function getClientKPP(): ?string
     {
         return $this->clientKPP ?? null;
     }
@@ -115,7 +115,7 @@ trait HasClient
     /**
      * @return string
      */
-    public function getClientContactPost()
+    public function getClientContactPost(): ?string
     {
         return $this->clientContactPost ?? null;
     }
@@ -123,7 +123,7 @@ trait HasClient
     /**
      * @return string
      */
-    public function getClientContactFio()
+    public function getClientContactFio(): ?string
     {
         return $this->clientContactFio ?? null;
     }
@@ -132,7 +132,7 @@ trait HasClient
      * @param int|null $value
      * @return self
      */
-    public function setClientId(int $value = null)
+    public function setClientId(int $value = null): self
     {
         return $this->_setAttribute('clientId', $value);
     }
@@ -141,7 +141,7 @@ trait HasClient
      * @param string|null $value
      * @return self
      */
-    public function setClientAddress(string $value = null)
+    public function setClientAddress(string $value = null): self
     {
         return $this->_setAttribute('clientAddress', $value);
     }
@@ -150,7 +150,7 @@ trait HasClient
      * @param string|null $value
      * @return self
      */
-    public function setClientAccount(string $value = null)
+    public function setClientAccount(string $value = null): self
     {
         return $this->_setAttribute('clientAccount', $value);
     }
@@ -159,7 +159,7 @@ trait HasClient
      * @param string|null $value
      * @return self
      */
-    public function setClientBank(string $value = null)
+    public function setClientBank(string $value = null): self
     {
         return $this->_setAttribute('clientBank', $value);
     }
@@ -168,7 +168,7 @@ trait HasClient
      * @param string|null $value
      * @return self
      */
-    public function setClientName(string $value = null)
+    public function setClientName(string $value = null): self
     {
         return $this->_setAttribute('clientName', $value);
     }
@@ -177,7 +177,7 @@ trait HasClient
      * @param string|null $value
      * @return self
      */
-    public function setClientINN(string $value = null)
+    public function setClientINN(string $value = null): self
     {
         return $this->_setAttribute('clientINN', $value);
     }
@@ -186,7 +186,7 @@ trait HasClient
      * @param string|null $value
      * @return self
      */
-    public function setClientKPP(string $value = null)
+    public function setClientKPP(string $value = null): self
     {
         return $this->_setAttribute('clientKPP', $value);
     }
@@ -195,7 +195,7 @@ trait HasClient
      * @param string|null $value
      * @return self
      */
-    public function setClientContactPost(string $value = null)
+    public function setClientContactPost(string $value = null): self
     {
         return $this->_setAttribute('clientContactPost', $value);
     }
@@ -204,7 +204,7 @@ trait HasClient
      * @param string|null $value
      * @return self
      */
-    public function setClientContactFio(string $value = null)
+    public function setClientContactFio(string $value = null): self
     {
         return $this->_setAttribute('clientContactFio', $value);
     }

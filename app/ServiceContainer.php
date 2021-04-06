@@ -4,6 +4,12 @@ namespace app;
 use tachyon\Request,
     tachyon\dic\Container,
     tachyon\traits\ClassName;
+use app\interfaces\{
+    RowsRepositoryInterface, RowEntityInterface
+};
+use tachyon\db\dataMapper\{
+    EntityInterface, RepositoryInterface
+};
 
 /**
  * Dependency Injection Container
@@ -21,12 +27,12 @@ class ServiceContainer extends Container
         $entity = str_replace('Controller', '', $controllerName);
 
         // сопоставление интерфейсов зависимостей с реализацией
-        $this->implementations['app\interfaces\RowsRepositoryInterface'] = "app\\repositories\\{$entity}RowsRepository";
-        $this->implementations['tachyon\db\dataMapper\RepositoryInterface'] = "app\\repositories\\{$entity}Repository";
+        $this->implementations[RowsRepositoryInterface::class] = "app\\repositories\\{$entity}RowsRepository";
+        $this->implementations[RepositoryInterface::class] = "app\\repositories\\{$entity}Repository";
 
         $entity = substr($entity, 0, -1);
-        $this->implementations['app\interfaces\RowEntityInterface'] = "app\\entities\\{$entity}Row";
-        $this->implementations['tachyon\db\dataMapper\EntityInterface'] = "app\\entities\\{$entity}";
+        $this->implementations[RowEntityInterface::class] = "app\\entities\\{$entity}Row";
+        $this->implementations[EntityInterface::class] = "app\\entities\\{$entity}";
 
         return $this;
     }

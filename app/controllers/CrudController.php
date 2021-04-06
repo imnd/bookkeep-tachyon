@@ -3,6 +3,7 @@ namespace app\controllers;
 
 use ErrorException;
 use JsonException;
+use tachyon\exceptions\DBALException;
 use
     tachyon\exceptions\HttpException,
     tachyon\Controller,
@@ -101,7 +102,9 @@ class CrudController extends Controller
 
     /**
      * @param $params
+     *
      * @return void
+     * @throws DBALException
      */
     protected function doCreate($params): void
     {
@@ -115,19 +118,31 @@ class CrudController extends Controller
 
     /**
      * @param Entity $entity
+     *
      * @return boolean
+     * @throws DBALException
      */
     protected function saveEntity(Entity $entity): bool
     {
-        if (!empty($postParams = Request::getPost())) {
-            $entity->setAttributes($postParams);
-            if ($entity->save()) {
-                $this->flash->setFlash('Сохранено успешно', Flash::FLASH_TYPE_SUCCESS);
-                return true;
-            }
-            $this->flash->setFlash("Что то пошло не так, {$entity->getErrorsSummary()}", Flash::FLASH_TYPE_ERROR);
+        if (!$postParams = Request::getPost()) {
+            return false;
         }
-        return false;
+        $entity->setAttributes($postParams);
+        if (!$entity->validate()) {
+            $this->flash->addFlash(
+                'Ошибка валидации: ' . $entity->getErrorsSummary(),
+                Flash::FLASH_TYPE_ERROR
+            );
+            return false;
+        }
+        if (!$entity->getDbContext()->commit()) {
+            $this->flash->addFlash(
+                'Что то пошло не так.',
+                Flash::FLASH_TYPE_ERROR
+            );
+            return false;
+        }
+        return true;
     }
 
     /**

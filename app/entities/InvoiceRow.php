@@ -11,6 +11,8 @@ use tachyon\db\dataMapper\Entity;
  */
 class InvoiceRow extends Row
 {
+    protected $tableName = 'invoices_rows';
+
     public function __construct(...$params)
     {
         parent::__construct(...$params);
@@ -126,7 +128,7 @@ class InvoiceRow extends Row
         return $this->_setAttribute('sum', $value);
     }
 
-    public function setAttributes(array $state)
+    public function setAttributes(array $state): void
     {
         parent::setAttributes($state);
 

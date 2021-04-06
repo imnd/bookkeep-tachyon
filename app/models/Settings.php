@@ -3,6 +3,7 @@
 namespace app\models;
 
 use tachyon\db\activeRecord\ActiveRecord;
+use tachyon\exceptions\DBALException;
 
 /**
  * Класс модели настроек приложения
@@ -71,42 +72,46 @@ class Settings extends ActiveRecord
     }
 
     /**
-     * @param $key string
+     * @param string $key
      *
      * @return ActiveRecord
+     * @throws DBALException
      */
-    public function findByKey($key)
+    public function findByKey(string $key): ActiveRecord
     {
         return $this->findOne(compact('key'));
     }
 
     /**
-     * @param $key string
+     * @param string $key
      *
      * @return array
+     * @throws DBALException
      */
-    public function getByKey($key)
+    public function getByKey(string $key): array
     {
         return $this->findOneRaw(compact('key'));
     }
 
     /**
-     * @param $key string
+     * @param string $key
      *
      * @return string
+     * @throws DBALException
      */
-    public function getValueByKey($key)
+    public function getValueByKey(string $key): string
     {
         $row = $this->getByKey($key);
         return $row['value'] ?? '';
     }
 
     /**
-     * @param $key string
+     * @param string $key
      *
      * @return string
+     * @throws DBALException
      */
-    public function getNameByKey($key)
+    public function getNameByKey(string $key): string
     {
         $row = $this->getByKey($key);
         return $row['name'] ?? '';
@@ -116,8 +121,9 @@ class Settings extends ActiveRecord
      * Пути для сохранения бэкапов
      *
      * @return array
+     * @throws DBALException
      */
-    public function getPaths()
+    public function getPaths(): array
     {
         return [
             $this->getValueByKey('path0'),

@@ -5,7 +5,6 @@ use
     app\entities\Bill,
     app\repositories\BillsRepository,
     app\repositories\ClientsRepository,
-    tachyon\db\dataMapper\Entity,
     tachyon\Request;
 
 /**
@@ -32,10 +31,12 @@ class BillsController extends CrudController
     /**
      * Главная страница, список платежей.
      *
-     * @param Bill $entity
+     * @param Bill              $entity
      * @param ClientsRepository $clientRepository
+     *
+     * @throws \ErrorException
      */
-    public function index(Bill $entity, ClientsRepository $clientRepository)
+    public function index(Bill $entity, ClientsRepository $clientRepository): void
     {
         $this->doIndex($entity, [
             'clients' => $clientRepository->getAllSelectList(),
@@ -50,7 +51,8 @@ class BillsController extends CrudController
     /**
      * @param ClientsRepository  $clientRepository
      */
-    public function create(ClientsRepository $clientRepository) {
+    public function create(ClientsRepository $clientRepository): void
+    {
         $entity = $this->repository->create();
         if ($this->saveEntity($entity)) {
             $this->redirect("/{$this->id}");
@@ -65,10 +67,7 @@ class BillsController extends CrudController
     public function update(
         ClientsRepository $clientRepository,
         $pk
-    ) {
-        /**
-         * @var Entity $entity
-         */
+    ): void {
         $entity = $this->getEntity($pk);
         if ($this->saveEntity($entity)) {
             $this->redirect("/{$this->id}");

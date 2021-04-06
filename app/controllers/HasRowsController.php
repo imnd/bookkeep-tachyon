@@ -45,7 +45,7 @@ class HasRowsController extends CrudController
      */
     protected function saveEntity(Entity $entity): bool
     {
-        if (empty($postParams = Request::getPost())) {
+        if (!$postParams = Request::getPost()) {
             return false;
         }
         $errors = [];
@@ -81,12 +81,13 @@ class HasRowsController extends CrudController
         }
         if (!$entity->getDbContext()->commit()) {
             $this->flash->addFlash(
-                'Что то пошло не так, ' . implode("\n", $entity->getErrorsSummary()),
+                'Что то пошло не так.',
                 Flash::FLASH_TYPE_ERROR
             );
             return false;
         }
         $this->flash->addFlash('Сохранено успешно', Flash::FLASH_TYPE_SUCCESS);
+
         return true;
     }
 

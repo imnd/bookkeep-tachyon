@@ -3,6 +3,8 @@
 namespace app\models;
 
 use tachyon\db\activeRecord\ActiveRecord;
+use tachyon\exceptions\DBALException;
+use tachyon\exceptions\ValidationException;
 
 /**
  * Модель пользователей
@@ -12,8 +14,8 @@ use tachyon\db\activeRecord\ActiveRecord;
  */
 class Users extends ActiveRecord
 {
-    const STATUS_NOTCONFIRMED = 0;
-    const STATUS_CONFIRMED = 1;
+    public const STATUS_NOTCONFIRMED = 0;
+    public const STATUS_CONFIRMED = 1;
 
     protected static string $tableName = 'users';
     /**
@@ -41,8 +43,9 @@ class Users extends ActiveRecord
      * @param array $attributes
      *
      * @return Users | null
+     * @throws DBALException
      */
-    public function findByPassword($attributes)
+    public function findByPassword(array $attributes): ?Users
     {
         if (
                 $user = $this->findOne(['username' => $attributes['username']])
@@ -67,8 +70,9 @@ class Users extends ActiveRecord
      * @param array $attributes
      *
      * @return Users
+     * @throws ValidationException | DBALException
      */
-    public function add($attributes)
+    public function add($attributes): Users
     {
         $this->validate($attributes);
         if ($attributes['password'] !== $attributes['password_confirm']) {

@@ -4,13 +4,15 @@ namespace app\entities;
 use tachyon\db\dataMapper\Entity;
 
 /**
- * Класс сущности "Клиент"
- * 
+ * Класс сущности "Строка поставки"
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
 class PurchaseRow extends Row
 {
+    protected $tableName = 'purchases_rows';
+
     public function __construct(...$params)
     {
         parent::__construct(...$params);
@@ -21,29 +23,29 @@ class PurchaseRow extends Row
     /**
      * @var int
      */
-    protected $id;
+    protected int $id;
     /**
-     * @var int
+     * @var int|null
      */
-    protected $articleSubcatId;
+    protected ?int $articleSubcatId;
     /**
-     * @var int
+     * @var int|null
      */
-    protected $purchaseId;
+    protected ?int $purchaseId;
 
     # Getters
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getArticleId()
+    public function getArticleId(): ?int
     {
         return $this->articleSubcatId;
     }
 
-    public function getPurchaseId()
+    public function getPurchaseId(): ?int
     {
         return $this->purchaseId;
     }
@@ -74,17 +76,17 @@ class PurchaseRow extends Row
 
     # Setters
 
-    public function setArticleId(int $value = null): PurchaseRow
+    public function setArticleId(int $value = null): self
     {
         return $this->_setAttribute('articleSubcatId', $value);
     }
 
-    public function setPurchaseId(int $value = null): PurchaseRow
+    public function setPurchaseId(int $value = null): self
     {
         return $this->_setAttribute('purchaseId', $value);
     }
 
-    public function setAttributes(array $state)
+    public function setAttributes(array $state): void
     {
         parent::setAttributes($state);
 

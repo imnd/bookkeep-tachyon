@@ -9,6 +9,9 @@ use app\entities\Client,
     app\repositories\InvoicesRepository,
     app\repositories\RegionsRepository,
     tachyon\Request;
+use ErrorException;
+use tachyon\exceptions\DBALException;
+use tachyon\exceptions\HttpException;
 
 /**
  * Контроллер клиентов фирмы
@@ -30,8 +33,10 @@ class ClientsController extends CrudController
 
     /**
      * @param Client $entity
+     *
+     * @throws ErrorException
      */
-    public function index(Client $entity)
+    public function index(Client $entity): void
     {
         $this->doIndex($entity);
     }
@@ -39,7 +44,7 @@ class ClientsController extends CrudController
     /**
      * @param RegionsRepository $regionRepository
      */
-    public function create(RegionsRepository $regionRepository)
+    public function create(RegionsRepository $regionRepository): void
     {
         $this->doCreate(['regions' => $regionRepository->findAll()]);
     }
@@ -47,8 +52,10 @@ class ClientsController extends CrudController
     /**
      * @param RegionsRepository $regionRepository
      * @param int               $pk
+     *
+     * @throws HttpException
      */
-    public function update(RegionsRepository $regionRepository, $pk)
+    public function update(RegionsRepository $regionRepository, int $pk): void
     {
         $this->doUpdate($pk, ['regions' => $regionRepository->findAll()]);
     }
@@ -58,13 +65,15 @@ class ClientsController extends CrudController
      * @param InvoicesRepository $invoiceRepository
      * @param Settings           $settings
      * @param int                $pk
+     *
+     * @throws DBALException
      */
     public function printout(
         BillsRepository $billRepository,
         InvoicesRepository $invoiceRepository,
         Settings $settings,
-        $pk
-    ) {
+        int $pk
+    ): void {
         $this->layout = 'printout';
         $client = $this->repository->findByPk($pk);
         if (empty($getParams = Request::getGet())) {
@@ -72,7 +81,7 @@ class ClientsController extends CrudController
             return;
         }
         $where = array_merge(['client_id' => $pk], $getParams);
-        $debetSum = $invoiceRepository->getTotalByContract($where);
+        $debtSum = $invoiceRepository->getTotalByContract($where);
         $creditSum = $billRepository->getTotalByContract($where);
         $this->view('reconciliation', [
             'client'     => $client,
@@ -81,9 +90,9 @@ class ClientsController extends CrudController
             'dateTo'     => $this->convDateToReadable($getParams['dateTo']),
             'bills'      => $billRepository->getAllByContract($where),
             'invoices'   => $invoiceRepository->getAllByContract($where),
-            'debetSum'   => number_format($debetSum, 2, '.', ''),
+            'debtSum'   => number_format($debtSum, 2, '.', ''),
             'creditSum'  => number_format($creditSum, 2, '.', ''),
-            'saldo'      => number_format($debetSum - $creditSum, 2, '.', ''),
+            'saldo'      => number_format($debtSum - $creditSum, 2, '.', ''),
             'saldoStart' => 0,
         ]);
     }

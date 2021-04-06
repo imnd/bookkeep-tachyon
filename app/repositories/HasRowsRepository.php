@@ -37,7 +37,7 @@ class HasRowsRepository extends Repository
     public function __construct(RowsRepositoryInterface $rowRepository, ...$params)
     {
         if (is_null($this->rowFk)) {
-            $this->rowFk = substr(strtolower(str_replace('Repository', '', $this->getClassName())), 0, -1) . '_id';
+            $this->rowFk = strtolower(substr(str_replace('Repository', '', $this->getClassName()), 0, -1)) . '_id';
         }
         $this->rowRepository = $rowRepository;
 

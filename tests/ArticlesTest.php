@@ -66,7 +66,7 @@ final class ArticlesTest extends TestCase
      * @test
      * @return void
      */
-    public function authenticated_users_can_create_article()
+    public function authenticated_users_can_create_article(): void
     {
 
     }
@@ -75,7 +75,7 @@ final class ArticlesTest extends TestCase
      * Неавторизированные пользователи не могут создавать товары
      * @test
      */
-    public function unauthenticated_users_cant_create_article()
+    public function unauthenticated_users_cant_create_article(): void
     {
 
     }

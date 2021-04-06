@@ -206,9 +206,7 @@ class Contract extends Entity implements HasRowsInterface
     {
         if ($case==='gen') {
             $this->_types = array_map(
-                function($val) {
-                    return $val . 'ов';
-                },
+                static fn($val) => $val . 'ов',
                 array_values($this->_types)
             );
         }
@@ -280,7 +278,7 @@ class Contract extends Entity implements HasRowsInterface
         return $this->_setAttribute('term_end', $value);
     }
 
-    public function setAttributes(array $state)
+    public function setAttributes(array $state): void
     {
         $this
             ->setClientId($state['client_id'] ?? null)

@@ -9,6 +9,9 @@ use
     tachyon\traits\Auth,
     tachyon\Request
 ;
+use tachyon\exceptions\DBALException;
+use tachyon\exceptions\HttpException;
+use tachyon\exceptions\ValidationException;
 
 /**
  * Контроллер начальной страницы
@@ -56,15 +59,17 @@ class IndexController extends Controller
     /**
      * Главная страница
      */
-    public function index()
+    public function index(): void
     {
         $this->view();
     }
 
     /**
      * Страница логина
+     *
+     * @throws HttpException|DBALException
      */
-    public function login()
+    public function login(): void
     {
         if (!Request::isPost()) {
             $this->view('login');
@@ -87,7 +92,7 @@ class IndexController extends Controller
     /**
      * Страница логаута
      */
-    public function logout()
+    public function logout(): void
     {
         $this->_logout();
         $this->redirect('/index');
@@ -95,29 +100,29 @@ class IndexController extends Controller
 
     /**
      * Страница регистрации
+     * @throws DBALException | ValidationException
      */
-    public function register()
+    public function register(): void
     {
         $msg = $error = '';
-        if (Request::isPost()) {
-            if ($user = $this->users->add([
+        if (Request::isPost() && $user = $this->users->add(
+            [
                 'username' => Request::getPost('username'),
                 'email' => Request::getPost('email'),
                 'password' => Request::getPost('password'),
                 'password_confirm' => Request::getPost('password_confirm'),
-            ])) {
-                if (!$user->hasErrors()) {
-                    $msg = 'Пожалуйста подтвердите свою регистрацию';
-                    $email = $user->email;
-                    $activationUrl = "{$_SERVER['HTTP_ORIGIN']}/index/activate?confirm_code={$user->confirm_code}&email=$email";
-                    mail($email, 'Подтверждение регистрации', "$msg перейдя по ссылке: $activationUrl");
-
-                    $msg .= ". На ваш почтовый ящик $email придет письмо со ссылкой подтверждения.";
-                    $this->view('register-end', compact('msg'));
-                    return;
-                }
-                $error = $user->getErrorsSummary();
+            ]
+        )) {
+            if (!$user->hasErrors()) {
+                $msg = 'Пожалуйста подтвердите свою регистрацию';
+                $email = $user->email;
+                $activationUrl = "{$_SERVER['HTTP_ORIGIN']}/index/activate?confirm_code={$user->confirm_code}&email=$email";
+                mail($email, 'Подтверждение регистрации', "$msg перейдя по ссылке: $activationUrl");
+                $msg .= ". На ваш почтовый ящик $email придет письмо со ссылкой подтверждения.";
+                $this->view('register-end', compact('msg'));
+                return;
             }
+            $error = $user->getErrorsSummary();
         }
         $this->view('register', compact('msg', 'error'));
     }
@@ -125,7 +130,7 @@ class IndexController extends Controller
     /**
      * Страница подтверждения регистрации
      */
-    public function activate()
+    public function activate(): void
     {
         if (
                 $user = $this->users->findOne(array(

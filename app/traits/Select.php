@@ -1,4 +1,5 @@
 <?php
+
 namespace app\traits;
 
 /**
@@ -11,18 +12,25 @@ trait Select
      * Список для дроп-дауна по условию $where, отсортированных по $sort
      *
      * @param string $valueField
-     * @param array $where
-     * @param array $sort
+     * @param array  $where
+     * @param array  $sort
+     *
      * @return array
      */
-    public function getSelectList(string $valueField = 'name', array $where = array(), array $sort = array())
+    public function getSelectList(
+        string $valueField = 'name',
+        array  $where = [],
+        array  $sort = []
+    ): array
     {
         $items = $this->findAll($where, $sort);
         $getter = 'get' . ucfirst($valueField);
-        $ret = [[
-            'id' => '',
-            'value' => '...',
-        ]];
+        $ret = [
+            [
+                'id' => '',
+                'value' => '...',
+            ],
+        ];
         foreach ($items as $item) {
             $ret[] = [
                 'id' => $item->getId(),

@@ -4,13 +4,15 @@ namespace app\entities;
 use tachyon\db\dataMapper\Entity;
 
 /**
- * Класс сущности "Клиент"
+ * Класс сущности "Строка контракта"
  *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
 class ContractRow extends Row
 {
+    protected $tableName = 'contracts_rows';
+
     public function __construct(...$params)
     {
         parent::__construct(...$params);
@@ -84,7 +86,7 @@ class ContractRow extends Row
         return $this->_setAttribute('contractId', $value);
     }
 
-    public function setAttributes(array $state)
+    public function setAttributes(array $state): void
     {
         parent::setAttributes($state);
 

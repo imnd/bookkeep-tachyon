@@ -18,7 +18,7 @@ class Menu extends Widget
      */
     protected array $items = [];
 
-    public function run()
+    public function run(): void
     {
         if (!empty($this->items)) {
             $this->display($this->viewsPath, [
@@ -28,23 +28,21 @@ class Menu extends Widget
     }
 
     /**
-     * getBtnId
-     *
      * @param $action string
+     *
      * @return string
      */
-    public function getBtnId($action)
+    public function getBtnId(string $action): string
     {
         return md5($action);
     }
 
     /**
-     * getBtnHref
+     * @param string $url
      *
-     * @param $url
      * @return string
      */
-    public function getBtnHref($url)
+    public function getBtnHref(string $url): string
     {
         if (strpos($url, '/')===0) {
             return $url;

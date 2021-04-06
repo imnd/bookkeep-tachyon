@@ -1,6 +1,8 @@
 <?php
 namespace app\traits;
 
+use tachyon\db\dataMapper\Entity;
+
 /**
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
@@ -8,7 +10,7 @@ namespace app\traits;
 trait HasContract
 {
     /**
-     * @var int
+     * @var string
      */
     protected string $contractNum = '';
     /**
@@ -17,9 +19,9 @@ trait HasContract
     protected string $contractType;
 
     /**
-     * @return int
+     * @return string
      */
-    public function getContractNum()
+    public function getContractNum(): string
     {
         return $this->contractNum;
     }
@@ -27,7 +29,7 @@ trait HasContract
     /**
      * @return string
      */
-    public function getContractType()
+    public function getContractType(): string
     {
         return $this->contractType;
     }
@@ -36,7 +38,7 @@ trait HasContract
      * @param int|null $value
      * @return Entity
      */
-    public function setContractNum(int $value = null)
+    public function setContractNum(int $value = null): Entity
     {
         return $this->_setAttribute('contractNum', $value);
     }
@@ -45,7 +47,7 @@ trait HasContract
      * @param string|null $value
      * @return Entity
      */
-    public function setContractType(string $value = null)
+    public function setContractType(string $value = null): Entity
     {
         return $this->_setAttribute('contractType', $value);
     }

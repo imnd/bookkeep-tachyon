@@ -211,8 +211,10 @@ class Article extends Entity
 
     /**
      * @param array $state
+     *
+     * @return Article
      */
-    public function setAttributes(array $state)
+    public function setAttributes(array $state): Article
     {
         return $this
             ->setName($state['name'] ?? null)

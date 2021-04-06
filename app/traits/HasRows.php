@@ -10,14 +10,14 @@ trait HasRows
     /**
      * @var array строки
      */
-    private $rows = [];
+    private array $rows = [];
 
-    public function getRows()
+    public function getRows(): array
     {
         return $this->rows;
     }
 
-    public function setRows($rows = array())
+    public function setRows($rows = array()): void
     {
         foreach ($rows as $row) {
             $this->rows[] = $row;
@@ -27,7 +27,7 @@ trait HasRows
     /**
      * @return integer
      */
-    public function getQuantitySum()
+    public function getQuantitySum(): int
     {
         $result = 0;
         foreach ($this->rows as $row) {
@@ -39,7 +39,7 @@ trait HasRows
     /**
      * @return integer
      */
-    public function getPriceSum()
+    public function getPriceSum(): int
     {
         $result = 0;
         foreach ($this->rows as $row) {

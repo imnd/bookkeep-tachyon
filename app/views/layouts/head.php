@@ -1,3 +1,4 @@
+<?php use app\views\widgets\menu\Menu;?>
 <!DOCTYPE html>
 <html lang="<?=$this->controller->getLanguage()?>">
 <head>
@@ -14,7 +15,7 @@
     <div class="main" id="menu">
         <?php
         $this->widget([
-            'class' => 'app\views\widgets\menu\Menu',
+            'class' => Menu::class,
             'items' => [
                 'invoices' => 'фактуры',
                 'contracts' => 'договоры и контракты',
@@ -28,7 +29,7 @@
             'viewsPath' => 'top',
         ]);
         $this->widget([
-            'class' => 'app\views\widgets\menu\Menu',
+            'class' => Menu::class,
             'items' => $mainMenu ?? [],
             'viewsPath' => 'main',
         ]);
@@ -37,7 +38,7 @@
     <div class="clear"></div>
     <div id="container">
         <?php $this->widget([
-            'class' => 'app\views\widgets\menu\Menu',
+            'class' => Menu::class,
             'items' => $subMenu ?? [],
             'viewsPath' => 'sub',
         ])?>

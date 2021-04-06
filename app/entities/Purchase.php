@@ -5,13 +5,13 @@ use tachyon\db\dataMapper\Entity;
 
 /**
  * Класс сущности "Клиент"
- * 
+ *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND
  */
 class Purchase extends Entity
 {
-    protected $attributeCaptions = [
+    protected array $attributeCaptions = [
         'number' => 'номер',
         'date' => 'дата',
         'sum' => 'сумма',
@@ -22,38 +22,38 @@ class Purchase extends Entity
     /**
      * @var int
      */
-    protected $id;
+    protected int $id;
     /**
-     * @var string
+     * @var string|null
      */
-    protected $number;
+    protected ?string $number;
     /**
-     * @var string
+     * @var string|null
      */
-    protected $date;
+    protected ?string $date;
     /**
-     * @var float
+     * @var float|null
      */
-    protected $sum;
+    protected ?float $sum;
 
     # Getters
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getNumber()
+    public function getNumber(): ?string
     {
         return $this->number;
     }
 
-    public function getDate()
+    public function getDate(): ?string
     {
         return $this->date;
     }
 
-    public function getSum()
+    public function getSum(): ?float
     {
         return $this->sum;
     }
@@ -104,7 +104,7 @@ class Purchase extends Entity
         return $this->_setAttribute('sum', $value);
     }
 
-    public function setAttributes(array $state)
+    public function setAttributes(array $state): void
     {
         $this
             ->setNumber($state['number'] ?? null)

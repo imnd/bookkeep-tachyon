@@ -40,18 +40,18 @@ $this->display('../blocks/search-form', [
     </tr>
     <?php foreach ($items as $item) {?>
         <tr>
-            <td>{{ $item->getContractNum() }}</td>
-            <td>{{ $item->getDate() }}</td>
-            <td>{{ $item->getTermStart() }}</td>
-            <td>{{ $item->getTermEnd() }}</td>
-            <td>{{ $item->getClientNameAndAddress() }}</td>
-            <td>{{ $item->getSum() }}</td>
-            <td>{{ $item->getExecuted() }}</td>
-            <td>{{ $item->getExecRemind() }}</td>
-            <td>{{ $item->getPayed() }}</td>
-            <td>{{ $item->getPayedRemind() }}</td>
-            <td><a class="button-update" title="update" href="update/{{$item->getPk()}}"></a></td>
-            <td><a class="button-printout" title="распечатать" href="printout/{{$item->getPk()}}"></a></td>
+            <td><?=$item->getContractNum()?></td>
+            <td><?=$item->getDate()?></td>
+            <td><?=$item->getTermStart()?></td>
+            <td><?=$item->getTermEnd()?></td>
+            <td><?=$item->getClientNameAndAddress()?></td>
+            <td><?=$item->getSum()?></td>
+            <td><?=$item->getExecuted()?></td>
+            <td><?=$item->getExecRemind()?></td>
+            <td><?=$item->getPayed()?></td>
+            <td><?=$item->getPayedRemind()?></td>
+            <td><a class="button-update" title="update" href="contracts/update/<?=$item->getId()?>"></a></td>
+            <td><a class="button-printout" title="распечатать" href="printout/<?=$item->getId()?>"></a></td>
         </tr>
     <?php }?>
 </table>

@@ -5,7 +5,6 @@ namespace app\controllers;
 use
     tachyon\Controller,
     tachyon\components\FilesManager,
-    tachyon\Request,
     tachyon\traits\Auth,
     app\models\Settings;
 use tachyon\exceptions\DBALException;
@@ -64,7 +63,7 @@ class SettingsController extends Controller
                 'okpo',
             ],
         ];
-        if (!empty($postParams = Request::getPost())) {
+        if (!empty($postParams = $this->request->getPost())) {
             $result = true;
             foreach ($requisiteKeys as $type => $keys) {
                 foreach ($keys as $key) {
@@ -78,7 +77,7 @@ class SettingsController extends Controller
                 }
             }
             if ($result) {
-                $this->redirect(Request::getRoute());
+                $this->redirect($this->request->getRoute());
             }
         }
         $requisitesAll = [

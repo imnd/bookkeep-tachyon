@@ -8,9 +8,8 @@ use Iterator,
     tachyon\db\dataMapper\Repository,
     tachyon\db\dataMapper\Entity,
     tachyon\traits\DateTime,
-    tachyon\traits\RepositoryListTrait
-;
-use ReflectionException;
+    tachyon\traits\RepositoryListTrait,
+    ReflectionException;
 
 /**
  * @author Андрей Сердюк
@@ -43,12 +42,12 @@ class ContractsRepository extends HasRowsRepository
     ) {
         $this->entity = $contract;
         $this->clientsRepository = $clientsRepository;
-
         parent::__construct(...$params);
     }
 
     /**
      * @param array $conditions условия поиска
+     *
      * @return ContractsRepository
      */
     public function setSearchConditions($conditions = []): Repository
@@ -67,34 +66,35 @@ class ContractsRepository extends HasRowsRepository
             return null;
         }
         /** @var Client */
-        if (
-            $client = $this->clientsRepository
-                ->findByPk($contract->getClientId())
-        ) {
+        if ($client = $this->clientsRepository->findByPk($contract->getClientId())) {
             $contract
                 ->setClientName($client->getName())
                 ->setClientContactPost($client->getContactPost())
-                ->setClientContactFio($client->getContactFio())
-            ;
+                ->setClientContactFio($client->getContactFullName());
         }
         return $contract;
     }
 
-    public function findAll(array $where = array(), array $sort = array()): Iterator
+    /**
+     * @inheritdoc
+     */
+    public function findAll(array $where = [], array $sort = []): Iterator
     {
         $arrayData = $this->persistence
-            ->select([
-                'c.id',
-                'c.contract_num',
-                'c.sum',
-                'c.date',
-                'c.term_start',
-                'c.term_end',
-                'cl.name'            => 'clientName',
-                'cl.address'         => 'clientAddress',
-                'SUM(i.sum)'         => 'executed',
-                'c.sum - SUM(i.sum)' => 'execRemind',
-            ])
+            ->select(
+                [
+                    'c.id',
+                    'c.contract_num',
+                    'c.sum',
+                    'c.date',
+                    'c.term_start',
+                    'c.term_end',
+                    'cl.name' => 'clientName',
+                    'cl.address' => 'clientAddress',
+                    'SUM(i.sum)' => 'executed',
+                    'c.sum - SUM(i.sum)' => 'execRemind',
+                ]
+            )
             ->from($this->tableName)
             ->asa('c')
             ->with(['clients' => 'cl'], ['client_id' => 'id'])

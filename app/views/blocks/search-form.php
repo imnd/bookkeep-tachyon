@@ -1,9 +1,5 @@
-<?php
-use tachyon\Request;
-
-$datepicker = false;
-?>
-<form class="search-form" action="<?=Request::getRoute()?>">
+<?php $datepicker = false;?>
+<form class="search-form" action="<?=$this->request->getRoute()?>">
     <?php foreach ($fields as $key => $field) {?>
         <div class="control">
             <?php
@@ -28,7 +24,7 @@ $datepicker = false;
                 'options' => $field['options'] ?? null,
                 'style'   => $field['style'] ?? null,
                 'class'   => $field['class'] ?? null,
-                'value'   => Request::getGet($name) ?? '',
+                'value'   => $this->request->getGet($name) ?? '',
             ]);
             ?>
         </div>

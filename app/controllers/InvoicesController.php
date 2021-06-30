@@ -11,8 +11,7 @@ use
     app\models\Settings,
     tachyon\exceptions\HttpException,
     tachyon\exceptions\ContainerException,
-    tachyon\exceptions\DBALException,
-    tachyon\Request
+    tachyon\exceptions\DBALException
 ;
 
 /**
@@ -97,7 +96,7 @@ class InvoicesController extends HasRowsController
         $contractNum  = $item->getContractNum();
         $quantitySum  = $item->getQuantitySum();
         $sender       = $settings->getRequisites('firm');
-        $this->view('printout/' . Request::getGet('type'),
+        $this->view('printout/' . $this->request->getGet('type'),
             compact('item', 'contractType', 'contractNum', 'quantitySum', 'sender'));
     }
 }

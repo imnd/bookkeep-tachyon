@@ -7,8 +7,7 @@ use app\entities\Client,
     app\repositories\ClientsRepository,
     app\repositories\BillsRepository,
     app\repositories\InvoicesRepository,
-    app\repositories\RegionsRepository,
-    tachyon\Request;
+    app\repositories\RegionsRepository;
 use ErrorException;
 use tachyon\exceptions\DBALException;
 use tachyon\exceptions\HttpException;
@@ -76,7 +75,7 @@ class ClientsController extends CrudController
     ): void {
         $this->layout = 'printout';
         $client = $this->repository->findByPk($pk);
-        if (empty($getParams = Request::getGet())) {
+        if (empty($getParams = $this->request->getGet())) {
             $this->view('printout', compact('client'));
             return;
         }

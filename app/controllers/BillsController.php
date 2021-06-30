@@ -4,8 +4,11 @@ namespace app\controllers;
 use
     app\entities\Bill,
     app\repositories\BillsRepository,
-    app\repositories\ClientsRepository,
-    tachyon\Request;
+    app\repositories\ClientsRepository;
+use ErrorException;
+use ReflectionException;
+use tachyon\exceptions\ContainerException;
+use tachyon\exceptions\DBALException;
 
 /**
  * Контроллер платежей
@@ -34,7 +37,7 @@ class BillsController extends CrudController
      * @param Bill              $entity
      * @param ClientsRepository $clientRepository
      *
-     * @throws \ErrorException
+     * @throws ContainerException | ErrorException | ReflectionException
      */
     public function index(Bill $entity, ClientsRepository $clientRepository): void
     {
@@ -42,14 +45,16 @@ class BillsController extends CrudController
             'clients' => $clientRepository->getAllSelectList(),
             'items' => $this
                 ->repository
-                ->setSearchConditions(Request::getQuery())
-                ->setSort(Request::getQuery())
+                ->setSearchConditions($this->request->getQuery())
+                ->setSort($this->request->getQuery())
                 ->findAll(),
         ]);
     }
 
     /**
-     * @param ClientsRepository  $clientRepository
+     * @param ClientsRepository $clientRepository
+     *
+     * @throws ErrorException | ReflectionException | ContainerException | DBALException
      */
     public function create(ClientsRepository $clientRepository): void
     {
@@ -64,10 +69,8 @@ class BillsController extends CrudController
         ]);
     }
 
-    public function update(
-        ClientsRepository $clientRepository,
-        $pk
-    ): void {
+    public function update(ClientsRepository $clientRepository, $pk): void
+    {
         $entity = $this->getEntity($pk);
         if ($this->saveEntity($entity)) {
             $this->redirect("/{$this->id}");

@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use
-    tachyon\Request,
     app\entities\Purchase,
     app\models\Settings,
     app\repositories\ArticlesRepository,
@@ -46,7 +45,7 @@ class PurchasesController extends HasRowsController
         ClientsRepository $clientRepository
     ): void
     {
-        $date = Request::getGet('date') ?? date('Y-m-d');
+        $date = $this->request->getGet('date') ?? date('Y-m-d');
         $entity = $this->repository->create();
         $entity->setDate($date);
         if ($this->saveEntity($entity)) {

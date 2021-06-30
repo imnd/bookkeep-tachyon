@@ -89,7 +89,7 @@ class Client extends Entity
      */
     protected ?int $regionId = null;
 
-    # GETTERS
+    # region Getters
 
     public function getId(): int
     {
@@ -219,7 +219,9 @@ class Client extends Entity
         ];
     }
 
-    # SETTERS
+    # endregion
+
+    # region Setters
 
     public function setName(string $value = null): Client
     {
@@ -366,4 +368,6 @@ class Client extends Entity
             ->setRegionId($state['region_id'] ?: null)
         ;
     }
+
+    # endregion
 }

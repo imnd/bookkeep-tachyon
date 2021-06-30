@@ -1,8 +1,6 @@
 <?php
 /** @var app\entities\Contract $entity */
 /** @var array $clients */
-
-use tachyon\Request;
 ?>
 
 <script type="module">
@@ -10,7 +8,7 @@ use tachyon\Request;
     datepicker.build();
 </script>
 
-<form method="POST" action="<?=Request::getRoute()?>">
+<form method="POST" action="<?=$this->request->getRoute()?>">
     <div class="row">
         <?php $this->display('../blocks/input', [
             'entity' => $entity,

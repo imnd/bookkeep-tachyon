@@ -1,8 +1,7 @@
 <?php
 namespace app;
 
-use tachyon\Request,
-    tachyon\dic\Container,
+use tachyon\dic\Container,
     tachyon\traits\ClassName;
 use app\interfaces\{
     RowsRepositoryInterface, RowEntityInterface
@@ -21,9 +20,9 @@ class ServiceContainer extends Container
 {
     use ClassName;
 
-    public function boot(): Container
+    public function boot($params = []): Container
     {
-        $controllerName = $this->getClassName(Request::get('controller'));
+        $controllerName = $this->getClassName($params['controller']);
         $entity = str_replace('Controller', '', $controllerName);
 
         // сопоставление интерфейсов зависимостей с реализацией

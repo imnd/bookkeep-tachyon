@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use ErrorException;
@@ -11,8 +12,7 @@ use
     tachyon\db\dataMapper\Entity,
     tachyon\db\dataMapper\EntityInterface,
     tachyon\db\dataMapper\RepositoryInterface,
-    tachyon\traits\Auth,
-    tachyon\Request;
+    tachyon\traits\Auth;
 
 /**
  * Базовый класс для всех контроллеров
@@ -27,7 +27,7 @@ class CrudController extends Controller
     /** @inheritdoc */
     protected string $layout = 'crud';
     /** @inheritdoc */
-    protected $postActions = array('delete');
+    protected $postActions = ['delete'];
     /** @inheritdoc */
     protected $protectedActions = '*';
 
@@ -44,19 +44,16 @@ class CrudController extends Controller
     public function __construct(RepositoryInterface $repository, Flash $flash, ...$params)
     {
         $this->repository = $repository;
-
         $this->flash = $flash;
-
         parent::__construct(...$params);
     }
 
     /**
-     * Хук, срабатывающий перед запуском экшна
-     * @return boolean
+     * @inheritDoc
      */
     public function beforeAction(): bool
     {
-        if ($this->protectedActions==='*' || in_array($this->action, $this->protectedActions)) {
+        if ($this->protectedActions === '*' || in_array($this->action, $this->protectedActions)) {
             return $this->checkAccess();
         }
         return true;
@@ -71,17 +68,23 @@ class CrudController extends Controller
      * @return void
      * @throws ErrorException
      */
-    protected function doIndex(EntityInterface $entity, $params = array()): void
+    protected function doIndex(EntityInterface $entity, $params = []): void
     {
-        $getQuery = Request::getQuery();
-        $this->view('index', array_merge([
-            'entity' => $entity,
-            'items' => $this
-                ->repository
-                ->setSearchConditions($getQuery)
-                ->setSort($getQuery)
-                ->findAll(),
-        ], $params));
+        $getQuery = $this->request->getQuery() ?: [];
+        $this->view(
+            'index',
+            array_merge(
+                [
+                    'entity' => $entity,
+                    'items' => $this
+                        ->repository
+                        ->setSearchConditions($getQuery)
+                        ->setSort($getQuery)
+                        ->findAll(),
+                ],
+                $params
+            )
+        );
     }
 
     /**
@@ -89,6 +92,7 @@ class CrudController extends Controller
      * @param array $params
      *
      * @return void
+     * @throws DBALException
      * @throws HttpException
      */
     protected function doUpdate(int $pk, array $params): void
@@ -124,7 +128,7 @@ class CrudController extends Controller
      */
     protected function saveEntity(Entity $entity): bool
     {
-        if (!$postParams = Request::getPost()) {
+        if (!$postParams = $this->request->getPost()) {
             return false;
         }
         $entity->setAttributes($postParams);
@@ -154,7 +158,7 @@ class CrudController extends Controller
     {
         echo json_encode(
             [
-                'success' => $this->getEntity($pk)->delete()
+                'success' => $this->getEntity($pk)->delete(),
             ],
             JSON_THROW_ON_ERROR
         );

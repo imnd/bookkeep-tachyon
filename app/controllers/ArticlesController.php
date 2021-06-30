@@ -9,6 +9,7 @@ use
 use ErrorException;
 use ReflectionException;
 use tachyon\exceptions\ContainerException;
+use tachyon\exceptions\DBALException;
 use tachyon\exceptions\HttpException;
 
 /**
@@ -48,7 +49,11 @@ class ArticlesController extends CrudController
 
     /**
      * @param ArticleSubcatsRepository $articleSubcatsRepository
-     * @param RegionsRepository $regionsRepository
+     * @param RegionsRepository        $regionsRepository
+     *
+     * @throws ContainerException
+     * @throws DBALException
+     * @throws ReflectionException
      */
     public function create(
         ArticleSubcatsRepository $articleSubcatsRepository,
@@ -59,9 +64,11 @@ class ArticlesController extends CrudController
 
     /**
      * @param ArticleSubcatsRepository $articleSubcatsRepository
-     * @param RegionsRepository $regionsRepository
+     * @param RegionsRepository        $regionsRepository
      *
      * @return array
+     * @throws ContainerException
+     * @throws ReflectionException
      */
     private function _vars(
         ArticleSubcatsRepository $articleSubcatsRepository,

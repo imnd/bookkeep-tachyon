@@ -7,8 +7,7 @@ use
     app\interfaces\RowsRepositoryInterface,
     tachyon\db\dataMapper\Entity,
     tachyon\components\Flash,
-    tachyon\traits\ArrayTrait,
-    tachyon\Request;
+    tachyon\traits\ArrayTrait;
 use tachyon\exceptions\DBALException;
 use tachyon\exceptions\HttpException;
 
@@ -46,7 +45,7 @@ class HasRowsController extends CrudController
      */
     protected function saveEntity(Entity $entity): bool
     {
-        if (!$postParams = Request::getPost()) {
+        if (!$postParams = $this->request->getPost()) {
             return false;
         }
         $errors = [];

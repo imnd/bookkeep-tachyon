@@ -6,8 +6,7 @@ use
     tachyon\Config,
     app\models\Users,
     tachyon\components\Flash,
-    tachyon\traits\Auth,
-    tachyon\Request
+    tachyon\traits\Auth
 ;
 use tachyon\exceptions\DBALException;
 use tachyon\exceptions\HttpException;
@@ -71,22 +70,22 @@ class IndexController extends Controller
      */
     public function login(): void
     {
-        if (!Request::isPost()) {
+        if (!$this->request->isPost()) {
             $this->view('login');
             return;
         }
         if (!$user = $this->users->findByPassword([
-            'username' => Request::getPost('username'),
-            'password' => Request::getPost('password'),
+            'username' => $this->request->getPost('username'),
+            'password' => $this->request->getPost('password'),
         ])) {
             $this->unauthorised('Пользователя с таким логином и паролем нет.');
         }
         if ((int)$user->confirmed !== Users::STATUS_CONFIRMED) {
             $this->unauthorised('Вы не подтвердили свою регистрацию.');
         }
-        $this->_login(Request::getPost('remember'));
+        $this->_login($this->request->getPost('remember'));
 
-        $this->redirect(Request::getReferer());
+        $this->redirect($this->request->getReferer());
     }
 
     /**
@@ -105,12 +104,12 @@ class IndexController extends Controller
     public function register(): void
     {
         $msg = $error = '';
-        if (Request::isPost() && $user = $this->users->add(
+        if ($this->request->isPost() && $user = $this->users->add(
             [
-                'username' => Request::getPost('username'),
-                'email' => Request::getPost('email'),
-                'password' => Request::getPost('password'),
-                'password_confirm' => Request::getPost('password_confirm'),
+                'username' => $this->request->getPost('username'),
+                'email' => $this->request->getPost('email'),
+                'password' => $this->request->getPost('password'),
+                'password_confirm' => $this->request->getPost('password_confirm'),
             ]
         )) {
             if (!$user->hasErrors()) {
@@ -134,9 +133,9 @@ class IndexController extends Controller
     {
         if (
                 $user = $this->users->findOne(array(
-                    'email' => Request::getGet()['email'],
+                    'email' => $this->request->getGet()['email'],
                 ))
-            and $user->confirm_code===Request::getGet('confirm_code')
+            and $user->confirm_code===$this->request->getGet('confirm_code')
         ) {
             $user->setAttribute('confirmed', Users::STATUS_CONFIRMED);
             $user->update();

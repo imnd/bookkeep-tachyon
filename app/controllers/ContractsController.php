@@ -87,6 +87,7 @@ class ContractsController extends HasRowsController
                 'clients' => $clientRepository->getAllSelectList(),
                 'articlesList' => $articleRepository->getAllSelectList(),
                 'articles' => $articleRepository->findAllRaw(),
+                'types'    => $this->repository->getSelectListFromArr(Contract::TYPES, true),
             ]
         );
     }

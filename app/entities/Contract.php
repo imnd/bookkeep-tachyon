@@ -97,6 +97,7 @@ class Contract extends Entity implements HasRowsInterface
     protected ?float $payedRemind = null;
 
     # region Getters
+
     public function getId(): ?int
     {
         return $this->id;
@@ -221,7 +222,9 @@ class Contract extends Entity implements HasRowsInterface
     }
 
     # endregion
+
     # region Setters
+
     public function setType($value = null): Contract
     {
         return $this->_setAttribute('type', $value);

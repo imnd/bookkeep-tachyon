@@ -2,18 +2,19 @@
 
 namespace app\controllers;
 
+use ErrorException;
+use ReflectionException;
+use tachyon\exceptions\{
+    ContainerException,
+    DBALException,
+    HttpException,
+};
 use app\repositories\{
     ArticlesRepository,
-    ClientsRepository,
-    ContractsRepository,
-    ContractsRowsRepository,
+    ClientsRepository
 };
 use app\entities\Contract,
     app\models\Settings;
-use ReflectionException;
-use tachyon\exceptions\ContainerException;
-use tachyon\exceptions\DBALException;
-use tachyon\exceptions\HttpException;
 
 /**
  * class ContractsController
@@ -27,26 +28,15 @@ class ContractsController extends HasRowsController
     protected string $layout = 'contracts';
 
     /**
-     * @param ContractsRepository     $repository
-     * @param ContractsRowsRepository $rowRepository
-     * @param array                   $params
-     */
-    public function __construct(
-        ContractsRepository $repository,
-        ContractsRowsRepository $rowRepository,
-        ...$params
-    ) {
-        $this->repository = $repository;
-        $this->rowRepository = $rowRepository;
-        parent::__construct(...$params);
-    }
-
-    /**
      * Главная страница, список договоров.
      *
      * @param Contract          $entity
      * @param ClientsRepository $clientRepository
-     * @param string            $type
+     * @param null              $type
+     *
+     * @throws ContainerException
+     * @throws ReflectionException
+     * @throws ErrorException
      */
     public function index(
         Contract $entity,
@@ -68,13 +58,13 @@ class ContractsController extends HasRowsController
         ArticlesRepository $articleRepository,
         ClientsRepository $clientRepository
     ): void {
-        $row = $this->rowRepository->create();
         $this->doCreate([
             'clients'      => $clientRepository->getAllSelectList(),
             'articlesList' => $articleRepository->getAllSelectList(),
             'articles'     => $articleRepository->findAllRaw(),
-            'row'          => $row,
-            'rows'         => [$row],
+            'row'          => $this->rowRepository->create(false),
+            // Список типов для селекта на форме
+            'types'        => $this->repository->getSelectListFromArr(Contract::TYPES, true),
         ]);
     }
 
@@ -112,7 +102,7 @@ class ContractsController extends HasRowsController
         $this->layout = 'printout';
         /** @var Contract */
         if (!$contract = $this->repository->findByPk($pk)) {
-            $this->error(404, 'Такой фактуры не существует');
+            $this->error(404, 'Такого договора не существует');
         }
         $quantitySum = $contract->getQuantitySum($pk);
         $typeName = $contract->getTypeName($contract->getType());

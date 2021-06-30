@@ -3,12 +3,14 @@
 namespace app\repositories;
 
 use Iterator,
-    tachyon\db\dataMapper\Repository,
     app\entities\Contract,
-    tachyon\traits\DateTime,
+    app\entities\Client,
+    tachyon\db\dataMapper\Repository,
     tachyon\db\dataMapper\Entity,
-    app\entities\Client
+    tachyon\traits\DateTime,
+    tachyon\traits\RepositoryListTrait
 ;
+use ReflectionException;
 
 /**
  * @author Андрей Сердюк
@@ -16,7 +18,7 @@ use Iterator,
  */
 class ContractsRepository extends HasRowsRepository
 {
-    use DateTime;
+    use DateTime, RepositoryListTrait;
 
     /**
      * @var Contract
@@ -28,9 +30,11 @@ class ContractsRepository extends HasRowsRepository
     protected ClientsRepository $clientsRepository;
 
     /**
-     * @param Contract $contract
+     * @param Contract          $contract
      * @param ClientsRepository $clientsRepository
-     * @param array $params
+     * @param array             $params
+     *
+     * @throws ReflectionException
      */
     public function __construct(
         Contract $contract,

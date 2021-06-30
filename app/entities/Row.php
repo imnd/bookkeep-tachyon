@@ -14,9 +14,17 @@ use tachyon\db\dataMapper\Entity,
 class Row extends Entity implements RowEntityInterface
 {
     /**
-     * @var mixed
+     * Имя поля внешнего ключа родительской записи
+     *
+     * @var string|null
      */
-    protected $rowFk;
+    protected ?string $rowFk = null;
+    /**
+     * Имя свойства внешнего ключа родительской записи
+     *
+     * @var string|null
+     */
+    protected ?string $rowFkProp = null;
 
     public function __construct(...$params)
     {
@@ -30,6 +38,10 @@ class Row extends Entity implements RowEntityInterface
             array_shift($tableNameArr);
             $this->rowFk = strtolower(implode('_', $tableNameArr)) . '_id';
         }
+        if (is_null($this->rowFkProp)) {
+            $this->rowFkProp = lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $this->rowFk))));
+        }
+
         parent::__construct(...$params);
     }
 
@@ -42,7 +54,8 @@ class Row extends Entity implements RowEntityInterface
      */
     protected ?int $price = null;
 
-    # Getters
+    # region Getters
+
     public function getQuantity(): ?int
     {
         return $this->quantity;
@@ -78,14 +91,17 @@ class Row extends Entity implements RowEntityInterface
     }
 
     /**
-     * @return mixed
+     * @inheritDoc
      */
-    public function getRowFk()
+    public function getRowFk(): string
     {
         return $this->rowFk;
     }
 
-    # SETTERS
+    # endregion
+
+    # region Setters
+
     public function setQuantity(int $value = null): Entity
     {
         return $this->_setAttribute('quantity', $value);
@@ -102,4 +118,14 @@ class Row extends Entity implements RowEntityInterface
             ->setQuantity($state['quantity'] ?: null)
             ->setPrice($state['price'] ?: null);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function setRowFkProp(int $value = null): void
+    {
+        $this->setAttribute($this->rowFkProp, $value);
+    }
+
+    # endregion
 }

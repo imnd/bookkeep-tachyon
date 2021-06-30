@@ -34,6 +34,7 @@ class HasRowsController extends CrudController
         ...$params
     ) {
         $this->rowRepository = $rowRepository;
+
         parent::__construct(...$params);
     }
 
@@ -49,17 +50,18 @@ class HasRowsController extends CrudController
             return false;
         }
         $errors = [];
-        // сохраням
+        // сохраняем
         $entity->setAttributes($postParams);
-        // удалям строки
+        // удаляем строки
         if ($rows = $entity->getRows()) {
             foreach ($rows as $row) {
                 $row->markDeleted();
             }
         }
-        // сохраням строки
+        // сохраняем строки
         $sum = 0;
         $rowsData = $this->transposeArray($postParams);
+        $rows = [];
         foreach ($rowsData as $rowData) {
             $row = $this->rowRepository->create();
             $rowData[$row->getRowFk()] = $entity->getPk();
@@ -67,25 +69,32 @@ class HasRowsController extends CrudController
             if (!$row->validate()) {
                 $errors[] = $row->getErrorsSummary();
                 unset($row);
+            } else {
+                $rows[] = $row;
             }
             $sum += $rowData['row_sum'];
         }
-        // сохраням
+        // сохраняем
         $entity->setSum($sum);
         if (!$entity->validate()) {
             $errors[] = $entity->getErrorsSummary();
         }
         if (!empty($errors)) {
-            $this->flash->addFlash('Что то пошло не так, ' . implode("\n", $errors), Flash::FLASH_TYPE_ERROR);
+            $this->flash->addFlash('Ошибка, ' . implode("\n", $errors), Flash::FLASH_TYPE_ERROR);
             return false;
         }
-        if (!$entity->getDbContext()->commit()) {
+
+        if (!$entity->getDbContext()->saveEntity($entity)) {
             $this->flash->addFlash(
-                'Что то пошло не так.',
+                'Ошибка.',
                 Flash::FLASH_TYPE_ERROR
             );
             return false;
         }
+        foreach ($rows as $index => $row) {
+            $row->setRowFkProp($entity->getPk());
+        }
+        $row->getDbContext()->commit();
         $this->flash->addFlash('Сохранено успешно', Flash::FLASH_TYPE_SUCCESS);
 
         return true;

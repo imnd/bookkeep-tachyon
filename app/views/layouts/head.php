@@ -8,7 +8,6 @@
     $this->assetManager->css('style'),
     $this->assetManager->css('grid/style')
     ?>
-    <?php $this->assetManager->coreJs('dom') ?>
 </head>
 
 <body class="<?="{$this->controller->getId()} {$this->controller->getAction()}"?>">

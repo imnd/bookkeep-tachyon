@@ -11,7 +11,7 @@ use tachyon\db\dataMapper\Entity;
  */
 class PurchaseRow extends Row
 {
-    protected $tableName = 'purchases_rows';
+    protected string $tableName = 'purchases_rows';
 
     public function __construct(...$params)
     {

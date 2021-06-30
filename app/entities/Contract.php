@@ -1,4 +1,5 @@
 <?php
+
 namespace app\entities;
 
 use tachyon\db\dataMapper\Entity,
@@ -19,6 +20,9 @@ class Contract extends Entity implements HasRowsInterface
         HasRows,
         DateTime;
 
+    /**
+     * @inheritdoc
+     */
     protected array $attributeCaptions = [
         'contract_num' => 'номер',
         'client_id' => 'клиент',
@@ -39,17 +43,18 @@ class Contract extends Entity implements HasRowsInterface
 
     /**
      * Названия типов
+     *
      * @var $_types array
      */
-    protected array $_types = [
+    public const TYPES = [
         'contract' => 'контракт',
         'agreement' => 'договор',
     ];
 
     /**
-     * @var int
+     * @var int | null
      */
-    protected int $id;
+    protected ?int $id = null;
     /**
      * @var string | null
      */
@@ -91,9 +96,8 @@ class Contract extends Entity implements HasRowsInterface
      */
     protected ?float $payedRemind = null;
 
-    # Getters
-
-    public function getId(): int
+    # region Getters
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -165,7 +169,6 @@ class Contract extends Entity implements HasRowsInterface
     public function fromState(array $state): Entity
     {
         $entity = clone($this);
-
         $entity->id = $state['id'];
         $entity->clientName = $state['clientName'] ?? null;
         $entity->contractNum = $state['contract_num'] ?? null;
@@ -179,55 +182,46 @@ class Contract extends Entity implements HasRowsInterface
         $entity->executed = $state['executed'] ?? null;
         $entity->execRemind = $state['execRemind'] ?? null;
         $entity->payedRemind = $state['payedRemind'] ?? null;
-
         return $entity;
     }
 
     public function rules(): array
     {
         return [
-            'contractNum' => array('integer', 'required'),
-            'clientId' => array('integer', 'required'),
-            'date' => array('required'),
-            'termStart' => array('required'),
-            'termEnd' => array('required'),
-//            'type' => array('in' => array_keys($this->_types)), // TODO: сделать
+            'contractNum' => ['required', 'integer'],
+            'clientId' => ['required', 'integer'],
+            'termStart' => 'required',
+            'termEnd' => 'required',
+            'type' => ['required', 'in:' . implode(',', array_keys(self::TYPES))],
         ];
     }
 
     /**
      * Название типа
      *
-     * @param null $type
+     * @param null   $type
      * @param string $case
+     *
      * @return string
      */
-    public function getTypeName($type=null, $case='nom'): string
+    public function getTypeName($type = null, $case = 'nom'): string
     {
-        if ($case==='gen') {
-            $this->_types = array_map(
+        if ($case === 'gen') {
+            $types = array_map(
                 static fn($val) => $val . 'ов',
-                array_values($this->_types)
+                array_values(self::TYPES)
             );
+        } else {
+            $types = self::TYPES;
         }
         if (is_null($type)) {
             $type = $this->type;
         }
-        return $this->_types[$type] ?? implode(' и ', $this->_types);
+        return $types[$type] ?? implode(' и ', $types);
     }
 
-    /**
-     * Список типов для селекта на форме
-     *
-     * @return array
-     */
-    public function getTypes(): array
-    {
-        return $this->getSelectListFromArr($this->_types, true);
-    }
-
-    # SETTERS
-
+    # endregion
+    # region Setters
     public function setType($value = null): Contract
     {
         return $this->_setAttribute('type', $value);
@@ -285,12 +279,14 @@ class Contract extends Entity implements HasRowsInterface
             ->setContractNum($state['contract_num'] ?? null)
             ->setDate($state['date'] ?? null)
             ->setSum($state['sum'] ?? null)
+            ->setType($state['type'] ?? null)
             ->setExecuted($state['executed'] ?? null)
             ->setExecRemind($state['execRemind'] ?? null)
             ->setPayed($state['payed'] ?? null)
             ->setPayedRemind($state['payedRemind'] ?? null)
             ->setTermStart($state['term_start'] ?? null)
-            ->setTermEnd($state['term_end'] ?? null)
-        ;
+            ->setTermEnd($state['term_end'] ?? null);
     }
+
+    # endregion
 }

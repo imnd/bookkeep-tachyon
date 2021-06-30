@@ -11,7 +11,7 @@ use tachyon\db\dataMapper\Entity;
  */
 class ContractRow extends Row
 {
-    protected $tableName = 'contracts_rows';
+    protected string $tableName = 'contracts_rows';
 
     public function __construct(...$params)
     {
@@ -25,15 +25,15 @@ class ContractRow extends Row
      */
     protected int $id;
     /**
-     * @var int
+     * @var ?int
      */
     protected ?int $articleId = null;
     /**
-     * @var int
+     * @var ?int
      */
-    protected int $contractId;
+    protected ?int $contractId = null;
 
-    # Getters
+    # region Getters
 
     public function getId(): int
     {
@@ -45,7 +45,7 @@ class ContractRow extends Row
         return $this->articleId;
     }
 
-    public function getContractId(): int
+    public function getContractId(): ?int
     {
         return $this->contractId;
     }
@@ -74,7 +74,9 @@ class ContractRow extends Row
         return array_merge(parent::rules(), ['articleId' => 'numerical']);
     }
 
-    # SETTERS
+    # endregion
+
+    # region Setters
 
     public function setArticleId(int $value = null): ContractRow
     {
@@ -95,4 +97,6 @@ class ContractRow extends Row
             ->setContractId($state['contract_id'] ?? null)
         ;
     }
+
+    # endregion
 }

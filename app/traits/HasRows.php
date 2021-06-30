@@ -1,4 +1,5 @@
 <?php
+
 namespace app\traits;
 
 /**
@@ -17,7 +18,7 @@ trait HasRows
         return $this->rows;
     }
 
-    public function setRows($rows = array()): void
+    public function setRows($rows = []): void
     {
         foreach ($rows as $row) {
             $this->rows[] = $row;

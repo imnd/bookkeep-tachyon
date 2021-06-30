@@ -138,7 +138,7 @@ body.error #container #container {
     margin-top: 20px;
     padding: 0 10px;
 }
-.error-msg {
+.error {
     color: #A00;
     font-style: italic;
 }
@@ -420,7 +420,7 @@ td.value
 td.value input
     {width: 670px;}
 
-    
+
 .contract th,
 .agreement th
     {padding: 0;}

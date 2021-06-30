@@ -3,10 +3,11 @@ namespace app\repositories;
 
 use Iterator,
     tachyon\db\dataMapper\Repository,
-    tachyon\traits\DateTime,
     tachyon\db\dataMapper\Entity,
+    tachyon\traits\DateTime,
     app\entities\Client,
-    app\entities\Invoice;
+    app\entities\Invoice,
+    ReflectionException;
 
 /**
  * @author Андрей Сердюк
@@ -26,10 +27,12 @@ class InvoicesRepository extends HasRowsRepository
     protected ClientsRepository $clientsRepository;
 
     /**
-     * @param Invoice $invoice
-     * @param ClientsRepository $clientsRepository
+     * @param Invoice             $invoice
+     * @param ClientsRepository   $clientsRepository
      * @param ContractsRepository $contractsRepository
-     * @param array $params
+     * @param array               $params
+     *
+     * @throws ReflectionException
      */
     public function __construct(
         Invoice $invoice,

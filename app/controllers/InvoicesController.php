@@ -3,11 +3,15 @@
 namespace app\controllers;
 
 use
+    ErrorException,
+    ReflectionException,
     app\entities\Invoice,
     app\repositories\ArticlesRepository,
     app\repositories\ClientsRepository,
     app\models\Settings,
     tachyon\exceptions\HttpException,
+    tachyon\exceptions\ContainerException,
+    tachyon\exceptions\DBALException,
     tachyon\Request
 ;
 
@@ -24,8 +28,15 @@ class InvoicesController extends HasRowsController
      *
      * @param Invoice           $entity
      * @param ClientsRepository $clientRepository
+     *
+     * @throws ErrorException
+     * @throws ReflectionException
+     * @throws ContainerException
      */
-    public function index(Invoice $entity, ClientsRepository $clientRepository): void
+    public function index(
+        Invoice $entity,
+        ClientsRepository $clientRepository
+    ): void
     {
         $this->doIndex($entity, [
             'clients' => $clientRepository->getAllSelectList(),
@@ -35,6 +46,10 @@ class InvoicesController extends HasRowsController
     /**
      * @param ArticlesRepository $articleRepository
      * @param ClientsRepository  $clientRepository
+     *
+     * @throws ContainerException
+     * @throws ReflectionException
+     * @throws DBALException
      */
     public function create(
         ArticlesRepository $articleRepository,
@@ -47,7 +62,7 @@ class InvoicesController extends HasRowsController
         }
         $this->view('create', [
             'entity'       => $entity,
-            'row'          => $this->rowRepository->create(),
+            'row'          => $this->rowRepository->create(false),
             'clients'      => $clientRepository->getAllSelectList('name'),
             'articlesList' => $articleRepository->getAllSelectList('name'),
             'articles'     => $articleRepository->findAllRaw(),

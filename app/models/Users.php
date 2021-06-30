@@ -53,6 +53,7 @@ class Users extends ActiveRecord
         ) {
             return $user;
         }
+        return null;
     }
 
     public function rules(): array

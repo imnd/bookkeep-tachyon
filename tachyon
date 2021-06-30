@@ -1,0 +1,20 @@
+<?php
+include('./vendor/autoload.php');
+
+use app\ServiceContainer;
+use tachyon\traits\ClassName;
+
+$name = $GLOBALS['argv'][1];
+$commandClassName = (new class { use ClassName; })->kebabToCamel($name);
+
+foreach (['app', 'tachyon'] as $namespace) {
+    // add namespace
+    $commandClass = "$namespace\commands\\$commandClassName";
+    if (class_exists($commandClass)) {
+        (new ServiceContainer)
+            ->get($commandClass)
+            ->run();
+
+        break;
+    }
+}

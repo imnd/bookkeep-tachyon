@@ -13,7 +13,7 @@
     "require": {
         "php": ">=7.4",
         "imnd/tachyon": "dev-master",
-        "psr/container-implementation": "1.0.0",
+        "psr/container": "1.0.0",
         "ext-json": "*",
         "ext-pdo": "*"
     },
@@ -23,7 +23,8 @@
     },
     "autoload": {
         "psr-4": {
-            "app\\": "app/"
+            "app\\": "app/",
+            "migrations\\": "migrations/"
         }
     }
 }

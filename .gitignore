@@ -1,3 +1,6 @@
 /.idea/
 /vendor/
 /runtime/
+/app/config/db.php
+/app/config/main.php
+/.env

@@ -2,34 +2,21 @@
 use tachyon\Request;
 
 /** @var app\entities\Contract $entity */
-
-echo
-    $this->assetManager->js('table'),
-    $this->assetManager->js('prices');
-
-    $this->assetManager->coreJs('ajax');
-    // хранить зависимости в assetManager
-    $this->assetManager->coreJs('obj');
-    $this->assetManager->coreJs('dom');
-    $this->assetManager->coreJs('datepicker')
+/** @var array $types */
 ?>
 
-<script>datepicker.build();</script>
-
 <form method="POST" action="<?=Request::getRoute()?>">
-    <?php /*
     <div class="row">
         <?php $this->display('../blocks/select', [
             'entity' => $entity,
             'name' => 'type',
-            'options' => $entityRepo->getTypes()
+            'options' => $types
         ])?>
     </div>
-    */?>
     <div class="row">
         <?php $this->display('../blocks/input', [
             'entity' => $entity,
-            'name' => 'contractNum',
+            'name' => 'contract_num',
             'class' => 'required',
         ])?>
     </div>
@@ -69,7 +56,6 @@ echo
         ])?>
     </div>
     */?>
-
     <table>
         <tr>
             <th><?=$row->getCaption('articleId')?></th>
@@ -101,12 +87,17 @@ echo
 
 <span style="display: none" id="prices"><?=json_encode($articles)?></span>
 
-<script>
+<script type="module">
+    import datepicker from '/assets/js/datepicker.js';
+    datepicker.build();
+
+    import dom from '/assets/js/dom.js';
+    import prices from '/assets/js/prices.js';
     dom.ready(function() {
         prices.setEntityName('<?=$entity->getClassName()?>');
         prices.calcSums();
-        dom.findByName("contractNum").addEventListener("change", prices.updatePrices);
+        dom.findByName("contract_num").addEventListener("change", prices.updatePrices);
     });
 </script>
 
-<?=$this->assetManager->js("bind-btn-handlers")?>
+<script type="module" src="/assets/js/bind-btn-handlers.js"></script>

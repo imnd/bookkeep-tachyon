@@ -1,14 +1,11 @@
-<?=
-$this->assetManager->coreJs("dom"),
-$this->assetManager->coreJs("ajax"),
-$this->assetManager->coreJs("upload")
-?>
 <form>
     <input type="file" id="file" />
     <input type="button" id="file-upload" value="Отправить" />&nbsp;
     <span id="complete" style="color: green;"></span>
 </form>
-<script>
+<script type="module">
+    import {upload} from '/assets/js/upload.js';
+    import dom from '/assets/js/dom.js';
     upload.defaults({
         "chunk-size" : 600000,
         "file-id" : "file",

@@ -25,9 +25,11 @@ foreach ($items as $key => $value) {
     ?>
     <a class="button <?=$buttonClass?> <?=(strpos($action, '/')!==false) ? substr($action, 0, strpos($action, '/')) : $action?>" title="<?=$title?>" href="<?=$widget->getBtnHref($action)?>" id="<?=$widget->getBtnId($action)?>"><?=$title?></a>
     <?php if ($type==='ajax') {?>
-    <?=$this->assetManager->coreJs("ajax")?>
     <script>
-    dom.findById('<?=$widget->getBtnId($action)?>').addEventListener("click", e => {
+        import dom from '/assets/js/dom.js';
+        import ajax from '/assets/js/ajax.js';
+
+        dom.findById('<?=$widget->getBtnId($action)?>').addEventListener("click", e => {
         e.preventDefault();
         if (confirm("<?=$confirmMsg?>")!==true) {
             return false;

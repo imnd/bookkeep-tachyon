@@ -36,11 +36,9 @@ $datepicker = false;
     <input type="submit" class="button" value="поиск">
     <div class="clear"></div>
 </form>
-<?php if ($datepicker) {
-    // хранить зависимости в assetManager
-    $this->assetManager->coreJs('obj');
-    $this->assetManager->coreJs('dom');
-    $this->assetManager->coreJs('datepicker');
-    ?>
-    <script>datepicker.build();</script>
+<?php if ($datepicker) {?>
+    <script type="module">
+        import datepicker from '/assets/js/datepicker.js';
+        datepicker.build();
+    </script>
 <?php }?>

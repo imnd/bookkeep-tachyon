@@ -1,4 +1,5 @@
-<script>
+<script type="module">
+    import dom from '/assets/js/dom.js';
     dom.clear();
 </script>
 
@@ -191,7 +192,7 @@
         </tr>
     </tbody>
 </table>
-<table CELLSPACING=0>
+<table cellspacing=0>
     <COL WIDTH="35">
     <COL WIDTH="228">
     <COL WIDTH="75">
@@ -299,8 +300,7 @@
         <td class=R30C15><span style="white-space:nowrap"><?=$item->getSum()?></span></td>
     </tr>
 </table>
-
-<table CELLSPACING=0>
+<table cellspacing=0>
     <COL WIDTH="7">
     <COL WIDTH="125">
     <COL WIDTH="91">
@@ -580,17 +580,19 @@
         <td colspan=7><span style="white-space:nowrap">«<?=$item->getDay()?>» <?=$item->getMonth()?> <?=$item->getYear()?> года</span></td>
     </tr>
 </table>
-<script>
-    let itemsCount1 = dom.findById('items-count-1');
+<script type="module">
+    import dom from '/assets/js/dom.js';
+    import {utils} from '/assets/print/js/utils.js';
+    let itemsCount1 = dom.find('#items-count-1');
     dom.val(itemsCount1, utils.convNumToWords(dom.val(itemsCount1)));
-    let itemsCount2 = dom.findById('items-count-2');
+    let itemsCount2 = dom.find('#items-count-2');
     dom.val(itemsCount2, utils.convNumToWords(dom.val(itemsCount2)));
- 
-    let quantSum1 = dom.findById('quantity-sum-1');
+
+    let quantSum1 = dom.find('#quantity-sum-1');
     dom.val(quantSum1, utils.convWeightToWords(dom.val(quantSum1)));
-    let quantSum2 = dom.findById('quantity-sum-2');
+    let quantSum2 = dom.find('#quantity-sum-2');
     dom.val(quantSum2, utils.convWeightToWords(dom.val(quantSum2)));
 
-    let totalSumContnr = dom.findById('total-sum-in-words');
+    let totalSumContnr = dom.find('#total-sum-in-words');
     dom.val(totalSumContnr, utils.convPriceToWords(dom.val(totalSumContnr)));
 </script>

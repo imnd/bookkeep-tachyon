@@ -1,16 +1,18 @@
-// удаление строки
-function bindDelParent(delBtn) {
-    delBtn.addEventListener("click", function() {
-        this.parentNode.remove();
-    });
-}
-// очистка инпутов новой строки
-function clearRowInputs(row) {
-    var tds = dom.findAll('td', row);
-    for (var key in tds) {
-        var td = tds[key];
-        var tdChildren = td.childNodes;
-        for (var tdKey in tdChildren)
-            dom.clear(tdChildren[tdKey]);
-    }
-}
+export let
+    // удаление строки
+    bindDelParent = delBtn => {
+        delBtn.addEventListener("click", function () {
+            this.parentNode.remove();
+        });
+    },
+    // очистка инпутов новой строки
+    clearRowInputs = row => {
+        const tds = dom.findAll('td', row);
+        for (let key in tds) {
+            const td = tds[key];
+            const tdChildren = td.childNodes;
+            for (let tdKey in tdChildren) {
+                dom.clear(tdChildren[tdKey]);
+            }
+        }
+    };

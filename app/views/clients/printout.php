@@ -1,10 +1,4 @@
-<?php
-$this->pageTitle = "Печать акта сверки клиента {$client->name}";
-// хранить зависимости в assetManager
-$this->assetManager->coreJs('obj');
-$this->assetManager->coreJs('dom');
-$this->assetManager->coreJs('datepicker');
-?>
+<?php $this->pageTitle = "Печать акта сверки клиента {$client->name}"?>
 
 <h3>Акт сверки</h3>
 <?=$this->html->formOpen()?>

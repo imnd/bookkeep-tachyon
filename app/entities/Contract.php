@@ -9,7 +9,7 @@ use tachyon\db\dataMapper\Entity,
     app\traits\HasClient;
 
 /**
- * Класс сущности "Клиент"
+ * Класс сущности "Контракт"
  *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND

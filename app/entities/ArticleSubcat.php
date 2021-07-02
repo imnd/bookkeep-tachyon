@@ -4,7 +4,7 @@ namespace app\entities;
 use tachyon\db\dataMapper\Entity;
 
 /**
- * Класс сущности "Клиент"
+ * Класс сущности "Подкатегория продукта"
  *
  * @author Андрей Сердюк
  * @copyright (c) 2020 IMND

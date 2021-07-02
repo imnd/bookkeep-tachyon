@@ -79,12 +79,12 @@ class HasRowsController extends CrudController
             $errors[] = $entity->getErrorsSummary();
         }
         if (!empty($errors)) {
-            $this->flash->addFlash('Ошибка, ' . implode("\n", $errors), Flash::FLASH_TYPE_ERROR);
+            flash('Ошибка, ' . implode("\n", $errors), Flash::FLASH_TYPE_ERROR);
             return false;
         }
 
         if (!$entity->getDbContext()->saveEntity($entity)) {
-            $this->flash->addFlash(
+            flash(
                 'Ошибка.',
                 Flash::FLASH_TYPE_ERROR
             );
@@ -94,7 +94,7 @@ class HasRowsController extends CrudController
             $row->setRowFkProp($entity->getPk());
         }
         $row->getDbContext()->commit();
-        $this->flash->addFlash('Сохранено успешно', Flash::FLASH_TYPE_SUCCESS);
+        flash('Сохранено успешно', Flash::FLASH_TYPE_SUCCESS);
 
         return true;
     }

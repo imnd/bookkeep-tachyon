@@ -133,14 +133,14 @@ class CrudController extends Controller
         }
         $entity->setAttributes($postParams);
         if (!$entity->validate()) {
-            $this->flash->addFlash(
+            flash(
                 'Ошибка валидации: ' . $entity->getErrorsSummary(),
                 Flash::FLASH_TYPE_ERROR
             );
             return false;
         }
         if (!$entity->getDbContext()->commit()) {
-            $this->flash->addFlash(
+            flash(
                 'Что то пошло не так.',
                 Flash::FLASH_TYPE_ERROR
             );
@@ -175,7 +175,7 @@ class CrudController extends Controller
     protected function getEntity($pk): Entity
     {
         if (!$entity = $this->repository->findByPk($pk)) {
-            throw new HttpException($this->msg->i18n('Wrong address.'), HttpException::NOT_FOUND);
+            throw new HttpException(i18n('Wrong address.'), HttpException::NOT_FOUND);
         }
         return $entity;
     }

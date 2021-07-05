@@ -112,7 +112,7 @@ code
 #menu
 {
     margin: 0 10px 10px;
-    width: 1280px;
+    width: 96%;
 }
 #container
 {
@@ -496,6 +496,9 @@ body.clients.index form.search-form input[type="text"]
 
 div.row {
     margin: 10px 0;
+}
+form .row {
+    clear: both;
 }
 label {
     font-weight: bold;

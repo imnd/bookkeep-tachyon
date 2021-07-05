@@ -1,6 +1,11 @@
 <?php $datepicker = false;?>
 <form class="search-form" action="<?=$this->request->getRoute()?>">
-    <?php foreach ($fields as $key => $field) {?>
+    <?php
+    $i = 0;
+    foreach ($fields as $key => $field) {?>
+        <?php if ($i % 4 === 0) {?>
+            <div class="row">
+        <?php } ?>
         <div class="control">
             <?php
             if (is_numeric($key)) {
@@ -28,8 +33,15 @@
             ]);
             ?>
         </div>
+        <?php if ($i++ % 4 === 3) {?>
+            </div><div class="clear"></div>
+        <?php }?>
     <?php }?>
-    <input type="submit" class="button" value="поиск">
+    <?php if ($i++ % 4 !== 0) {?></div><?php }?>
+    <div class="clear"></div>
+    <div class="row">
+        <input type="submit" class="button" value="поиск" />
+    </div>
     <div class="clear"></div>
 </form>
 <?php if ($datepicker) {?>

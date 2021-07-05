@@ -48,4 +48,16 @@ trait HasRows
         }
         return $result;
     }
+
+    /**
+     * удаляем строки
+     *
+     * @return void
+     */
+    public function deleteRows()
+    {
+        foreach ($this->rows as $row) {
+            $row->markDeleted();
+        }
+    }
 }

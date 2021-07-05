@@ -4,7 +4,7 @@
 
 <p>Поля с <span class="error">*</span> обязательны к заполнению.</p>
 
-<div class="error row"><?=$this->flash->getFlash(Flash::FLASH_TYPE_ERROR)?></div>
+<div class="error row"><?=flash(Flash::FLASH_TYPE_ERROR)?></div>
 
 <div class="form">
 

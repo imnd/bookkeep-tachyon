@@ -8,8 +8,11 @@ use
     tachyon\db\dataMapper\Entity,
     tachyon\components\Flash,
     tachyon\traits\ArrayTrait;
+use ReflectionException;
+use tachyon\exceptions\ContainerException;
 use tachyon\exceptions\DBALException;
 use tachyon\exceptions\HttpException;
+use tachyon\exceptions\ValidationException;
 
 /**
  * class Controller
@@ -42,25 +45,27 @@ class HasRowsController extends CrudController
      *
      * @return boolean
      * @throws DBALException
+     * @throws ReflectionException
+     * @throws ContainerException
+     * @throws ValidationException
      */
     protected function saveEntity(Entity $entity): bool
     {
         if (!$postParams = $this->request->getPost()) {
             return false;
         }
-        $errors = [];
-        // сохраняем
         $entity->setAttributes($postParams);
-        // удаляем строки
-        if ($rows = $entity->getRows()) {
-            foreach ($rows as $row) {
-                $row->markDeleted();
-            }
+        if (!$entity->validate()) {
+            flash("Ошибка. {$entity->getErrorsSummary()}", Flash::FLASH_TYPE_ERROR);
+            return false;
         }
+        // удаляем строки
+        $entity->deleteRows();
         // сохраняем строки
         $sum = 0;
         $rowsData = $this->transposeArray($postParams);
         $rows = [];
+        $errors = [];
         foreach ($rowsData as $rowData) {
             $row = $this->rowRepository->create();
             $rowData[$row->getRowFk()] = $entity->getPk();
@@ -75,25 +80,21 @@ class HasRowsController extends CrudController
         }
         // сохраняем
         $entity->setSum($sum);
-        if (!$entity->validate()) {
-            $errors[] = $entity->getErrorsSummary();
-        }
         if (!empty($errors)) {
-            flash('Ошибка, ' . implode("\n", $errors), Flash::FLASH_TYPE_ERROR);
+            flash('Ошибка. ' . implode("\n", $errors), Flash::FLASH_TYPE_ERROR);
             return false;
         }
 
+        // сохраняем
         if (!$entity->getDbContext()->saveEntity($entity)) {
-            flash(
-                'Ошибка.',
-                Flash::FLASH_TYPE_ERROR
-            );
+            flash('Ошибка.', Flash::FLASH_TYPE_ERROR);
             return false;
         }
         foreach ($rows as $index => $row) {
             $row->setRowFkProp($entity->getPk());
         }
         $row->getDbContext()->commit();
+
         flash('Сохранено успешно', Flash::FLASH_TYPE_SUCCESS);
 
         return true;

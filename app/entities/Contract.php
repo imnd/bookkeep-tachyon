@@ -189,10 +189,7 @@ class Contract extends Entity implements HasRowsInterface
     public function rules(): array
     {
         return [
-            'contractNum' => ['required', 'integer'],
-            'clientId' => ['required', 'integer'],
-            'termStart' => 'required',
-            'termEnd' => 'required',
+            'termStart, termEnd, contract_num, contractNum, clientId, client_id' => ['required', 'integer'],
             'type' => ['required', 'in:' . implode(',', array_keys(self::TYPES))],
         ];
     }

@@ -4,10 +4,7 @@
 <head>
     <title><?=$this->pageTitle ?? 'Бухгалтерия'?></title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <?=
-    $this->assetManager->css('style'),
-    $this->assetManager->css('grid/style')
-    ?>
+    <?= $this->assetManager->css('style')?>
 </head>
 
 <body class="<?="{$this->controller->getId()} {$this->controller->getAction()}"?>">

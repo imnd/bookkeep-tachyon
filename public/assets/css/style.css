@@ -470,11 +470,10 @@ form.search-form .form__field {
     display: inline-block;
 }
 form.search-form label {
-    width: auto;
     display: inline;
-    float: none;
     text-align: left;
     padding-right: 0;
+    width: 120px;
 }
 form.search-form input.required,
 form.search-form textarea.required,

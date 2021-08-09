@@ -29,15 +29,15 @@ class Article extends Entity
      */
     protected int $id;
     /**
-     * @var int
+     * @var int|null
      */
-    protected int $subcatId;
+    protected ?int $subcatId;
     /**
-     * @var string
+     * @var string|null
      */
-    protected string $subcatName;
+    protected ?string $subcatName;
     /**
-     * @var string
+     * @var string|null
      */
     protected ?string $name = null;
     /**
@@ -49,11 +49,11 @@ class Article extends Entity
      */
     protected ?int $price = null;
     /**
-     * @var int
+     * @var int|null
      */
-    protected int $active;
+    protected ?int $active;
 
-    # GETTERS
+    # region Getters
 
     /**
      * @return int
@@ -106,7 +106,7 @@ class Article extends Entity
     /**
      * @return string
      */
-    public function getSubcatName(): string
+    public function getSubcatName(): ?string
     {
         return $this->subcatName;
     }
@@ -157,7 +157,9 @@ class Article extends Entity
         ];
     }
 
-    # SETTERS
+    # endregion
+
+    # region Setters
 
     /**
      * @param string|null $value
@@ -224,4 +226,6 @@ class Article extends Entity
             ->setSubcatId($state['subcat_id'] ?: null)
         ;
     }
+
+    # endregion
 }

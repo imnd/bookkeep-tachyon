@@ -31,9 +31,9 @@ class Bill extends Entity
     ];
 
     /**
-     * @var int
+     * @var int|null
      */
-    protected int $id;
+    protected ?int $id;
     /**
      * @var string
      */
@@ -55,8 +55,8 @@ class Bill extends Entity
      */
     protected ?string $contents = '';
 
-    # Getters
-    public function getId(): int
+    # region Getters
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -109,7 +109,7 @@ class Bill extends Entity
     public function fromState(array $state): Entity
     {
         $entity = clone($this);
-        $entity->id = $state['id'];
+        $entity->id = $state['id'] ?? null;
         $entity->clientId = $state['client_id'] ?? null;
         $entity->clientName = $state['clientName'] ?? null;
         $entity->contractNum = $state['contract_num'] ?? null;
@@ -129,7 +129,9 @@ class Bill extends Entity
         ];
     }
 
-    # SETTERS
+    # endregion
+
+    # region Setters
 
     public function setSum(int $value = null): Bill
     {
@@ -165,4 +167,6 @@ class Bill extends Entity
             ->setDate($state['date'] ?? null)
             ->setContents($state['contents'] ?? null);
     }
+
+    # endregion
 }

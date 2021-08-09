@@ -242,22 +242,22 @@ class Contract extends Entity implements HasRowsInterface
         return $this->_setAttribute('sum', $value);
     }
 
-    public function setExecuted(double $value = null): Contract
+    public function setExecuted(float $value = null): Contract
     {
         return $this->_setAttribute('executed', $value);
     }
 
-    public function setExecRemind(double $value = null): Contract
+    public function setExecRemind(float $value = null): Contract
     {
         return $this->_setAttribute('execRemind', $value);
     }
 
-    public function setPayed(double $value = null): Contract
+    public function setPayed(float $value = null): Contract
     {
         return $this->_setAttribute('payed', $value);
     }
 
-    public function setPayedRemind(double $value = null): Contract
+    public function setPayedRemind(float $value = null): Contract
     {
         return $this->_setAttribute('payedRemind', $value);
     }

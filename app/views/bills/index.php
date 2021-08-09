@@ -4,12 +4,17 @@ $this->pageTitle = 'Платежи, список';
 
 $this->display('../blocks/search-form', [
     'entity' => $entity,
-    'fields' => ['dateFrom', 'dateTo', 'contract_num', [
-        'name' => 'client_id',
-        'type' => 'select',
-        'options' => $clients,
-        'style' => 'width: 300px',
-    ]],
+    'fields' => [
+        'dateFrom' => ['type' => 'date'],
+        'dateTo' => ['type' => 'date'],
+        'contract_num',
+        [
+            'name' => 'client_id',
+            'type' => 'select',
+            'options' => $clients,
+            'style' => 'width: 300px',
+        ]
+    ],
 ]);
 ?>
 
@@ -30,7 +35,7 @@ $this->display('../blocks/search-form', [
             <td>{{ $item->getSum() }}</td>
             <td>{{ $item->getRemainder() }}</td>
             <td>{{ $item->getDate() }}</td>
-            <td class="operations"><a class="button-update" title="update" href="/bills/update/{{$item->getPk()}}"></a></td>
+            <td class="operations"><a class="button-update" title="update" href="/bills/update/<?=$item->getPk()?>"></a></td>
         </tr>
     <?php }?>
 </table>

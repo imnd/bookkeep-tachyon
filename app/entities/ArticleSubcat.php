@@ -29,7 +29,7 @@ class ArticleSubcat extends Entity
      */
     protected string $name;
 
-    # GETTERS
+    # region getters
 
     public function getId(): int
     {
@@ -78,6 +78,8 @@ class ArticleSubcat extends Entity
         ];
     }
 
+    # endregion
+
     # SETTERS
 
     /**
@@ -110,4 +112,6 @@ class ArticleSubcat extends Entity
             ->setCatId($state['cat_id'] ?: null)
         ;
     }
+
+    # endregion
 }

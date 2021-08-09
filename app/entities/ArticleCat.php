@@ -24,7 +24,7 @@ class ArticleCat extends Entity
      */
     protected string $description;
 
-    # Getters
+    # region getters
 
     /**
      * @return int
@@ -70,7 +70,7 @@ class ArticleCat extends Entity
     }
 
     /**
-     * @return array|\string[][]
+     * @return array|string[][]
      */
     public function rules(): array
     {
@@ -79,6 +79,8 @@ class ArticleCat extends Entity
             'description' => ['alphaExt'],
         ];
     }
+
+    # endregion
 
     # SETTERS
 
@@ -112,4 +114,6 @@ class ArticleCat extends Entity
             ->setDescription($state['description'] ?? null)
         ;
     }
+
+    # endregion
 }

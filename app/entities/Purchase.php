@@ -1,4 +1,5 @@
 <?php
+
 namespace app\entities;
 
 use tachyon\db\dataMapper\Entity;
@@ -12,17 +13,17 @@ use tachyon\db\dataMapper\Entity;
 class Purchase extends Entity
 {
     protected array $attributeCaptions = [
-        'number' => 'номер',
-        'date' => 'дата',
-        'sum' => 'сумма',
+        'number'   => 'номер',
+        'date'     => 'дата',
+        'sum'      => 'сумма',
         'dateFrom' => 'дата с',
-        'dateTo' => 'дата по',
+        'dateTo'   => 'дата по',
     ];
 
     /**
-     * @var int
+     * @var int|null
      */
-    protected int $id;
+    protected ?int $id;
     /**
      * @var string|null
      */
@@ -36,9 +37,12 @@ class Purchase extends Entity
      */
     protected ?float $sum;
 
-    # Getters
+    # region Getters
 
-    public function getId(): int
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -62,20 +66,18 @@ class Purchase extends Entity
     {
         return [
             'number' => $this->number,
-            'date' => $this->date,
-            'sum' => $this->sum,
+            'date'   => $this->date,
+            'sum'    => $this->sum,
         ];
     }
 
     public function fromState(array $state): Entity
     {
         $entity = clone($this);
-
-        $entity->id = $state['id'];
+        $entity->id = $state['id'] ?? null;
         $entity->number = $state['number'] ?? null;
         $entity->date = $state['date'] ?? null;
         $entity->sum = $state['sum'] ?? null;
-
         return $entity;
     }
 
@@ -83,12 +85,19 @@ class Purchase extends Entity
     {
         return [
             'date, number' => 'required',
-            'number' => 'numerical',
+            'number'       => 'numerical',
         ];
     }
 
-    # Setters
+    # endregion
 
+    # region Setters
+
+    /**
+     * @param null $value
+     *
+     * @return Purchase
+     */
     public function setNumber($value = null): Purchase
     {
         return $this->_setAttribute('number', $value);
@@ -109,7 +118,8 @@ class Purchase extends Entity
         $this
             ->setNumber($state['number'] ?? null)
             ->setDate($state['date'] ?? null)
-            ->setSum($state['sum'] ?? null)
-        ;
+            ->setSum($state['sum'] ?? null);
     }
+
+    # endregion
 }

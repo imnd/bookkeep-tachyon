@@ -8,6 +8,7 @@ use
     tachyon\traits\Auth,
     app\models\Settings;
 use tachyon\exceptions\DBALException;
+use tachyon\exceptions\ValidationException;
 
 /**
  * Контроллер настроек приложения
@@ -33,6 +34,9 @@ class SettingsController extends Controller
      * Установка реквизитов
      *
      * @param Settings $settings
+     *
+     * @throws DBALException
+     * @throws ValidationException
      */
     public function requisites(Settings $settings): void
     {

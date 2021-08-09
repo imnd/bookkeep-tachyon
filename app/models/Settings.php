@@ -48,6 +48,7 @@ class Settings extends ActiveRecord
      * @param $from string какой фирмы
      *
      * @return object
+     * @throws DBALException
      */
     public function getRequisites($from)
     {

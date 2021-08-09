@@ -55,7 +55,11 @@ class Invoice extends Entity implements HasRowsInterface
      */
     protected float $payed;
 
-    # Getters
+    # region Getters
+
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
@@ -137,7 +141,9 @@ class Invoice extends Entity implements HasRowsInterface
         ];
     }
 
-    # SETTERS
+    # endregion
+
+    # region Setters
 
     public function setNumber($value = null): Invoice
     {
@@ -174,4 +180,6 @@ class Invoice extends Entity implements HasRowsInterface
             ->setSum($state['sum'] ?? null)
             ->setPayed($state['payed'] ?? null);
     }
+
+    # endregion
 }

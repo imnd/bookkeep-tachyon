@@ -20,7 +20,26 @@ class Region extends Entity
      */
     protected $name;
 
-    # Setters
+    # region Getters
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getAttributes(): array
+    {
+        return [];
+    }
+
+    # endregion
+
+    # region Setters
 
     public function setId(int $value): Entity
     {
@@ -49,20 +68,5 @@ class Region extends Entity
 
     }
 
-    # Getters
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function getAttributes(): array
-    {
-        return [];
-    }
+    # endregion
 }

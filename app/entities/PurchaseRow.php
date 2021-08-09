@@ -33,7 +33,7 @@ class PurchaseRow extends Row
      */
     protected ?int $purchaseId;
 
-    # Getters
+    # region Getters
 
     public function getId(): int
     {
@@ -74,7 +74,9 @@ class PurchaseRow extends Row
         return array_merge(parent::rules(), ['articleSubcatId' => 'numerical']);
     }
 
-    # Setters
+    # endregion
+
+    # region Setters
 
     public function setArticleId(int $value = null): self
     {
@@ -95,4 +97,6 @@ class PurchaseRow extends Row
             ->setPurchaseId($state['purchase_id'] ?? null)
         ;
     }
+
+    # endregion
 }

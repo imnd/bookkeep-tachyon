@@ -45,7 +45,7 @@ class InvoiceRow extends Row
      */
     protected int $invoiceId;
 
-    # Getters
+    # region Getters
 
     public function getId(): int
     {
@@ -101,7 +101,9 @@ class InvoiceRow extends Row
         return array_merge(parent::rules(), ['articleId' => 'numerical']);
     }
 
-    # SETTERS
+    # endregion
+
+    # region Setters
 
     public function setArticleId(int $value = null): InvoiceRow
     {
@@ -137,4 +139,6 @@ class InvoiceRow extends Row
             ->setInvoiceId($state['invoice_id'] ?? null)
         ;
     }
+
+    # endregion
 }

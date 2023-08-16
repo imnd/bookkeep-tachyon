@@ -3,14 +3,14 @@ RewriteEngine on
 <If "%{HTTP_HOST} == 'bookkeep-test'">
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond $1 !^(index-test\.php|robots\.txt|favicon\.ico|(.*)\.css|(.*)\.js)
+    RewriteCond $1 !^(index-test\.php|robots\.txt|favicon\.ico|(.*)\.css|(.*)\.js|(.*)\.mjs)
     RewriteRule ^(.*)$ /index-test.php/$1 [L]
 </If>
 
 <If "%{HTTP_HOST} == 'bookkeep'">
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond $1 !^(index\.php|robots\.txt|favicon\.ico|(.*)\.css|(.*)\.js)
+    RewriteCond $1 !^(index\.php|robots\.txt|favicon\.ico|(.*)\.css|(.*)\.js|(.*)\.mjs)
     RewriteRule ^(.*)$ /index.php/$1 [L]
 </If>
 
@@ -66,6 +66,7 @@ php_value memory_limit 2048M
     <IfModule mod_gzip.c>
         mod_gzip_on Yes
         mod_gzip_item_include file \.js$
+        mod_gzip_item_include file \.mjs$
         mod_gzip_item_include file \.css$
     </IfModule>
 </IfModule>

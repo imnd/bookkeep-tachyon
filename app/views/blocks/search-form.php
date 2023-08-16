@@ -45,8 +45,5 @@
     <div class="clear"></div>
 </form>
 <?php if ($datepicker) {?>
-    <script type="module">
-        import datepicker from '/assets/js/datepicker.js';
-        datepicker.build();
-    </script>
+    <script type="module" src="/assets/js/datepicker.mjs"></script>
 <?php }?>

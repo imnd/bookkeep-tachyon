@@ -95,7 +95,5 @@ if (count($rows) > 0) {?>
         */?>
     </table>
 </div>
-<script>
-    let totalSumContainer = dom.findById('total-sum-in-words');
-    dom.val(totalSumContainer, utils.convPriceToWords(dom.val(totalSumContainer)));
-</script>
+
+<script type="module" src="/assets/js/printout-contract.mjs"></script>

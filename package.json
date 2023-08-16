@@ -1,0 +1,35 @@
+{
+  "name": "bookkeep",
+  "version": "1.0.0",
+  "description": "bookkeep",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "sass": "^1.65.1",
+    "vite": "^4.4.9"
+  },
+  "dependencies": {
+    "imnd-ajax": "^1.0.1",
+    "imnd-datepicker": "^1.0.3",
+    "imnd-dom": "^1.0.3",
+    "imnd-upload": "^1.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/imnd/bookkeep.git"
+  },
+  "keywords": [
+    "js",
+    "utilities",
+    "library"
+  ],
+  "author": "imnd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imnd/bookkeep/issues"
+  },
+  "homepage": "https://github.com/imnd/bookkeep#readme"
+}

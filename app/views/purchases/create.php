@@ -1,7 +1,5 @@
-<script type="module">
-    import datepicker from '/assets/js/datepicker.js';
-    datepicker.build();
-</script>
+<script type="module" src="/assets/js/datepicker.mjs"></script>
+
 <?=
 /** @var string $date */
 $this->html->formOpen(),
@@ -19,15 +17,9 @@ $this->html->formClose();
 
 $this->pageTitle = 'Собираем закупку';
 if (!empty($items)) { ?>
-    <hr/>
-    <script type="module">
-        import dom from '/assets/js/dom.js';
-        dom.ready(function () {
-            bindInpsChange('quantity');
-            bindInpsChange('price');
-            bindInpsChange('sum');
-        });
-    </script>
+    <hr />
+    <script type="module" src="/assets/js/create-purchase.mjs"></script>
+
     <?= $this->html->formOpen(['method' => 'POST']) ?>
     <p>Номер фактуры закупки: <?=$this->html->inputEx($model, 'number')?>&nbsp;<?=$this->html->error($model, 'number')?></p>
     <table class="purchase">

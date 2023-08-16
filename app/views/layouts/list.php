@@ -1,6 +1,6 @@
 @extends('crud')
 
-<link rel="stylesheet" href="/assets/css/grid/style.css" type="text/css" media="screen">
-<script type="text/javascript" src="/assets/js/grid/sort.js"></script>
+<link rel="stylesheet" href="/assets/css/grid.css" type="text/css" media="screen">
+<script src="/assets/js/grid/sort.mjs"></script>
 
 @contents

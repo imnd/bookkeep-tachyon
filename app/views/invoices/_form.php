@@ -3,10 +3,7 @@
 /** @var array $clients */
 ?>
 
-<script type="module">
-    import datepicker from '/assets/js/datepicker.js';
-    datepicker.build();
-</script>
+<script type="module" src="/assets/js/datepicker.mjs"></script>
 
 <form method="POST" action="<?=$this->request->getRoute()?>">
     <div class="row">
@@ -71,19 +68,7 @@
 <span style="display:none" id="prices"><?=json_encode($articles)?></span>
 
 <script type="module">
-    import dom from '/assets/js/dom.js';
-    import prices from '/assets/js/prices.js';
-
-    dom.ready(function() {
-        prices.setEntityName('<?=$entity->getClassName()?>');
-        prices.calcSums();
-        /**
-         * при смене номера договора
-         * - меняем содержимое поля "клиент";
-         * - заполняем массив цен;
-         * - меняем цены;
-         */
-        dom.findByName("contract_num").addEventListener("change", prices.updatePrices);
-    });
+  import setup from '/assets/js/invoices-form.mjs';
+  setup('<?=$entity->getClassName()?>');
 </script>
-<script type="module" src="/assets/js/bind-btn-handlers.js"></script>
+<script type="module" src="/assets/js/bind-btn-handlers.mjs"></script>

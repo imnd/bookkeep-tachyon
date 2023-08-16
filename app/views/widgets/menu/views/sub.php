@@ -25,27 +25,10 @@ foreach ($items as $key => $value) {
     ?>
     <a class="button <?=$buttonClass?> <?=(strpos($action, '/')!==false) ? substr($action, 0, strpos($action, '/')) : $action?>" title="<?=$title?>" href="<?=$widget->getBtnHref($action)?>" id="<?=$widget->getBtnId($action)?>"><?=$title?></a>
     <?php if ($type==='ajax') {?>
-    <script>
-        import dom from '/assets/js/dom.js';
-        import ajax from '/assets/js/ajax.js';
-
-        dom.findById('<?=$widget->getBtnId($action)?>').addEventListener("click", e => {
-        e.preventDefault();
-        if (confirm("<?=$confirmMsg?>")!==true) {
-            return false;
-        }
-        ajax.post(
-            '<?=$widget->getBtnHref($action)?>',
-            {<?="'{$controller->tokenId}':'{$controller->tokenVal}',"?>},
-            data => {
-                if (data.success===true) {
-                    <?=$callback?>
-                }
-            }
-        );
-        return false;
-    });
-    </script>
+        <script type="module">
+          import setup from '/assets/js/menu.mjs';
+          setup('<?=$widget->getBtnId($action)?>', '<?=$confirmMsg?>', '<?=$widget->getBtnHref($action)?>', {<?="'{$controller->tokenId}':'{$controller->tokenVal}',"?>}, <?=$callback?>);
+        </script>
     <?php
     }
 }

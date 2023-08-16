@@ -1,0 +1,612 @@
+body {
+    background-color: #fff;
+    margin: 40px 10px;
+    font: 13px/20px normal Helvetica, Arial, sans-serif;
+    color: #4F5155;
+}
+
+a {
+    color: #003399;
+    background-color: transparent;
+    font-weight: normal;
+    text-decoration: none;
+    margin-top: 10px;
+}
+a.button,
+input.button
+{
+    background-color: #ddd;
+    border: 1px solid #999;
+    color: #000;
+    float: right;
+    margin-bottom: 10px;
+    margin-left: 4px;
+    padding: 1px 8px;
+    text-align: center;
+    width: auto;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+a.create,
+a.view,
+a.update,
+a.delete,
+a.printout
+{
+    background-repeat: no-repeat;
+    display: block;
+    height: 20px;
+}
+a.center {
+    background-position: center;
+    padding-left: 16px;
+}
+a.left {
+    background-position: left;
+    background-position-x: 4px;
+    padding-left: 24px;
+}
+a.create {
+    background-image: url('../img/create.gif');
+}
+a.view {
+    background-image: url('../img/view.gif');
+}
+a.update {
+    background-image: url('../img/update.gif');
+}
+a.delete {
+    background-image: url('../img/delete.png');
+}
+a.printout {
+    background-image: url('../img/printout.png')
+}
+
+.delete-btn input[type="button"],
+.add input[type="button"] {
+    min-width: 16px;
+    cursor: pointer;
+}
+.delete-btn input[type="button"] {
+    background-image: url('../img/delete.png');
+}
+.add input[type="button"] {
+    background-image: url('../img/add.gif');
+}
+
+h1, h2
+{
+    color: #444;
+    background-color: transparent;
+    font-weight: normal;
+}
+h1
+{
+    border-bottom: 1px solid #D0D0D0;
+    font-size: 19px;
+    margin: 0 0 14px 0;
+    padding: 14px 15px 10px 15px;
+}
+h2
+{
+    font-size: 15px;
+    padding: 0 15px;
+    clear: both;
+}
+code
+{
+    font-family: Consolas, Monaco, Courier New, Courier, monospace;
+    font-size: 12px;
+    background-color: #f9f9f9;
+    border: 1px solid #D0D0D0;
+    color: #002166;
+    display: block;
+    margin: 14px 0 14px 0;
+    padding: 12px 10px 12px 10px;
+}
+#body
+    {margin: 0 15px;}
+
+#container,
+#menu
+{
+    margin: 0 10px 10px;
+    width: 96%;
+}
+#container
+{
+    padding: 10px;
+    border: 1px solid #D0D0D0;
+    -webkit-box-shadow: 0 0 8px #D0D0D0;
+    background: -moz-linear-gradient(bottom, #DEE7F0, #FFF);
+    border-radius: 32px 0 0 0;
+}
+#menu
+    {padding: 0;}
+
+body.clients_debtors #container,
+body.clients_debtors #menu
+    {width: 960px;}
+body.invoices_list #container
+    {width: 990px;}
+body.error #container #container {
+    width: 844px;
+    background: none;
+    border-radius: 0;
+    border: none;
+    margin-top: 20px;
+    padding: 0 10px;
+}
+.error {
+    color: #A00;
+    font-style: italic;
+}
+.success {
+    color: #0A0;
+    font-style: italic;
+}
+/* МЕНЮ */
+ul.top_menu,
+ul.main_menu
+    {padding: 0;}
+ul.main_menu {
+    width: auto;
+    margin: 12px -7px 1px 0;
+    float: right;
+}
+ul.top_menu {
+    margin: 0 0 16px;
+    width: 100%;
+}
+ul.top_menu,
+ul.top_menu li,
+ul.main_menu,
+ul.main_menu li
+{
+    display: block;
+    height: 20px;
+}
+ul.top_menu li,
+ul.main_menu li
+{
+    float: left;
+    width: auto;
+}
+ul.top_menu li {
+    padding: 0 8px;
+    width: auto;
+    margin: 0 -1px 4px 0;
+    background-color: #EEE;
+    border: 1px solid #999;
+}
+ul.top_menu li a
+    {color: #000;}
+ul.top_menu .left
+    {border-radius: 6px 0 0 6px;}
+ul.top_menu .right
+    {border-radius: 0 6px 6px 0;}
+
+ul.main_menu li {
+    background-color: #AAA;
+    border: 1px solid #666;
+    -moz-border-radius: 10px 0 0 0;
+    margin: 0 -15px 0 0;
+    padding: 0 22px 0 12px;
+}
+    ul.main_menu li.left {
+        border-radius: 10px 0 0 0;
+    }
+    ul.main_menu li.right {
+        border-radius: 0 10px 0 0;
+    }
+ul.main_menu li a {
+    color: #fff;
+    font-weight: bold;
+}
+ul.top_menu li a,
+ul.main_menu li a
+    {line-height: 0;}
+
+ul.invoices
+    {padding-left: 20px;}
+
+body.invoices_list ul.main_menu
+    {margin-right: -109px;}
+
+/* top_menu */
+body.invoices li.invoices,
+body.purchases li.purchases,
+body.contracts_and_agreements li.contracts,
+body.contracts li.contracts,
+body.agreements li.contracts,
+body.articles li.articles,
+body.client li.clients,
+body.clients li.clients,
+body.regions li.clients,
+body.bills li.bills,
+body.settings li.settings
+    {background-color: #900;}
+
+/* top_menu */
+body.bills li.payment a,
+body.bills li.bills a,
+body.bills li.balance a,
+body.bills li.load_bill a,
+body.bills li.new_record a,
+
+body.invoices li.index a,
+body.invoices li.invoices a,
+
+body.purchases li.purchases a,
+
+body.contracts_and_agreements li.contracts a,
+body.contracts_and_agreements li.agreements a,
+body.contracts li.contracts a,
+body.agreements li.contracts a,
+
+body.articles li.articles a,
+
+body.client li.clients a,
+body.clients li.clients a,
+body.regions li.clients a,
+
+body.settings.index li.settings a,
+body.settings.backup li.settings a,
+body.settings.requisites li.settings a,
+
+body.contracts_and_agreements.index li.contract a,
+body.contracts_and_agreements.index li.agreement a,
+body.contracts.create li.contract a,
+body.contracts.index li.contract a,
+body.agreements.index li.contract a,
+body.agreements.update li.contract a,
+body.contracts.update li.contract a
+{
+    color: #FFF;
+    font-weight: bold;
+}
+
+body.articles.index li.index,
+body.articles.create li.create,
+
+body.bills.index li.index,
+body.bills.create li.create,
+
+body.client.index li.index,
+body.clients.index li.index,
+body.client.create li.create,
+body.clients.create li.create,
+
+body.settings.index li.index,
+body.settings.backup li.backup,
+body.settings.requisites li.requisites,
+
+body.contracts_and_agreements li.contract,
+body.contracts_and_agreements li.agreement,
+body.contracts.contract li.contract,
+body.contracts.agreement li.agreement,
+body.contracts.create li.create,
+
+body.invoices.index li.index,
+body.invoices.create li.create,
+
+body.purchases.index li.index,
+
+body.regions.index li.index,
+body.regions.create li.create
+
+    {background-color: #FF0000;}
+
+/* ТАБЛИЦЫ */
+table {
+    margin: 15px 0;
+    border: 2px solid #D0D0D0;
+    background-color: #FFF;
+    border-collapse: collapse;
+}
+/*table.client_list
+{
+    margin: 5px 0;
+    width: 100%;
+}
+table.invoices_list,
+table.clients_edit
+    {width: 100%}
+table.clients_new,
+table.clients_save
+    {width: 480px;}
+table.clients_new td input,
+table.clients_save td input,
+table.clients_edit td input
+    {width: 100%;}
+table.clients_save th,
+table.clients_save td
+    {width: 60px;}*/
+table.purchase td,
+table.purchase th
+{
+    padding: 0 6px;
+}
+table.bills_reconcil_statement {
+    float: left;
+    margin-right: -2px;
+}
+tr.total,
+tr.payed
+{
+    font-weight: bold;
+    text-align: right;
+}
+tr.total td
+{
+    padding-left: 4px;
+    padding-right: 4px;
+}
+th
+{
+    background-color: #777;
+    color: #fff;
+}
+td,
+th
+{
+    border: 1px solid #D0D0D0;
+    height: 16px;
+    padding: 2px;
+}
+th.ASC,
+th.DESC
+{
+    background: no-repeat right 2px;
+}
+th.ASC
+    {background-image: url('../img/triangle_up.jpg');}
+th.DESC
+    {background-image: url('../img/triangle_down.jpg');}
+td.operations
+    {width: 10px;}
+
+td input
+{
+    border: none;
+    background-color: #fff
+}
+td.quantity input,
+td.price input
+    {width: 50px;}
+td.sum input
+    {width: 70px;}
+td.article input
+    {width: 430px;}
+td.client_name {
+    width: 460px;
+}
+td.contract_sum {
+    width: 70px;
+}
+
+td.delete button,
+td.add button
+{
+    background: none;
+    border: none;
+}
+td.supply,
+td.contractitem
+{
+    visibility: hidden;
+    display: none
+}
+td.hat
+{
+    font-weight: bold;
+    text-align: center;
+    background-color: #777777;
+    color: #FFFFFF;
+    font-size: 14px;
+}
+td.left
+    {text-align: left;}
+
+td.phone
+    {width: 60px;}
+td.address
+    {width: 130px;}
+td.key
+    {width: 162px;}
+td.value
+    {width: 720px;}
+td.value input
+    {width: 670px;}
+
+
+.contract th,
+.agreement th
+    {padding: 0;}
+.contract td,
+.agreement td
+    {padding: 1px 12px;}
+
+th#clientName {
+    width: 400px;
+}
+
+
+table a
+    {margin: 0;}
+
+/* ФОРМЫ */
+form .button,
+input[type="submit"]
+{
+    margin-left: 0;
+    color: #FFF;
+    background-color: #F90;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 1px solid #999;
+}
+input[type="submit"] {
+    padding: 4px 12px;
+}
+form.search-form .button {
+    float: left;
+    padding: 1px 12px;
+}
+
+form.search-form {
+    padding-bottom: 13px;
+    border-bottom: 1px solid #D0D0D0;
+}
+form.search-form input {
+    margin-left: 2px;
+    width: 100px;
+}
+form.search-form .control {
+    margin-right: 8px;
+}
+form.search-form .form__field {
+    display: inline-block;
+}
+form.search-form label {
+    display: inline;
+    text-align: left;
+    padding-right: 0;
+    width: 120px;
+}
+form.search-form input.required,
+form.search-form textarea.required,
+form.search-form select.required
+{
+    border: 1px solid #AAA;
+}
+body.client.index form.search-form input[type="text"],
+body.clients.index form.search-form input[type="text"]
+ {
+    width: 200px;
+}
+.settings.requisites label {
+    width: 230px;
+}
+.settings.requisites .row input {
+    width: 450px;
+}
+
+div.row {
+    margin: 10px 0;
+}
+form .row {
+    clear: both;
+}
+label {
+    font-weight: bold;
+    width: 150px;
+    display: block;
+    float: left;
+    text-align: right;
+    padding-right: 12px;
+}
+
+input#number,
+input#year
+    {margin-right: 12px;}
+input#number
+    {width:80px}
+input#day
+    {width:24px}
+input#month
+    {width:80px}
+input#year
+    {width:40px}
+input#day,
+input#year
+    {border: 1px solid #999;}
+input#date_from,
+input#date_to
+{
+    font-size: 14px;
+    width: 78px;
+}
+
+.articles_edit p input
+    {width: 400px;}
+select {
+    max-width: 600px !important;
+}
+
+/* АДМИНКА */
+input.path {
+    display: block;
+    width: 256px;
+}
+#setPaths {
+    width: 260px;
+}
+hr {
+    border: 1px solid #D0D0D0;
+    margin-top: 12px;
+    color: #D0D0D0;
+}
+
+.clear {
+    clear: both;
+}
+.grey_back {
+    background-color: #999;
+}
+.orange_back {
+    background-color: orange;
+}
+.red_back {
+    background: red;
+}
+
+#validation_errors {
+    color: red;
+    font-weight: bold;
+}
+.sortable {
+    cursor: pointer;
+}
+
+input#contract_num {
+    max-width: 50px;
+}
+
+.filter input {
+    max-width: 100px;
+}
+
+.button-view,
+.button-delete,
+.button-deactivate,
+.button-update,
+.button-printout
+{
+    padding: 0px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    float: left;
+}
+.button-view {
+    background: transparent url(../img/view.png) no-repeat;
+}
+.button-delete {
+    background: transparent url(../img/delete.png) no-repeat;
+}
+.button-deactivate {
+    background: transparent url(../img/deactivate.png) no-repeat;
+}
+.button-update {
+    background: transparent url(../img/update.png) no-repeat;
+}
+.button-printout {
+    background: transparent url(../img/printout.png) no-repeat;
+}
+
+.datepicker__days li span.is-active{
+    background-color:#900 !important;border-color:#999 !important;
+}

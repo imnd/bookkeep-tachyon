@@ -1,17 +1,19 @@
-import { clear, find, val } from 'imnd-dom';
+import dom from 'imnd-dom';
 import { convPriceToWords, convNumToWords, convWeightToWords } from './print-utils';
 
-clear();
+dom.clear();
 
-let itemsCount1 = find('#items-count-1');
-val(itemsCount1, convNumToWords(val(itemsCount1)));
-let itemsCount2 = find('#items-count-2');
-val(itemsCount2, convNumToWords(val(itemsCount2)));
+let itemsCount1 = dom.find('#items-count-1');
+itemsCount1.val(convNumToWords(itemsCount1.val()));
 
-let quantSum1 = find('#quantity-sum-1');
-val(quantSum1, convWeightToWords(val(quantSum1)));
-let quantSum2 = find('#quantity-sum-2');
-val(quantSum2, convWeightToWords(val(quantSum2)));
+let itemsCount2 = dom.find('#items-count-2');
+itemsCount2.val(convNumToWords(itemsCount2.val()));
 
-let totalSumContnr = find('#total-sum-in-words');
-val(totalSumContnr, convPriceToWords(val(totalSumContnr)));
+let quantSum1 = dom.find('#quantity-sum-1');
+quantSum1.val(convWeightToWords(quantSum1.val()));
+
+let quantSum2 = dom.find('#quantity-sum-2');
+quantSum2.val(convWeightToWords(quantSum2.val()));
+
+let totalSumContnr = dom.find('#total-sum-in-words');
+totalSumContnr.val(convPriceToWords(totalSumContnr.val()));

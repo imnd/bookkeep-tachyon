@@ -1,4 +1,4 @@
-import { html } from 'imnd-dom';
+import dom from 'imnd-dom';
 import upload from 'imnd-upload';
 
 upload
@@ -6,8 +6,10 @@ upload
     'chunk-size': 600000,
     'file-id': 'file',
     'upload-url': '/settings/acceptFile',
-    'complete-callback': function () {
-      html('complete', 'Готово');
+    'complete-callback': () => {
+      dom
+        .findByClass('complete')
+        .html('Готово');
     },
   })
   .attach('file-upload')

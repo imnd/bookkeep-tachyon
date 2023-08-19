@@ -1,8 +1,8 @@
-import { ready, findByName } from 'imnd-dom';
 import { setEntityName, calcSums, updatePrices } from './prices';
+import dom from 'imnd-dom';
 
 const setup = (entityName) => {
-  ready(function() {
+  dom.ready(function() {
     setEntityName(entityName);
     calcSums();
     /**
@@ -11,7 +11,9 @@ const setup = (entityName) => {
      * - заполняем массив цен;
      * - меняем цены;
      */
-    findByName("contract_num").addEventListener("change", updatePrices);
+    dom
+      .findByName("contract_num")
+      .change(updatePrices);
   });
 }
 

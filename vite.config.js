@@ -32,7 +32,7 @@ const config = defineConfig({
       formats: ['es'],
     },
     copyPublicDir: false,
-    emptyOutDir: false,
+    emptyOutDir: true,
     outDir: path.resolve(__dirname, './public/assets/js/'),
   }
 });

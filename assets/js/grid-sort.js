@@ -1,13 +1,14 @@
 import ajax from "imnd-ajax";
-import { findById, findByClass } from 'imnd-dom';
+import dom from 'imnd-dom';
 
 let
   sortOrder = "DESC",
   sortCols,
   sortField
 ;
-const parser = new DOMParser();
-const sort = (url, field, tblId) => {
+const
+  parser = new DOMParser(),
+  sort = (url, field, tblId) => {
     sortOrder = sortField !== field ? "ASC" : sortOrder === "DESC" ? "DESC" : "ASC";
     sortField = field;
     ajax.get(
@@ -16,17 +17,21 @@ const sort = (url, field, tblId) => {
         field: sortField,
         order: sortOrder,
       },
-      (resp) => {
+      resp => {
         const
           xmlDoc = parser.parseFromString(resp, "text/html"),
-          newTable = findByClass("data-grid", xmlDoc),
-          newTableId = newTable.id,
-          oldTable = findById(tblId);
+          newTable = dom.findByClass("data-grid", xmlDoc).get(),
+          newTableId = newTable.id;
 
-        oldTable.innerHTML = newTable.innerHTML;
-        oldTable.id = newTableId;
-        bindSortHandlers(url, sortCols, newTableId);
-        findById(field).className = sortOrder + " sortable-column";
+          dom
+            .findById(tblId)
+            .html(newTable.innerHTML)
+            .id(newTableId);
+
+          bindSortHandlers(url, sortCols, newTableId);
+          dom
+            .findById(field)
+            .className(sortOrder + " sortable-column");
       },
       "html"
     );
@@ -34,9 +39,9 @@ const sort = (url, field, tblId) => {
 
 // прикручиваем обработчик к ячейкам таблицы
 const bindSortHandler = (url, field, tblId) => {
-  findById(field).addEventListener("click", () => {
-    sort(url, field, tblId);
-  });
+  dom
+    .findById(field)
+    .click(() => sort(url, field, tblId));
 };
 
 // прикручиваем обработчики к ячейкам таблицы

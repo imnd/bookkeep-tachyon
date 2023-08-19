@@ -4,6 +4,7 @@
   "description": "bookkeep",
   "scripts": {
     "dev": "vite",
+    "watch": "vite build --watch",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -14,7 +15,7 @@
   "dependencies": {
     "imnd-ajax": "^1.0.1",
     "imnd-datepicker": "^1.0.3",
-    "imnd-dom": "^1.0.3",
+    "imnd-dom": "^2.0.0",
     "imnd-upload": "^1.0.4"
   },
   "repository": {

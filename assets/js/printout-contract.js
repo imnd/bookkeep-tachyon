@@ -1,5 +1,5 @@
-import { findById, val } from 'imnd-dom';
+import dom from 'imnd-dom';
 import { convPriceToWords } from './print-utils';
 
-let totalSumContainer = findById('total-sum-in-words');
-val(totalSumContainer, convPriceToWords(val(totalSumContainer)));
+let totalSumContainer = dom.findById('total-sum-in-words');
+totalSumContainer.val(convPriceToWords(totalSumContainer.val()));

@@ -1,50 +1,56 @@
-import { ready, findById, findLast, findAll, findByClass, findAllByClass } from 'imnd-dom';
-import { bindDelParent, clearRowInputs } from "./table";
-import { updatePriceInput, calcSums, fillPricesArray } from "./prices";
+import { bindDelParent, clearRowInputs } from './table';
+import { updatePriceInput, calcSums, fillPricesArray } from './prices';
+import dom from 'imnd-dom';
 
 const bindArticleChange = () => {
-    // при смене товара меняем цену
-    let articleSelects = findAll(".article select");
-    for (let key = 0; key < articleSelects.length; key++)
-        articleSelects[key].addEventListener("change", () => {
-            updatePriceInput(this);
-            calcSums();
-        });
+  // при смене товара меняем цену
+  dom
+    .findAll('.article select')
+    .each(elem => {
+      elem.addEventListener('change', () => {
+        updatePriceInput(this);
+        calcSums();
+      });
+    });
 };
-const bindInputsChange = function(className) {
-    let inputs = findAll("." + className + " input");
-    for (let key = 0; key<inputs.length; key++)
-        inputs[key].addEventListener("change", calcSums);
+const bindInputsChange = function (className) {
+  dom
+    .findAll(`.${className} input`)
+    .each(elem => {
+      elem.addEventListener('change', calcSums);
+    })
 };
 const bindDelBtns = () => {
-    let delBtns = findAllByClass("delete-btn");
-    for (let key = 0; key<delBtns.length; key++) {
-      bindDelParent(delBtns[key]);
-    }
+  dom
+    .findAllByClass('delete-btn')
+    .each(elem => {
+      bindDelParent(elem);
+    });
 };
 const bindInputHandlers = () => {
-    bindArticleChange();
-    bindInputsChange("quantity");
-    bindInputsChange("price");
-    bindInputsChange("sum");
-    bindDelBtns();
+  bindArticleChange();
+  bindInputsChange('quantity');
+  bindInputsChange('price');
+  bindInputsChange('sum');
+  bindDelBtns();
 };
 
-ready(() => {
-    findById("add").addEventListener("click", () => {
-        const row = findLast(".row"),
-              newRow = row.cloneNode(true),
-              parent = row.parentNode;
+dom.ready(() => {
+  dom
+    .findById('add')
+    .click(() => {
+      const row = dom.findLast('.row').get(),
+        newRow = row.cloneNode(true);
 
-        parent.insertBefore(newRow, row.nextSibling);
-        const delBtn = findByClass("delete-btn", newRow);
-        // удаление строки
-        bindDelParent(delBtn);
-        clearRowInputs(newRow);
-        bindInputHandlers();
+      row.parentNode.insertBefore(newRow, row.nextSibling);
+      const delBtn = dom.findByClass('delete-btn', newRow).get();
+      // удаление строки
+      bindDelParent(delBtn);
+      clearRowInputs(newRow);
+      bindInputHandlers();
     });
-    fillPricesArray();
-    bindInputHandlers();
+  fillPricesArray();
+  bindInputHandlers();
 });
 
 export { bindInputsChange };

@@ -1,4 +1,4 @@
-import { findAll, clear } from 'imnd-dom';
+import dom from 'imnd-dom';
 
 /**
  * удаление строки
@@ -13,14 +13,11 @@ const bindDelParent = delBtn => {
  * очистка инпутов новой строки
  */
 const clearRowInputs = row => {
-  const tds = findAll('td', row);
-  for (let key in tds) {
-    const td = tds[key];
-    const tdChildren = td.childNodes;
-    for (let tdKey in tdChildren) {
-      clear(tdChildren[tdKey]);
-    }
-  }
+  dom.findAll('td', row).each((td) => {
+    td.children().each((elem) => {
+      elem.clear();
+    });
+  });
 };
 
 export { bindDelParent, clearRowInputs };

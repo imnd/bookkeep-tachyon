@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "bookkeep",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite build --mode development",
     "watch": "vite build --watch",
     "build": "vite build",
     "preview": "vite preview"
@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "imnd-ajax": "^1.0.1",
-    "imnd-datepicker": "^1.0.3",
-    "imnd-dom": "^2.0.0",
-    "imnd-upload": "^1.0.4"
+    "imnd-datepicker": "^1.2.1",
+    "imnd-dom": "^3.0.0",
+    "imnd-upload": "^1.0.5"
   },
   "repository": {
     "type": "git",

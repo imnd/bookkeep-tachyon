@@ -20,16 +20,16 @@ const
       resp => {
         const
           xmlDoc = parser.parseFromString(resp, "text/html"),
-          newTable = dom.findByClass("data-grid", xmlDoc).get(),
+          newTable = dom().findByClass("data-grid", xmlDoc).get(),
           newTableId = newTable.id;
 
-          dom
+          dom()
             .findById(tblId)
             .html(newTable.innerHTML)
             .id(newTableId);
 
           bindSortHandlers(url, sortCols, newTableId);
-          dom
+          dom()
             .findById(field)
             .className(sortOrder + " sortable-column");
       },
@@ -39,7 +39,7 @@ const
 
 // прикручиваем обработчик к ячейкам таблицы
 const bindSortHandler = (url, field, tblId) => {
-  dom
+  dom()
     .findById(field)
     .click(() => sort(url, field, tblId));
 };

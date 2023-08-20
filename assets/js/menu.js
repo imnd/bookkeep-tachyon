@@ -2,7 +2,7 @@ import ajax from 'imnd-ajax';
 import dom from 'imnd-dom';
 
 const setup = (btnId, confirmMsg, btnHref, params, callback) => {
-  dom
+  dom()
     .findById(btnId)
     .click(e => {
       e.preventDefault();

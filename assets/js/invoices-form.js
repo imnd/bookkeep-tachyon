@@ -2,7 +2,7 @@ import { setEntityName, calcSums, updatePrices } from './prices';
 import dom from 'imnd-dom';
 
 const setup = (entityName) => {
-  dom.ready(function() {
+  dom().ready(() => {
     setEntityName(entityName);
     calcSums();
     /**
@@ -11,7 +11,7 @@ const setup = (entityName) => {
      * - заполняем массив цен;
      * - меняем цены;
      */
-    dom
+    dom()
       .findByName("contract_num")
       .change(updatePrices);
   });

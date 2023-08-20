@@ -1,8 +1,8 @@
 import dom from 'imnd-dom';
 
-dom.ready(() => {
+dom().ready(() => {
   // добавление поля
-  dom
+  dom()
     .findByName("add")
     .click(() => {
       let pathElt = findByName("path"),

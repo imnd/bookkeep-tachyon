@@ -13,7 +13,7 @@ const bindDelParent = delBtn => {
  * очистка инпутов новой строки
  */
 const clearRowInputs = row => {
-  dom.findAll('td', row).each((td) => {
+  dom().findAll('td', row).each((td) => {
     td.children().each((elem) => {
       elem.clear();
     });

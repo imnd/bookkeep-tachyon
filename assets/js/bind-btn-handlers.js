@@ -4,7 +4,7 @@ import dom from 'imnd-dom';
 
 const bindArticleChange = () => {
   // при смене товара меняем цену
-  dom
+  dom()
     .findAll('.article select')
     .each(elem => {
       elem.addEventListener('change', () => {
@@ -14,14 +14,14 @@ const bindArticleChange = () => {
     });
 };
 const bindInputsChange = function (className) {
-  dom
+  dom()
     .findAll(`.${className} input`)
     .each(elem => {
       elem.addEventListener('change', calcSums);
     })
 };
 const bindDelBtns = () => {
-  dom
+  dom()
     .findAllByClass('delete-btn')
     .each(elem => {
       bindDelParent(elem);
@@ -35,15 +35,15 @@ const bindInputHandlers = () => {
   bindDelBtns();
 };
 
-dom.ready(() => {
-  dom
+dom().ready(() => {
+  dom()
     .findById('add')
     .click(() => {
-      const row = dom.findLast('.row').get(),
+      const row = dom().findLast('.row').get(),
         newRow = row.cloneNode(true);
 
       row.parentNode.insertBefore(newRow, row.nextSibling);
-      const delBtn = dom.findByClass('delete-btn', newRow).get();
+      const delBtn = dom().findByClass('delete-btn', newRow).get();
       // удаление строки
       bindDelParent(delBtn);
       clearRowInputs(newRow);

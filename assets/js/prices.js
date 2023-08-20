@@ -10,20 +10,27 @@ let
   pricesArr = [],
 
   calcPrice = row => {
-    const sumInp = dom.find(".sum", row).child("input");
+    const sumInp = dom(row)
+      .child(".sum")
+      .child("input");
     let
       sum,
       quantity;
 
     if (sumInp.get()) {
       // если это не форма, а обычная таблица
-      sum = dom.find(".sum", row).val();
-      quantity = dom.find(".quantity", row).val();
+      sum = dom(row).child(".sum").val();
+      quantity = dom(row).child(".quantity").val();
     } else {
       sum = sumInp.val();
-      quantity = dom.find(".quantity", row).child("input").val();
+      quantity = dom(row)
+        .child(".quantity")
+        .child("input")
+        .val();
     }
-    const priceInp = dom.find(".price", row).child("input");
+    const priceInp = dom(row)
+      .child(".price")
+      .child("input");
     if (sum !== '' && quantity !== '') {
       let price = sum / quantity;
       price = price.toFixed(2);
@@ -35,21 +42,38 @@ let
     return 0;
   },
 
+  calcPrices = () => {
+    let total = 0;
+    dom()
+      .findAll("tr.row")
+      .each(row => {
+        total += calcPrice(row);
+      });
+    dom()
+      .find("td.total")
+      .val(total.toFixed(2));
+  },
+
   calcSum = row => {
-    const priceInp = dom.find(".price", row).child("input");
+    const priceInp = dom(row)
+      .child(".price")
+      .child("input");
     // если это не форма, а обычная таблица
     let
       price,
       quantity;
 
     if (priceInp.length === 0) {
-      price = dom.find(".price", row).val();
-      quantity = dom.find(".quantity", row).val();
+      price = dom(row).child(".price").val();
+      quantity = dom(row).child(".quantity").val();
     } else {
       price = priceInp.val();
-      quantity = dom.find(".quantity", row).child("input").val();
+      quantity = dom(row)
+        .child(".quantity")
+        .child("input")
+        .val();
     }
-    const sumInp = dom.find(".sum", row).child("input");
+    const sumInp = dom(row).child(".sum").child("input");
     if (price !== '' && quantity !== '') {
       price = price.replace(",", ".") * 1;
       price = price.toFixed(2);
@@ -63,13 +87,26 @@ let
     return 0;
   },
 
+  calcSums = () => {
+    let total = 0;
+    dom()
+      .findAll("tr.row")
+      .each(row => {
+        total += calcSum(row);
+      });
+    dom()
+      .find("td.total")
+      .val(total.toFixed(2));
+  },
+
   updatePriceInput = select => {
-    const articleId = dom.set(select).val();
+    const articleId = dom(select).val();
     if (articleId === '') {
       return;
     }
 
-    const row = dom.set(select).parent().parent(),
+    const
+      row = dom(select).parent().parent(),
       price = pricesArr[articleId];
 
     row.child(".price input").val(price);
@@ -79,13 +116,15 @@ let
    * обновляем цены
    */
   updatePriceInputs = () => {
-    dom.findAll(".article select").each((elem) => {
-      updatePriceInput(elem);
-    });
+    dom()
+      .findAll(".article select")
+      .each((elem) => {
+        updatePriceInput(elem);
+      });
   },
 
   fillPricesArray = () => {
-    const defPrices = eval(dom.find("#prices").val());
+    const defPrices = eval(dom().find("#prices").val());
     pricesArr = [];
     for (let key = 0; key < defPrices.length; key++) {
       const arr = defPrices[key];
@@ -93,27 +132,8 @@ let
     }
   },
 
-  calcSums = () => {
-    let total = 0;
-    dom.findAll("tr.row").each((elem) => {
-      total += calcSum(elem);
-    });
-    dom
-      .find("td.total")
-      .val(total.toFixed(2));
-  },
-
-  calcPrices = () => {
-    let total = 0;
-    dom.findAll("tr.row").each((elem) => {
-      total += calcPrice(elem);
-    });
-    dom
-      .find("td.total")
-      .val(total.toFixed(2));
-  },
   updatePrices = () => {
-    const contractNum = dom
+    const contractNum = dom()
       .findByName(`${entityName}[contract_num]`)
       .val();
 
@@ -139,7 +159,7 @@ let
           updatePriceInputs();
           calcSums();
           // меняем содержимое поля "клиент"
-          dom.findByName(`${entityName}[client_id]`).val(contract["client_id"]);
+          dom().findByName(`${entityName}[client_id]`).val(contract["client_id"]);
         }
       }
     );
@@ -151,7 +171,6 @@ export {
   calcSums,
   updatePriceInput,
   fillPricesArray,
-  calcPrices,
   updatePrices,
   setEntityName
 };

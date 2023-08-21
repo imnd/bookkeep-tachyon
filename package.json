@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "imnd-ajax": "^1.0.1",
-    "imnd-datepicker": "^1.2.1",
-    "imnd-dom": "^3.0.0",
+    "imnd-datepicker": "^1.2.2",
+    "imnd-dom": "^3.0.1",
     "imnd-upload": "^1.0.5"
   },
   "repository": {

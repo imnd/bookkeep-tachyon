@@ -54,11 +54,12 @@ const
 
     let half = '',
       padToGo,
-      repeat = function (s, len) {
+      repeat = (s, len) => {
         let collect = '';
 
-        while (collect.length < len)
+        while (collect.length < len) {
           collect += s;
+        }
 
         return collect.substr(0, len);
       };

@@ -1,7 +1,7 @@
 import { setEntityName, calcSums, updatePrices } from './prices';
 import dom from 'imnd-dom';
 
-const setup = (entityName) => {
+const setup = entityName => {
   dom().ready(() => {
     setEntityName(entityName);
     calcSums();

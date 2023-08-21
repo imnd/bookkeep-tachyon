@@ -9,51 +9,6 @@ let
   entityName = '',
   pricesArr = [],
 
-  calcPrice = row => {
-    const sumInp = dom(row)
-      .child(".sum")
-      .child("input");
-    let
-      sum,
-      quantity;
-
-    if (sumInp.get()) {
-      // если это не форма, а обычная таблица
-      sum = dom(row).child(".sum").val();
-      quantity = dom(row).child(".quantity").val();
-    } else {
-      sum = sumInp.val();
-      quantity = dom(row)
-        .child(".quantity")
-        .child("input")
-        .val();
-    }
-    const priceInp = dom(row)
-      .child(".price")
-      .child("input");
-    if (sum !== '' && quantity !== '') {
-      let price = sum / quantity;
-      price = price.toFixed(2);
-      priceInp.val(price);
-      return parseFloat(sum);
-    } else {
-      priceInp.val('');
-    }
-    return 0;
-  },
-
-  calcPrices = () => {
-    let total = 0;
-    dom()
-      .findAll("tr.row")
-      .each(row => {
-        total += calcPrice(row);
-      });
-    dom()
-      .find("td.total")
-      .val(total.toFixed(2));
-  },
-
   calcSum = row => {
     const priceInp = dom(row)
       .child(".price")

@@ -13,9 +13,9 @@
     "vite": "^4.4.9"
   },
   "dependencies": {
-    "imnd-ajax": "^1.0.1",
+    "imnd-ajax": "^2.0.0",
     "imnd-datepicker": "^1.2.2",
-    "imnd-dom": "^3.0.1",
+    "imnd-dom": "^3.2.0",
     "imnd-upload": "^1.0.5"
   },
   "repository": {

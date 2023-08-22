@@ -14,15 +14,13 @@ const bindArticleChange = () => {
     });
 };
 const bindInputsChange = function (className) {
-  dom()
-    .findAll(`.${className} input`)
+  dom(`.${className} input`)
     .each(elem => {
       elem.addEventListener('change', calcSums);
     })
 };
 const bindDelBtns = () => {
-  dom()
-    .findAllByClass('delete-btn')
+  dom('.delete-btn')
     .each(elem => {
       bindDelParent(elem);
     });
@@ -35,20 +33,20 @@ const bindInputHandlers = () => {
   bindDelBtns();
 };
 
-dom().ready(() => {
-  dom()
-    .findById('add')
+dom(() => {
+  dom('#add')
     .click(() => {
       const row = dom().findLast('.row').get(),
         newRow = row.cloneNode(true);
 
       row.parentNode.insertBefore(newRow, row.nextSibling);
-      const delBtn = dom().findByClass('delete-btn', newRow).get();
+      const delBtn = dom(newRow).findByClass('delete-btn').get();
       // удаление строки
       bindDelParent(delBtn);
       clearRowInputs(newRow);
       bindInputHandlers();
     });
+
   fillPricesArray();
   bindInputHandlers();
 });

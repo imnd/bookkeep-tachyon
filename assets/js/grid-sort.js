@@ -1,55 +1,57 @@
-import ajax from "imnd-ajax";
-import dom from 'imnd-dom';
+import ajax from './ajax';
+import dom from './dom';
 
 let
-  sortOrder = "DESC",
+  sortOrder = 'DESC',
   sortCols,
   sortField
 ;
 const
   parser = new DOMParser(),
-  sort = (url, field, tblId) => {
-    sortOrder = sortField !== field ? "ASC" : sortOrder === "DESC" ? "DESC" : "ASC";
+  sort = (field, tblId, url) => {
+    sortOrder = sortField !== field ? 'ASC' : sortOrder === 'DESC' ? 'DESC' : 'ASC';
     sortField = field;
-    ajax.get(
-      url,
-      {
-        field: sortField,
-        order: sortOrder,
-      },
-      resp => {
-        const
-          xmlDoc = parser.parseFromString(resp, "text/html"),
-          newTable = dom().findByClass("data-grid", xmlDoc).get(),
-          newTableId = newTable.id;
+    ajax
+      .get(
+        url,
+        {
+          'order-by': sortField,
+          order: sortOrder,
+        },
+        'html'
+      )
+      .then(
+        result => {
+          const
+            xmlDoc = parser.parseFromString(result, 'text/html'),
+            newTable = dom(xmlDoc).findByClass('data-grid'),
+            newTableId = newTable.id();
 
-          dom()
-            .findById(tblId)
-            .html(newTable.innerHTML)
+          dom(`#${tblId}`)
+            .html(newTable.html())
             .id(newTableId);
 
-          bindSortHandlers(url, sortCols, newTableId);
-          dom()
-            .findById(field)
-            .className(sortOrder + " sortable-column");
-      },
-      "html"
-    );
+          bindSortHandlers(sortCols, newTableId, url);
+          dom(`#${field}`).class(`${sortOrder} sortable-column`);
+        }
+      );
   };
 
 // прикручиваем обработчик к ячейкам таблицы
-const bindSortHandler = (url, field, tblId) => {
-  dom()
-    .findById(field)
-    .click(() => sort(url, field, tblId));
+const bindSortHandler = (field, tblId, url) => {
+  dom(`#${field}`)
+    .attr('style', 'cursor: pointer')
+    .click(() => sort(field, tblId, url));
 };
 
 // прикручиваем обработчики к ячейкам таблицы
-const bindSortHandlers = (url, columns, tblId) => {
-  sortCols = columns;
-  for (let key = 0; key < columns.length; key++) {
-    bindSortHandler(url, columns[key], tblId)
-  }
+const bindSortHandlers = (fields, tblId, url) => {
+  sortCols = fields;
+  dom(() => {
+    for (let key = 0; key < fields.length; key++) {
+      bindSortHandler(fields[key], tblId, url || "")
+    }
+  });
 };
 
-export { bindSortHandler, bindSortHandlers };
+export default bindSortHandlers;

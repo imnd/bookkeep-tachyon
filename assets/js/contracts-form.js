@@ -5,8 +5,8 @@ datepicker.build();
 import dom from 'imnd-dom';
 import { setEntityName, calcSums, updatePrices } from './prices';
 
-const setup = (entityName) => {
-  dom().ready(entityName => {
+const setup = entityName => {
+  dom(entityName => {
     setEntityName();
     calcSums();
     dom()

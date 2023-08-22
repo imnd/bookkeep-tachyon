@@ -1,13 +1,13 @@
 import dom from 'imnd-dom';
 
-dom().ready(() => {
+dom(() => {
   // добавление поля
-  dom()
-    .findByName("add")
+  dom('[name="add"]')
     .click(() => {
-      let pathElt = findByName("path"),
+      let
+        pathElt = dom('[name="path"]'),
         inpClone = pathElt.last().clone(),
-        nextNumb = parseInt(inpClone.attr('id')) + 1;
+        nextNumb = Number(inpClone.attr('id')) + 1;
 
       inpClone.attr('name', inpClone.attr('class') + nextNumb);
       inpClone.attr('id', nextNumb);

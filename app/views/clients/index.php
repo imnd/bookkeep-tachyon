@@ -1,5 +1,6 @@
+@extends('grid')
+
 <?php
-$this->layout = 'list';
 $this->pageTitle = 'Клиенты, список';
 
 $this->display('../blocks/search-form', [

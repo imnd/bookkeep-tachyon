@@ -1,10 +1,9 @@
+@extends('grid')
+
 <?php
 use tachyon\View;
 
-/**
- * @var View $this
- */
-$this->layout = 'list';
+/** @var View $this */
 $this->pageTitle = 'Список поставок';
 
 // фильтр

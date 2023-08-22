@@ -1,3 +1,5 @@
+@extends('grid')
+
 <?php
 /**
  * @var View $this
@@ -7,7 +9,6 @@
 use app\entities\Invoice;
 use tachyon\View;
 
-$this->layout = 'list';
 $this->pageTitle = 'Список фактур';
 
 // фильтр
@@ -26,13 +27,19 @@ $this->display('../blocks/search-form', [
     ],
 ]);
 ?>
-<table>
+
+<script type="module">
+    import bindSortHandlers from '/assets/js/grid-sort.mjs'
+    bindSortHandlers(["number", "date"], "invoices-list", "/invoices");
+</script>
+
+<table id="invoices-list" class="data-grid">
     <tr>
-        <th><?=$entity->getCaption('number')?></th>
-        <th style="width: 18%"><?=$entity->getCaption('date')?></th>
-        <th><?=$entity->getCaption('clientName')?></th>
-        <th><?=$entity->getCaption('contractNum')?></th>
-        <th><?=$entity->getCaption('sum')?></th>
+        <th id="number"><?=$entity->getCaption('number')?></th>
+        <th id="date" style="width: 18%"><?=$entity->getCaption('date')?></th>
+        <th id="client"><?=$entity->getCaption('clientName')?></th>
+        <th id="contract"><?=$entity->getCaption('contractNum')?></th>
+        <th id="sum"><?=$entity->getCaption('sum')?></th>
     </tr>
     <?php foreach ($items as $item) {?>
         <tr>

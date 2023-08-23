@@ -2,37 +2,24 @@ import ajax from './ajax';
 import dom from './dom';
 
 let
-  sortOrder = 'DESC',
-  sortCols,
-  sortField
+  sortFields,
+  order = 'DESC',
+  orderBy
 ;
 const
-  parser = new DOMParser(),
   sort = (field, tblId, url) => {
-    sortOrder = sortField !== field ? 'ASC' : sortOrder === 'DESC' ? 'DESC' : 'ASC';
-    sortField = field;
+    order = orderBy !== field ? 'ASC' : order === 'DESC' ? 'DESC' : 'ASC';
+    orderBy = field;
     ajax
-      .get(
-        url,
-        {
-          'order-by': sortField,
-          order: sortOrder,
-        },
-        'html'
-      )
+      .get(url, {
+          'order-by': orderBy,
+          order,
+        }, 'html')
       .then(
         result => {
-          const
-            xmlDoc = parser.parseFromString(result, 'text/html'),
-            newTable = dom(xmlDoc).findByClass('data-grid'),
-            newTableId = newTable.id();
-
-          dom(`#${tblId}`)
-            .html(newTable.html())
-            .id(newTableId);
-
-          bindSortHandlers(sortCols, newTableId, url);
-          dom(`#${field}`).class(`${sortOrder} sortable-column`);
+          dom(`#${tblId}`).html(result);
+          _bindSortHandlers(sortFields, tblId, url);
+          dom(`#${field}`).class(`${order} sortable-column`);
         }
       );
   };
@@ -46,12 +33,15 @@ const bindSortHandler = (field, tblId, url) => {
 
 // прикручиваем обработчики к ячейкам таблицы
 const bindSortHandlers = (fields, tblId, url) => {
-  sortCols = fields;
-  dom(() => {
+  sortFields = fields;
+  dom(() => _bindSortHandlers(fields, tblId, url));
+};
+
+// прикручиваем обработчики к ячейкам таблицы
+const _bindSortHandlers = (fields, tblId, url) => {
     for (let key = 0; key < fields.length; key++) {
       bindSortHandler(fields[key], tblId, url || "")
     }
-  });
 };
 
 export default bindSortHandlers;

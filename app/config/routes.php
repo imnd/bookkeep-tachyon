@@ -6,6 +6,7 @@ $routes = [
     'logout' => 'app\controllers\IndexController@logout',
     'error' => 'app\controllers\IndexController@index',
 ];
+
 foreach ([
     'articles',
     'bills',
@@ -20,4 +21,7 @@ foreach ([
         $routes["$entity/$action"] = "$controller@$action";
     }
 }
+
+$routes["invoices/grid"] = "app\controllers\InvoicesController@grid";
+
 return $routes;

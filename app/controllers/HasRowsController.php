@@ -15,7 +15,6 @@ use tachyon\exceptions\HttpException;
 use tachyon\exceptions\ValidationException;
 
 /**
- * class Controller
  * Базовый класс для всех контроллеров таблиц
  *
  * @author Андрей Сердюк

@@ -43,6 +43,36 @@ class InvoicesController extends HasRowsController
     }
 
     /**
+     * Список сущностей раздела
+     *
+     * @param Invoice           $entity
+     * @param ClientsRepository $clientRepository
+     *
+     * @throws ErrorException
+     * @throws ReflectionException
+     * @throws ContainerException
+     */
+    public function grid(
+        Invoice $entity,
+        ClientsRepository $clientRepository
+    ): void {
+        $getQuery = $this->request->getQuery() ?: [];
+        $this->display(
+            'list',
+            array_merge([
+                'entity' => $entity,
+                'items' => $this
+                    ->repository
+                    ->setSearchConditions($getQuery)
+                    ->setSort($getQuery)
+                    ->findAll(),
+            ], [
+                'clients' => $clientRepository->getAllSelectList(),
+            ])
+        );
+    }
+
+    /**
      * @param ArticlesRepository $articleRepository
      * @param ClientsRepository  $clientRepository
      *

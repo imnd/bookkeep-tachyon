@@ -9,9 +9,11 @@ dom(() => {
         inpClone = pathElt.last().clone(),
         nextNumb = Number(inpClone.attr('id')) + 1;
 
-      inpClone.attr('name', inpClone.attr('class') + nextNumb);
-      inpClone.attr('id', nextNumb);
-      inpClone.attr('value', '');
+      inpClone
+        .attr('name', inpClone.attr('class') + nextNumb)
+        .attr('id', nextNumb)
+        .attr('value', '');
+
       pathElt.last().after(inpClone);
     });
   });

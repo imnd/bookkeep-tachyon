@@ -21,21 +21,24 @@ const
       numbLen = numbStr.length;
 
     if (numbLen === 3) {
-      number = number % 100;
+      number %= 100;
       numbStr = number.toString();
       numbLen = numbStr.length;
     }
+
     const endings = {
-      'feminine': ['', 'а', 'и', 'и', 'и', '', '', '', '', '', ''],
-      'masculine': ['', '', 'а', 'а', 'а', 'ов', 'ов', 'ов', 'ов', 'ов', 'ов'],
+      feminine: ['', 'а', 'и', 'и', 'и', '', '', '', '', '', ''],
+      masculine: ['', '', 'а', 'а', 'а', 'ов', 'ов', 'ов', 'ов', 'ов', 'ов'],
     };
+
     switch (numbLen) {
       case 1:
         return endings[gender][number];
 
       case 2:
-        if (number < 20)
+        if (number < 20) {
           return endings[gender][10];
+        }
 
         return endings[gender][number % 10];
     }
@@ -45,7 +48,7 @@ const
     input = input.toString();
     string = string || ' ';
     if (
-      type !== 'STR_PAD_LEFT'
+         type !== 'STR_PAD_LEFT'
       && type !== 'STR_PAD_RIGHT'
       && type !== 'STR_PAD_BOTH'
     ) {
@@ -140,8 +143,10 @@ const
    * @return {string}
    */
   convPriceToWords = number => {
-    const result = splitNum(number),
-    roubles = result[0];
+    const
+      result = splitNum(number),
+      roubles = result[0];
+
     return convNumToWords(roubles) + ' рубл' + ['ей', 'ь', 'я', 'я', 'я', 'ей', 'ей', 'ей', 'ей', 'ей'][roubles.substr(roubles.length - 1, 1)] + ' ' + strPad(result[1], 2, 0) + ' копеек';
   },
 

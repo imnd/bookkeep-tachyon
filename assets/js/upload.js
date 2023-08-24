@@ -7,9 +7,7 @@ upload
     'file-id': 'file',
     'upload-url': '/settings/acceptFile',
     'on-complete': () => {
-      dom()
-        .findByClass('complete')
-        .html('Готово');
+      dom('.complete').html('Готово');
     },
   })
   .attach('file-upload')

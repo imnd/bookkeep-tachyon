@@ -1,5 +1,5 @@
-import ajax from './ajax';
-import dom from './dom';
+import ajax from 'imnd-ajax';
+import dom from 'imnd-dom';
 
 let
   sortFields,
@@ -12,9 +12,9 @@ const
     orderBy = field;
     ajax
       .get(url, {
-          'order-by': orderBy,
-          order,
-        }, 'html')
+        'order-by': orderBy,
+        order,
+      }, 'html')
       .then(
         result => {
           dom(`#${tblId}`).html(result);
@@ -39,9 +39,9 @@ const bindSortHandlers = (fields, tblId, url) => {
 
 // прикручиваем обработчики к ячейкам таблицы
 const _bindSortHandlers = (fields, tblId, url) => {
-    for (let key = 0; key < fields.length; key++) {
-      bindSortHandler(fields[key], tblId, url || "")
-    }
+  for (let key = 0; key < fields.length; key++) {
+    bindSortHandler(fields[key], tblId, url || '')
+  }
 };
 
 export default bindSortHandlers;

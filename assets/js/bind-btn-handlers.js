@@ -4,10 +4,9 @@ import dom from 'imnd-dom';
 
 const bindArticleChange = () => {
   // при смене товара меняем цену
-  dom()
-    .findAll('.article select')
-    .each(elem => {
-      elem.addEventListener('change', () => {
+  dom('.article select')
+    .each(select => {
+      select.addEventListener('change', () => {
         updatePriceInput(this);
         calcSums();
       });
@@ -15,14 +14,14 @@ const bindArticleChange = () => {
 };
 const bindInputsChange = function (className) {
   dom(`.${className} input`)
-    .each(elem => {
-      elem.addEventListener('change', calcSums);
+    .each(input => {
+      input.addEventListener('change', calcSums);
     })
 };
 const bindDelBtns = () => {
   dom('.delete-btn')
-    .each(elem => {
-      bindDelParent(elem);
+    .each(btn => {
+      bindDelParent(btn);
     });
 };
 const bindInputHandlers = () => {

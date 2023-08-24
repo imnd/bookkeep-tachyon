@@ -2,8 +2,8 @@
  * Компонент для работы с фактурами, счетами и договорами
  */
 
-import dom from "imnd-dom";
-import ajax from "imnd-ajax";
+import dom from 'imnd-dom';
+import ajax from 'imnd-ajax';
 
 let
   entityName = '',
@@ -11,26 +11,27 @@ let
 
   calcSum = row => {
     const priceInp = dom(row)
-      .child(".price")
-      .child("input");
+      .child('.price')
+      .child('input');
+
     // если это не форма, а обычная таблица
     let
       price,
       quantity;
 
     if (priceInp.length === 0) {
-      price = dom(row).child(".price").val();
-      quantity = dom(row).child(".quantity").val();
+      price = dom(row).child('.price').val();
+      quantity = dom(row).child('.quantity').val();
     } else {
       price = priceInp.val();
       quantity = dom(row)
-        .child(".quantity")
-        .child("input")
+        .child('.quantity')
+        .child('input')
         .val();
     }
-    const sumInp = dom(row).child(".sum").child("input");
+    const sumInp = dom(row).child('.sum').child('input');
     if (price !== '' && quantity !== '') {
-      price = price.replace(",", ".") * 1;
+      price = price.replace(',', '.') * 1;
       price = price.toFixed(2);
       const sum = price * quantity;
       // округляем до копеек
@@ -45,12 +46,12 @@ let
   calcSums = () => {
     let total = 0;
     dom()
-      .findAll("tr.row")
+      .findAll('tr.row')
       .each(row => {
         total += calcSum(row);
       });
     dom()
-      .find("td.total")
+      .find('td.total')
       .val(total.toFixed(2));
   },
 
@@ -64,7 +65,7 @@ let
       row = dom(select).parent().parent(),
       price = pricesArr[articleId];
 
-    row.child(".price input").val(price);
+    row.child('.price input').val(price);
   },
 
   /**
@@ -72,18 +73,18 @@ let
    */
   updatePriceInputs = () => {
     dom()
-      .findAll(".article select")
+      .findAll('.article select')
       .each((elem) => {
         updatePriceInput(elem);
       });
   },
 
   fillPricesArray = () => {
-    const defPrices = eval(dom().find("#prices").val());
+    const defPrices = eval(dom().find('#prices').val());
     pricesArr = [];
     for (let key = 0; key < defPrices.length; key++) {
       const arr = defPrices[key];
-      pricesArr[arr["id"]] = arr["price"];
+      pricesArr[arr['id']] = arr['price'];
     }
   },
 
@@ -96,28 +97,29 @@ let
       fillPricesArray();
       return;
     }
-    ajax.get(
-      `/contracts/getItem/${contractNum}`,
-      data => {
-        const contract = data;
-        if (contract === false) {
-          fillPricesArray();
-        } else {
+    ajax
+      .get(`/contracts/getItem/${contractNum}`)
+      .then(
+        data => {
+          if (data === false) {
+            fillPricesArray();
+            return;
+          }
+
           // заполняем массив цен
           pricesArr = [];
-          const rows = contract["rows"];
+          const rows = data['rows'];
           for (let key = 0; key < rows.length; key++) {
             const row = rows[key];
-            pricesArr[row["article_id"]] = row["price"];
+            pricesArr[row['article_id']] = row['price'];
           }
           // меняем цены
           updatePriceInputs();
           calcSums();
           // меняем содержимое поля "клиент"
-          dom().findByName(`${entityName}[client_id]`).val(contract["client_id"]);
+          dom().findByName(`${entityName}[client_id]`).val(data['client_id']);
         }
-      }
-    );
+      );
   },
   setEntityName = str => entityName = str
 ;

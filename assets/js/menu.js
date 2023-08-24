@@ -9,15 +9,16 @@ const setup = (btnId, confirmMsg, btnHref, params, callback) => {
       if (confirm(confirmMsg) !== true) {
         return false;
       }
-      ajax.post(
-        btnHref,
-        params,
-        data => {
-          if (data.success === true) {
+      ajax
+        .post(
+          btnHref,
+          params
+        )
+        .then(data => {
+          if (data.success) {
             callback()
           }
-        }
-      );
+        });
       return false;
     })
 }

@@ -3,16 +3,20 @@
   "version": "1.0.0",
   "description": "bookkeep",
   "scripts": {
+    "test": "jest",
     "dev": "vite build --mode development",
     "watch": "vite build --watch",
     "build": "vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "jest": "^29.6.3",
     "sass": "^1.65.1",
     "vite": "^4.4.9"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.22.10",
+    "babel-jest": "^29.6.4",
     "imnd-ajax": "^2.0.0",
     "imnd-datepicker": "^1.2.2",
     "imnd-dom": "^3.2.0",

@@ -6,8 +6,7 @@ use tachyon\db\dataMapper\Entity;
 /**
  * Класс сущности "Категория продукта"
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class ArticleCat extends Entity
 {

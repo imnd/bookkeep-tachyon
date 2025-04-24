@@ -5,8 +5,7 @@ use tachyon\db\dataMapper\Repository,
     app\entities\Region;
 
 /**
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class RegionsRepository extends Repository
 {

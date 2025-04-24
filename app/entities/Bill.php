@@ -8,8 +8,7 @@ use tachyon\db\dataMapper\Entity,
 /**
  * Класс сущности "Счет"
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class Bill extends Entity
 {

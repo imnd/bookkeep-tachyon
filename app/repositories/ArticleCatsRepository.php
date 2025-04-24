@@ -5,8 +5,7 @@ use tachyon\db\dataMapper\Repository,
     app\entities\ArticleCat;
 
 /**
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class ArticleCatsRepository extends Repository
 {

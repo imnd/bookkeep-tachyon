@@ -1,13 +1,14 @@
 <?php
-include('vendor/autoload.php');
+
+require __DIR__ . '/vendor/autoload.php';
 
 use app\ServiceContainer,
-    tachyon\Router;
+    tachyon\FrontController;
 
 $_SESSION['app'] = $app = new ServiceContainer;
 
-include('vendor/imnd/tachyon/src/helper_functions.php');
+require __DIR__ . '/vendor/imnd/tachyon/src/helper_functions.php';
 
 $app
-    ->get(Router::class)
+    ->get(FrontController::class)
     ->dispatch();

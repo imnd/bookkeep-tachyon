@@ -13,8 +13,7 @@ use tachyon\exceptions\ValidationException;
 /**
  * Контроллер настроек приложения
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class SettingsController extends Controller
 {

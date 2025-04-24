@@ -16,8 +16,8 @@ const
         order,
       }, 'html')
       .then(
-        result => {
-          dom(`#${tblId}`).html(result);
+        data => {
+          dom(`#${tblId}`).html(data);
           _bindSortHandlers(sortFields, tblId, url);
           dom(`#${field}`).class(`${order} sortable-column`);
         }

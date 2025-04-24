@@ -15,8 +15,7 @@ use tachyon\exceptions\HttpException;
 /**
  * Контроллер клиентов фирмы
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class ClientsController extends CrudController
 {

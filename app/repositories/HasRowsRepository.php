@@ -12,8 +12,7 @@ use app\interfaces\HasRowsInterface;
 use app\interfaces\RowsRepositoryInterface;
 
 /**
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class HasRowsRepository extends Repository
 {

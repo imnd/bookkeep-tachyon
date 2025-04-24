@@ -6,8 +6,7 @@ use tachyon\db\dataMapper\Entity;
 /**
  * Класс сущности "Строка контракта"
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class ContractRow extends Row
 {

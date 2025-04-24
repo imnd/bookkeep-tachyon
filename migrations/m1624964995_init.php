@@ -4,7 +4,7 @@ namespace migrations;
 use tachyon\db\Migration;
 
 /**
- * @author Андрей Сердюк
+ * @author imndsu@gmail.com
  * @copyright (c) 2021 IMND
  */
 class m1624964995_init extends Migration

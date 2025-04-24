@@ -17,11 +17,14 @@ foreach ([
     'settings'
 ] as $entity) {
     $controller = 'app\controllers\\' . ucfirst($entity) . 'Controller';
-    foreach (['index', 'create', 'update', 'delete'] as $action) {
+    foreach (['index', 'create'] as $action) {
         $routes["$entity/$action"] = "$controller@$action";
+    }
+    foreach (['update', 'delete'] as $action) {
+        $routes["$entity/$action/{id}"] = "$controller@$action";
     }
 }
 
-$routes["invoices/grid"] = "app\controllers\InvoicesController@grid";
+$routes['invoices/grid'] = 'app\controllers\InvoicesController@grid';
 
 return $routes;

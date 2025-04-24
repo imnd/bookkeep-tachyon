@@ -11,8 +11,7 @@ use tachyon\db\dataMapper\Entity,
 /**
  * Класс сущности "Контракт"
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class Contract extends Entity implements HasRowsInterface
 {

@@ -15,8 +15,7 @@ use tachyon\exceptions\HttpException;
 /**
  * Контроллер товаров
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class ArticlesController extends CrudController
 {
@@ -80,5 +79,4 @@ class ArticlesController extends CrudController
             'regions' => $regionsRepository->findAll(),
         ];
     }
-
 }

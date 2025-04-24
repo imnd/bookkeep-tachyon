@@ -11,8 +11,7 @@ use
 /**
  * Контроллер закупок
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class PurchasesController extends HasRowsController
 {

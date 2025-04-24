@@ -9,8 +9,7 @@ use
 ;
 
 /**
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class ArticlesRepository extends Repository
 {

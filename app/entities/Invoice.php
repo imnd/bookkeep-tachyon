@@ -13,8 +13,7 @@ use
 /**
  * Класс сущности "Фактура"
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class Invoice extends Entity implements HasRowsInterface
 {

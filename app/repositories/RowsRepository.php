@@ -5,8 +5,7 @@ use tachyon\db\dataMapper\Repository,
     app\interfaces\RowEntityInterface;
 
 /**
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class RowsRepository extends Repository
 {

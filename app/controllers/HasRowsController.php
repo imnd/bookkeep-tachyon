@@ -17,8 +17,7 @@ use tachyon\exceptions\ValidationException;
 /**
  * Базовый класс для всех контроллеров таблиц
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class HasRowsController extends CrudController
 {

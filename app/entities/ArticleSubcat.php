@@ -6,8 +6,7 @@ use tachyon\db\dataMapper\Entity;
 /**
  * Класс сущности "Подкатегория продукта"
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class ArticleSubcat extends Entity
 {
@@ -16,17 +15,8 @@ class ArticleSubcat extends Entity
         'name' => 'название',
     ];
 
-    /**
-     * @var int
-     */
     protected int $id;
-    /**
-     * @var int
-     */
     protected int $catId;
-    /**
-     * @var string
-     */
     protected string $name;
 
     # region getters
@@ -82,29 +72,16 @@ class ArticleSubcat extends Entity
 
     # SETTERS
 
-    /**
-     * @param string|null $value
-     *
-     * @return ArticleSubcat
-     */
     public function setName(string $value = null): ArticleSubcat
     {
         return $this->_setAttribute('name', $value);
     }
 
-    /**
-     * @param int|null $value
-     *
-     * @return ArticleSubcat
-     */
     public function setCatId(int $value = null): ArticleSubcat
     {
         return $this->_setAttribute('catId', $value);
     }
 
-    /**
-     * @param array $state
-     */
     public function setAttributes(array $state): void
     {
         $this

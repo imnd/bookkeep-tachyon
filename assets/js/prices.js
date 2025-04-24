@@ -36,10 +36,11 @@ let
       const sum = price * quantity;
       // округляем до копеек
       sumInp.val(sum.toFixed(2));
+
       return sum;
-    } else {
-      sumInp.val('');
     }
+    sumInp.val('');
+
     return 0;
   },
 
@@ -47,14 +48,16 @@ let
     let total = 0;
     dom()
       .findAll('tr.row')
-      .each(row => {
-        total += calcSum(row);
-      });
+      .each(row => total += calcSum(row));
+
     dom()
       .find('td.total')
       .val(total.toFixed(2));
   },
 
+  /**
+   * обновляем цену
+   */
   updatePriceInput = select => {
     const articleId = dom(select).val();
     if (articleId === '') {
@@ -71,13 +74,13 @@ let
   /**
    * обновляем цены
    */
-  updatePriceInputs = () => {
+  updatePriceInputs = () =>
     dom()
       .findAll('.article select')
       .each((elem) => {
         updatePriceInput(elem);
-      });
-  },
+      })
+  ,
 
   fillPricesArray = () => {
     const defPrices = eval(dom().find('#prices').val());
@@ -105,7 +108,6 @@ let
             fillPricesArray();
             return;
           }
-
           // заполняем массив цен
           pricesArr = [];
           const rows = data['rows'];
@@ -121,6 +123,7 @@ let
         }
       );
   },
+
   setEntityName = str => entityName = str
 ;
 

@@ -1,12 +1,9 @@
 <?php
-namespace tests;
-
-use PHPUnit\Framework\TestCase,
-    GuzzleHttp\Client as HttpClient,
+use
+    tachyon\components\TestCase,
     tachyon\db\dbal\DbFactory,
     tachyon\db\dataMapper\Persistence,
     tachyon\db\dataMapper\Repository,
-    tachyon\Config,
     app\repositories\ArticlesRepository,
     app\repositories\ArticleSubcatsRepository,
     app\entities\Article,
@@ -16,41 +13,23 @@ use PHPUnit\Framework\TestCase,
 /**
  * Тестовый класс для модели Articles
  *
- * cd D:\wamp\www\bookkeep
+ * cd [project root]
  * .\vendor\bin\phpunit tests/ArticlesTest
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 final class ArticlesTest extends TestCase
 {
-    /**
-     * @var HttpClient
-     */
-    protected $client;
-    /**
-     * @var Config
-     */
-    protected $config;
-    /**
-     * @var Repository
-     */
-    protected $repository;
+    protected Repository $repository;
 
     /**
      * @inheritdoc
      */
     protected function setUp(): void
     {
-        $this->config = new Config('main-test');
         $persistence  = new Persistence(new DbFactory($this->config));
         $articleSubcatRepository = new ArticleSubcatsRepository(new ArticleSubcat, $persistence);
         $this->repository = new ArticlesRepository(new Article, $articleSubcatRepository, $persistence);
-
-        $this->client = new HttpClient([
-            'base_uri' => $this->config->get('base-url'),
-            'timeout'  => 2.0,
-        ]);
     }
 
     /**

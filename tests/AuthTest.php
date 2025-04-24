@@ -1,6 +1,4 @@
 <?php
-namespace tests;
-
 use GuzzleHttp\Exception\GuzzleException;
 use tachyon\components\TestCase;
 
@@ -10,8 +8,7 @@ use tachyon\components\TestCase;
  * cd D:\wamp\www\bookkeep
  * .\vendor\bin\phpunit tests/ArticlesTest
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 final class AuthTest extends TestCase
 {

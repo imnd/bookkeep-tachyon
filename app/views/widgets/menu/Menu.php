@@ -7,8 +7,7 @@ use tachyon\components\widgets\Widget;
  * class Menu
  * Отображает меню
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class Menu extends Widget
 {

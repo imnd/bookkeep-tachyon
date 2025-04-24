@@ -1,43 +1,45 @@
-.data-view-table {
+.data-grid {
   width: 100%;
   border-collapse: collapse;
-  border-top: 1px solid #CCC;
-  border-bottom: 1px solid #CCC;
+  border-top: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
   color: #4F4F4F;
   font-size: 10pt !important;
   font-family: Tahoma, Verdana, Arial, Georgia, Geneva, Helvetica, sans-serif !important;
+
+  tr th {
+    font-weight: bold;
+  }
+
+  tr {
+    th.sortable-column {
+      cursor: pointer;
+      color: #0088CC;
+    }
+    &:nth-child(even) {
+      background: #F7F8FA;
+    }
+    .odd {
+      background: #FFF;
+    }
+  }
+
+  th {
+    background: #EBEBEB;
+    color: #000;
+    text-align: center !important;
+  }
+
+  td,
+  th {
+    border-right: 1px solid #CCC;
+    padding: 2px 4px;
+  }
 }
 
-.data-view-table tr th {
-  font-weight: bold;
-}
-
-.data-view-table tr th.sortable-column {
-  cursor: pointer;
-  color: #0088cc;
-}
-
-.data-view-table tr:nth-child(even) {
-  background: #F7F8FA;
-}
-
-.data-view-table tr.odd {
-  background: #FFF;
-}
-
-.data-view-table th {
-  background: #EBEBEB;
-  color: #000;
-  text-align: center !important;
-}
-
-.data-view-table td,
-.data-view-table th {
-  border-right: 1px solid #CCC;
-  padding: 2px 4px;
-}
 
 /* определение классов для заголовков отсортированных столбцов */
+
 .asc {
 
 }
@@ -55,7 +57,7 @@ td.btn-column {
 .button-deactivate,
 .button-update,
 .button-printout {
-  padding: 0px;
+  padding: 0;
   display: block;
   width: 16px;
   height: 16px;
@@ -64,23 +66,23 @@ td.btn-column {
 }
 
 .button-view {
-  background: transparent url(images/view.png) no-repeat;
+  background: transparent url(../img/grid/view.png) no-repeat;
 }
 
 .button-delete {
-  background: transparent url(images/delete.png) no-repeat;
+  background: transparent url(../img/grid/delete.png) no-repeat;
 }
 
 .button-deactivate {
-  background: transparent url(images/deactivate.png) no-repeat;
+  background: transparent url(../img/grid/deactivate.png) no-repeat;
 }
 
 .button-update {
-  background: transparent url(images/update.png) no-repeat;
+  background: transparent url(../img/grid/update.png) no-repeat;
 }
 
 .button-printout {
-  background: transparent url(images/printout.png) no-repeat;
+  background: transparent url(../img/grid/printout.png) no-repeat;
 }
 
 .pager {
@@ -90,12 +92,12 @@ td.btn-column {
 .control {
   float: left;
   margin-right: 8px;
-}
 
-.control input {
-  width: 66px;
-}
+  input {
+    width: 66px;
+  }
 
-.control select {
-  max-width: 430px !important;
+  select {
+    max-width: 430px !important;
+  }
 }

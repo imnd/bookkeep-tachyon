@@ -13,8 +13,7 @@ use tachyon\exceptions\DBALException;
 /**
  * Контроллер платежей
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class BillsController extends CrudController
 {

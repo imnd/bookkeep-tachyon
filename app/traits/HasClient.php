@@ -2,8 +2,7 @@
 namespace app\traits;
 
 /**
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 trait HasClient
 {

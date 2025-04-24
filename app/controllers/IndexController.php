@@ -15,8 +15,7 @@ use tachyon\exceptions\ValidationException;
 /**
  * Контроллер начальной страницы
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class IndexController extends Controller
 {

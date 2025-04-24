@@ -4,8 +4,7 @@ namespace app\traits;
 use tachyon\db\dataMapper\Entity;
 
 /**
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 trait HasContract
 {

@@ -6,8 +6,7 @@ use tachyon\db\dataMapper\Entity;
 /**
  * Класс сущности "Позиция фактуры"
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class InvoiceRow extends Row
 {

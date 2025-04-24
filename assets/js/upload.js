@@ -6,9 +6,7 @@ upload
     'chunk-size': 600000,
     'file-id': 'file',
     'upload-url': '/settings/acceptFile',
-    'on-complete': () => {
-      dom('.complete').html('Готово');
-    },
+    'on-complete': () => dom('.complete').html('Готово'),
   })
   .attach('file-upload')
 ;

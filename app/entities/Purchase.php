@@ -7,8 +7,7 @@ use tachyon\db\dataMapper\Entity;
 /**
  * Класс сущности "Поставка"
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class Purchase extends Entity
 {

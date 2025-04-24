@@ -4,8 +4,7 @@ namespace app\repositories;
 use app\interfaces\RowsRepositoryInterface;
 
 /**
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class ContractsRowsRepository extends RowsRepository implements RowsRepositoryInterface
 {}

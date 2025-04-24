@@ -1,7 +1,13 @@
 import ajax from 'imnd-ajax';
 import dom from 'imnd-dom';
 
-const setup = (btnId, confirmMsg, btnHref, params, callback) => {
+const setup = (
+    btnId,
+    confirmMsg,
+    btnHref,
+    params,
+    callback
+) => {
   dom()
     .findById(btnId)
     .click(e => {
@@ -19,6 +25,7 @@ const setup = (btnId, confirmMsg, btnHref, params, callback) => {
             callback()
           }
         });
+
       return false;
     })
 }

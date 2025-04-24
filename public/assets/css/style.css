@@ -464,16 +464,15 @@ form.search-form input {
     width: 100px;
 }
 form.search-form .control {
-    margin-right: 8px;
+    margin-right: 12px;
 }
 form.search-form .form__field {
     display: inline-block;
 }
 form.search-form label {
     display: inline;
-    text-align: left;
-    padding-right: 0;
-    width: 120px;
+    padding-right: 6px;
+    width: auto;
 }
 form.search-form input.required,
 form.search-form textarea.required,

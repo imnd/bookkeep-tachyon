@@ -1,5 +1,7 @@
 <?php
-// режим исполнения приложения
-define('APP_ENV', 'work');
+/**
+ * the execution mode of the application
+ */
+$GLOBALS['APP_MODE'] = 'work';
 
-include('../bootstrap.php');
+require __DIR__ . '/../bootstrap.php';

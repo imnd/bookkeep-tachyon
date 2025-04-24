@@ -11,8 +11,7 @@ use Iterator,
     ReflectionException;
 
 /**
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class InvoicesRepository extends HasRowsRepository
 {

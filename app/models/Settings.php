@@ -8,8 +8,7 @@ use tachyon\exceptions\DBALException;
 /**
  * Класс модели настроек приложения
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class Settings extends ActiveRecord
 {

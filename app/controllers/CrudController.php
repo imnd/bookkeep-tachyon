@@ -17,8 +17,7 @@ use
 /**
  * Базовый класс для всех контроллеров
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class CrudController extends Controller
 {

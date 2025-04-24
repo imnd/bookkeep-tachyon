@@ -8,8 +8,7 @@ use tachyon\db\dataMapper\Entity,
 /**
  * Класс сущности "Позиция"
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class Row extends Entity implements RowEntityInterface
 {

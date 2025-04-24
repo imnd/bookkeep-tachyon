@@ -20,8 +20,7 @@ use app\entities\Contract,
  * class ContractsController
  * Контроллер договоров
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class ContractsController extends HasRowsController
 {

@@ -6,7 +6,7 @@ const bindArticleChange = () => {
   // при смене товара меняем цену
   dom('.article select')
     .each(select => {
-      select.addEventListener('change', () => {
+      dom(select).change(() => {
         updatePriceInput(this);
         calcSums();
       });
@@ -14,28 +14,22 @@ const bindArticleChange = () => {
 };
 const bindInputsChange = function (className) {
   dom(`.${className} input`)
-    .each(input => {
-      input.addEventListener('change', calcSums);
-    })
+    .each(input => dom(input).change(calcSums))
 };
-const bindDelBtns = () => {
-  dom('.delete-btn')
-    .each(btn => {
-      bindDelParent(btn);
-    });
-};
+
 const bindInputHandlers = () => {
   bindArticleChange();
   bindInputsChange('quantity');
   bindInputsChange('price');
   bindInputsChange('sum');
-  bindDelBtns();
+  dom('.delete-btn').each(btn => bindDelParent(btn));
 };
 
 dom(() => {
   dom('#add')
     .click(() => {
-      const row = dom().findLast('.row').get(),
+      const
+        row = dom().findLast('.row').get(),
         newRow = row.cloneNode(true);
 
       row.parentNode.insertBefore(newRow, row.nextSibling);

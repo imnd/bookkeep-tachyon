@@ -9,12 +9,11 @@ use tachyon\exceptions\ValidationException;
 /**
  * Модель пользователей
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class Users extends ActiveRecord
 {
-    public const STATUS_NOTCONFIRMED = 0;
+    public const STATUS_UNCONFIRMED = 0;
     public const STATUS_CONFIRMED = 1;
 
     protected static string $tableName = 'users';

@@ -6,8 +6,7 @@ use tachyon\db\dataMapper\Repository,
     tachyon\traits\RepositoryListTrait;
 
 /**
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class ClientsRepository extends Repository
 {

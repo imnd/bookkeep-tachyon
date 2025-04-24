@@ -9,8 +9,7 @@ use Iterator,
     tachyon\traits\RepositoryListTrait;
 
 /**
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class BillsRepository extends Repository
 {

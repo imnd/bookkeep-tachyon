@@ -17,8 +17,7 @@ use
 /**
  * Контроллер фактур
  *
- * @author Андрей Сердюк
- * @copyright (c) 2020 IMND
+ * @author imndsu@gmail.com
  */
 class InvoicesController extends HasRowsController
 {

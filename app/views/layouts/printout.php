@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?=$this->controller->getLanguage()?>">
+<html lang="<?=lang()->getLanguage()?>">
 <head>
     <meta charset="utf-8">
     <title><?=$this->pageTitle?></title>

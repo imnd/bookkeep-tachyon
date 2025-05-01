@@ -1,6 +1,6 @@
 <?php use app\views\widgets\menu\Menu;?>
 <!DOCTYPE html>
-<html lang="<?=$this->controller->getLanguage()?>">
+<html lang="<?=lang()->getLanguage()?>">
 <head>
     <title><?=$this->pageTitle ?? 'Бухгалтерия'?></title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />

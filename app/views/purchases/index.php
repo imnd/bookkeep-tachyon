@@ -1,9 +1,7 @@
 @extends('grid')
 
 <?php
-use tachyon\View;
-
-/** @var View $this */
+/** @var \tachyon\View $this */
 $this->pageTitle = 'Список поставок';
 
 // фильтр

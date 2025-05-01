@@ -1,7 +1,8 @@
 <?php
 /** @var app\entities\Contract $entity */
-
 /** @var array $types */
+
+use tachyon\helpers\ClassHelper;
 ?>
 
 <form method="POST" action="<?= $this->request->getRoute() ?>">
@@ -88,7 +89,7 @@
         </tr>
     </table>
 
-    <input type="submit" class="button" value="<?= $this->i18n('save') ?>">
+    <input type="submit" class="button" value="<?= t('save') ?>">
     <div class="clear"></div>
 </form>
 
@@ -96,6 +97,6 @@
 
 <script type="module">
   import setup from '/assets/js/contracts-form.mjs';
-  setup('<?=$entity->getClassName()?>');
+  setup('<?=ClassHelper::getClassName($entity)?>');
 </script>
 <script type="module" src="/assets/js/bind-btn-handlers.mjs"></script>

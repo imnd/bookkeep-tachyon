@@ -3,7 +3,6 @@
 namespace app\entities;
 
 use tachyon\db\dataMapper\Entity,
-    tachyon\traits\DateTime,
     app\interfaces\HasRowsInterface,
     app\traits\HasRows,
     app\traits\HasClient;
@@ -16,12 +15,8 @@ use tachyon\db\dataMapper\Entity,
 class Contract extends Entity implements HasRowsInterface
 {
     use HasClient,
-        HasRows,
-        DateTime;
+        HasRows;
 
-    /**
-     * @inheritdoc
-     */
     protected array $attributeCaptions = [
         'contract_num' => 'номер',
         'client_id' => 'клиент',
@@ -42,57 +37,22 @@ class Contract extends Entity implements HasRowsInterface
 
     /**
      * Названия типов
-     *
-     * @var $_types array
      */
     public const TYPES = [
         'contract' => 'контракт',
         'agreement' => 'договор',
     ];
 
-    /**
-     * @var int | null
-     */
     protected ?int $id = null;
-    /**
-     * @var string | null
-     */
     protected ?string $type = null;
-    /**
-     * @var string | null
-     */
     protected ?string $contractNum = null;
-    /**
-     * @var string | null
-     */
     protected ?string $date = null;
-    /**
-     * @var string | null
-     */
     protected ?string $termStart = null;
-    /**
-     * @var string | null
-     */
     protected ?string $termEnd = null;
-    /**
-     * @var float | null
-     */
     protected ?float $sum = null;
-    /**
-     * @var float | null
-     */
     protected ?float $executed = null;
-    /**
-     * @var float | null
-     */
     protected ?float $execRemind = null;
-    /**
-     * @var float | null
-     */
     protected ?float $payed = null;
-    /**
-     * @var float | null
-     */
     protected ?float $payedRemind = null;
 
     # region Getters
@@ -195,13 +155,8 @@ class Contract extends Entity implements HasRowsInterface
 
     /**
      * Название типа
-     *
-     * @param null   $type
-     * @param string $case
-     *
-     * @return string
      */
-    public function getTypeName($type = null, $case = 'nom'): string
+    public function getTypeName(string $type = null, string $case = 'nom'): string
     {
         if ($case === 'gen') {
             $types = array_map(

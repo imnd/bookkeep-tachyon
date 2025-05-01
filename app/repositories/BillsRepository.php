@@ -2,47 +2,38 @@
 
 namespace app\repositories;
 
-use Iterator,
-    tachyon\traits\DateTime,
-    tachyon\db\dataMapper\Repository,
+use app\traits\ConditionsTrait,
     app\entities\Bill,
-    tachyon\traits\RepositoryListTrait;
+    Iterator,
+    tachyon\db\dataMapper\Repository,
+    tachyon\db\dbal\conditions\Terms,
+    tachyon\traits\RepositoryListTrait
+;
 
 /**
  * @author imndsu@gmail.com
  */
 class BillsRepository extends Repository
 {
-    use DateTime, RepositoryListTrait;
+    use RepositoryListTrait, ConditionsTrait;
 
-    /**
-     * @var ClientsRepository
-     */
-    protected ClientsRepository $clientRepository;
+    protected string $tableAlias = 'b';
 
-    /**
-     * @param Bill              $bill
-     * @param ClientsRepository $clientsRepository
-     * @param array             $params
-     */
     public function __construct(
         Bill $bill,
-        ClientsRepository $clientsRepository,
+        protected ClientsRepository $clientsRepository,
+        protected Terms $terms,
         ...$params
     ) {
         $this->entity = $bill;
-        $this->clientRepository = $clientsRepository;
+
         parent::__construct(...$params);
     }
 
-    /**
-     * @param array $conditions условия поиска
-     *
-     * @return BillsRepository
-     */
-    public function setSearchConditions($conditions = []): Repository
+    public function setSearchConditions(array $conditions = []): Repository
     {
-        $this->where = $this->setYearBorders($conditions);
+        $conditions = $this->setYearBorders($conditions);
+
         parent::setSearchConditions($conditions);
 
         return $this;
@@ -53,35 +44,31 @@ class BillsRepository extends Repository
         $arrayData = $this->persistence
             ->select(
                 [
-                    'b.id',
-                    'b.contract_num',
-                    'b.sum',
-                    'b.remainder',
-                    'b.date',
-                    'b.contents',
+                    "{$this->tableAlias}.id",
+                    "{$this->tableAlias}.contract_num",
+                    "{$this->tableAlias}.sum",
+                    "{$this->tableAlias}.remainder",
+                    "{$this->tableAlias}.date",
+                    "{$this->tableAlias}.contents",
                     'cl.name' => 'clientName',
                 ]
             )
             ->from($this->tableName)
-            ->asa('b')
-            ->with([$this->clientRepository->getTableName() => 'cl'], ['client_id' => 'id'])
+            ->asa($this->tableAlias)
+            ->with([$this->clientsRepository->getTableName() => 'cl'], ['client_id' => 'id'])
             ->findAll($where, $sort);
+
         return $this->convertArrayData($arrayData);
     }
 
-    /**
-     * @param array $where
-     *
-     * @return array
-     */
     public function getAllByContract(array $where = []): array
     {
         $this
             ->select(['date', 'sum'])
             ->join(['clients' => 'cl'], ['client_id', 'id'])
             ->join(['contracts' => 'cn'], ['contract_num', 'contract_num'])
-            ->gt($where, 'cn.date', 'dateFrom')
-            ->lt($where, 'cn.date', 'dateTo');
+            ->terms->gt($where, 'cn.date', 'dateFrom')
+            ->terms->lt($where, 'cn.date', 'dateTo');
 
         if (!empty($where['client_id'])) {
             $this->addWhere(['cl.id' => $where['client_id']]);
@@ -92,20 +79,15 @@ class BillsRepository extends Repository
         return $this->findAllRaw();
     }
 
-    /**
-     * @param array $where
-     *
-     * @return array
-     */
-    public function getTotalByContract($where = []): int
+    public function getTotalByContract(array $where = []): int
     {
         $this
-            ->asa('b')
-            ->select('SUM(b.sum) as total')
+            ->asa($this->tableAlias)
+            ->select("SUM({$this->tableAlias}.sum) as total")
             ->join(['clients' => 'cl'], ['client_id', 'id'])
             ->join(['contracts' => 'cn'], ['contract_num', 'contract_num'])
-            ->gt($where, 'cn.date', 'dateFrom')
-            ->lt($where, 'cn.date', 'dateTo');
+            ->terms->gt($where, 'cn.date', 'dateFrom')
+            ->terms->lt($where, 'cn.date', 'dateTo');
         if (!empty($where['client_id'])) {
             $this->addWhere(['cl.id' => $where['client_id']]);
         }

@@ -1,7 +1,6 @@
 <?php
 $routes = [
-    // контроллер по умолчанию
-    '/' => 'app\controllers\IndexController@index',
+    '/' => 'app\controllers\IndexController@index', // контроллер по умолчанию
     'login' => 'app\controllers\IndexController@login',
     'logout' => 'app\controllers\IndexController@logout',
     'error' => 'app\controllers\IndexController@index',
@@ -17,11 +16,12 @@ foreach ([
     'settings'
 ] as $entity) {
     $controller = 'app\controllers\\' . ucfirst($entity) . 'Controller';
+    $routes[$entity] = "$controller@index";
     foreach (['index', 'create'] as $action) {
         $routes["$entity/$action"] = "$controller@$action";
     }
     foreach (['update', 'delete'] as $action) {
-        $routes["$entity/$action/{id}"] = "$controller@$action";
+        $routes["$entity/$action/{pk}"] = "$controller@$action";
     }
 }
 

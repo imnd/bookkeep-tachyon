@@ -1,4 +1,5 @@
-<h1>Приложение №1 к <?=$typeName?>у №<?=$contract->getContractNum()?> от <?=$contract->getDay()?> <?=$contract->getMonth()?> <?=$contract->getYear()?> г.<br />
+<?php use tachyon\helpers\DateTimeHelper;?>
+<h1>Приложение №1 к <?=$typeName?>у №<?=$contract->getContractNum()?> от <?=DateTimeHelper::getDay($contract->date)?> <?=DateTimeHelper::getMonth($contract->date)?> <?=DateTimeHelper::getYear($contract->date)?> г.<br />
 Спецификация поставки продуктов питания <?=$term?>
 </h1>
 <?php

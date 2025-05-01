@@ -7,59 +7,36 @@ use Iterator,
     app\entities\Client,
     tachyon\db\dataMapper\Repository,
     tachyon\db\dataMapper\Entity,
-    tachyon\traits\DateTime,
-    tachyon\traits\RepositoryListTrait,
-    ReflectionException;
+    tachyon\traits\RepositoryListTrait
+;
 
 /**
  * @author imndsu@gmail.com
  */
 class ContractsRepository extends HasRowsRepository
 {
-    use DateTime, RepositoryListTrait;
+    use RepositoryListTrait;
 
-    /**
-     * @var Contract
-     */
-    protected Contract $contract;
-    /**
-     * @var ClientsRepository
-     */
-    protected ClientsRepository $clientsRepository;
-
-    /**
-     * @param Contract          $contract
-     * @param ClientsRepository $clientsRepository
-     * @param array             $params
-     *
-     * @throws ReflectionException
-     */
     public function __construct(
         Contract $contract,
-        ClientsRepository $clientsRepository,
+        protected ClientsRepository $clientsRepository,
         ...$params
     ) {
         $this->entity = $contract;
-        $this->clientsRepository = $clientsRepository;
+
         parent::__construct(...$params);
     }
 
-    /**
-     * @param array $conditions условия поиска
-     *
-     * @return ContractsRepository
-     */
-    public function setSearchConditions($conditions = []): Repository
+    public function setSearchConditions(array $conditions = []): Repository
     {
-        $this->where = $this->setYearBorders($conditions);
+        $conditions = $this->setYearBorders($conditions, 'c');
+
         parent::setSearchConditions($conditions);
+
         return $this;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function findByPk($pk): ?Entity
+    public function findByPk(mixed $pk): ?Entity
     {
         if (!$contract = parent::findByPk($pk)) {
             return null;
@@ -74,9 +51,6 @@ class ContractsRepository extends HasRowsRepository
         return $contract;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function findAll(array $where = [], array $sort = []): Iterator
     {
         $arrayData = $this->persistence

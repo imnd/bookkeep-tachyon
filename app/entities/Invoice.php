@@ -4,7 +4,6 @@ namespace app\entities;
 
 use
     tachyon\db\dataMapper\Entity,
-    tachyon\traits\DateTime,
     app\interfaces\HasRowsInterface,
     app\traits\HasClient,
     app\traits\HasContract,
@@ -17,7 +16,7 @@ use
  */
 class Invoice extends Entity implements HasRowsInterface
 {
-    use HasClient, HasContract, HasRows, DateTime;
+    use HasClient, HasContract, HasRows;
 
     protected array $attributeCaptions = [
         'number'       => 'номер',
@@ -33,72 +32,39 @@ class Invoice extends Entity implements HasRowsInterface
         'payed'        => 'оплачено',
     ];
 
-    /**
-     * @var int
-     */
     protected int $id;
-    /**
-     * @var string
-     */
     protected string $number;
-    /**
-     * @var string
-     */
     protected string $date = '';
-    /**
-     * @var float
-     */
     protected ?float $sum = null;
-    /**
-     * @var float
-     */
     protected float $payed;
 
     # region Getters
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getNumber(): string
     {
         return $this->number;
     }
 
-    /**
-     * @return string
-     */
     public function getDate(): string
     {
         return $this->date;
     }
 
-    /**
-     * @return float
-     */
     public function getSum(): ?float
     {
         return $this->sum;
     }
 
-    /**
-     * @return float
-     */
     public function getPayed(): float
     {
         return $this->payed;
     }
 
-    /**
-     * @return array
-     */
     public function getAttributes(): array
     {
         return [
@@ -111,11 +77,6 @@ class Invoice extends Entity implements HasRowsInterface
         ];
     }
 
-    /**
-     * @param array $state
-     *
-     * @return Entity
-     */
     public function fromState(array $state): Entity
     {
         $entity = clone($this);
@@ -129,9 +90,6 @@ class Invoice extends Entity implements HasRowsInterface
         return $entity;
     }
 
-    /**
-     * @return array|string[]
-     */
     public function rules(): array
     {
         return [

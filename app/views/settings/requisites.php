@@ -20,5 +20,5 @@ $this->display(
     ]
 );
 echo
-$this->html->submit($this->i18n('save')),
+$this->html->submit(t('save')),
 $this->html->formClose();

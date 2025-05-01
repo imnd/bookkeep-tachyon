@@ -5,12 +5,12 @@ use app\interfaces\{
     RowsRepositoryInterface,
     RowEntityInterface
 };
-use tachyon\dic\Container,
-    tachyon\traits\ClassName;
+use tachyon\dic\Container;
 use tachyon\db\dataMapper\{
     EntityInterface,
     RepositoryInterface
 };
+use tachyon\Helpers\ClassHelper;
 
 /**
  * Dependency Injection Container
@@ -19,14 +19,13 @@ use tachyon\db\dataMapper\{
  */
 class ServiceContainer extends Container
 {
-    use ClassName;
-
     public function boot($params = []): Container
     {
-        $controllerName = $this->getClassName($params['controller']);
+        // сопоставление интерфейсов зависимостей с реализацией
+
+        $controllerName = ClassHelper::getClassName($params['controller']);
 
         $entity = str_replace('Controller', '', $controllerName);
-        // сопоставление интерфейсов зависимостей с реализацией
         $this->implementations = array_merge($this->implementations, [
             RowsRepositoryInterface::class => "app\\repositories\\{$entity}RowsRepository",
             RepositoryInterface::class => "app\\repositories\\{$entity}Repository",

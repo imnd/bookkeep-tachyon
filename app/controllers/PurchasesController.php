@@ -17,10 +17,6 @@ class PurchasesController extends HasRowsController
 {
     /**
      * Главная страница, список договоров.
-     *
-     * @param Purchase $entity
-     * @param ClientsRepository $clientRepository
-     * @param null $type
      */
     public function index(
         Purchase $entity,
@@ -36,8 +32,6 @@ class PurchasesController extends HasRowsController
 
     /**
      * Собираем закупку за определенное число
-     * @param ArticlesRepository $articleRepository
-     * @param ClientsRepository $clientRepository
      */
     public function create(
         ArticlesRepository $articleRepository,
@@ -62,11 +56,6 @@ class PurchasesController extends HasRowsController
         ]);
     }
 
-    /**
-     * @param ArticlesRepository $articleRepository
-     * @param ClientsRepository  $clientRepository
-     * @param int                $pk
-     */
     public function update(
         ArticlesRepository $articleRepository,
         ClientsRepository $clientRepository,
@@ -81,10 +70,6 @@ class PurchasesController extends HasRowsController
         ]);
     }
 
-    /**
-     * @param Settings $settings
-     * @param int      $pk
-     */
     public function printout(Settings $settings, int $pk): void
     {
         $this->layout = 'printout';

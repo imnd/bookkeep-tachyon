@@ -50,9 +50,8 @@ $this->display('../blocks/search-form', [
             <td><?=$item->getExecRemind()?></td>
             <td><?=$item->getPayed()?></td>
             <td><?=$item->getPayedRemind()?></td>
-            <td><a class="button-update" title="update" href="contracts/update/<?=$item->getId()?>"></a></td>
+            <td><a class="button-update" title="update" href="/contracts/update/<?=$item->getId()?>"></a></td>
             <td><a class="button-printout" title="распечатать" href="printout/<?=$item->getId()?>"></a></td>
         </tr>
     <?php }?>
 </table>
-

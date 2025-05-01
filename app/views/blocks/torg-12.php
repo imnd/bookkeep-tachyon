@@ -169,7 +169,7 @@
             <td></td>
             <td class="R18C2"><span style="white-space:nowrap">ТОВАРНАЯ НАКЛАДНАЯ</span></td>
             <td class="R18C3"><?=$item->getNumber()?></td>
-            <td class="R18C4"><span style="white-space:nowrap"><?=$item->convDateToReadable($item->getDate(), '.', 'short')?></span></td>
+            <td class="R18C4"><span style="white-space:nowrap"><?=DateTimeHelper::convDateToReadable($item->getDate(), '.', 'short')?></span></td>
             <td></td>
             <td colspan="3" class="R2C7"><span style="white-space:nowrap">Вид операции </span></td>
             <td class="R19C9"></td>
@@ -566,13 +566,13 @@
     </tr>
     <tr class=R44>
         <td class=R51C1 colspan=2><span style="white-space:nowrap">М.П.</span></td>
-        <td colspan=5 align="center" style="white-space:nowrap">«<?=$item->getDay()?>» <?=$item->getMonth()?> <?=$item->getYear()?> года</td>
+        <td colspan=5 align="center" style="white-space:nowrap">«<?=DateTimeHelper::getDay($item)?>» <?=DateTimeHelper::getMonth($item)?> <?=DateTimeHelper::getYear($item)?> года</td>
         <td class=R44C7><br></td>
         <td><br></td>
         <td><br></td>
         <td class=R51C10><span style="white-space:nowrap">М.П.</span></td>
         <td><br></td>
-        <td colspan=7><span style="white-space:nowrap">«<?=$item->getDay()?>» <?=$item->getMonth()?> <?=$item->getYear()?> года</span></td>
+        <td colspan=7><span style="white-space:nowrap">«<?=DateTimeHelper::getDay($item)?>» <?=DateTimeHelper::getMonth($item)?> <?=DateTimeHelper::getYear($item)?> года</span></td>
     </tr>
 </table>
 

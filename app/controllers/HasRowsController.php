@@ -6,29 +6,26 @@ use app\interfaces\HasRowsInterface;
 use
     app\interfaces\RowsRepositoryInterface,
     tachyon\db\dataMapper\Entity,
-    tachyon\components\Flash,
-    tachyon\traits\ArrayTrait;
+    tachyon\components\Flash
+    ;
 use ReflectionException;
-use tachyon\exceptions\ContainerException;
-use tachyon\exceptions\DBALException;
-use tachyon\exceptions\HttpException;
-use tachyon\exceptions\ValidationException;
+use tachyon\exceptions\{
+    ContainerException,
+    DBALException,
+    HttpException,
+    ValidationException
+};
+use tachyon\Helpers\ArrayHelper;
 
 /**
- * Базовый класс для всех контроллеров таблиц
+ * base class for all controllers table
  *
  * @author imndsu@gmail.com
  */
 class HasRowsController extends CrudController
 {
-    use ArrayTrait;
-
     protected RowsRepositoryInterface $rowRepository;
 
-    /**
-     * @param RowsRepositoryInterface $rowRepository
-     * @param array                   $params
-     */
     public function __construct(
         RowsRepositoryInterface $rowRepository,
         ...$params
@@ -39,9 +36,6 @@ class HasRowsController extends CrudController
     }
 
     /**
-     * @param Entity $entity
-     *
-     * @return boolean
      * @throws DBALException
      * @throws ReflectionException
      * @throws ContainerException
@@ -57,11 +51,10 @@ class HasRowsController extends CrudController
             flash("Ошибка. {$entity->getErrorsSummary()}", Flash::FLASH_TYPE_ERROR);
             return false;
         }
-        // удаляем строки
         $entity->deleteRows();
-        // сохраняем строки
+        // save rows
         $sum = 0;
-        $rowsData = $this->transposeArray($postParams);
+        $rowsData = ArrayHelper::transposeArray($postParams);
         $rows = [];
         $errors = [];
         foreach ($rowsData as $rowData) {
@@ -98,14 +91,6 @@ class HasRowsController extends CrudController
         return true;
     }
 
-    /**
-     * @param int   $pk
-     * @param array $params
-     *
-     * @return void
-     * @throws HttpException
-     * @throws DBALException
-     */
     protected function doUpdate(int $pk, array $params): void
     {
         /** @var HasRowsInterface $entity */

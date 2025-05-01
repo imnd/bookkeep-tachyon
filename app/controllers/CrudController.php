@@ -30,20 +30,11 @@ class CrudController extends Controller
     /** @inheritdoc */
     protected $protectedActions = '*';
 
-    /**
-     * @var Flash
-     */
-    protected Flash $flash;
-
-    /**
-     * @var RepositoryInterface
-     */
-    protected RepositoryInterface $repository;
-
-    public function __construct(RepositoryInterface $repository, Flash $flash, ...$params)
-    {
-        $this->repository = $repository;
-        $this->flash = $flash;
+    public function __construct(
+        protected RepositoryInterface $repository,
+        protected Flash $flash,
+        ...$params
+    ) {
         parent::__construct(...$params);
     }
 
@@ -60,14 +51,8 @@ class CrudController extends Controller
 
     /**
      * Главная страница, список сущностей раздела
-     *
-     * @param EntityInterface $entity
-     * @param array           $params
-     *
-     * @return void
-     * @throws ErrorException
      */
-    protected function doIndex(EntityInterface $entity, $params = []): void
+    protected function doIndex(EntityInterface $entity, array $params = []): void
     {
         $getQuery = $this->request->getQuery() ?: [];
         $this->view(
@@ -86,14 +71,6 @@ class CrudController extends Controller
         );
     }
 
-    /**
-     * @param int   $pk
-     * @param array $params
-     *
-     * @return void
-     * @throws DBALException
-     * @throws HttpException
-     */
     protected function doUpdate(int $pk, array $params): void
     {
         $entity = $this->getEntity($pk);
@@ -103,13 +80,7 @@ class CrudController extends Controller
         $this->view('update', array_merge(compact('entity'), $params));
     }
 
-    /**
-     * @param $params
-     *
-     * @return void
-     * @throws DBALException
-     */
-    protected function doCreate($params): void
+    protected function doCreate(array $params): void
     {
         /** @var Entity $entity */
         $entity = $this->repository->create();
@@ -119,12 +90,6 @@ class CrudController extends Controller
         $this->view('create', array_merge(compact('entity'), $params));
     }
 
-    /**
-     * @param Entity $entity
-     *
-     * @return boolean
-     * @throws DBALException
-     */
     protected function saveEntity(Entity $entity): bool
     {
         if (!$postParams = $this->request->getPost()) {
@@ -148,11 +113,6 @@ class CrudController extends Controller
         return true;
     }
 
-    /**
-     * @param int $pk
-     *
-     * @throws HttpException | JsonException
-     */
     public function delete(int $pk): void
     {
         echo json_encode(
@@ -165,16 +125,11 @@ class CrudController extends Controller
 
     /**
      * Извлекает запись по первичному ключу $pk
-     *
-     * @param mixed $pk
-     *
-     * @return Entity
-     * @throws HttpException
      */
-    protected function getEntity($pk): Entity
+    protected function getEntity(mixed $pk): Entity
     {
         if (!$entity = $this->repository->findByPk($pk)) {
-            throw new HttpException(i18n('Wrong address.'), HttpException::NOT_FOUND);
+            throw new HttpException(t('Wrong address.'), HttpException::NOT_FOUND);
         }
         return $entity;
     }

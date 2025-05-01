@@ -11,6 +11,7 @@ use app\entities\Client,
 use ErrorException;
 use tachyon\exceptions\DBALException;
 use tachyon\exceptions\HttpException;
+use tachyon\helpers\DateTimeHelper;
 
 /**
  * Контроллер клиентов фирмы
@@ -19,53 +20,27 @@ use tachyon\exceptions\HttpException;
  */
 class ClientsController extends CrudController
 {
-    /**
-     * @param ClientsRepository $repository
-     * @param array             $params
-     */
     public function __construct(ClientsRepository $repository, ...$params)
     {
         $this->repository = $repository;
         parent::__construct(...$params);
     }
 
-    /**
-     * @param Client $entity
-     *
-     * @throws ErrorException
-     */
     public function index(Client $entity): void
     {
         $this->doIndex($entity);
     }
 
-    /**
-     * @param RegionsRepository $regionRepository
-     */
     public function create(RegionsRepository $regionRepository): void
     {
         $this->doCreate(['regions' => $regionRepository->findAll()]);
     }
 
-    /**
-     * @param RegionsRepository $regionRepository
-     * @param int               $pk
-     *
-     * @throws HttpException
-     */
     public function update(RegionsRepository $regionRepository, int $pk): void
     {
         $this->doUpdate($pk, ['regions' => $regionRepository->findAll()]);
     }
 
-    /**
-     * @param BillsRepository    $billRepository
-     * @param InvoicesRepository $invoiceRepository
-     * @param Settings           $settings
-     * @param int                $pk
-     *
-     * @throws DBALException
-     */
     public function printout(
         BillsRepository $billRepository,
         InvoicesRepository $invoiceRepository,
@@ -84,8 +59,8 @@ class ClientsController extends CrudController
         $this->view('reconciliation', [
             'client'     => $client,
             'sender'     => $settings->getRequisites('firm'),
-            'dateFrom'   => $this->convDateToReadable($getParams['dateFrom']),
-            'dateTo'     => $this->convDateToReadable($getParams['dateTo']),
+            'dateFrom'   => DateTimeHelper::convDateToReadable($getParams['dateFrom']),
+            'dateTo'     => DateTimeHelper::convDateToReadable($getParams['dateTo']),
             'bills'      => $billRepository->getAllByContract($where),
             'invoices'   => $invoiceRepository->getAllByContract($where),
             'debtSum'   => number_format($debtSum, 2, '.', ''),

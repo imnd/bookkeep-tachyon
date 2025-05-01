@@ -21,36 +21,15 @@ use
  */
 class InvoicesController extends HasRowsController
 {
-    /**
-     * Главная страница, список сущностей раздела
-     *
-     * @param Invoice           $entity
-     * @param ClientsRepository $clientRepository
-     *
-     * @throws ErrorException
-     * @throws ReflectionException
-     * @throws ContainerException
-     */
     public function index(
         Invoice $entity,
         ClientsRepository $clientRepository
-    ): void
-    {
+    ): void {
         $this->doIndex($entity, [
             'clients' => $clientRepository->getAllSelectList(),
         ]);
     }
 
-    /**
-     * Список сущностей раздела
-     *
-     * @param Invoice           $entity
-     * @param ClientsRepository $clientRepository
-     *
-     * @throws ErrorException
-     * @throws ReflectionException
-     * @throws ContainerException
-     */
     public function grid(
         Invoice $entity,
         ClientsRepository $clientRepository
@@ -71,14 +50,6 @@ class InvoicesController extends HasRowsController
         );
     }
 
-    /**
-     * @param ArticlesRepository $articleRepository
-     * @param ClientsRepository  $clientRepository
-     *
-     * @throws ContainerException
-     * @throws ReflectionException
-     * @throws DBALException
-     */
     public function create(
         ArticlesRepository $articleRepository,
         ClientsRepository $clientRepository
@@ -109,23 +80,19 @@ class InvoicesController extends HasRowsController
         ]);
     }
 
-    /**
-     * @param Settings $settings
-     * @param int      $pk
-     *
-     * @throws HttpException
-     */
-    public function printout(Settings $settings, int $pk): void
+    public function printout(Settings $settings, int $id): void
     {
         $this->layout = 'printout';
-        if (!$item = $this->repository->findByPk($pk)) {
+        if (!$item = $this->repository->findByPk($id)) {
             throw new HttpException('Такой фактуры не существует', HttpException::NOT_FOUND);
         }
         $contractType = $item->getContractType();
         $contractNum  = $item->getContractNum();
         $quantitySum  = $item->getQuantitySum();
         $sender       = $settings->getRequisites('firm');
-        $this->view('printout/' . $this->request->getGet('type'),
-            compact('item', 'contractType', 'contractNum', 'quantitySum', 'sender'));
+        $this->view(
+            "printout/{$this->request->getGet('type')}",
+            compact('item', 'contractType', 'contractNum', 'quantitySum', 'sender')
+        );
     }
 }

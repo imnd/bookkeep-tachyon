@@ -1,9 +1,10 @@
 <?php
 namespace app\repositories;
 
-use
+use app\traits\ConditionsTrait,
     Iterator,
     tachyon\db\dataMapper\Repository,
+    tachyon\db\dbal\conditions\Terms,
     tachyon\traits\RepositoryListTrait,
     app\entities\Article
 ;
@@ -13,35 +14,21 @@ use
  */
 class ArticlesRepository extends Repository
 {
-    /**
-     * @var Article
-     */
-    protected Article $article;
-
+    use ConditionsTrait;
     use RepositoryListTrait;
 
-    /**
-     * @var ArticleSubcatsRepository
-     */
-    protected ArticleSubcatsRepository $articleSubcatRepository;
-
-    /**
-     * @param Article $article
-     * @param ArticleSubcatsRepository $articleSubcatRepository
-     * @param array $params
-     */
     public function __construct(
         Article $article,
-        ArticleSubcatsRepository $articleSubcatRepository,
+        protected ArticleSubcatsRepository $articleSubcatRepository,
+        protected Terms $terms,
         ...$params
     ) {
         $this->entity = $article;
-        $this->articleSubcatRepository = $articleSubcatRepository;
 
         parent::__construct(...$params);
     }
 
-    public function findAll(array $where = array(), array $sort = array()): Iterator
+    public function findAll(array $where = [], array $sort = []): Iterator
     {
         $arrayData = $this->persistence
             ->select([
@@ -64,15 +51,11 @@ class ArticlesRepository extends Repository
         return $this->convertArrayData($arrayData);
     }
 
-    /**
-     * @param array $conditions условия поиска
-     * @return ArticlesRepository
-     */
-    public function setSearchConditions($conditions = array()): Repository
+    public function setSearchConditions(array $conditions = []): Repository
     {
-        $this->where = array_merge(
-            $this->gt($conditions, 'price', 'priceFrom'),
-            $this->lt($conditions, 'price', 'priceTo')
+        $conditions = array_merge(
+            $this->terms->gt($conditions, 'price', 'priceFrom'),
+            $this->terms->lt($conditions, 'price', 'priceTo')
         );
 
         parent::setSearchConditions($conditions);
@@ -80,9 +63,6 @@ class ArticlesRepository extends Repository
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getUnits(): array
     {
         return ['кг', 'шт'];

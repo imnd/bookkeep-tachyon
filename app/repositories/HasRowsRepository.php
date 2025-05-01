@@ -1,59 +1,46 @@
 <?php
 namespace app\repositories;
 
-use ErrorException;
-use ReflectionException;
+use app\traits\ConditionsTrait;
 use tachyon\db\dataMapper\{
     Repository, Entity
 };
-use tachyon\exceptions\DBALException;
-use tachyon\traits\ClassName;
-use app\interfaces\HasRowsInterface;
-use app\interfaces\RowsRepositoryInterface;
+use tachyon\helpers\ClassHelper;
+use app\interfaces\{
+    HasRowsInterface, RowsRepositoryInterface
+};
 
 /**
  * @author imndsu@gmail.com
  */
 class HasRowsRepository extends Repository
 {
-    use ClassName;
+    use ConditionsTrait;
 
+    protected RowsRepositoryInterface $rowRepository;
     /**
-     * @var Repository
+     * Имя поля внешнего ключа
      */
-    protected $rowRepository;
-    /**
-     * @var mixed Имя поля внешнего ключа
-     */
-    protected $rowFk;
+    protected mixed $rowFk = '';
 
-    /**
-     * @param RowsRepositoryInterface $rowRepository
-     * @param array                   $params
-     *
-     * @throws ReflectionException
-     */
     public function __construct(RowsRepositoryInterface $rowRepository, ...$params)
     {
-        if (is_null($this->rowFk)) {
-            $this->rowFk = strtolower(substr(str_replace('Repository', '', $this->getClassName()), 0, -1)) . '_id';
+        if (empty($this->rowFk)) {
+            $this->rowFk = strtolower(substr(str_replace('Repository', '', ClassHelper::getClassName($this)), 0, -1)) . '_id';
         }
         $this->rowRepository = $rowRepository;
 
         parent::__construct(...$params);
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function findByPk($pk): ?Entity
+    public function findByPk(mixed $pk): ?Entity
     {
         if (!isset($this->collection[$pk])) {
-            $rows = $this->rowRepository->findAll([$this->rowFk => $pk]);
             /** @var HasRowsInterface $entity */
             if (!$entity = $this->getByPk($pk)) {
                 return null;
             }
+            $rows = $this->rowRepository->findAll([$this->rowFk => $pk]);
             $entity->setRows($rows);
             $this->collection[$pk] = $entity;
         }
@@ -62,9 +49,6 @@ class HasRowsRepository extends Repository
 
     /**
      * Возвращает последний (максимальный) номер
-     *
-     * @return integer
-     * @throws ErrorException|DBALException
      */
     public function getLastNumber(): ?int
     {
@@ -80,9 +64,6 @@ class HasRowsRepository extends Repository
 
     /**
      * Возвращает следующий за последним (максимальным) номером
-     *
-     * @return integer
-     * @throws ErrorException|DBALException
      */
     public function getNextNumber(): int
     {

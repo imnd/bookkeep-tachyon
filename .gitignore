@@ -1,7 +1,5 @@
 /.idea/
 /.env
-/app/config/db.php
-/app/config/main.php
 /node_modules/
 /runtime/
 /vendor/

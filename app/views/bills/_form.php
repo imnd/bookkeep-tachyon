@@ -63,6 +63,6 @@
         ) ?>
     </div>
 
-    <input type="submit" class="button" value="<?= $this->i18n('save') ?>">
+    <input type="submit" class="button" value="<?= t('save') ?>">
     <div class="clear"></div>
 </form>

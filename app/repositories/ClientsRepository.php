@@ -1,9 +1,12 @@
 <?php
 namespace app\repositories;
 
-use tachyon\db\dataMapper\Repository,
+use
     app\entities\Client,
-    tachyon\traits\RepositoryListTrait;
+    tachyon\db\dataMapper\Repository,
+    tachyon\db\dbal\conditions\Terms,
+    tachyon\traits\RepositoryListTrait
+;
 
 /**
  * @author imndsu@gmail.com
@@ -14,27 +17,22 @@ class ClientsRepository extends Repository
 
     protected string $tableName = 'clients';
 
-    /**
-     * @param Client $client
-     * @param array $params
-     */
-    public function __construct(Client $client, ...$params)
-    {
+    public function __construct(
+        protected Terms $terms,
+        Client $client,
+        ...$params
+    ) {
         $this->entity = $client;
 
         parent::__construct(...$params);
     }
 
-    /**
-     * @param array $conditions условия поиска
-     * @return ClientsRepository
-     */
-    public function setSearchConditions($conditions = array()): Repository
+    public function setSearchConditions(array $conditions = []): Repository
     {
         foreach (['name', 'address'] as $field) {
-            if (!empty($where = $this->like($conditions, $field))) {
-                $this->where = array_merge(
-                    $this->where,
+            if (!empty($where = $this->terms->like($conditions, $field))) {
+                $conditions = array_merge(
+                    $conditions,
                     $where
                 );
             }

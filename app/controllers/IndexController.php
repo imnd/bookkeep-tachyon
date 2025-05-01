@@ -8,45 +8,27 @@ use
     tachyon\components\Flash,
     tachyon\traits\Auth
 ;
-use tachyon\exceptions\DBALException;
-use tachyon\exceptions\HttpException;
-use tachyon\exceptions\ValidationException;
+use tachyon\exceptions\{
+    DBALException, HttpException, ValidationException
+};
 
 /**
- * Контроллер начальной страницы
- *
  * @author imndsu@gmail.com
  */
 class IndexController extends Controller
 {
     use Auth;
 
-    /**
-     * @var Config $config
-     */
     protected Config $config;
-    /**
-     * @var Users
-     */
     protected Users $users;
-    /**
-     * @var Flash
-     */
     protected Flash $flash;
 
-    /**
-     * @param Config $config
-     * @param Users $users
-     * @param Flash $flash
-     * @param array $params
-     */
     public function __construct(
         Config $config,
         Users $users,
         Flash $flash,
         ...$params
-    )
-    {
+    ) {
         $this->config = $config;
         $this->users = $users;
         $this->flash = $flash;

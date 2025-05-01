@@ -1,5 +1,7 @@
-<p class="hat">В редакции  постановления Правительства  РФ от 11.05.2006 г. № 283</p>
-<p class="heading">СЧЕТ ФАКТУРА № <?=$item->getNumber()?> от: <?=$item->convDateToReadable($item->getDate(), '-')?></p>
+<?php use tachyon\helpers\DateTimeHelper;?>
+
+<p class="hat">В редакции постановления Правительства РФ от 11.05.2006 г. № 283</p>
+<p class="heading">СЧЕТ ФАКТУРА № <?=$item->getNumber()?> от: <?=DateTimeHelper::convDateToReadable($item->getDate(), '-')?></p>
 <p class="head">Продавец: <?=$sender->name?></p>
 <p class="head">Адрес: <?=$sender->address?> ИНН продавца: <?=$sender->INN?></p>
 <p class="head">Грузоотправитель и его адрес: <?=$sender->name?> <?=$sender->address?></p>
@@ -44,4 +46,3 @@
         <p class="hat">Реквизиты свидетельства о гос. Регистрации индивидуального предпринимателя</p>
     </div>
 </div>
-

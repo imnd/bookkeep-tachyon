@@ -1,7 +1,7 @@
 @extends('crud')
 
 <?php $mainMenu = [
-    'index' => 'баланс',
+    'index' => 'список',
     'create' => 'добавить запись',
 ]?>
 

@@ -19,17 +19,8 @@ class ContractRow extends Row
         $this->attributeCaptions['articleId'] = 'товар';
     }
 
-    /**
-     * @var int
-     */
     protected int $id;
-    /**
-     * @var ?int
-     */
     protected ?int $articleId = null;
-    /**
-     * @var ?int
-     */
     protected ?int $contractId = null;
 
     # region Getters

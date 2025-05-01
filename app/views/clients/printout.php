@@ -21,6 +21,6 @@
         ?>
     </div>
     <?php
-    echo $this->html->submit($this->i18n('print'));
+    echo $this->html->submit(t('print'));
 
 echo $this->html->formClose();

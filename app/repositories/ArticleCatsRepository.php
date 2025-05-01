@@ -1,6 +1,7 @@
 <?php
 namespace app\repositories;
 
+use app\traits\ConditionsTrait;
 use tachyon\db\dataMapper\Repository,
     app\entities\ArticleCat;
 
@@ -9,6 +10,8 @@ use tachyon\db\dataMapper\Repository,
  */
 class ArticleCatsRepository extends Repository
 {
+    use ConditionsTrait;
+
     /**
      * @param ArticleCat $articleCat
      * @param array $params

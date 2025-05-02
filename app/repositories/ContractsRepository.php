@@ -6,8 +6,7 @@ use Iterator,
     app\entities\Contract,
     app\entities\Client,
     tachyon\db\dataMapper\Repository,
-    tachyon\db\dataMapper\Entity,
-    tachyon\traits\RepositoryListTrait
+    tachyon\db\dataMapper\Entity
 ;
 
 /**
@@ -15,8 +14,6 @@ use Iterator,
  */
 class ContractsRepository extends HasRowsRepository
 {
-    use RepositoryListTrait;
-
     public function __construct(
         Contract $contract,
         protected ClientsRepository $clientsRepository,

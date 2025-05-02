@@ -6,13 +6,13 @@ use
     tachyon\Controller,
     tachyon\Config,
     tachyon\components\Flash,
-    tachyon\traits\Auth
-;
+    tachyon\traits\Auth,
+    tachyon\interfaces\AuthInterface;
 
 /**
  * @author imndsu@gmail.com
  */
-class IndexController extends Controller
+class IndexController extends Controller implements AuthInterface
 {
     use Auth;
 

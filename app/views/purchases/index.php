@@ -25,8 +25,12 @@ $this->display('../blocks/search-form', [
             <td>{{ $item->getNumber() }}</td>
             <td>{{ $item->getDate() }}</td>
             <td>{{ $item->getSum() }}</td>
-            <td><a class="button-update" title="редактировать" href="update/{{$item->getPk()}}"></a></td>
-            <td><a class="button-printout" title="распечатать" href="printout/{{$item->getPk()}}"></a></td>
+            <td>
+                <a class="button-update" title="редактировать" href="update/<?=$item->getId()?>"></a>
+            </td>
+            <td>
+                <a class="button-printout" title="распечатать" href="printout/{{$item->getId    ()}}"></a>
+            </td>
         </tr>
     <?php }?>
 </table>

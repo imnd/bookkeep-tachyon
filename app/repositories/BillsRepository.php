@@ -6,8 +6,7 @@ use app\traits\ConditionsTrait,
     app\entities\Bill,
     Iterator,
     tachyon\db\dataMapper\Repository,
-    tachyon\db\dbal\conditions\Terms,
-    tachyon\traits\RepositoryListTrait
+    tachyon\db\dbal\conditions\Terms
 ;
 
 /**
@@ -15,7 +14,7 @@ use app\traits\ConditionsTrait,
  */
 class BillsRepository extends Repository
 {
-    use RepositoryListTrait, ConditionsTrait;
+    use ConditionsTrait;
 
     protected string $tableAlias = 'b';
 
@@ -101,9 +100,6 @@ class BillsRepository extends Repository
         return 0;
     }
 
-    /**
-     * @return array
-     */
     public function getContentsList(): array
     {
         return [

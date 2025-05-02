@@ -6,18 +6,15 @@ use
     tachyon\Controller,
     tachyon\components\FilesManager,
     tachyon\traits\Auth,
-    app\models\Settings;
-
-use tachyon\exceptions\{
-    DBALException, ValidationException
-};
+    app\models\Settings,
+    tachyon\interfaces\AuthInterface;
 
 /**
  * Контроллер настроек приложения
  *
  * @author imndsu@gmail.com
  */
-class SettingsController extends Controller
+class SettingsController extends Controller implements AuthInterface
 {
     use Auth;
 

@@ -2,13 +2,12 @@
 
 namespace app\controllers;
 
-use
-    app\entities\Invoice,
-    app\repositories\ArticlesRepository,
-    app\repositories\ClientsRepository,
-    app\models\Settings,
-    tachyon\exceptions\HttpException
-;
+use app\entities\Invoice;
+use app\models\Settings;
+use app\repositories\ArticlesRepository;
+use app\repositories\ClientsRepository;
+use tachyon\components\RepositoryList;
+use tachyon\exceptions\HttpException;
 
 /**
  * Контроллер фактур
@@ -17,38 +16,46 @@ use
  */
 class InvoicesController extends HasRowsController
 {
-    public function index(
-        Invoice $entity,
-        ClientsRepository $clientRepository
-    ): void {
+    private RepositoryList $clientRepositoryList;
+    private RepositoryList $articleRepositoryList;
+
+    public function __construct(
+        ClientsRepository $clientRepository,
+        private readonly ArticlesRepository $articleRepository,
+        ...$params
+    ) {
+        $this->clientRepositoryList = new RepositoryList($clientRepository);
+        $this->articleRepositoryList = new RepositoryList($articleRepository);
+
+        parent::__construct(...$params);
+    }
+
+    public function index(Invoice $entity): void
+    {
         $this->doIndex($entity, [
-            'clients' => $clientRepository->getAllSelectList(),
+            'clients' => $this->clientRepositoryList->getAllSelectList(),
         ]);
     }
 
-    public function grid(
-        Invoice $entity,
-        ClientsRepository $clientRepository
-    ): void {
+    public function grid(Invoice $entity): void
+    {
         $getQuery = $this->request->getQuery() ?: [];
         $this->display(
             'list',
             array_merge([
                 'entity' => $entity,
-                'items' => $this
+                'items'  => $this
                     ->repository
                     ->setSearchConditions($getQuery)
                     ->setSort($getQuery)
                     ->findAll(),
             ], [
-                'clients' => $clientRepository->getAllSelectList(),
+                'clients' => $this->clientRepositoryList->getAllSelectList(),
             ])
         );
     }
 
     public function create(
-        ArticlesRepository $articleRepository,
-        ClientsRepository $clientRepository
     ): void {
         $entity = $this->repository->create();
         $entity->setAttribute('number', $this->repository->getNextNumber());
@@ -58,21 +65,20 @@ class InvoicesController extends HasRowsController
         $this->view('create', [
             'entity'       => $entity,
             'row'          => $this->rowRepository->create(false),
-            'clients'      => $clientRepository->getAllSelectList(),
-            'articlesList' => $articleRepository->getAllSelectList(),
-            'articles'     => $articleRepository->findAllRaw(),
+            'clients'      => $this->clientRepositoryList->getAllSelectList(),
+            'articlesList' => $this->articleRepositoryList->getAllSelectList(),
+            'articles'     => $this->articleRepository->findAllRaw(),
         ]);
     }
 
     public function update(
         ArticlesRepository $articleRepository,
-        ClientsRepository $clientRepository,
         $pk
     ): void {
         $this->doUpdate($pk, [
-            'clients'      => $clientRepository->getAllSelectList(),
-            'articlesList' => $articleRepository->getAllSelectList(),
-            'articles'     => $articleRepository->findAllRaw(),
+            'clients'      => $this->clientRepositoryList->getAllSelectList(),
+            'articlesList' => $this->articleRepositoryList->getAllSelectList(),
+            'articles'     => $this->articleRepository->findAllRaw(),
         ]);
     }
 
@@ -83,9 +89,9 @@ class InvoicesController extends HasRowsController
             throw new HttpException('Такой фактуры не существует', HttpException::NOT_FOUND);
         }
         $contractType = $item->getContractType();
-        $contractNum  = $item->getContractNum();
-        $quantitySum  = $item->getQuantitySum();
-        $sender       = $settings->getRequisites('firm');
+        $contractNum = $item->getContractNum();
+        $quantitySum = $item->getQuantitySum();
+        $sender = $settings->getRequisites('firm');
         $this->view(
             "printout/{$this->request->getGet('type')}",
             compact('item', 'contractType', 'contractNum', 'quantitySum', 'sender')

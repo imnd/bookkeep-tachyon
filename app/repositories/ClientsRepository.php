@@ -4,8 +4,7 @@ namespace app\repositories;
 use
     app\entities\Client,
     tachyon\db\dataMapper\Repository,
-    tachyon\db\dbal\conditions\Terms,
-    tachyon\traits\RepositoryListTrait
+    tachyon\db\dbal\conditions\Terms
 ;
 
 /**
@@ -13,8 +12,6 @@ use
  */
 class ClientsRepository extends Repository
 {
-    use RepositoryListTrait;
-
     protected string $tableName = 'clients';
 
     public function __construct(

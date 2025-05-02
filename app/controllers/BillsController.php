@@ -4,11 +4,8 @@ namespace app\controllers;
 use
     app\entities\Bill,
     app\repositories\BillsRepository,
-    app\repositories\ClientsRepository;
-use ErrorException;
-use ReflectionException;
-use tachyon\exceptions\ContainerException;
-use tachyon\exceptions\DBALException;
+    app\repositories\ClientsRepository,
+    tachyon\components\RepositoryList;
 
 /**
  * Контроллер платежей
@@ -18,30 +15,28 @@ use tachyon\exceptions\DBALException;
 class BillsController extends CrudController
 {
     protected string $layout = 'bills';
+    private RepositoryList $clientRepositoryList;
+    private RepositoryList $repositoryList;
 
-    /**
-     * @param BillsRepository $repository
-     * @param array $params
-     */
-    public function __construct(BillsRepository $repository, ...$params)
-    {
+    public function __construct(
+        BillsRepository $repository,
+        protected ClientsRepository $clientRepository,
+        ...$params
+    ) {
         $this->repository = $repository;
+        $this->repositoryList = new RepositoryList($repository);
+        $this->clientRepositoryList = new RepositoryList($clientRepository);
 
         parent::__construct(...$params);
     }
 
     /**
      * Главная страница, список платежей.
-     *
-     * @param Bill              $entity
-     * @param ClientsRepository $clientRepository
-     *
-     * @throws ContainerException | ErrorException | ReflectionException
      */
-    public function index(Bill $entity, ClientsRepository $clientRepository): void
+    public function index(Bill $entity): void
     {
         $this->doIndex($entity, [
-            'clients' => $clientRepository->getAllSelectList(),
+            'clients' => $this->clientRepositoryList->getAllSelectList(),
             'items' => $this
                 ->repository
                 ->setSearchConditions($this->request->getQuery())
@@ -50,12 +45,7 @@ class BillsController extends CrudController
         ]);
     }
 
-    /**
-     * @param ClientsRepository $clientRepository
-     *
-     * @throws ErrorException | ReflectionException | ContainerException | DBALException
-     */
-    public function create(ClientsRepository $clientRepository): void
+    public function create(): void
     {
         $entity = $this->repository->create();
         if ($this->saveEntity($entity)) {
@@ -63,12 +53,12 @@ class BillsController extends CrudController
         }
         $this->view('create', [
             'entity'  => $entity,
-            'clients' => $clientRepository->getAllSelectList('name'),
-            'contents' => $this->repository->getSelectListFromArr($this->repository->getContentsList(), true, false),
+            'clients' => $this->clientRepositoryList->getAllSelectList(),
+            'contents' => $this->repositoryList->getSelectListFromArr($this->repository->getContentsList(), true, false),
         ]);
     }
 
-    public function update(ClientsRepository $clientRepository, $pk): void
+    public function update($pk): void
     {
         $entity = $this->getEntity($pk);
         if ($this->saveEntity($entity)) {
@@ -76,8 +66,8 @@ class BillsController extends CrudController
         }
         $this->view('update', [
             'entity' => $entity,
-            'clients' => $clientRepository->getAllSelectList(),
-            'contents' => $this->repository->getSelectListFromArr($this->repository->getContentsList(), true, false),
+            'clients' => $this->clientRepositoryList->getAllSelectList(),
+            'contents' => $this->repositoryList->getSelectListFromArr($this->repository->getContentsList(), true, false),
         ]);
     }
 }

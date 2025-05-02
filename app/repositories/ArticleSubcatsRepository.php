@@ -2,7 +2,6 @@
 namespace app\repositories;
 
 use tachyon\db\dataMapper\Repository,
-    tachyon\traits\RepositoryListTrait,
     app\entities\ArticleSubcat;
 
 /**
@@ -10,12 +9,6 @@ use tachyon\db\dataMapper\Repository,
  */
 class ArticleSubcatsRepository extends Repository
 {
-    use RepositoryListTrait;
-
-    /**
-     * @param ArticleSubcat $entity
-     * @param array $params
-     */
     public function __construct(ArticleSubcat $entity, ...$params)
     {
         $this->entity = $entity;

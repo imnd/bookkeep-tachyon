@@ -9,14 +9,15 @@ use
     tachyon\db\dataMapper\Entity,
     tachyon\db\dataMapper\EntityInterface,
     tachyon\db\dataMapper\RepositoryInterface,
-    tachyon\traits\Auth;
+    tachyon\traits\Auth,
+    tachyon\interfaces\AuthInterface;
 
 /**
  * Базовый класс для всех контроллеров
  *
  * @author imndsu@gmail.com
  */
-class CrudController extends Controller
+class CrudController extends Controller  implements AuthInterface
 {
     use Auth;
 

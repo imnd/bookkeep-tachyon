@@ -1,12 +1,12 @@
 <?php
 namespace app\repositories;
 
-use app\traits\ConditionsTrait,
+use
+    app\entities\Article,
+    app\traits\ConditionsTrait,
     Iterator,
     tachyon\db\dataMapper\Repository,
-    tachyon\db\dbal\conditions\Terms,
-    tachyon\traits\RepositoryListTrait,
-    app\entities\Article
+    tachyon\db\dbal\conditions\Terms
 ;
 
 /**
@@ -15,7 +15,6 @@ use app\traits\ConditionsTrait,
 class ArticlesRepository extends Repository
 {
     use ConditionsTrait;
-    use RepositoryListTrait;
 
     public function __construct(
         Article $article,

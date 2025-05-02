@@ -7,6 +7,7 @@ use
     app\models\Settings,
     app\repositories\ArticlesRepository,
     app\repositories\ClientsRepository;
+use tachyon\components\RepositoryList;
 
 /**
  * Контроллер закупок
@@ -15,28 +16,37 @@ use
  */
 class PurchasesController extends HasRowsController
 {
+    private RepositoryList $clientRepositoryList;
+    private RepositoryList $articleRepositoryList;
+
+    public function __construct(
+        ClientsRepository $clientRepository,
+        private readonly ArticlesRepository $articleRepository,
+        ...$params
+    ) {
+        $this->clientRepositoryList = new RepositoryList($clientRepository);
+        $this->articleRepositoryList = new RepositoryList($articleRepository);
+
+        parent::__construct(...$params);
+    }
+
     /**
      * Главная страница, список договоров.
      */
     public function index(
         Purchase $entity,
-        ClientsRepository $clientRepository,
         $type = null
-    ): void
-    {
+    ): void {
         $this->doIndex($entity, [
             'type' => $type,
-            'clients' => $clientRepository->getAllSelectList()
+            'clients' => $this->clientRepositoryList->getAllSelectList()
         ]);
     }
 
     /**
      * Собираем закупку за определенное число
      */
-    public function create(
-        ArticlesRepository $articleRepository,
-        ClientsRepository $clientRepository
-    ): void
+    public function create(): void
     {
         $date = $this->request->getGet('date') ?? date('Y-m-d');
         $entity = $this->repository->create();
@@ -50,23 +60,19 @@ class PurchasesController extends HasRowsController
             'entity' => $entity,
             'row' => $row,
             'date' => $date,
-            'clients' => $clientRepository->getAllSelectList(),
-            'articlesList' => $articleRepository->getAllSelectList(),
-            'articles' => $articleRepository->findAllRaw(),
+            'clients' => $this->clientRepositoryList->getAllSelectList(),
+            'articlesList' => $this->articleRepositoryList->getAllSelectList(),
+            'articles' => $this->articleRepository->findAllRaw(),
         ]);
     }
 
-    public function update(
-        ArticlesRepository $articleRepository,
-        ClientsRepository $clientRepository,
-        int $pk
-    ): void
+    public function update(int $pk): void
     {
         $this->doUpdate($pk, [
             'row' => $this->rowRepository->create(false),
-            'clients' => $clientRepository->getAllSelectList(),
-            'articlesList' => $articleRepository->getAllSelectList(),
-            'articles' => $articleRepository->findAllRaw(),
+            'clients' => $this->clientRepositoryList->getAllSelectList(),
+            'articlesList' => $this->articleRepositoryList->getAllSelectList(),
+            'articles' => $this->articleRepository->findAllRaw(),
         ]);
     }
 
@@ -82,7 +88,7 @@ class PurchasesController extends HasRowsController
             'contractType' => 'Договор',
             'quantitySum'  => $this->model->getQuantitySum($pk),
             'sender'       => $settings->getRequisites('supplier'),
-            'client'       => (object)$settings->getRequisites('firm'),
+            'client'       => $settings->getRequisites('firm'),
         ]);
     }
 }

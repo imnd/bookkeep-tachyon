@@ -2,20 +2,18 @@
 
 namespace app\controllers;
 
-use app\interfaces\HasRowsInterface;
 use
+    app\interfaces\HasRowsInterface,
     app\interfaces\RowsRepositoryInterface,
     tachyon\db\dataMapper\Entity,
-    tachyon\components\Flash
-    ;
-use ReflectionException;
+    tachyon\components\Flash,
+    tachyon\Helpers\ArrayHelper,
+    ReflectionException;
 use tachyon\exceptions\{
     ContainerException,
     DBALException,
-    HttpException,
     ValidationException
 };
-use tachyon\Helpers\ArrayHelper;
 
 /**
  * base class for all controllers table
@@ -24,23 +22,13 @@ use tachyon\Helpers\ArrayHelper;
  */
 class HasRowsController extends CrudController
 {
-    protected RowsRepositoryInterface $rowRepository;
-
     public function __construct(
-        RowsRepositoryInterface $rowRepository,
+        protected RowsRepositoryInterface $rowRepository,
         ...$params
     ) {
-        $this->rowRepository = $rowRepository;
-
         parent::__construct(...$params);
     }
 
-    /**
-     * @throws DBALException
-     * @throws ReflectionException
-     * @throws ContainerException
-     * @throws ValidationException
-     */
     protected function saveEntity(Entity $entity): bool
     {
         if (!$postParams = $this->request->getPost()) {

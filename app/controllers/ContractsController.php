@@ -2,23 +2,16 @@
 
 namespace app\controllers;
 
-use ErrorException;
-use ReflectionException;
-use tachyon\exceptions\{
-    ContainerException,
-    DBALException,
-    HttpException,
-};
+use tachyon\exceptions\HttpException;
+use tachyon\helpers\DateTimeHelper;
+use app\entities\Contract,
+    app\models\Settings;
 use app\repositories\{
     ArticlesRepository,
     ClientsRepository
 };
-use app\entities\Contract,
-    app\models\Settings;
-use tachyon\helpers\DateTimeHelper;
 
 /**
- * class ContractsController
  * Контроллер договоров
  *
  * @author imndsu@gmail.com

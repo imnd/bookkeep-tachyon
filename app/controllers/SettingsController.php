@@ -7,8 +7,10 @@ use
     tachyon\components\FilesManager,
     tachyon\traits\Auth,
     app\models\Settings;
-use tachyon\exceptions\DBALException;
-use tachyon\exceptions\ValidationException;
+
+use tachyon\exceptions\{
+    DBALException, ValidationException
+};
 
 /**
  * Контроллер настроек приложения
@@ -31,11 +33,6 @@ class SettingsController extends Controller
 
     /**
      * Установка реквизитов
-     *
-     * @param Settings $settings
-     *
-     * @throws DBALException
-     * @throws ValidationException
      */
     public function requisites(Settings $settings): void
     {
@@ -101,10 +98,6 @@ class SettingsController extends Controller
 
     /**
      * Создание резервной копии и установка путей для её сохранения
-     *
-     * @param Settings $settings
-     *
-     * @throws DBALException
      */
     public function backup(Settings $settings): void
     {
@@ -126,8 +119,6 @@ class SettingsController extends Controller
 
     /**
      * AJAX-handler загрузки частей файла на сервер и сборки файла
-     *
-     * @param FilesManager $filesManager
      */
     public function acceptFile(FilesManager $filesManager): void
     {

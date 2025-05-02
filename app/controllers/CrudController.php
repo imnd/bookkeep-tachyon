@@ -2,9 +2,6 @@
 
 namespace app\controllers;
 
-use ErrorException;
-use JsonException;
-use tachyon\exceptions\DBALException;
 use
     tachyon\exceptions\HttpException,
     tachyon\Controller,
@@ -26,9 +23,9 @@ class CrudController extends Controller
     /** @inheritdoc */
     protected string $layout = 'crud';
     /** @inheritdoc */
-    protected $postActions = ['delete'];
+    protected string | array $postActions = ['delete'];
     /** @inheritdoc */
-    protected $protectedActions = '*';
+    protected string | array $protectedActions = '*';
 
     public function __construct(
         protected RepositoryInterface $repository,

@@ -1,5 +1,5 @@
 <?php $datepicker = false;?>
-<form class="search-form" action="<?=$this->request->getRoute()?>">
+<form class="search-form" action="<?=request()->getRoute()?>">
     <?php
     $i = 0;
     foreach ($fields as $key => $field) {?>
@@ -29,7 +29,7 @@
                 'options' => $field['options'] ?? null,
                 'style'   => $field['style'] ?? null,
                 'class'   => $field['class'] ?? null,
-                'value'   => $this->request->getGet($name) ?? '',
+                'value'   => request()->getGet($name) ?? '',
             ]);
             ?>
         </div>

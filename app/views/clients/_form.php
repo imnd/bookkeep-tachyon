@@ -5,7 +5,7 @@
  * @var app\entities\Region $region
  */
 ?>
-<form method="POST" action="<?=$this->request->getRoute()?>">
+<form method="POST" action="<?=request()->getRoute()?>">
     <div class="row">
         <label><?=$client->getCaption('name')?>*:</label>
         <input name="name" value="<?=$client->getName()?>" class="required" type="text">

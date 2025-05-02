@@ -1,4 +1,4 @@
-<form method="POST" action="<?=$this->request->getRoute()?>">
+<form method="POST" action="<?=request()->getRoute()?>">
     <div class="row">
         <?php $this->display('../blocks/select', [
             'entity' => $entity,

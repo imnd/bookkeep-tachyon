@@ -3,14 +3,10 @@
 namespace app\controllers;
 
 use app\entities\Client,
-    app\models\Settings,
-    app\repositories\ClientsRepository,
-    app\repositories\BillsRepository,
-    app\repositories\InvoicesRepository,
-    app\repositories\RegionsRepository;
-use ErrorException;
-use tachyon\exceptions\DBALException;
-use tachyon\exceptions\HttpException;
+    app\models\Settings;
+use app\repositories\{
+        ClientsRepository, BillsRepository, InvoicesRepository, RegionsRepository,
+    };
 use tachyon\helpers\DateTimeHelper;
 
 /**

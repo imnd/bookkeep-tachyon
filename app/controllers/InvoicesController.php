@@ -3,15 +3,11 @@
 namespace app\controllers;
 
 use
-    ErrorException,
-    ReflectionException,
     app\entities\Invoice,
     app\repositories\ArticlesRepository,
     app\repositories\ClientsRepository,
     app\models\Settings,
-    tachyon\exceptions\HttpException,
-    tachyon\exceptions\ContainerException,
-    tachyon\exceptions\DBALException
+    tachyon\exceptions\HttpException
 ;
 
 /**
@@ -62,8 +58,8 @@ class InvoicesController extends HasRowsController
         $this->view('create', [
             'entity'       => $entity,
             'row'          => $this->rowRepository->create(false),
-            'clients'      => $clientRepository->getAllSelectList('name'),
-            'articlesList' => $articleRepository->getAllSelectList('name'),
+            'clients'      => $clientRepository->getAllSelectList(),
+            'articlesList' => $articleRepository->getAllSelectList(),
             'articles'     => $articleRepository->findAllRaw(),
         ]);
     }
@@ -74,8 +70,8 @@ class InvoicesController extends HasRowsController
         $pk
     ): void {
         $this->doUpdate($pk, [
-            'clients'      => $clientRepository->getAllSelectList('name'),
-            'articlesList' => $articleRepository->getAllSelectList('name'),
+            'clients'      => $clientRepository->getAllSelectList(),
+            'articlesList' => $articleRepository->getAllSelectList(),
             'articles'     => $articleRepository->findAllRaw(),
         ]);
     }

@@ -2,15 +2,12 @@
 namespace app\controllers;
 
 use
+    app\models\Users,
     tachyon\Controller,
     tachyon\Config,
-    app\models\Users,
     tachyon\components\Flash,
     tachyon\traits\Auth
 ;
-use tachyon\exceptions\{
-    DBALException, HttpException, ValidationException
-};
 
 /**
  * @author imndsu@gmail.com
@@ -19,20 +16,12 @@ class IndexController extends Controller
 {
     use Auth;
 
-    protected Config $config;
-    protected Users $users;
-    protected Flash $flash;
-
     public function __construct(
-        Config $config,
-        Users $users,
-        Flash $flash,
+        protected Config $config,
+        protected Users $users,
+        protected Flash $flash,
         ...$params
     ) {
-        $this->config = $config;
-        $this->users = $users;
-        $this->flash = $flash;
-
         parent::__construct(...$params);
     }
 
@@ -46,8 +35,6 @@ class IndexController extends Controller
 
     /**
      * Страница логина
-     *
-     * @throws HttpException|DBALException
      */
     public function login(): void
     {
@@ -80,7 +67,6 @@ class IndexController extends Controller
 
     /**
      * Страница регистрации
-     * @throws DBALException | ValidationException
      */
     public function register(): void
     {

@@ -8,7 +8,7 @@ use tachyon\helpers\ClassHelper;
 
 <script type="module" src="/assets/js/datepicker.mjs"></script>
 
-<form method="POST" action="<?=$this->request->getRoute()?>">
+<form method="POST" action="<?=request()->getRoute()?>">
     <div class="row">
         <?php $this->display('../blocks/input', [
             'entity' => $entity,

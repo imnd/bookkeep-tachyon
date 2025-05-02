@@ -8,9 +8,9 @@
 use tachyon\View;
 
 if (!is_null($type)) {
-    $this->setProperty('bodyClass', $this->getProperty('bodyClass') . " $type");
+    $this->setOption('bodyClass', $this->getOption('bodyClass') . " $type");
 } else {
-    $this->setProperty('bodyClass', 'contracts_and_agreements');
+    $this->setOption('bodyClass', 'contracts_and_agreements');
 }
 $this->pageTitle = "Список {$entity->getTypeName($type, 'gen')}";
 

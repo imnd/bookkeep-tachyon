@@ -19,9 +19,13 @@ trait ConditionsTrait
 
         if (!isset($conditions['dateFrom'])) {
             $conditions['dateFrom'] = DateTimeHelper::getYearBorders()['first'];
+        } elseif (preg_match('/^\d{2}\.\d{2}\.\d{4}$/', $conditions['dateFrom'])) {
+            $conditions['dateFrom'] = \DateTime::createFromFormat('d.m.Y', $conditions['dateFrom'])->format('Y-m-d');
         }
         if (!isset($conditions['dateTo'])) {
             $conditions['dateTo'] = DateTimeHelper::getYearBorders()['last'];
+        } elseif (preg_match('/^\d{2}\.\d{2}\.\d{4}$/', $conditions['dateTo'])) {
+            $conditions['dateTo'] = \DateTime::createFromFormat('d.m.Y', $conditions['dateTo'])->format('Y-m-d');
         }
         $terms = app()->get(Terms::class);
         $where = array_merge(

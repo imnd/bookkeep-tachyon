@@ -62,40 +62,66 @@ class BillsRepository extends Repository
 
     public function getAllByContract(array $where = []): array
     {
-        $this
-            ->select(['date', 'sum'])
-            ->join(['clients' => 'cl'], ['client_id', 'id'])
-            ->join(['contracts' => 'cn'], ['contract_num', 'contract_num'])
-            ->terms->gt($where, 'cn.date', 'dateFrom')
-            ->terms->lt($where, 'cn.date', 'dateTo');
+        if (!empty($where['dateFrom']) && preg_match('/^\d{2}\.\d{2}\.\d{4}$/', $where['dateFrom'])) {
+            $where['dateFrom'] = \DateTime::createFromFormat('d.m.Y', $where['dateFrom'])->format('Y-m-d');
+        }
+        if (!empty($where['dateTo']) && preg_match('/^\d{2}\.\d{2}\.\d{4}$/', $where['dateTo'])) {
+            $where['dateTo'] = \DateTime::createFromFormat('d.m.Y', $where['dateTo'])->format('Y-m-d');
+        }
+
+        $conditions = array_merge(
+            $this->terms->gt($where, 'cn.date', 'dateFrom'),
+            $this->terms->lt($where, 'cn.date', 'dateTo')
+        );
 
         if (!empty($where['client_id'])) {
-            $this->addWhere(['cl.id' => $where['client_id']]);
+            $conditions['cl.id'] = $where['client_id'];
         }
         if (!empty($where['contract_num'])) {
-            $this->addWhere(['cn.contract_num' => $where['contract_num']]);
+            $conditions['cn.contract_num'] = $where['contract_num'];
         }
-        return $this->findAllRaw();
+
+        $this->persistence
+            ->select(['date', 'sum'])
+            ->from($this->tableName)
+            ->asa($this->tableAlias)
+            ->with(['clients' => 'cl'], ['client_id' => 'id'])
+            ->with(['contracts' => 'cn'], ['contract_num' => 'contract_num']);
+
+        return $this->persistence->findAll($conditions);
     }
 
     public function getTotalByContract(array $where = []): int
     {
-        $this
-            ->asa($this->tableAlias)
-            ->select("SUM({$this->tableAlias}.sum) as total")
-            ->join(['clients' => 'cl'], ['client_id', 'id'])
-            ->join(['contracts' => 'cn'], ['contract_num', 'contract_num'])
-            ->terms->gt($where, 'cn.date', 'dateFrom')
-            ->terms->lt($where, 'cn.date', 'dateTo');
+        if (!empty($where['dateFrom']) && preg_match('/^\d{2}\.\d{2}\.\d{4}$/', $where['dateFrom'])) {
+            $where['dateFrom'] = \DateTime::createFromFormat('d.m.Y', $where['dateFrom'])->format('Y-m-d');
+        }
+        if (!empty($where['dateTo']) && preg_match('/^\d{2}\.\d{2}\.\d{4}$/', $where['dateTo'])) {
+            $where['dateTo'] = \DateTime::createFromFormat('d.m.Y', $where['dateTo'])->format('Y-m-d');
+        }
+
+        $conditions = array_merge(
+            $this->terms->gt($where, 'cn.date', 'dateFrom'),
+            $this->terms->lt($where, 'cn.date', 'dateTo')
+        );
+
         if (!empty($where['client_id'])) {
-            $this->addWhere(['cl.id' => $where['client_id']]);
+            $conditions['cl.id'] = $where['client_id'];
         }
         if (!empty($where['contract_num'])) {
-            $this->addWhere(['cn.contract_num' => $where['contract_num']]);
+            $conditions['cn.contract_num'] = $where['contract_num'];
         }
-        $item = $this->findOneRaw();
+
+        $item = $this->persistence
+            ->select("SUM({$this->tableAlias}.sum) as total")
+            ->from($this->tableName)
+            ->asa($this->tableAlias)
+            ->with(['clients' => 'cl'], ['client_id' => 'id'])
+            ->with(['contracts' => 'cn'], ['contract_num' => 'contract_num'])
+            ->findOne($conditions);
+
         if ($value = $item['total'] ?? null) {
-            return $value;
+            return (int)$value;
         }
         return 0;
     }

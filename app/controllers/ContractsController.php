@@ -26,11 +26,11 @@ class ContractsController extends HasRowsController
         private ArticlesRepository $articleRepository,
         ...$params
     ) {
+        parent::__construct(...$params);
+
         $this->repositoryList = new RepositoryList($this->repository);
         $this->clientRepositoryList = new RepositoryList($clientRepository);
         $this->articleRepositoryList = new RepositoryList($articleRepository);
-
-        parent::__construct(...$params);
     }
 
     /**

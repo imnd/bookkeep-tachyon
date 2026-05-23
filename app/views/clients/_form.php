@@ -4,6 +4,7 @@
  * @var app\entities\Region[] $regions
  * @var app\entities\Region $region
  */
+$client = $entity;
 ?>
 <form method="POST" action="<?=request()->getRoute()?>">
     <div class="row">

@@ -7,9 +7,6 @@ namespace app\traits;
  */
 trait HasRows
 {
-    /**
-     * @var array строки
-     */
     private array $rows = [];
 
     public function getRows(): array
@@ -24,9 +21,6 @@ trait HasRows
         }
     }
 
-    /**
-     * @return integer
-     */
     public function getQuantitySum(): int
     {
         $result = 0;
@@ -36,9 +30,6 @@ trait HasRows
         return $result;
     }
 
-    /**
-     * @return integer
-     */
     public function getPriceSum(): int
     {
         $result = 0;
@@ -48,12 +39,7 @@ trait HasRows
         return $result;
     }
 
-    /**
-     * удаляем строки
-     *
-     * @return void
-     */
-    public function deleteRows()
+    public function deleteRows(): void
     {
         foreach ($this->rows as $row) {
             $row->markDeleted();
